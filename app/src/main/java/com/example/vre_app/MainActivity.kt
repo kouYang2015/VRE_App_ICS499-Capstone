@@ -10,4 +10,5 @@ class MainActivity : AppCompatActivity() {
     }
    // Changed the comment
    // seth branch commit and push test
+    // Make a change to seth's branch
 }
