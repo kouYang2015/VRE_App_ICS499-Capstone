@@ -3,7 +3,6 @@ package com.example.vre_app
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -43,17 +42,26 @@ class CreateAccount : AppCompatActivity() {
         if(fullName.text.toString().isNotEmpty() && userName.text.toString().isNotEmpty() && email.text.toString().isNotEmpty() && password.text.toString().isNotEmpty() && confirmPassword.text.toString().isNotEmpty()){
             //Need a valid Email to work (ex. abc123@gmail.net)
             if(email.text.toString().matches(Regex("[a-zA-Z0-9._]+@[a-z].+[a-z]"))) {
-                if (password.text.toString() == confirmPassword.text.toString()) {
-                    Toast.makeText(this, "Created Account Successful!", Toast.LENGTH_LONG).show()
-                    //Calls this method to save info from user
-                    saveData()
-                    // Goes to new Activity (Main Activity)
-                    val intent = Intent(this,MainActivity::class.java)
-                    startActivity(intent)
+                //Maximum length for the full name, username, password, and confirm password
+                if(fullName.length()<=20 && userName.length()<=20 && password.length()<=10 && confirmPassword.length()<=10 ) {
+                    if (password.text.toString() == confirmPassword.text.toString()) {
+                        Toast.makeText(this, "Created Account Successful!", Toast.LENGTH_LONG)
+                            .show()
+                        //Calls this method to save info from user
+                        saveData()
+                        // Goes to new Activity (Main Activity)
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                    }else{
+                        fullName.setError("Full Name must be less than 20 character long")
+                        userName.setError("User Name must be less than 20 character long")
+                        password.setError("Password must be less than 10 character long")
+                        confirmPassword.setError("Confirm Password doesn't match the password")
+                    }
                 }
-
             }
             else{
+
                 email.setError("Please Enter a Valid Email")
 
             }
