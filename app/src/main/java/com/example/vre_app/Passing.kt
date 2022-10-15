@@ -1,5 +1,5 @@
 package com.example.vre_app
-//Tried to save username and password (First Time login-in
+//Tried to save username and password (First Time login-in)
 object Passing {
     var username : String =""
     var password: String =""

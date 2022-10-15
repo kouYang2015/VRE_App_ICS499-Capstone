@@ -1,8 +1,10 @@
 package com.example.vre_app
 
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -36,23 +38,26 @@ class CreateAccount : AppCompatActivity() {
         }
     }
 
-    private fun validateEmptyForm(){
-        if(fullName.text.toString().isNotEmpty() && userName.text.toString().isNotEmpty() && email.text.toString().isNotEmpty() && password.text.toString().isNotEmpty() && confirmPassword.text.toString().isNotEmpty()){
+    private fun validateEmptyForm() {
+        if (fullName.text.toString().isNotEmpty() && userName.text.toString()
+                .isNotEmpty() && email.text.toString().isNotEmpty() && password.text.toString()
+                .isNotEmpty() && confirmPassword.text.toString().isNotEmpty()
+        ) {
             //Need a valid Email to work (ex. abc123@gmail.net)
-            if(email.text.toString().matches(Regex("[a-zA-Z0-9._]+@[a-z].+[a-z]"))) {
-                //Maximum length for the full name, username, password, and confirm password
-                if(fullName.length()<=20 && userName.length()<=20 && password.length()<=10 && confirmPassword.length()<=10 ) {
+            if (email.length()<=20  && email.text.toString().matches(Regex("[a-zA-Z0-9._]+@[a-z].+[a-z]"))) {
+                //Maximum length for the full name, username, password, email and confirm password
+                if (fullName.length() <= 20 && userName.length() <= 20 || password.length() <= 10 && confirmPassword.length() <= 10) {
                     if (password.text.toString() == confirmPassword.text.toString()) {
                         Toast.makeText(this, "Created Account Successful!", Toast.LENGTH_LONG)
                             .show()
 
 
-                        //Setting the Username and Password
+                        //Setting the Username and Password (for the Login)
                         Passing.setUsername(userName.text.toString())
                         Passing.setPassword(password.text.toString())
 
                         //Calls this method to save info from user
-                        //  saveData()
+                         saveData()
 
                         // Goes to new Activity (Main Activity)
                         val intent = Intent(this, MainActivity::class.java)
@@ -65,44 +70,42 @@ class CreateAccount : AppCompatActivity() {
                         password.text.clear()
                         confirmPassword.text.clear()
 
-                    }else{
+                    } else {
                         fullName.setError("Full Name must be less than 20 character long")
                         userName.setError("User Name must be less than 20 character long")
                         password.setError("Password must be less than 10 character long")
                         confirmPassword.setError("Confirm Password doesn't match the password")
                     }
                 }
-            }
-            else{
+            } else {
                 email.setError("Please Enter a Valid Email")
             }
+        } else {
+            Toast.makeText(this, "Need to All Information", Toast.LENGTH_SHORT).show()
         }
-        else{
-            Toast.makeText(this,"Need to All Information",Toast.LENGTH_SHORT).show()
-        }
+    }
+
+
+    private fun saveData() {
+        //Save user Info, but not stored
+        // (UserAccount.xml) is the file where the user is being saved from
+        val sharedPref = getSharedPreferences("UserAccount", Context.MODE_PRIVATE)
+        val edit = sharedPref.edit()
+        //Save their name,username,email and password
+        edit.putString("Name", fullName.text.toString())
+        edit.putString("User Name", userName.text.toString())
+        edit.putString("Email", email.text.toString())
+        edit.putString("Password", password.text.toString())
+
+        edit.apply()
+
+
+        Toast.makeText(this, "Data has been saved", Toast.LENGTH_LONG).show()
+        sharedPref.getString ("Name", "User Name")?.let { Log.d("Debug", it) }
+
     }
 }
 
-
-
-
-   // private fun saveData(){
-        //Save user Info, but not stored
-  //      val sharedPref = getSharedPreferences("UserAccount",Context.MODE_PRIVATE)
-  //      val edit = sharedPref.edit()
-        //Save their name,username,email and password
-   //     edit.putString("Name", fullName.text.toString())
-   //     edit.putString("User Name", userName.text.toString())
-    //    edit.putString("Email",email.text.toString())
-    //    edit.putString("Password",password.text.toString())
-
-   //     edit.apply()
-
-
-  //      Toast.makeText(this,"Data has been saved",Toast.LENGTH_LONG).show()
-   //     sharedPref.getString("Name","User Name")?.let { Log.d("Debug", it) }
-
-   // }
 
 
 
