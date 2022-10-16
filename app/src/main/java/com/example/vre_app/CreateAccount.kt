@@ -41,23 +41,21 @@ class CreateAccount : AppCompatActivity() {
     private fun validateEmptyForm() {
         if (fullName.text.toString().isNotEmpty() && userName.text.toString()
                 .isNotEmpty() && email.text.toString().isNotEmpty() && password.text.toString()
-                .isNotEmpty() && confirmPassword.text.toString().isNotEmpty()
-        ) {
+                .isNotEmpty() && confirmPassword.text.toString().isNotEmpty()) {
             //Need a valid Email to work (ex. abc123@gmail.net)
-            if (email.length()<=20  && email.text.toString().matches(Regex("[a-zA-Z0-9._]+@[a-z].+[a-z]"))) {
+            if (email.length() <= 20 && email.text.toString().matches(Regex("[a-zA-Z0-9._]+@[a-z].+[a-z]"))) {
                 //Maximum length for the full name, username, password, email and confirm password
-                if (fullName.length() <= 20 && userName.length() <= 20 || password.length() <= 10 && confirmPassword.length() <= 10) {
+                if (fullName.length() <= 20 && userName.length() <= 20 && password.length() <= 10 && confirmPassword.length() <= 10) {
                     if (password.text.toString() == confirmPassword.text.toString()) {
                         Toast.makeText(this, "Created Account Successful!", Toast.LENGTH_LONG)
                             .show()
-
 
                         //Setting the Username and Password (for the Login)
                         Passing.setUsername(userName.text.toString())
                         Passing.setPassword(password.text.toString())
 
                         //Calls this method to save info from user
-                         saveData()
+                        saveData()
 
                         // Goes to new Activity (Main Activity)
                         val intent = Intent(this, MainActivity::class.java)
@@ -70,20 +68,26 @@ class CreateAccount : AppCompatActivity() {
                         password.text.clear()
                         confirmPassword.text.clear()
 
-                    } else {
-                        fullName.setError("Full Name must be less than 20 character long")
-                        userName.setError("User Name must be less than 20 character long")
-                        password.setError("Password must be less than 10 character long")
-                        confirmPassword.setError("Confirm Password doesn't match the password")
+                    }else if (password.text.toString() != confirmPassword.text.toString()) {
+                        password.setError("Password must match to confirm password!")
+                        confirmPassword.setError("Confirm Password must match to password!")
                     }
+                } else {
+                    fullName.setError("Full Name must be less than 20 character long")
+                    userName.setError("User Name must be less than 20 character long")
+                    password.setError("Password must be less than 10 character long")
+                    confirmPassword.setError("Confirm Password must be less than 10 character long")
                 }
+
             } else {
-                email.setError("Please Enter a Valid Email")
+                email.setError("Please Enter a Valid Email and must be less than 20 character long")
             }
-        } else {
+        } else{
             Toast.makeText(this, "Need to All Information", Toast.LENGTH_SHORT).show()
         }
     }
+
+
 
 
     private fun saveData() {

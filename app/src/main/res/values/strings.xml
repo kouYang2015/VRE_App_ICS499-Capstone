@@ -12,4 +12,5 @@
     <string name="sign_up">Sign-Up</string>
     <string name="username">Username</string>
     <string name="textpassword">Password</string>
+    <string name="logout">LogOut</string>
 </resources>
