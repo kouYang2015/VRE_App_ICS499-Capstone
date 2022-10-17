@@ -12,8 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VRE_App"
         tools:targetApi="31" >
+
+        <!-- Change to from .MainActivity to .CreateAccount to .Login, Jack -->
         <activity
-            android:name=".CreateAccount"
+            android:name=".Login"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,13 +27,17 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <!-- This is when a new activity is created. -->
         <activity
-            android:name=".Login"
+            android:name=".CreateAccount"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <!--
         <activity
             android:name=".MainActivity"
             android:exported="true" >
@@ -45,6 +51,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        -->
 
         <meta-data
             android:name="preloaded_fonts"
