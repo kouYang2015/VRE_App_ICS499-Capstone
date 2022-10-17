@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">VRE_App</string>
+    <string name="register">register</string>
+    <string name="todo">todo</string>
+    <string name="full_name">Full Name</string>
+    <string name="user_name">User Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="create_a_account">Create A Account</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign-Up</string>
+    <string name="username">Username</string>
+    <string name="textpassword">Password</string>
+    <string name="logout">LogOut</string>
 </resources>
