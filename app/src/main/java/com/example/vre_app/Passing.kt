@@ -12,5 +12,5 @@ object Passing {
     @JvmName("setPassword1")
     fun setPassword(password: String) {
         password.also { Passing.password = it }
-    }
+
 }
