@@ -13,4 +13,11 @@
     <string name="username">Username</string>
     <string name="textpassword">Password</string>
     <string name="logout">LogOut</string>
+    <string name="app_logo_name">VRE</string>
+    <string name="app_title_name">Voice Recognition Emergency</string>
+    <string name="username_text">Email or Username</string>
+    <string name="password_text">Password</string>
+    <string name="forgot_password_text">Forgot your password?</string>
+    <string name="or_text">Or</string>
+    <string name="create_account">Create an Account</string>
 </resources>
