@@ -45,7 +45,7 @@ class CreateAccount : AppCompatActivity() {
             //Need a valid Email to work (ex. abc123@gmail.net)
             if (email.length() <= 20 && email.text.toString().matches(Regex("[a-zA-Z0-9._]+@[a-z].+[a-z]"))) {
                 //Maximum length for the full name, username, password, email and confirm password
-                if (fullName.length() <= 20 && userName.length() <= 20 && password.length() <= 10 && confirmPassword.length() <= 10) {
+                if (fullName.length() <= 30 && userName.length() <= 30 && password.length() <= 15 && confirmPassword.length() <= 15) {
                     if (password.text.toString() == confirmPassword.text.toString()) {
                         Toast.makeText(this, "Created Account Successful!", Toast.LENGTH_LONG)
                             .show()
@@ -100,7 +100,6 @@ class CreateAccount : AppCompatActivity() {
         edit.putString("User Name", userName.text.toString())
         edit.putString("Email", email.text.toString())
         edit.putString("Password", password.text.toString())
-
         edit.apply()
 
 
