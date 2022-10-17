@@ -19,6 +19,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <!-- Change to from .MainActivity to .CreateAccount to .Login, Jack -->
         <activity
             android:name=".Login"

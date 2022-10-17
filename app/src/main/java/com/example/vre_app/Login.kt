@@ -1,5 +1,6 @@
 package com.example.vre_app
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -19,6 +20,7 @@ class Login : AppCompatActivity() {
 
         // This is to hide the action bar
         supportActionBar?.hide()
+
         setContentView(R.layout.activity_login)
 
         loginButton = findViewById(R.id.login_button)
@@ -29,6 +31,10 @@ class Login : AppCompatActivity() {
 
         loginButton.setOnClickListener {
             authenticateLogin()
+            /*
+            val intent = Intent(this, Menu::class.java)
+            startActivity(intent)
+             */
         }
 
         createAccountButton.setOnClickListener {
@@ -59,6 +65,9 @@ class Login : AppCompatActivity() {
             val duration = Toast.LENGTH_LONG
             val toast = Toast.makeText(this, text, duration)
             toast.show()
+
+            val intent = Intent(this, Menu::class.java)
+            startActivity(intent)
         }
         else {
             val text = "Username or Password is incorrect, Try Again."
