@@ -43,6 +43,9 @@ class Login : AppCompatActivity() {
             val toast = Toast.makeText(this, text, duration)
 
             toast.show()
+
+            val intent = Intent(this, CreateAccount::class.java)
+            startActivity(intent)
         }
 
         forgotPasswordTextClickable.setOnClickListener {

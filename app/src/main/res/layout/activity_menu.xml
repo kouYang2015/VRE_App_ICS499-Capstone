@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/material_dynamic_primary30"
+    android:background="#FF185CA5"
     tools:context=".Menu">
 
     <TextView
         android:id="@+id/app_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="35dp"
+        android:layout_marginStart="35dp"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/emblema_one"
         android:text="@string/app_logo_name"
@@ -118,7 +118,7 @@
         app:layout_constraintLeft_toLeftOf="@id/contactList"
         />
 
-    <Switch
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch1"
         android:layout_width="290dp"
         android:layout_height="20dp"
