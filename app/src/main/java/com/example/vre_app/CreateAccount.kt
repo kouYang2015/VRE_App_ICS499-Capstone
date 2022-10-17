@@ -73,10 +73,10 @@ class CreateAccount : AppCompatActivity() {
                         confirmPassword.setError("Confirm Password must match to password!")
                     }
                 } else {
-                    fullName.setError("Full Name must be less than 20 character long")
-                    userName.setError("User Name must be less than 20 character long")
-                    password.setError("Password must be less than 10 character long")
-                    confirmPassword.setError("Confirm Password must be less than 10 character long")
+                    fullName.setError("Full Name must be less than 30 character long")
+                    userName.setError("User Name must be less than 30 character long")
+                    password.setError("Password must be less than 15 character long")
+                    confirmPassword.setError("Confirm Password must be less than 15 character long")
                 }
 
             } else {
