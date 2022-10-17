@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/listViewPhrases"
+        android:layout_width="357dp"
+        android:layout_height="349dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/refreshKP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:onClick="goToKeyPhraseMenu"
+        android:text="Refresh"
+        app:layout_constraintBottom_toTopOf="@+id/listViewPhrases"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.827" />
+
+    <Button
+        android:id="@+id/addKeyPhrase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="goToAddKeyPhraseMenu"
+        android:text="Add"
+        app:layout_constraintBottom_toTopOf="@+id/listViewPhrases"
+        app:layout_constraintEnd_toStartOf="@+id/deleteKeyPhrase"
+        app:layout_constraintHorizontal_bias="0.445"
+        app:layout_constraintStart_toEndOf="@+id/refreshKP"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.827" />
+
+    <Button
+        android:id="@+id/deleteKeyPhrase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:onClick="deleteKeyPhrase"
+        android:text="Delete"
+        app:layout_constraintBottom_toTopOf="@+id/listViewPhrases"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.827" />
+
+    <Button
+        android:id="@+id/backFromKeyPhrases"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="goToMainMenu"
+        android:text="Back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listViewPhrases" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Key Phrases Menu"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/addKeyPhrase"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
