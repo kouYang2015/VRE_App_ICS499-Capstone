@@ -55,13 +55,13 @@ class Login : AppCompatActivity() {
         val inputPassword = password.text.toString()
 
         if (inputUsername == "username" && inputPassword == "password") {
-            val text = "Thank you, you are logged in."
+            val text = "Successfully Logged In."
             val duration = Toast.LENGTH_LONG
             val toast = Toast.makeText(this, text, duration)
             toast.show()
         }
         else {
-            val text = "The Username or Password is incorrect, Try Again."
+            val text = "Username or Password is incorrect, Try Again."
             val duration = Toast.LENGTH_LONG
             val toast = Toast.makeText(this, text, duration)
             toast.show()
