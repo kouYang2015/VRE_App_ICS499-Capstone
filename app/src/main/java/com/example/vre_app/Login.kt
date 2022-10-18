@@ -31,14 +31,10 @@ class Login : AppCompatActivity() {
 
         loginButton.setOnClickListener {
             authenticateLogin()
-            /*
-            val intent = Intent(this, Menu::class.java)
-            startActivity(intent)
-             */
         }
 
         createAccountButton.setOnClickListener {
-            val text = "Create an Account is clickable"
+            val text = "Create an Account"
             val duration = Toast.LENGTH_LONG
             val toast = Toast.makeText(this, text, duration)
 
@@ -49,11 +45,14 @@ class Login : AppCompatActivity() {
         }
 
         forgotPasswordTextClickable.setOnClickListener {
-            val text = "Forgot your password? is clickable"
+            val text = "Forgot your password?"
             val duration = Toast.LENGTH_LONG
             val toast = Toast.makeText(this, text, duration)
 
             toast.show()
+
+            val intent = Intent(this, ForgotPassword::class.java)
+            startActivity(intent)
         }
 
     }
@@ -64,15 +63,14 @@ class Login : AppCompatActivity() {
         val inputPassword = password.text.toString()
 
         if (inputUsername == "username" && inputPassword == "password") {
-            val text = "Successfully Logged In."
+            val text = "Successfully Logged In"
             val duration = Toast.LENGTH_LONG
             val toast = Toast.makeText(this, text, duration)
             toast.show()
 
             val intent = Intent(this, Menu::class.java)
             startActivity(intent)
-        }
-        else {
+        } else {
             val text = "Username or Password is incorrect, Try Again."
             val duration = Toast.LENGTH_LONG
             val toast = Toast.makeText(this, text, duration)
