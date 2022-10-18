@@ -13,13 +13,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        button = findViewById<Button>(R.id.openSpeechListener)
-
-        // operations to be performed when user tap on the button
-        button?.setOnClickListener() {
-            val intent = Intent(this, ListenSpeechActivity::class.java)
-            startActivity(intent)
-        }
-
     }
 }
