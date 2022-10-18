@@ -44,7 +44,7 @@ class CreateAccount : AppCompatActivity() {
                 .isNotEmpty() && confirmPassword.text.toString().isNotEmpty()
         ) {
             //Need a valid Email to work (ex. abc123@gmail.net)
-            if (email.length() in 6..30 && email.text.toString().matches(Regex("[a-zA-Z0-9._]+@[a-z].+[a-z]"))
+            if (email.length() in 6..319 && email.text.toString().matches(Regex("[a-zA-Z0-9._]+@[a-z].+[a-z]"))
             ) {
                 //Maximum length for the full name, username, password, email and confirm password
                 if (fullName.length() in 6..36 && userName.length() in 4..36 && password.length() in 8..36 && confirmPassword.length() in 8..36) {
@@ -84,7 +84,7 @@ class CreateAccount : AppCompatActivity() {
                 }
                 // Create an error message if e-mail the user didn't input '@'
             } else {
-                email.setError("Please Enter a Valid Email and must be between 6 to 30 character long")
+                email.setError("Please Enter a Valid Email")
             }
             // Create an error message if user did not write anything
         } else {
