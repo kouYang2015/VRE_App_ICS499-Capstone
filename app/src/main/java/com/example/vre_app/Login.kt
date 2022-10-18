@@ -71,7 +71,7 @@ class Login : AppCompatActivity() {
             val intent = Intent(this, Menu::class.java)
             startActivity(intent)
         } else {
-            val text = "Username or Password is incorrect, Try Again."
+            val text = "Email/Username or Password is incorrect, Try Again"
             val duration = Toast.LENGTH_LONG
             val toast = Toast.makeText(this, text, duration)
             toast.show()
