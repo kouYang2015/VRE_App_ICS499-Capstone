@@ -1,12 +1,12 @@
 package com.example.vre_app
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 
 class Login : AppCompatActivity() {
     private lateinit var loginButton: Button
@@ -34,22 +34,14 @@ class Login : AppCompatActivity() {
         }
 
         createAccountButton.setOnClickListener {
-            val text = "Create an Account"
-            val duration = Toast.LENGTH_LONG
-            val toast = Toast.makeText(this, text, duration)
-
-            toast.show()
+            Toast.makeText(this, "Create an Account",Toast.LENGTH_LONG).show()
 
             val intent = Intent(this, CreateAccount::class.java)
             startActivity(intent)
         }
 
         forgotPasswordTextClickable.setOnClickListener {
-            val text = "Forgot your password?"
-            val duration = Toast.LENGTH_LONG
-            val toast = Toast.makeText(this, text, duration)
-
-            toast.show()
+            Toast.makeText(this, "Forgot your password? ",Toast.LENGTH_LONG).show()
 
             val intent = Intent(this, ForgotPassword::class.java)
             startActivity(intent)
@@ -62,20 +54,18 @@ class Login : AppCompatActivity() {
         val inputUsername = username.text.toString()
         val inputPassword = password.text.toString()
 
-        if (inputUsername == "username" && inputPassword == "password") {
-            val text = "Successfully Logged In"
-            val duration = Toast.LENGTH_LONG
-            val toast = Toast.makeText(this, text, duration)
-            toast.show()
+        if((inputUsername == Passing.username && inputPassword == Passing.password) ||
+            (inputUsername == "username" && inputPassword == "password")) {
+            Toast.makeText(this, "Successfully Logged In", Toast.LENGTH_LONG).show()
 
             val intent = Intent(this, Menu::class.java)
             startActivity(intent)
-        } else {
-            val text = "Email/Username or Password is incorrect, Try Again"
-            val duration = Toast.LENGTH_LONG
-            val toast = Toast.makeText(this, text, duration)
-            toast.show()
         }
+        else {
+            Toast.makeText(this, "Email/Username or Password is incorrect, Try Again",Toast.LENGTH_LONG).show()
+        }
+
+
 
     }
 }
