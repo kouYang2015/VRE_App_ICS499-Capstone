@@ -18,7 +18,6 @@
     <string name="username_text">Email or Username</string>
     <string name="password_text">Password</string>
     <string name="forgot_password_text">Forgot your password?</string>
-    <string name="or_text">Or</string>
     <string name="create_account">Create an Account</string>
     <string name="customKeyWords">Custom Key Words</string>
     <string name="speechRecognition">Speech Recognition</string>
