@@ -1,23 +1,21 @@
 package com.example.vre_app
 
 import android.Manifest
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.util.Log
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import java.util.*
@@ -31,26 +29,22 @@ class ListenSpeechActivity : AppCompatActivity() {
     private val REQRECORDAUDIOCODE = 10001
     private lateinit var recordAudioPermissionRequest: ActivityResultLauncher<Array<String>>
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_listen_speech)
-        recordAudioPermissionRequest =
-            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-            }
-        if (ContextCompat.checkSelfPermission
-                (
-                this,
-                android.Manifest.permission.RECORD_AUDIO
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            checkPermissions()
-        }
-        Log.d("Perm", "Passed permissions")
-        speechOnButton = findViewById<Button>(R.id.activateSpeech)
-        speechOffButton = findViewById<Button>(R.id.disableSpeech)
-        txtResult = findViewById(R.id.speechToTextBox)
-        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
+        initializeComponents()
+        setListeners()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        speechRecognizer!!.destroy()
+    }
+
+    /**
+     * Sets listener for button components and SpeechRecognizer
+     */
+    private fun setListeners() {
         val speechRecognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         speechRecognizerIntent.putExtra(
             RecognizerIntent.EXTRA_LANGUAGE_MODEL,
@@ -60,12 +54,10 @@ class ListenSpeechActivity : AppCompatActivity() {
             RecognizerIntent.EXTRA_LANGUAGE,
             Locale.getDefault()
         )
-        //speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, true)
         speechRecognizer.setRecognitionListener(object : RecognitionListener {
             override fun onReadyForSpeech(p0: Bundle?) {}
 
             override fun onBeginningOfSpeech() {
-                txtResult!!.setText("")
                 txtResult!!.setHint("Listening to speech")
             }
 
@@ -79,22 +71,22 @@ class ListenSpeechActivity : AppCompatActivity() {
 
             override fun onResults(bundle: Bundle?) {
                 //Disable button?
-                var data = bundle?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+                val data = bundle?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
                 Log.d("SpeechIn onResults", data!![0])
                 txtResult.text = data[0]
             }
 
             override fun onPartialResults(bundle: Bundle?) {
-                var data = bundle?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+/*                var data = bundle?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
                 Log.d("SpeechIn onResults", data!![0])
-                txtResult.text = data[0]
+                txtResult.text = data[0]*/
             }
 
             override fun onEvent(p0: Int, p1: Bundle?) {}
 
         })
         speechOnButton?.setOnClickListener() {
-            askRecordAudioPermission()
+            checkAndRequestPermissions()
             speechRecognizer.startListening(speechRecognizerIntent)
             Log.d("SpeechButton", "Started speech reco")
         }
@@ -105,71 +97,93 @@ class ListenSpeechActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        speechRecognizer!!.destroy() //For now, later on destroy when turn off.
+    /**
+     * Initializes variables to handle components.
+     */
+    private fun initializeComponents() {
+        recordAudioPermissionRequest =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+            }
+        speechOnButton = findViewById<Button>(R.id.activateSpeech)
+        speechOffButton = findViewById<Button>(R.id.disableSpeech)
+        txtResult = findViewById(R.id.speechToTextBox)
+        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
     }
 
-    private fun askRecordAudioPermission() {
-        if (ContextCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.RECORD_AUDIO
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            /*Permission not granted*/
-            if (ActivityCompat.shouldShowRequestPermissionRationale(
+
+    /**
+     * Checks if phone is compatible with SpeechRecognizer and if permission required is currently granted.
+     * Requests user for permission if not.
+     */
+    private fun checkAndRequestPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission
+                    (
                     this,
-                    android.Manifest.permission.RECORD_AUDIO
-                )
+                    Manifest.permission.RECORD_AUDIO
+                ) != PackageManager.PERMISSION_GRANTED
             ) {
-                showLocationPermissionRationale()
-                Log.d("Perm", "Showing Rationale")
-            } else {
                 ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(android.Manifest.permission.RECORD_AUDIO),
+                    this, arrayOf(Manifest.permission.RECORD_AUDIO),
                     REQRECORDAUDIOCODE
                 )
-                Log.d("Perm", "Requesting Perm")
             }
         } else {
-            // Permission is granted. Go back to main.
-            Log.d("Perm", "Permission is granted")
-
+            Toast.makeText(
+                this,
+                "Phone not compatible with App. Requires Android 7+",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 
-    private fun showLocationPermissionRationale() {
-        AlertDialog.Builder(this)
-            .setTitle("Rationale")
-            .setMessage("Mic Permission required to use Speech Recognition")
-            .setNeutralButton("Ok") { _, _ ->
-                recordAudioPermissionRequest.launch(
-                    arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION)
-                )
-            }
-            .show()
-    }
-
-    private fun checkPermissions() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            askRecordAudioPermission()
-/*            ActivityCompat.requestPermissions(
-                this, arrayOf(Manifest.permission.RECORD_AUDIO),
-                REQRECORDAUDIOCODE
-            )*/
-        }
-    }
-
+    /**
+     * Handles results of callback from requestPermission(). Shows rationale for permission request
+     * if permission was not granted. If permission granted, show toast confirmation.
+     */
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQRECORDAUDIOCODE && grantResults.isNotEmpty()
+        if (requestCode == REQRECORDAUDIOCODE && permissionGranted(grantResults)
         ) {
             Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
+        } else {
+            showMicPermissionRationale()
         }
+    }
+
+    /**
+     * Checks if permission has been granted in grantResults IntArray.
+     * @return true: iff all value in the grantResults IntArray are 1.
+     * @return false: if any value in the grantResults IntArray are 0.
+     */
+    private fun permissionGranted(grantResults: IntArray): Boolean {
+        for (grantResult in grantResults) {
+            if (grantResult == PackageManager.PERMISSION_DENIED) {
+                return false
+            }
+        }
+        return true
+    }
+
+    /**
+     * Shows an AlertDialog window that informs users why the mic permission is required.
+     * Selecting 'Ok' will ask for the permission
+     * Selecting 'Cancel' will close the window
+     */
+    private fun showMicPermissionRationale() {
+        AlertDialog.Builder(this)
+            .setTitle("Rationale")
+            .setMessage("Mic Permission required to use SpeechToText Recognition")
+            .setNeutralButton("Ok") { _, _ ->
+                recordAudioPermissionRequest.launch(
+                    arrayOf(Manifest.permission.RECORD_AUDIO)
+                )
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 }
