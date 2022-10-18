@@ -13,7 +13,6 @@
     <string name="username">Username</string>
     <string name="textpassword">Password</string>
     <string name="logout">LogOut</string>
-    <string name="openSpeech">Test Speech</string>
-    <string name="onSpeech">Turn on</string>
-    <string name="offSpeech">Turn off</string>
+    <string name="onSpeech">Turn On</string>
+    <string name="offSpeech">Turn Off</string>
 </resources>
