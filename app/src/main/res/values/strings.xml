@@ -12,5 +12,19 @@
     <string name="sign_up">Sign-Up</string>
     <string name="username">Username</string>
     <string name="textpassword">Password</string>
-    <string name="logout">LogOut</string>
+    <string name="logout">Logout</string>
+    <string name="app_logo_name">VRE</string>
+    <string name="app_title_name">Voice Recognition Emergency</string>
+    <string name="username_text">Email or Username</string>
+    <string name="password_text">Password</string>
+    <string name="forgot_password_text">Forgot your password?</string>
+    <string name="create_account">Create an Account</string>
+    <string name="customKeyWords">Custom Key Words</string>
+    <string name="speechRecognition">Speech Recognition</string>
+    <string name="customTextMessageContent">Custom Text Message Content</string>
+    <string name="customizableConfigurations">Customizable Configurations</string>
+    <string name="contactList">Contact List</string>
+    <string name="profile">Profile</string>
+    <string name="vreServiceActivation">VRE Service Activation</string>
+    <string name="coming_soon_text">Coming Soon</string>
 </resources>
