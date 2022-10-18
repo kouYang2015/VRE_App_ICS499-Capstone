@@ -1,12 +1,12 @@
 package com.example.vre_app
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 
 class Login : AppCompatActivity() {
     private lateinit var loginButton: Button
@@ -70,12 +70,26 @@ class Login : AppCompatActivity() {
 
             val intent = Intent(this, Menu::class.java)
             startActivity(intent)
-        } else {
+        }
+
+        // Using the Create Account Class File (Saving Username and Password)
+        else if(inputUsername == Passing.username && inputPassword == Passing.password){
+            val text = "Successfully Logged In"
+            val duration = Toast.LENGTH_LONG
+            val toast = Toast.makeText(this, text, duration)
+            toast.show()
+
+            val intent = Intent(this, Menu::class.java)
+            startActivity(intent)
+        }
+        else {
             val text = "Email/Username or Password is incorrect, Try Again"
             val duration = Toast.LENGTH_LONG
             val toast = Toast.makeText(this, text, duration)
             toast.show()
         }
+
+
 
     }
 }

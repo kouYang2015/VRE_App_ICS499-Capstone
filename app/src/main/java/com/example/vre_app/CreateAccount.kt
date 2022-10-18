@@ -59,8 +59,8 @@ class CreateAccount : AppCompatActivity() {
                         //Calls this method to save info from user
                         saveData()
 
-                        // Goes to new Activity (Main Activity)
-                        val intent = Intent(this, MainActivity::class.java)
+                        // Goes to new Activity (Login Activity)
+                        val intent = Intent(this, Login::class.java)
                         startActivity(intent)
 
                         //Clearing the info for next user
