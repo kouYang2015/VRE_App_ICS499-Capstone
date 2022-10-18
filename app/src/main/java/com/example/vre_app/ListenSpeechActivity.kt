@@ -70,17 +70,11 @@ class ListenSpeechActivity : AppCompatActivity() {
             override fun onError(p0: Int) {}
 
             override fun onResults(bundle: Bundle?) {
-                //Disable button?
                 val data = bundle?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
-                Log.d("SpeechIn onResults", data!![0])
-                txtResult.text = data[0]
+                txtResult.text = data!![0]
             }
 
-            override fun onPartialResults(bundle: Bundle?) {
-/*                var data = bundle?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
-                Log.d("SpeechIn onResults", data!![0])
-                txtResult.text = data[0]*/
-            }
+            override fun onPartialResults(bundle: Bundle?) {}
 
             override fun onEvent(p0: Int, p1: Bundle?) {}
 
@@ -88,12 +82,9 @@ class ListenSpeechActivity : AppCompatActivity() {
         speechOnButton?.setOnClickListener() {
             checkAndRequestPermissions()
             speechRecognizer.startListening(speechRecognizerIntent)
-            Log.d("SpeechButton", "Started speech reco")
         }
         speechOffButton?.setOnClickListener() {
-            //speechRecognizer!!.destroy()
             speechRecognizer.stopListening()
-            Log.d("SpeechButton", "Stopped speech reco")
         }
     }
 
