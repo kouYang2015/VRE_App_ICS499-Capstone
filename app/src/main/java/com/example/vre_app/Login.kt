@@ -62,23 +62,9 @@ class Login : AppCompatActivity() {
         val inputUsername = username.text.toString()
         val inputPassword = password.text.toString()
 
-        if (inputUsername == "username" && inputPassword == "password") {
-            val text = "Successfully Logged In"
-            val duration = Toast.LENGTH_LONG
-            val toast = Toast.makeText(this, text, duration)
-            toast.show()
-
-            val intent = Intent(this, Menu::class.java)
-            startActivity(intent)
-        }
-
-        // Using the Create Account Class File (Saving Username and Password)
-        else if(inputUsername == Passing.username && inputPassword == Passing.password){
-            val text = "Successfully Logged In"
-            val duration = Toast.LENGTH_LONG
-            val toast = Toast.makeText(this, text, duration)
-            toast.show()
-
+        if((inputUsername == Passing.username && inputPassword == Passing.password) ||
+            (inputUsername == "username" && inputPassword == "password")) {
+            Toast.makeText(this, "Successfully Logged In", Toast.LENGTH_LONG).show()
             val intent = Intent(this, Menu::class.java)
             startActivity(intent)
         }
