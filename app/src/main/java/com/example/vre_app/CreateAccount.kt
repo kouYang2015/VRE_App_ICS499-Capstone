@@ -47,7 +47,7 @@ class CreateAccount : AppCompatActivity() {
             if (email.length() in 6..319 && email.text.toString().matches(Regex("[a-zA-Z0-9._]+@[a-z].+[a-z]"))
             ) {
                 //Maximum length for the full name, username, password, email and confirm password
-                if (fullName.length() in 6..30 && userName.length() in 6..30 && password.length() in 10..80 && confirmPassword.length() in 10..80) {
+                if (fullName.length() in 6..36 && userName.length() in 4..36 && password.length() in 8..36 && confirmPassword.length() in 8..36) {
                     if (password.text.toString() == confirmPassword.text.toString()) {
                         Toast.makeText(this, "Created Account Successful!", Toast.LENGTH_LONG)
                             .show()
@@ -59,8 +59,8 @@ class CreateAccount : AppCompatActivity() {
                         //Calls this method to save info from user
                         saveData()
 
-                        // Goes to new Activity (Main Activity)
-                        val intent = Intent(this, MainActivity::class.java)
+                        // Goes to new Activity (Login Activity)
+                        val intent = Intent(this, Login::class.java)
                         startActivity(intent)
 
                         //Clearing the info for next user
@@ -70,20 +70,23 @@ class CreateAccount : AppCompatActivity() {
                         password.text.clear()
                         confirmPassword.text.clear()
 
+                        //Message from the system that password doesn't match
                     } else if (password.text.toString() != confirmPassword.text.toString()) {
                         password.setError("Password must match to confirm password!")
                         confirmPassword.setError("Confirm Password must match to password!")
                     }
+                    // Create an error message if criteria  does not match
                 } else {
-                    fullName.setError("Full Name must be between 6 to 30 character long")
-                    userName.setError("User Name must be between 6 to 30 character long")
-                    password.setError("Password must be between 10 to 80 character long")
-                    confirmPassword.setError("Confirm Password must be between 10 to 80 character character long")
+                    fullName.setError("Full Name must be between 6 to 36 character long")
+                    userName.setError("User Name must be between 4 to 36 character long")
+                    password.setError("Password must be between 8 to 36 character long")
+                    confirmPassword.setError("Confirm Password must be between 8 to 36 character character long")
                 }
-
+                // Create an error message if e-mail the user didn't input '@'
             } else {
-                email.setError("Please Enter a Valid Email and must be between 6 to 319 character long")
+                email.setError("Please Enter a Valid Email")
             }
+            // Create an error message if user did not write anything
         } else {
             Toast.makeText(this, "Need to All Information", Toast.LENGTH_SHORT).show()
         }
