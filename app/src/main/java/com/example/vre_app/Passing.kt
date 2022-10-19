@@ -17,9 +17,13 @@ object Passing {
 
     }
 
+    /**
+     * Add key phrase
+     *
+     * @param keyPhrase
+     */
     @JvmName("createKeyPhraseList")
     fun addKeyPhrase(keyPhrase: KeyPhrase) {
         keyPhraseList?.addKeyPhrase(keyPhrase)
-
     }
 }

@@ -1,13 +1,18 @@
 package com.example.vre_app
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 
+/**
+ * Key words activity
+ * This class is the Activity for the user to interact with the key phrases menu
+ * It also initiates functions to add and remove key phrases
+ *
+ * @constructor Create empty Key words activity
+ */
 class KeyWordsActivity : AppCompatActivity() {
-    //    private val keyPhraseList: KeyPhraseList? = KeyPhraseList.instance
     private var textViewSelected: String = "null"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,20 +26,18 @@ class KeyWordsActivity : AppCompatActivity() {
             )
         }
         listview.adapter = arrayAdapter
-
-//        val goToMainMenu = findViewById<Button>(R.id.backFromKeyPhrases)
-//
-//        goToMainMenu.setOnClickListener {
-//            val intent = Intent(this, Menu::class.java)
-//            // start your next activity
-//            startActivity(intent)
-//        }
     }
 
+
+    /**
+     * Go to key phrase menu
+     * This is used by the buttons that navigate to the key phrases menu
+     * It also refreshes the key phrases list every time it is used
+     *
+     * @param view
+     */
     fun goToKeyPhraseMenu(view: View) {
         setContentView(R.layout.key_phrases_menu)
-
-        println(Passing.keyPhraseList)
 
         val listview: ListView = findViewById<ListView>(R.id.listViewPhrases)
         var arrayAdapter = Passing.keyPhraseList?.let {
@@ -44,54 +47,43 @@ class KeyWordsActivity : AppCompatActivity() {
         }
         listview.adapter = arrayAdapter
 
-//        val textView = findViewById<ListView>(R.id.listViewPhrases)
-//        textView.setOnClickListener(View.OnClickListener {
-//            textViewPhraseToDelete = textView.toString()
-//        })
-
-
-//        textView.setOnClickListener { val textViewPhraseToDelete = textView }
-
-//        val textViewClicked = findViewById<ListView>(R.id.listViewPhrases) as ListView
-
-
-//        val textViewClicked = R.layout.text_view
-//        println("textViewClicked" + textViewClicked)
-//        textViewClicked.setOnClickListener() {
-//            textViewToDelete = textViewClicked.toString()
-//        }
-
     }
 
+
+    /**
+     * Go to add key phrase menu
+     * This is used by the Add button and brings you to the add
+     * a key phrase layout
+     *
+     * @param view
+     */
     fun goToAddKeyPhraseMenu(view: View) {
         setContentView(R.layout.add_key_phrase)
     }
-//    fun goToMainMenu(view: View) {
-//        setContentView(R.layout.activity_main)
-//    }
 
-//    fun createSampleListKeyPhrases() {
-//        keyPhraseList?.addKeyPhrase(KeyPhrase("monkey"))
-//        keyPhraseList?.addKeyPhrase(KeyPhrase("monkey1"))
-//        keyPhraseList?.addKeyPhrase(KeyPhrase("monkey2"))
-//        keyPhraseList?.addKeyPhrase(KeyPhrase("monkey3"))
-//        keyPhraseList?.addKeyPhrase(KeyPhrase("monkey4"))
-//        keyPhraseList?.addKeyPhrase(KeyPhrase("monkey5"))
-//        keyPhraseList?.addKeyPhrase(KeyPhrase("monkey6"))
-//        keyPhraseList?.addKeyPhrase(KeyPhrase("monkey7"))
-//
-//    }
-
+    /**
+     * Add key phrase
+     * This function is used in the add a key phrase layout
+     *
+     * @param view
+     */
     fun addKeyPhrase(view: View) {
         var editText: EditText = findViewById(R.id.editTextKeyPhrase)
         var editTextKeyPhrase: String = editText.text.toString()
         if (editTextKeyPhrase.isNotEmpty()) {
-//            keyPhraseList?.addKeyPhrase(KeyPhrase(editTextKeyPhrase))
             Passing.addKeyPhrase(KeyPhrase(editTextKeyPhrase))
         }
         goToKeyPhraseMenu(view)
     }
 
+
+    /**
+     * Select key phrase
+     * This allows the user to select a key phrase which will
+     * let the user delete them
+     *
+     * @param view
+     */
     fun selectKeyPhrase(view: View) {
         var textView: TextView = findViewById(R.id.textViewPhrase)
         textViewSelected = textView.text.toString()
@@ -99,6 +91,11 @@ class KeyWordsActivity : AppCompatActivity() {
     }
 
 
+    /**
+     * Delete key phrase
+     *
+     * @param view
+     */
     fun deleteKeyPhrase(view: View) {
         var textViewSelectedThis: String = textViewSelected
         println("calling delete key phrase with phrase: $textViewSelected")
