@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <queries>
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
+        </intent>
+    </queries>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,6 +18,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VRE_App"
         tools:targetApi="31">
+        <activity
+            android:name=".ListenSpeechActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".ForgotPassword"
             android:exported="false">
@@ -25,7 +38,7 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity> <!-- Change to from .MainActivity to .CreateAccount to .Login, Jack -->
+        </activity>
         <activity
             android:name=".Login"
             android:exported="true">
@@ -38,29 +51,26 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity> <!-- This is when a new activity is created. -->
+        </activity>
         <activity
             android:name=".CreateAccount"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity> <!-- This is the Main Activity -->
-        <!--
+        </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        -->
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

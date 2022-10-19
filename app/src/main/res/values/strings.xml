@@ -12,7 +12,7 @@
     <string name="sign_up">Sign-Up</string>
     <string name="username">Username</string>
     <string name="textpassword">Password</string>
-    <string name="logout">Logout</string>
+    <string name="logout">LogOut</string>
     <string name="app_logo_name">VRE</string>
     <string name="app_title_name">Voice Recognition Emergency</string>
     <string name="username_text">Email or Username</string>
@@ -27,4 +27,6 @@
     <string name="profile">Profile</string>
     <string name="vreServiceActivation">VRE Service Activation</string>
     <string name="coming_soon_text">Coming Soon</string>
+    <string name="onSpeech">Turn On</string>
+    <string name="offSpeech">Turn Off</string>
 </resources>
