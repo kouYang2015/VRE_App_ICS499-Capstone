@@ -57,20 +57,20 @@ class Login : AppCompatActivity() {
         val inputPassword = password.text.toString()
         val inputEmail = email.text.toString();
 
-        if((inputUsername == Passing.username && inputPassword == Passing.password) ||
-            (inputUsername == "username" && inputPassword == "password") ||inputEmail == Passing.email && inputPassword == Passing.password) {
-
+        //Cannot able to login with an empty text
+        if (username.text.toString().isEmpty() && password.text.toString().isEmpty() && email.text.isEmpty()) {
+            Toast.makeText(this, "Email/Username and Password is required to Login", Toast.LENGTH_SHORT).show()
+        }
+        else if (((inputUsername == Passing.username && inputPassword == Passing.password) || (inputUsername == "username" && inputPassword == "password") || (inputEmail == Passing.email && inputPassword == Passing.password))) {
 
             Toast.makeText(this, "Successfully Logged In", Toast.LENGTH_LONG).show()
-
             val intent = Intent(this, Menu::class.java)
             startActivity(intent)
+        } else {
+            Toast.makeText(this, "Email/Username or Password is incorrect, Try Again", Toast.LENGTH_LONG).show()
         }
-        else {
-            Toast.makeText(this, "Email/Username or Password is incorrect, Try Again",Toast.LENGTH_LONG).show()
-        }
-
-
 
     }
-}
+
+    }
+
