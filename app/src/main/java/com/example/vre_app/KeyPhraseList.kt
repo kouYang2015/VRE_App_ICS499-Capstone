@@ -11,10 +11,12 @@ class KeyPhraseList
  */
 private constructor() {
     var keyPhrases: MutableList<KeyPhrase> = LinkedList()
+
     fun addKeyPhrase(keyPhrase: KeyPhrase): Boolean {
         keyPhrases.add(keyPhrase)
         return true
     }
+
     fun deleteKeyPhrase(keyPhrase: KeyPhrase): Boolean {
         for(item in keyPhrases){
             if (item.keyPhrase == keyPhrase.keyPhrase){
