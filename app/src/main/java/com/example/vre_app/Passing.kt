@@ -3,15 +3,21 @@ package com.example.vre_app
 object Passing {
     var username: String = ""
     var password: String = ""
+    var email: String = ""
 
     @JvmName("setUsername1")
     fun setUsername(username: String) {
         username.also { Passing.username = it }
     }
 
+    @JvmName("setEmail1")
+    fun setEmail(email:String){
+        email.also { Passing.email=it }
+    }
+
     @JvmName("setPassword1")
     fun setPassword(password: String) {
         password.also { Passing.password = it }
-
     }
+
 }
