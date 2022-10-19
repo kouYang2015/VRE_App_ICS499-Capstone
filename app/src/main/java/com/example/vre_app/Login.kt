@@ -8,7 +8,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
-
 class Login : AppCompatActivity() {
     private lateinit var loginButton: Button
     private lateinit var createAccountButton: Button
@@ -60,6 +59,8 @@ class Login : AppCompatActivity() {
 
         if((inputUsername == Passing.username && inputPassword == Passing.password) ||
             (inputUsername == "username" && inputPassword == "password") ||inputEmail == Passing.email && inputPassword == Passing.password) {
+
+
             Toast.makeText(this, "Successfully Logged In", Toast.LENGTH_LONG).show()
 
             val intent = Intent(this, Menu::class.java)
