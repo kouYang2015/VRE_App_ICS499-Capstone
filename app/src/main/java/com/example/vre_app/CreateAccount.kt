@@ -55,6 +55,7 @@ class CreateAccount : AppCompatActivity() {
                         //Setting the Username and Password (for the Login)
                         Passing.setUsername(userName.text.toString())
                         Passing.setPassword(password.text.toString())
+                        Passing.setEmail(email.text.toString())
 
                         //Calls this method to save info from user
                         saveData()
