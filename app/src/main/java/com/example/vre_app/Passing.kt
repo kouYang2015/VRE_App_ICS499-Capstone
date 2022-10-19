@@ -1,8 +1,10 @@
 package com.example.vre_app
+
 //Tried to save username and password (First Time login-in)
 object Passing {
     var username: String = ""
     var password: String = ""
+    var keyPhraseList = KeyPhraseList.instance
     var email: String = ""
 
     @JvmName("setUsername1")
@@ -18,6 +20,16 @@ object Passing {
     @JvmName("setPassword1")
     fun setPassword(password: String) {
         password.also { Passing.password = it }
+    }
+
+    /**
+     * Add key phrase
+     *
+     * @param keyPhrase
+     */
+    @JvmName("createKeyPhraseList")
+    fun addKeyPhrase(keyPhrase: KeyPhrase) {
+        keyPhraseList?.addKeyPhrase(keyPhrase)
     }
 
 }
