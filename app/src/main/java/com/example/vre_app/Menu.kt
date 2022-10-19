@@ -18,6 +18,16 @@ class Menu : AppCompatActivity() {
         speechButton = findViewById(R.id.speechRecognition)
         speechButton?.setOnClickListener() {
             startActivity(Intent(this, ListenSpeechActivity::class.java))
+
+
+        }
+        val goToKeyPhraseMenu = findViewById<Button>(R.id.customKeyWords)
+
+        goToKeyPhraseMenu.setOnClickListener {
+            val intent = Intent(this, KeyWordsActivity::class.java)
+            // start your next activity
+            startActivity(intent)
+
         }
     }
 }
