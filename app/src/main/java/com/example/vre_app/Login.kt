@@ -58,7 +58,7 @@ class Login : AppCompatActivity() {
         val inputEmail = email.text.toString();
 
         if((inputUsername == Passing.username && inputPassword == Passing.password) ||
-            (inputUsername == "username" && inputPassword == "password") ||inputEmail == Passing.email && inputPassword == Passing.password) {
+            (inputUsername == "username" && inputPassword == "password") ||(inputEmail == Passing.email && inputPassword == Passing.password)) {
 
 
             Toast.makeText(this, "Successfully Logged In", Toast.LENGTH_LONG).show()
