@@ -14,6 +14,7 @@ class Login : AppCompatActivity() {
     private lateinit var forgotPasswordTextClickable: TextView
     private lateinit var username: EditText
     private lateinit var password: EditText
+    private lateinit var email:EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +29,7 @@ class Login : AppCompatActivity() {
         forgotPasswordTextClickable = findViewById(R.id.forgot_password)
         username = findViewById(R.id.username)
         password = findViewById(R.id.password)
+        email = findViewById(R.id.username)
 
         loginButton.setOnClickListener {
             authenticateLogin()
@@ -53,9 +55,12 @@ class Login : AppCompatActivity() {
     private fun authenticateLogin() {
         val inputUsername = username.text.toString()
         val inputPassword = password.text.toString()
+        val inputEmail = email.text.toString();
 
         if((inputUsername == Passing.username && inputPassword == Passing.password) ||
-            (inputUsername == "username" && inputPassword == "password")) {
+            (inputUsername == "username" && inputPassword == "password") ||inputEmail == Passing.email && inputPassword == Passing.password) {
+
+
             Toast.makeText(this, "Successfully Logged In", Toast.LENGTH_LONG).show()
 
             val intent = Intent(this, Menu::class.java)
