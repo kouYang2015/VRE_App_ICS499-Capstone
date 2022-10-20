@@ -9,7 +9,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.vre_app"
+        applicationId 'com.metrostateics499.vrea'
         minSdk 24
         targetSdk 32
         versionCode 1
