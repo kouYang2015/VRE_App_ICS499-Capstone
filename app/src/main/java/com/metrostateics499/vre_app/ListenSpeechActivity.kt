@@ -76,7 +76,6 @@ class ListenSpeechActivity : AppCompatActivity() {
             override fun onPartialResults(bundle: Bundle?) {}
 
             override fun onEvent(p0: Int, p1: Bundle?) {}
-
         })
         speechOnButton?.setOnClickListener() {
             checkAndRequestPermissions()
@@ -100,7 +99,6 @@ class ListenSpeechActivity : AppCompatActivity() {
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
     }
 
-
     /**
      * Checks if phone is compatible with SpeechRecognizer and if permission required is currently granted.
      * Requests user for permission if not.
@@ -108,10 +106,10 @@ class ListenSpeechActivity : AppCompatActivity() {
     private fun checkAndRequestPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission
-                    (
-                    this,
-                    Manifest.permission.RECORD_AUDIO
-                ) != PackageManager.PERMISSION_GRANTED
+                (
+                        this,
+                        Manifest.permission.RECORD_AUDIO
+                    ) != PackageManager.PERMISSION_GRANTED
             ) {
                 ActivityCompat.requestPermissions(
                     this, arrayOf(Manifest.permission.RECORD_AUDIO),

@@ -1,9 +1,9 @@
 package com.metrostateics499.vre_app
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 
 /**
  * Key words activity
@@ -28,7 +28,6 @@ class KeyWordsActivity : AppCompatActivity() {
         listview.adapter = arrayAdapter
     }
 
-
     /**
      * Go to key phrase menu
      * This is used by the buttons that navigate to the key phrases menu
@@ -46,9 +45,7 @@ class KeyWordsActivity : AppCompatActivity() {
             )
         }
         listview.adapter = arrayAdapter
-
     }
-
 
     /**
      * Go to add key phrase menu
@@ -76,7 +73,6 @@ class KeyWordsActivity : AppCompatActivity() {
         goToKeyPhraseMenu(view)
     }
 
-
     /**
      * Select key phrase
      * This allows the user to select a key phrase which will
@@ -89,7 +85,6 @@ class KeyWordsActivity : AppCompatActivity() {
         textViewSelected = textView.text.toString()
         println("textViewSelected $textViewSelected")
     }
-
 
     /**
      * Delete key phrase

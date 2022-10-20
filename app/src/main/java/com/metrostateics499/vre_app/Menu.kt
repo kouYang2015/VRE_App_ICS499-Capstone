@@ -1,9 +1,9 @@
 package com.metrostateics499.vre_app
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 
 class Menu : AppCompatActivity() {
 
@@ -18,8 +18,6 @@ class Menu : AppCompatActivity() {
         speechButton = findViewById(R.id.speechRecognition)
         speechButton?.setOnClickListener() {
             startActivity(Intent(this, ListenSpeechActivity::class.java))
-
-
         }
         val goToKeyPhraseMenu = findViewById<Button>(R.id.customKeyWords)
 
@@ -27,7 +25,6 @@ class Menu : AppCompatActivity() {
             val intent = Intent(this, KeyWordsActivity::class.java)
             // start your next activity
             startActivity(intent)
-
         }
     }
 }
