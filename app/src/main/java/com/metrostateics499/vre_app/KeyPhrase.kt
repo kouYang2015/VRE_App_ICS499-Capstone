@@ -1,4 +1,4 @@
-package com.example.vre_app
+package com.metrostateics499.vre_app
 
 /**
  * Key phrase

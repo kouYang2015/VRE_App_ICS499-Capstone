@@ -1,4 +1,4 @@
-package com.example.vre_app
+package com.metrostateics499.vre_app
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

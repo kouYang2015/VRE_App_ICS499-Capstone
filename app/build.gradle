@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace 'com.example.vre_app'
+    namespace 'com.metrostateics499.vre_app'
     compileSdk 32
 
     defaultConfig {

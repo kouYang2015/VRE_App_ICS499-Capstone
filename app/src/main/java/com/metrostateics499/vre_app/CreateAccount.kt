@@ -1,4 +1,4 @@
-package com.example.vre_app
+package com.metrostateics499.vre_app
 
 
 import android.content.Context
@@ -44,7 +44,8 @@ class CreateAccount : AppCompatActivity() {
                 .isNotEmpty() && confirmPassword.text.toString().isNotEmpty()
         ) {
             //Need a valid Email to work (ex. abc123@gmail.net)
-            if (email.length() in 6..319 && email.text.toString().matches(Regex("[a-zA-Z0-9._]+@[a-z].+[a-z]"))
+            if (email.length() in 6..319 && email.text.toString()
+                    .matches(Regex("[a-zA-Z0-9._]+@[a-z].+[a-z]"))
             ) {
                 //Maximum length for the full name, username, password, email and confirm password
                 if (fullName.length() in 6..36 && userName.length() in 4..36 && password.length() in 8..36 && confirmPassword.length() in 8..36) {

@@ -1,4 +1,4 @@
-package com.example.vre_app
+package com.metrostateics499.vre_app
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

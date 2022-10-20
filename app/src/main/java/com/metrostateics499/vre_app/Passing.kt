@@ -1,4 +1,4 @@
-package com.example.vre_app
+package com.metrostateics499.vre_app
 
 //Tried to save username and password (First Time login-in)
 object Passing {
@@ -13,8 +13,8 @@ object Passing {
     }
 
     @JvmName("setEmail1")
-    fun setEmail(email:String){
-        email.also { Passing.email=it }
+    fun setEmail(email: String) {
+        email.also { Passing.email = it }
     }
 
     @JvmName("setPassword1")
