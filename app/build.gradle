@@ -68,6 +68,10 @@ task installGitHook(type: Copy) {
     rename("pre-commit-$suffix", 'pre-commit')
 
     fileMode 0775
+
+    doFirst {
+        println("Done")
+    }
 }
 
 tasks.getByPath(':app:preBuild').dependsOn installGitHook
