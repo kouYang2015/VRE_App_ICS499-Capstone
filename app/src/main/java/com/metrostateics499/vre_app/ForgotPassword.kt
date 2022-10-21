@@ -1,7 +1,7 @@
-package com.example.vre_app
+package com.metrostateics499.vre_app
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 
 class ForgotPassword : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -9,7 +9,7 @@ class ForgotPassword : AppCompatActivity() {
 
         // This is to hide the action bar
         supportActionBar?.hide()
-        
+
         setContentView(R.layout.activity_forgot_password)
     }
 }

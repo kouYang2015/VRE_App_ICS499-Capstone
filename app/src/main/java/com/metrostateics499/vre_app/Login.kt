@@ -1,4 +1,4 @@
-package com.example.vre_app
+package com.metrostateics499.vre_app
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,7 +14,7 @@ class Login : AppCompatActivity() {
     private lateinit var forgotPasswordTextClickable: TextView
     private lateinit var username: EditText
     private lateinit var password: EditText
-    private lateinit var email:EditText
+    private lateinit var email: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,41 +36,51 @@ class Login : AppCompatActivity() {
         }
 
         createAccountButton.setOnClickListener {
-            Toast.makeText(this, "Create an Account",Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Create an Account", Toast.LENGTH_LONG).show()
 
             val intent = Intent(this, CreateAccount::class.java)
             startActivity(intent)
         }
 
         forgotPasswordTextClickable.setOnClickListener {
-            Toast.makeText(this, "Forgot your password? ",Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Forgot your password? ", Toast.LENGTH_LONG).show()
 
             val intent = Intent(this, ForgotPassword::class.java)
             startActivity(intent)
         }
-
     }
 
     // This is the login for username and password
     private fun authenticateLogin() {
         val inputUsername = username.text.toString()
         val inputPassword = password.text.toString()
-        val inputEmail = email.text.toString();
+        val inputEmail = email.text.toString()
 
-        //Cannot able to login with an empty text
-        if (username.text.toString().isEmpty() && password.text.toString().isEmpty() && email.text.isEmpty()) {
-            Toast.makeText(this, "Email/Username and Password is required to Login", Toast.LENGTH_SHORT).show()
-        }
-        else if (((inputUsername == Passing.username && inputPassword == Passing.password) || (inputUsername == "username" && inputPassword == "password") || (inputEmail == Passing.email && inputPassword == Passing.password))) {
+        // Cannot able to login with an empty text
+        if (username.text.toString().isEmpty() && password.text.toString()
+            .isEmpty() && email.text.isEmpty()
+        ) {
+            Toast.makeText(
+                this,
+                "Email/Username and Password is required to Login",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else if ((
+            (inputUsername == Passing.username && inputPassword == Passing.password) ||
+                (inputUsername == "username" && inputPassword == "password") ||
+                (inputEmail == Passing.email && inputPassword == Passing.password)
+            )
+        ) {
 
             Toast.makeText(this, "Successfully Logged In", Toast.LENGTH_LONG).show()
             val intent = Intent(this, Menu::class.java)
             startActivity(intent)
         } else {
-            Toast.makeText(this, "Email/Username or Password is incorrect, Try Again", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                this,
+                "Email/Username or Password is incorrect, Try Again",
+                Toast.LENGTH_LONG
+            ).show()
         }
-
     }
-
-    }
-
+}
