@@ -35,7 +35,6 @@ class ListenSpeechActivity : AppCompatActivity() {
         setListeners()
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
         speechRecognizer!!.destroy()
@@ -107,7 +106,7 @@ class ListenSpeechActivity : AppCompatActivity() {
     private fun checkAndRequestPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission
-                        (
+                (
                         this,
                         Manifest.permission.RECORD_AUDIO
                     ) != PackageManager.PERMISSION_GRANTED
