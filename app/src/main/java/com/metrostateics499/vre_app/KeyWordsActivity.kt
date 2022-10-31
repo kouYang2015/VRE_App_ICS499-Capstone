@@ -36,10 +36,16 @@ class KeyWordsActivity : AppCompatActivity() {
         }
         listview.adapter = arrayAdapter
         listview.setOnItemClickListener { parent, view, position, id ->
-            viewSelected?.setBackgroundResource(androidx.appcompat.R.drawable.
-                abc_item_background_holo_light)
-            Toast.makeText(this@KeyWordsActivity, "You have selected " +
-                    parent.getItemAtPosition(position), Toast.LENGTH_SHORT).show()
+            viewSelected?.setBackgroundResource(
+                androidx.appcompat.R.drawable
+                    .abc_item_background_holo_light
+            )
+            Toast.makeText(
+                this@KeyWordsActivity,
+                "You have selected " +
+                    parent.getItemAtPosition(position),
+                Toast.LENGTH_SHORT
+            ).show()
             textViewSelected = parent.getItemAtPosition(position).toString()
             viewSelected = view
             textViewSelectedBoolean = true
@@ -81,11 +87,19 @@ class KeyWordsActivity : AppCompatActivity() {
         var editTextKeyPhrase: String = editText.text.toString()
         if (editTextKeyPhrase.isNotEmpty()) {
             if (Passing.keyPhraseList?.addKeyPhrase(KeyPhrase(editTextKeyPhrase)) == true) {
-                Toast.makeText(this@KeyWordsActivity, "New Key Phrase Successfully " +
-                        "Added", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@KeyWordsActivity,
+                    "New Key Phrase Successfully " +
+                        "Added",
+                    Toast.LENGTH_SHORT
+                ).show()
             } else {
-                Toast.makeText(this@KeyWordsActivity, "Not Added. That Key Phrase " +
-                        "Already Exists", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@KeyWordsActivity,
+                    "Not Added. That Key Phrase " +
+                        "Already Exists",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
         goToKeyPhraseMenu(view)
@@ -110,8 +124,10 @@ class KeyWordsActivity : AppCompatActivity() {
             var textView: TextView = findViewById(R.id.deleteKeyPhraseTextView)
             textView.text = textViewSelected
         } else {
-            Toast.makeText(this@KeyWordsActivity, "You must select a key phrase first",
-                Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this@KeyWordsActivity, "You must select a key phrase first",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -126,8 +142,12 @@ class KeyWordsActivity : AppCompatActivity() {
             println("calling delete key phrase with phrase: $textViewSelected")
             if (textViewSelected?.isNotEmpty() == true) {
                 Passing.keyPhraseList?.deleteKeyPhrase(KeyPhrase(textViewSelectedThis))
-                Toast.makeText(this@KeyWordsActivity, "You have deleted phrase: " +
-                        textViewSelected, Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@KeyWordsActivity,
+                    "You have deleted phrase: " +
+                        textViewSelected,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
             goToKeyPhraseMenu(view)
         }
@@ -140,8 +160,10 @@ class KeyWordsActivity : AppCompatActivity() {
             editText.setText(textViewSelected)
 //            textViewSelected = findViewById(R.id.editTextKeyPhraseEdit).text.toString()
         } else {
-            Toast.makeText(this@KeyWordsActivity, "You must select a key phrase first",
-                Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this@KeyWordsActivity, "You must select a key phrase first",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
