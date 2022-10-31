@@ -22,7 +22,7 @@ private constructor() {
         keyPhrases.add(keyPhrase)
         return true
     }
-    
+
     fun editKeyPhrase(keyPhrase: KeyPhrase, editedKeyPhrase: String): Boolean {
         for (item in keyPhrases) {
             if (item.keyPhrase == keyPhrase.keyPhrase) {
