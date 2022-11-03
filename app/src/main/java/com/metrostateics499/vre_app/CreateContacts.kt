@@ -14,7 +14,7 @@ class CreateContacts : AppCompatActivity() {
     private lateinit var listContact: ListView
     private lateinit var btnDelete: Button
 
-    //Create the ArrayList and ArrayAdapter
+    // Create the ArrayList and ArrayAdapter
     private lateinit var listNames: ArrayList<String>
     private lateinit var listOfContact: ArrayList<Contacts>
     private lateinit var createAdapter: ArrayAdapter<String>
@@ -35,7 +35,6 @@ class CreateContacts : AppCompatActivity() {
 
         listContact.adapter = createAdapter
 
-
         btnNewAccount.setOnClickListener {
             if (fullName.text.toString().isNotEmpty() && phoneNum.text.toString().isNotEmpty()) {
                 // Add Info to the View List
@@ -46,11 +45,9 @@ class CreateContacts : AppCompatActivity() {
                 createAdapter.notifyDataSetChanged()
                 Toast.makeText(this, "Contact Added", Toast.LENGTH_SHORT).show()
 
-
-                //Clear the inputs
+                // Clear the inputs
                 fullName.text.clear()
                 phoneNum.text.clear()
-
             } else {
                 Toast.makeText(this, "Need Information", Toast.LENGTH_SHORT).show()
             }
@@ -58,8 +55,8 @@ class CreateContacts : AppCompatActivity() {
 
         // Adding the toast message to the list when an item on the list is pressed
         listContact.setOnItemClickListener { adapterView, view, i, l ->
-            Toast.makeText(this, "You Selected "+listNames.get(i), Toast.LENGTH_SHORT).show()
-            //Delete contact list
+            Toast.makeText(this, "You Selected " + listNames.get(i), Toast.LENGTH_SHORT).show()
+            // Delete contact list
             btnDelete.setOnClickListener {
                 listNames.remove(listNames.get(i))
                 saveData()
@@ -74,17 +71,13 @@ class CreateContacts : AppCompatActivity() {
             listNames.add(contact.names)
 
             var contactclick = listOfContact[i]
-            //Next Activity for User Info
-            var i = Intent(this,ListOfContacts::class.java )
+            // Next Activity for User Info
+            var i = Intent(this, ListOfContacts::class.java)
             saveData()
             i.putExtra("key", contactclick)
             startActivity(i)
             return@setOnItemLongClickListener true
-
         }
-
-
-
     }
 
     private fun saveData() {
@@ -100,16 +93,3 @@ class CreateContacts : AppCompatActivity() {
         sharedPref.getString("Name", "Phone")?.let { Log.d("Debug", it) }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

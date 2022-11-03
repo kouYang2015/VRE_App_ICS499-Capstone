@@ -27,11 +27,9 @@ class Menu : AppCompatActivity() {
         }
 
         val goToCreateContactList = findViewById<Button>(R.id.contactList)
-        goToCreateContactList.setOnClickListener{
+        goToCreateContactList.setOnClickListener {
             val intent = Intent(this, CreateContacts::class.java)
             startActivity(intent)
         }
-
-
     }
 }

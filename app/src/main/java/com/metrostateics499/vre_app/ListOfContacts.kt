@@ -16,22 +16,15 @@ class ListOfContacts : AppCompatActivity() {
         textName.text = contact.names
         textPhone.text = contact.phone
 
-
         btn1.setOnClickListener {
-            var i = Intent(Intent.ACTION_VIEW, Uri.parse("tel:"+contact.phone))
+            var i = Intent(Intent.ACTION_VIEW, Uri.parse("tel:" + contact.phone))
             startActivity(i)
         }
 
         btn2.setOnClickListener {
 
-            var i = Intent(Intent.ACTION_VIEW, Uri.parse("sms:"+contact.phone))
+            var i = Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + contact.phone))
             startActivity(i)
         }
-
-
-
-
-
-
     }
 }
