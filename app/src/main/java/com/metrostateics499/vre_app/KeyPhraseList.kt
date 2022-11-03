@@ -19,7 +19,31 @@ private constructor() {
      * @return boolean
      */
     fun addKeyPhrase(keyPhrase: KeyPhrase): Boolean {
+        for (item in keyPhrases) {
+            if (item.keyPhrase == keyPhrase.keyPhrase) {
+                return false
+            }
+        }
         keyPhrases.add(keyPhrase)
+        return true
+    }
+
+    /**
+     * Edit key phrase
+     * can duplicate a keyphrase through editing because there is no ID to identify
+     * the key phrase by
+     *
+     * @param keyPhrase
+     * @param editedKeyPhrase
+     * @return
+     */
+    fun editKeyPhrase(keyPhrase: KeyPhrase, editedKeyPhrase: String): Boolean {
+        for (item in keyPhrases) {
+            if (item.keyPhrase == keyPhrase.keyPhrase) {
+                item.keyPhrase = editedKeyPhrase
+                break
+            }
+        }
         return true
     }
 
