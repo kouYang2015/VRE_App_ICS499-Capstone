@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 class Menu : AppCompatActivity() {
 
     private lateinit var speechButton: Button
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // This is to hide the action bar
@@ -26,5 +25,13 @@ class Menu : AppCompatActivity() {
             // start your next activity
             startActivity(intent)
         }
+
+        val goToCreateContactList = findViewById<Button>(R.id.contactList)
+        goToCreateContactList.setOnClickListener{
+            val intent = Intent(this, CreateContacts::class.java)
+            startActivity(intent)
+        }
+
+
     }
 }
