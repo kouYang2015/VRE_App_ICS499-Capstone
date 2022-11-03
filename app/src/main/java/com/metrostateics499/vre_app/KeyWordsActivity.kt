@@ -12,15 +12,25 @@ import androidx.appcompat.app.AppCompatActivity
  *
  * @constructor Create empty Key words activity
  */
-class KeyWordsActivity : AppCompatActivity() {
+class KeyWordsActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
 
+    private var buttonAdd: Button? = null
+    private var buttonEdit: Button? = null
+    private var buttonDelete: Button? = null
     private var textViewSelected: String = ""
     private var textViewSelectedBoolean: Boolean = false
     private var viewSelected: View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.key_phrases_menu)
+        setContentView(R.layout.activity_key_phrases_menu)
+
+        buttonAdd = findViewById<View>(R.id.buttonAddKeyPhrase) as Button
+        buttonAdd!!.setOnClickListener { openPopUp(textViewSelected, "add") }
+        buttonEdit = findViewById<View>(R.id.buttonEditKeyPhrase) as Button
+        buttonEdit!!.setOnClickListener { checkSelectForEditKeyPhrasePopUp() }
+        buttonDelete = findViewById<View>(R.id.buttonDeleteKeyPhrase) as Button
+        buttonDelete!!.setOnClickListener { checkSelectForDeleteKeyPhrasePopUp() }
         refreshList()
     }
 
@@ -61,123 +71,96 @@ class KeyWordsActivity : AppCompatActivity() {
      * @param view
      */
     fun goToKeyPhraseMenu(view: View) {
-        setContentView(R.layout.key_phrases_menu)
+        setContentView(R.layout.activity_key_phrases_menu)
         refreshList()
     }
 
-    /**
-     * Go to add key phrase menu
-     * This is used by the Add button and brings you to the add
-     * a key phrase layout
-     *
-     * @param view
-     */
-    fun goToAddKeyPhraseMenu(view: View) {
-        setContentView(R.layout.add_key_phrase)
+
+
+
+    private fun checkSelectForDeleteKeyPhrasePopUp() {
+        if (textViewSelectedBoolean) {
+            openPopUp(textViewSelected, "delete")
+        } else {
+            Toast.makeText(
+                this@KeyWordsActivity, "You must select a key phrase first",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
-    /**
-     * Add key phrase
-     * This function is used in the add a key phrase layout
-     *
-     * @param view
-     */
-    fun addKeyPhrase(view: View) {
-        var editText: EditText = findViewById(R.id.editTextKeyPhrase)
-        var editTextKeyPhrase: String = editText.text.toString()
-        if (editTextKeyPhrase.isNotEmpty()) {
-            if (Passing.keyPhraseList?.addKeyPhrase(KeyPhrase(editTextKeyPhrase)) == true) {
-                Toast.makeText(
-                    this@KeyWordsActivity,
-                    "New Key Phrase Successfully " +
+    private fun checkSelectForEditKeyPhrasePopUp() {
+        if (textViewSelectedBoolean) {
+            openPopUp(textViewSelected, "edit")
+        } else {
+            Toast.makeText(
+                this@KeyWordsActivity, "You must select a key phrase first",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun openPopUp(textViewSelected: String, buttonType: String) {
+        val keyPhrasePopUp = KeyPhrasePopUps(textViewSelected, buttonType)
+        keyPhrasePopUp.show(supportFragmentManager, "example dialog")
+    }
+
+    override fun addKeyPhrase(keyphraseString: String) {
+        if (Passing.keyPhraseList?.addKeyPhrase(KeyPhrase(keyphraseString)) == true) {
+            Toast.makeText(
+                this@KeyWordsActivity,
+                "New Key Phrase Successfully " +
                         "Added",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
-                Toast.makeText(
-                    this@KeyWordsActivity,
-                    "Not Added. That Key Phrase " +
-                        "Already Exists",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-        goToKeyPhraseMenu(view)
-    }
-
-    /**
-     * Select key phrase
-     * This allows the user to select a key phrase which will
-     * let the user delete them
-     *
-     * @param view
-     */
-//    fun selectKeyPhrase(view: View) {
-//        var textView: TextView = findViewById(R.id.textViewPhrase)
-//        textViewSelected = textView.text.toString()
-//        println("textViewSelected $textViewSelected")
-//    }
-
-    fun goToDeleteKeyPhraseConfirmation(view: View) {
-        if (textViewSelectedBoolean) {
-            setContentView(R.layout.delete_key_phrase_confirm)
-            var textView: TextView = findViewById(R.id.deleteKeyPhraseTextView)
-            textView.text = textViewSelected
-        } else {
-            Toast.makeText(
-                this@KeyWordsActivity, "You must select a key phrase first",
                 Toast.LENGTH_SHORT
             ).show()
+
+        } else {
+            Toast.makeText(
+                this@KeyWordsActivity,
+                "That Key Phrase already exists. Try something else or click cancel",
+                Toast.LENGTH_SHORT
+            ).show()
+            openPopUp(textViewSelected, "add")
+        }
+        refreshList()
+    }
+
+    override fun editKeyPhrase(keyphraseString: String) {
+        if (keyphraseString == textViewSelected) {
+            Toast.makeText(
+                this@KeyWordsActivity, "Make a change or click cancel",
+                Toast.LENGTH_SHORT
+            ).show()
+            openPopUp(textViewSelected, "edit")
+        }
+        else if (Passing.keyPhraseList?.editKeyPhrase(KeyPhrase(textViewSelected),
+                keyphraseString) == true) {
+            Toast.makeText(
+                this@KeyWordsActivity, "Successfully Edited",
+                Toast.LENGTH_SHORT
+            ).show()
+            refreshList()
+        } else {
+
+            Toast.makeText(
+                this@KeyWordsActivity, "That Key Phrase already exists. " +
+                        "Try something else or click cancel.",
+                Toast.LENGTH_SHORT
+            ).show()
+            openPopUp(textViewSelected, "edit")
         }
     }
 
-    /**
-     * Delete key phrase
-     *
-     * @param view
-     */
-    fun deleteKeyPhrase(view: View) {
-        if (textViewSelectedBoolean) {
-            var textViewSelectedThis: String = textViewSelected
-            println("calling delete key phrase with phrase: $textViewSelected")
-            if (textViewSelected?.isNotEmpty() == true) {
-                Passing.keyPhraseList?.deleteKeyPhrase(KeyPhrase(textViewSelectedThis))
-                Toast.makeText(
-                    this@KeyWordsActivity,
-                    "You have deleted phrase: " +
+    override fun deleteKeyPhrase(keyphraseString: String) {
+        if (textViewSelected?.isNotEmpty() == true) {
+            Passing.keyPhraseList?.deleteKeyPhrase(KeyPhrase(textViewSelected))
+            Toast.makeText(
+                this@KeyWordsActivity,
+                "You have deleted phrase: " +
                         textViewSelected,
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-            goToKeyPhraseMenu(view)
-        }
-    }
-
-    fun goToEditKeyPhraseMenu(view: View) {
-        if (textViewSelectedBoolean) {
-            setContentView(R.layout.edit_key_phrase)
-            var editText: EditText = findViewById(R.id.editTextKeyPhraseEdit)
-            editText.setText(textViewSelected)
-//            textViewSelected = findViewById(R.id.editTextKeyPhraseEdit).text.toString()
-        } else {
-            Toast.makeText(
-                this@KeyWordsActivity, "You must select a key phrase first",
                 Toast.LENGTH_SHORT
             ).show()
-        }
-    }
-
-    fun editKeyPhrase(view: View) {
-        if (textViewSelectedBoolean) {
-            var editText: EditText = findViewById(R.id.editTextKeyPhraseEdit)
-            var editTextKeyPhraseEdit: String = editText.text.toString()
-            if (editTextKeyPhraseEdit.isNotEmpty()) {
-                Passing.keyPhraseList?.editKeyPhrase(
-                    KeyPhrase(textViewSelected),
-                    editTextKeyPhraseEdit
-                )
-            }
-            goToKeyPhraseMenu(view)
+            refreshList()
         }
     }
 }

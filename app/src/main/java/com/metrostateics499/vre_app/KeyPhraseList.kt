@@ -38,13 +38,22 @@ private constructor() {
      * @return
      */
     fun editKeyPhrase(keyPhrase: KeyPhrase, editedKeyPhrase: String): Boolean {
+        if(keyPhrase.toString() == editedKeyPhrase){
+            return false
+        }
+        for (item in keyPhrases) {
+
+            if (item.keyPhrase == editedKeyPhrase) {
+                return false
+            }
+        }
         for (item in keyPhrases) {
             if (item.keyPhrase == keyPhrase.keyPhrase) {
                 item.keyPhrase = editedKeyPhrase
-                break
+                return true
             }
         }
-        return true
+        return false
     }
 
     /**
