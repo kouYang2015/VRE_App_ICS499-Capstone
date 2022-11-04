@@ -127,7 +127,6 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
             ).show()
             openPopUp(textViewSelected, "add")
         }
-
     }
 
     override fun editKeyPhrase(keyphraseString: String) {
