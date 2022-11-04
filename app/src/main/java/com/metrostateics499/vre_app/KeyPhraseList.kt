@@ -1,16 +1,6 @@
 package com.metrostateics499.vre_app
 
-import java.util.*
-
-class KeyPhraseList
-/**
- * Singleton
- * Key phrase list
- *
- * @constructor Create empty Key phrase list
- */
-private constructor() {
-    var keyPhrases: MutableList<KeyPhrase> = LinkedList()
+data class KeyPhraseList(var keyPhrases: MutableList<KeyPhrase>) {
 
     /**
      * Add key phrase
@@ -83,20 +73,21 @@ private constructor() {
     }
 
     /**
+     * Leaving this in here because I'm not sure if it's needed
      * Companion
      * Instantiates the KeyPhraseList if it doesn't exist and returns the list
      *
      * @constructor Create empty Companion
      * @return keyPhraseList
      */
-    companion object {
-        private var keyPhraseList: KeyPhraseList? = null
-        val instance: KeyPhraseList?
-            get() {
-                if (keyPhraseList == null) {
-                    keyPhraseList = KeyPhraseList()
-                }
-                return keyPhraseList
-            }
-    }
+//    companion object {
+//        private var keyPhraseList: KeyPhraseList? = null
+//        val instance: KeyPhraseList?
+//            get() {
+//                if (keyPhraseList == null) {
+//                    keyPhraseList = KeyPhraseList()
+//                }
+//                return keyPhraseList
+//            }
+//    }
 }
