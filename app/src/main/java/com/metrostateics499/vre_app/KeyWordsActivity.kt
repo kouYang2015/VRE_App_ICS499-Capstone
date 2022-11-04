@@ -103,16 +103,16 @@ class KeyWordsActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
     }
 
     override fun addKeyPhrase(keyphraseString: String) {
-        if (keyphraseString.isEmpty()){
+        if (keyphraseString.isEmpty()) {
             Toast.makeText(
                 this@KeyWordsActivity,
                 "Please enter a key phrase",
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "add")
-        }
-        else if (keyphraseString.isNotEmpty() &&
-            Passing.keyPhraseList?.addKeyPhrase(KeyPhrase(keyphraseString)) == true) {
+        } else if (keyphraseString.isNotEmpty() &&
+            Passing.keyPhraseList?.addKeyPhrase(KeyPhrase(keyphraseString)) == true
+        ) {
             Toast.makeText(
                 this@KeyWordsActivity,
                 "New Key Phrase Successfully " +
@@ -131,7 +131,7 @@ class KeyWordsActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
     }
 
     override fun editKeyPhrase(keyphraseString: String) {
-        if (keyphraseString.isEmpty()){
+        if (keyphraseString.isEmpty()) {
             Toast.makeText(
                 this@KeyWordsActivity,
                 "Key phrase can't be empty",
