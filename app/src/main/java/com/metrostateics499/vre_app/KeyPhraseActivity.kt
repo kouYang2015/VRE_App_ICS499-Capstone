@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
  *
  * @constructor Create empty Key words activity
  */
-class KeyWordsActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
+class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
 
     private var buttonAdd: Button? = null
     private var buttonEdit: Button? = null
@@ -51,7 +51,7 @@ class KeyWordsActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
                     .abc_item_background_holo_light
             )
             Toast.makeText(
-                this@KeyWordsActivity,
+                this@KeyPhraseActivity,
                 "You have selected " +
                     parent.getItemAtPosition(position),
                 Toast.LENGTH_SHORT
@@ -80,7 +80,7 @@ class KeyWordsActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
             openPopUp(textViewSelected, "delete")
         } else {
             Toast.makeText(
-                this@KeyWordsActivity, "You must select a key phrase first",
+                this@KeyPhraseActivity, "You must select a key phrase first",
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -91,7 +91,7 @@ class KeyWordsActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
             openPopUp(textViewSelected, "edit")
         } else {
             Toast.makeText(
-                this@KeyWordsActivity, "You must select a key phrase first",
+                this@KeyPhraseActivity, "You must select a key phrase first",
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -105,7 +105,7 @@ class KeyWordsActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
     override fun addKeyPhrase(keyphraseString: String) {
         if (keyphraseString.isEmpty()) {
             Toast.makeText(
-                this@KeyWordsActivity,
+                this@KeyPhraseActivity,
                 "Please enter a key phrase",
                 Toast.LENGTH_SHORT
             ).show()
@@ -114,14 +114,14 @@ class KeyWordsActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
             Passing.keyPhraseList?.addKeyPhrase(KeyPhrase(keyphraseString)) == true
         ) {
             Toast.makeText(
-                this@KeyWordsActivity,
+                this@KeyPhraseActivity,
                 "New Key Phrase Successfully " +
                     "Added",
                 Toast.LENGTH_SHORT
             ).show()
         } else {
             Toast.makeText(
-                this@KeyWordsActivity,
+                this@KeyPhraseActivity,
                 "That Key Phrase already exists. Try something else or click cancel",
                 Toast.LENGTH_SHORT
             ).show()
@@ -133,14 +133,14 @@ class KeyWordsActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
     override fun editKeyPhrase(keyphraseString: String) {
         if (keyphraseString.isEmpty()) {
             Toast.makeText(
-                this@KeyWordsActivity,
+                this@KeyPhraseActivity,
                 "Key phrase can't be empty",
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "edit")
         } else if (keyphraseString == textViewSelected) {
             Toast.makeText(
-                this@KeyWordsActivity, "Make a change or click cancel",
+                this@KeyPhraseActivity, "Make a change or click cancel",
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "edit")
@@ -150,13 +150,13 @@ class KeyWordsActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
             ) == true
         ) {
             Toast.makeText(
-                this@KeyWordsActivity, "Successfully Edited",
+                this@KeyPhraseActivity, "Successfully Edited",
                 Toast.LENGTH_SHORT
             ).show()
             refreshList()
         } else {
             Toast.makeText(
-                this@KeyWordsActivity,
+                this@KeyPhraseActivity,
                 "That Key Phrase already exists. " +
                     "Try something else or click cancel.",
                 Toast.LENGTH_SHORT
@@ -169,7 +169,7 @@ class KeyWordsActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
         if (textViewSelected?.isNotEmpty() == true) {
             Passing.keyPhraseList?.deleteKeyPhrase(KeyPhrase(textViewSelected))
             Toast.makeText(
-                this@KeyWordsActivity,
+                this@KeyPhraseActivity,
                 "You have deleted phrase: " +
                     textViewSelected,
                 Toast.LENGTH_SHORT
