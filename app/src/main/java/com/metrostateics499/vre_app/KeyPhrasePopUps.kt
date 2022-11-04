@@ -9,8 +9,10 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDialogFragment
 
-class KeyPhrasePopUps(private val textViewSelected: String,
-                      private val buttonType: String) : AppCompatDialogFragment() {
+class KeyPhrasePopUps(
+    private val textViewSelected: String,
+    private val buttonType: String
+) : AppCompatDialogFragment() {
 
     private var editTextKeyphrase: EditText? = null
     private var listener: Listener? = null

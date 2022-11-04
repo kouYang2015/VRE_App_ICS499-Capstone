@@ -109,8 +109,8 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "add")
-        } else if (keyphraseString.isNotEmpty()
-            && Passing.keyPhraseList.addKeyPhrase(KeyPhrase(keyphraseString))
+        } else if (keyphraseString.isNotEmpty() &&
+            Passing.keyPhraseList.addKeyPhrase(KeyPhrase(keyphraseString))
         ) {
             Toast.makeText(
                 this@KeyPhraseActivity,
