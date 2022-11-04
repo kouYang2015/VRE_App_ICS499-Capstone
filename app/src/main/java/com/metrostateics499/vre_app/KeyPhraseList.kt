@@ -38,22 +38,23 @@ private constructor() {
      * @return
      */
     fun editKeyPhrase(keyPhrase: KeyPhrase, editedKeyPhrase: String): Boolean {
-        if(keyPhrase.toString() == editedKeyPhrase){
+        var targetKeyPhrase: KeyPhrase? = null
+        if (keyPhrase.toString() == editedKeyPhrase) {
             return false
         }
         for (item in keyPhrases) {
-
+            if (item.keyPhrase == keyPhrase.keyPhrase)
+                targetKeyPhrase = item
             if (item.keyPhrase == editedKeyPhrase) {
                 return false
             }
         }
-        for (item in keyPhrases) {
-            if (item.keyPhrase == keyPhrase.keyPhrase) {
-                item.keyPhrase = editedKeyPhrase
-                return true
-            }
+        return if (targetKeyPhrase != null) {
+            targetKeyPhrase.keyPhrase = editedKeyPhrase
+            true
+        } else {
+            false
         }
-        return false
     }
 
     /**

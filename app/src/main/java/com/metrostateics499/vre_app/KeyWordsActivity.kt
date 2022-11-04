@@ -75,9 +75,6 @@ class KeyWordsActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
         refreshList()
     }
 
-
-
-
     private fun checkSelectForDeleteKeyPhrasePopUp() {
         if (textViewSelectedBoolean) {
             openPopUp(textViewSelected, "delete")
@@ -110,10 +107,9 @@ class KeyWordsActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
             Toast.makeText(
                 this@KeyWordsActivity,
                 "New Key Phrase Successfully " +
-                        "Added",
+                    "Added",
                 Toast.LENGTH_SHORT
             ).show()
-
         } else {
             Toast.makeText(
                 this@KeyWordsActivity,
@@ -132,9 +128,11 @@ class KeyWordsActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "edit")
-        }
-        else if (Passing.keyPhraseList?.editKeyPhrase(KeyPhrase(textViewSelected),
-                keyphraseString) == true) {
+        } else if (Passing.keyPhraseList?.editKeyPhrase(
+                KeyPhrase(textViewSelected),
+                keyphraseString
+            ) == true
+        ) {
             Toast.makeText(
                 this@KeyWordsActivity, "Successfully Edited",
                 Toast.LENGTH_SHORT
@@ -143,8 +141,9 @@ class KeyWordsActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
         } else {
 
             Toast.makeText(
-                this@KeyWordsActivity, "That Key Phrase already exists. " +
-                        "Try something else or click cancel.",
+                this@KeyWordsActivity,
+                "That Key Phrase already exists. " +
+                    "Try something else or click cancel.",
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "edit")
@@ -157,7 +156,7 @@ class KeyWordsActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
             Toast.makeText(
                 this@KeyWordsActivity,
                 "You have deleted phrase: " +
-                        textViewSelected,
+                    textViewSelected,
                 Toast.LENGTH_SHORT
             ).show()
             refreshList()

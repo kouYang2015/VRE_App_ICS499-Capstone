@@ -19,7 +19,6 @@ class KeyPhrasePopUps(textViewSelected: String, buttonType: String) : AppCompatD
         val builder = AlertDialog.Builder(activity)
         val inflater = requireActivity().layoutInflater
 
-
         when (buttonType) {
             "edit" -> {
                 val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
@@ -33,8 +32,7 @@ class KeyPhrasePopUps(textViewSelected: String, buttonType: String) : AppCompatD
                         listener!!.editKeyPhrase(keyphraseString)
                     }
                 editTextKeyphrase = view.findViewById(R.id.edit_keyphrase)
-    //            return builder.create()
-
+                //            return builder.create()
             }
             "add" -> {
                 val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
@@ -46,8 +44,7 @@ class KeyPhrasePopUps(textViewSelected: String, buttonType: String) : AppCompatD
                         listener!!.addKeyPhrase(keyphraseString)
                     }
                 editTextKeyphrase = view.findViewById(R.id.edit_keyphrase)
-    //            return builder.create()
-
+                //            return builder.create()
             }
             "delete" -> {
                 val view = inflater.inflate(R.layout.layout_delete_popup, null)
@@ -59,21 +56,19 @@ class KeyPhrasePopUps(textViewSelected: String, buttonType: String) : AppCompatD
                     .setPositiveButton("ok") { dialogInterface, i ->
                         listener!!.deleteKeyPhrase(textViewSelected)
                     }
-
             }
         }
         return builder.create()
     }
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         listener = try {
             context as Listener
         } catch (e: ClassCastException) {
-          throw ClassCastException(
+            throw ClassCastException(
                 context.toString() +
-                        "must implement ExampleDialogListener"
+                    "must implement ExampleDialogListener"
             )
         }
     }
