@@ -4,11 +4,12 @@ import java.util.*
 
 // Tried to save username and password (First Time login-in)
 object Passing {
-    var newKeyPhraseList: MutableList<KeyPhrase> = LinkedList()
     var username: String = ""
     var password: String = ""
-    var keyPhraseList = KeyPhraseList(newKeyPhraseList)
     var email: String = ""
+
+    private var newKeyPhraseList: MutableList<KeyPhrase> = LinkedList()
+    var keyPhraseList = KeyPhraseList(newKeyPhraseList)
 
     @JvmName("setUsername1")
     fun setUsername(username: String) {
@@ -32,6 +33,6 @@ object Passing {
      */
     @JvmName("createKeyPhraseList")
     fun addKeyPhrase(keyPhrase: KeyPhrase) {
-        keyPhraseList?.addKeyPhrase(keyPhrase)
+        keyPhraseList.addKeyPhrase(keyPhrase)
     }
 }

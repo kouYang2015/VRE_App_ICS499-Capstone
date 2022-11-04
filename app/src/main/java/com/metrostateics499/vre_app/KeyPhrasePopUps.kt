@@ -1,5 +1,6 @@
 package com.metrostateics499.vre_app
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
@@ -8,13 +9,13 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDialogFragment
 
-class KeyPhrasePopUps(textViewSelected: String, buttonType: String) : AppCompatDialogFragment() {
-    private val textViewSelected = textViewSelected
-    private val buttonType = buttonType
+class KeyPhrasePopUps(private val textViewSelected: String,
+                      private val buttonType: String) : AppCompatDialogFragment() {
 
     private var editTextKeyphrase: EditText? = null
     private var listener: Listener? = null
 
+    @SuppressLint("CutPasteId")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity)
         val inflater = requireActivity().layoutInflater
@@ -22,7 +23,7 @@ class KeyPhrasePopUps(textViewSelected: String, buttonType: String) : AppCompatD
         when (buttonType) {
             "edit" -> {
                 val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
-                var textView: TextView = view.findViewById(R.id.edit_keyphrase)
+                val textView: TextView = view.findViewById(R.id.edit_keyphrase)
                 textView.text = textViewSelected
                 builder.setView(view)
                     .setTitle("Edit Key Phrase")
@@ -48,7 +49,7 @@ class KeyPhrasePopUps(textViewSelected: String, buttonType: String) : AppCompatD
             }
             "delete" -> {
                 val view = inflater.inflate(R.layout.layout_delete_popup, null)
-                var textView: TextView = view.findViewById(R.id.text_keyphrase_delete)
+                val textView: TextView = view.findViewById(R.id.text_keyphrase_delete)
                 textView.text = textViewSelected
                 builder.setView(view)
                     .setTitle("Are you sure you want to delete this key phrase?")
