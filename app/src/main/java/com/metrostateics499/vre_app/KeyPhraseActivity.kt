@@ -118,6 +118,7 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
                     "Added",
                 Toast.LENGTH_SHORT
             ).show()
+            refreshList()
         } else {
             Toast.makeText(
                 this@KeyPhraseActivity,
@@ -126,7 +127,7 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
             ).show()
             openPopUp(textViewSelected, "add")
         }
-        refreshList()
+
     }
 
     override fun editKeyPhrase(keyphraseString: String) {
