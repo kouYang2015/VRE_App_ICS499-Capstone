@@ -1,16 +1,6 @@
 package com.metrostateics499.vre_app
 
-import java.util.*
-
-class KeyPhraseList
-/**
- * Singleton
- * Key phrase list
- *
- * @constructor Create empty Key phrase list
- */
-private constructor() {
-    var keyPhrases: MutableList<KeyPhrase> = LinkedList()
+data class KeyPhraseList(var keyPhrases: MutableList<KeyPhrase>) {
 
     /**
      * Add key phrase
@@ -38,13 +28,23 @@ private constructor() {
      * @return
      */
     fun editKeyPhrase(keyPhrase: KeyPhrase, editedKeyPhrase: String): Boolean {
+        var targetKeyPhrase: KeyPhrase? = null
+        if (keyPhrase.toString() == editedKeyPhrase) {
+            return false
+        }
         for (item in keyPhrases) {
-            if (item.keyPhrase == keyPhrase.keyPhrase) {
-                item.keyPhrase = editedKeyPhrase
-                break
+            if (item.keyPhrase == keyPhrase.keyPhrase)
+                targetKeyPhrase = item
+            if (item.keyPhrase == editedKeyPhrase) {
+                return false
             }
         }
-        return true
+        return if (targetKeyPhrase != null) {
+            targetKeyPhrase.keyPhrase = editedKeyPhrase
+            true
+        } else {
+            false
+        }
     }
 
     /**
@@ -73,20 +73,21 @@ private constructor() {
     }
 
     /**
+     * Leaving this in here because I'm not sure if it's needed
      * Companion
      * Instantiates the KeyPhraseList if it doesn't exist and returns the list
      *
      * @constructor Create empty Companion
      * @return keyPhraseList
      */
-    companion object {
-        private var keyPhraseList: KeyPhraseList? = null
-        val instance: KeyPhraseList?
-            get() {
-                if (keyPhraseList == null) {
-                    keyPhraseList = KeyPhraseList()
-                }
-                return keyPhraseList
-            }
-    }
+//    companion object {
+//        private var keyPhraseList: KeyPhraseList? = null
+//        val instance: KeyPhraseList?
+//            get() {
+//                if (keyPhraseList == null) {
+//                    keyPhraseList = KeyPhraseList()
+//                }
+//                return keyPhraseList
+//            }
+//    }
 }

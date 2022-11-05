@@ -21,7 +21,7 @@ class Menu : AppCompatActivity() {
         val goToKeyPhraseMenu = findViewById<Button>(R.id.customKeyWords)
 
         goToKeyPhraseMenu.setOnClickListener {
-            val intent = Intent(this, KeyWordsActivity::class.java)
+            val intent = Intent(this, KeyPhraseActivity::class.java)
             // start your next activity
             startActivity(intent)
         }
