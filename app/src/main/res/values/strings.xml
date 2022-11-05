@@ -29,18 +29,11 @@
     <string name="coming_soon_text">Coming Soon</string>
     <string name="onSpeech">Turn On</string>
     <string name="offSpeech">Turn Off</string>
-    <string name="first_name">First Name</string>
-    <string name="last_name">Last Name</string>
-    <string name="phone_number">Phone Number</string>
-    <string name="btnsave">Save</string>
-    <string name="add_new_contacts">Add New Contacts</string>
-    <string name="btn_new">New</string>
-    <string name="btn_delete">Delete</string>
-    <string name="load">Load</string>
+    <string name="phone_numbers">Phone Number</string>
     <string name="btnadd">Add</string>
-    <string name="textUserview">TextView</string>
-    <string name="textPhoneview">TextView</string>
-    <string name="back">Back</string>
-    <string name="phone_message">TODO</string>
-    <string name="phone_call">phone_call</string>
+    <string name="btndelete">Delete</string>
+    <string name="textview_fullName">TextView</string>
+    <string name="textview_PhoneNumber">TextView</string>
+
+
 </resources>

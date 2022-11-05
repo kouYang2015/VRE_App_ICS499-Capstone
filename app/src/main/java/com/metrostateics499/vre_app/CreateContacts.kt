@@ -42,10 +42,10 @@ class CreateContacts : AppCompatActivity() {
 
         btnNewAccount.setOnClickListener {
             if (fullName.text.toString().isNotEmpty() && phoneNum.text.toString().isNotEmpty()) {
-                if (fullName.length() in 6..36 ) {
-                     if (phoneNum.length() in 3..10) {
-                         // Add Info to the View List
-                         var contact = Contacts(fullName.text.toString(), phoneNum.text.toString())
+                if (fullName.length() in 2..36) {
+                    if (phoneNum.length() in 3..10) {
+                        // Add Info to the View List
+                        var contact = Contacts(fullName.text.toString(), phoneNum.text.toString())
                         listOfContact.add(contact)
                         listNames.add(contact.names)
                         saveData()
@@ -58,10 +58,10 @@ class CreateContacts : AppCompatActivity() {
                     } else {
                         phoneNum.setError("Phone Name must be between 3 to 10 character long")
                     }
-                }else{
+                } else {
                     fullName.setError("Full Name must be between 6 to 36 character long")
                 }
-            }else{
+            } else {
                 Toast.makeText(this, "Need Information", Toast.LENGTH_SHORT).show()
             }
         }
@@ -104,6 +104,4 @@ class CreateContacts : AppCompatActivity() {
 
         sharedPref.getString("Name", "Phone")?.let { Log.d("Debug", it) }
     }
-
-
 }

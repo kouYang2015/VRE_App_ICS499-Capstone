@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
-
 /**
  * List of contacts
  *
@@ -12,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
  */
 class ListOfContacts : AppCompatActivity() {
 
-    private lateinit var  textName: TextView
-    private lateinit var  textPhone: TextView
+    private lateinit var textName: TextView
+    private lateinit var textPhone: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +24,5 @@ class ListOfContacts : AppCompatActivity() {
         val contact = intent.getSerializableExtra("key") as Contacts
         textName.text = contact.names
         textPhone.text = contact.phone
-
     }
 }
