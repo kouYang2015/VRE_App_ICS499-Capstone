@@ -42,22 +42,29 @@ class CreateContacts : AppCompatActivity() {
 
         btnNewAccount.setOnClickListener {
             if (fullName.text.toString().isNotEmpty() && phoneNum.text.toString().isNotEmpty()) {
-                // Add Info to the View List
-                var contact = Contacts(fullName.text.toString(), phoneNum.text.toString())
-                listOfContact.add(contact)
-                listNames.add(contact.names)
-                saveData()
-                createAdapter.notifyDataSetChanged()
-                Toast.makeText(this, "Contact Added", Toast.LENGTH_SHORT).show()
+                if (fullName.length() in 6..36 ) {
+                     if (phoneNum.length() in 3..10) {
+                         // Add Info to the View List
+                         var contact = Contacts(fullName.text.toString(), phoneNum.text.toString())
+                        listOfContact.add(contact)
+                        listNames.add(contact.names)
+                        saveData()
+                        createAdapter.notifyDataSetChanged()
+                        Toast.makeText(this, "Contact Added", Toast.LENGTH_SHORT).show()
 
-                // Clear the inputs
-                fullName.text.clear()
-                phoneNum.text.clear()
-            } else {
+                        // Clear the inputs
+                        fullName.text.clear()
+                        phoneNum.text.clear()
+                    } else {
+                        phoneNum.setError("Phone Name must be between 3 to 10 character long")
+                    }
+                }else{
+                    fullName.setError("Full Name must be between 6 to 36 character long")
+                }
+            }else{
                 Toast.makeText(this, "Need Information", Toast.LENGTH_SHORT).show()
             }
         }
-
         // Adding the toast message to the list when an item on the list is pressed
         listContact.setOnItemClickListener { adapterView, view, i, l ->
             Toast.makeText(this, "You Selected " + listNames.get(i), Toast.LENGTH_SHORT).show()
@@ -97,4 +104,6 @@ class CreateContacts : AppCompatActivity() {
 
         sharedPref.getString("Name", "Phone")?.let { Log.d("Debug", it) }
     }
+
+
 }
