@@ -27,8 +27,10 @@ data class CustomTextMessageList(var customTextMessages: MutableList<CustomTextM
      * @param editedKeyPhrase
      * @return
      */
-    fun editCustomTextMessage(customTextMessage: CustomTextMessage,
-                              editedCustomTextMessage: String): Boolean {
+    fun editCustomTextMessage(
+        customTextMessage: CustomTextMessage,
+        editedCustomTextMessage: String
+    ): Boolean {
         var targetCustomTextMessage: CustomTextMessage? = null
         if (customTextMessage.toString() == editedCustomTextMessage) {
             return false

@@ -138,11 +138,11 @@ class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "edit")
-        } else if (customTextString.isNotEmpty()
-            && Passing.customTextMessageList.editCustomTextMessage(
-                CustomTextMessage(textViewSelected),
-                customTextString
-            )
+        } else if (customTextString.isNotEmpty() &&
+            Passing.customTextMessageList.editCustomTextMessage(
+                    CustomTextMessage(textViewSelected),
+                    customTextString
+                )
         ) {
             Toast.makeText(
                 this@CustomTextActivity, "Successfully Edited",
@@ -163,7 +163,8 @@ class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
     override fun deleteCustomTextMessage(customTextString: String) {
         if (textViewSelected.isNotEmpty()) {
             Passing.customTextMessageList.deleteCustomTextMessage(
-                CustomTextMessage(textViewSelected))
+                CustomTextMessage(textViewSelected)
+            )
             Toast.makeText(
                 this@CustomTextActivity,
                 "You have deleted custom text message: " +
