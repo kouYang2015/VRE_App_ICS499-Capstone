@@ -1,11 +1,15 @@
 package com.metrostateics499.vre_app
 
+import java.util.*
+
 // Tried to save username and password (First Time login-in)
 object Passing {
     var username: String = ""
     var password: String = ""
-    var keyPhraseList = KeyPhraseList.instance
     var email: String = ""
+
+    private var newKeyPhraseList: MutableList<KeyPhrase> = LinkedList()
+    var keyPhraseList = KeyPhraseList(newKeyPhraseList)
 
     @JvmName("setUsername1")
     fun setUsername(username: String) {
@@ -29,6 +33,6 @@ object Passing {
      */
     @JvmName("createKeyPhraseList")
     fun addKeyPhrase(keyPhrase: KeyPhrase) {
-        keyPhraseList?.addKeyPhrase(keyPhrase)
+        keyPhraseList.addKeyPhrase(keyPhrase)
     }
 }
