@@ -34,7 +34,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".KeyWordsPhraseActivity"
+            android:name=".KeyPhraseActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

@@ -23,7 +23,7 @@ class Menu : AppCompatActivity() {
         }
         keyPhraseButton = findViewById(R.id.customKeyWords)
         keyPhraseButton.setOnClickListener {
-            val intent = Intent(this,KeyPhraseActivity::class.java)
+            val intent = Intent(this, KeyPhraseActivity::class.java)
             // start your next activity
             startActivity(intent)
         }
@@ -33,8 +33,5 @@ class Menu : AppCompatActivity() {
             val intent = Intent(this, CreateContacts::class.java)
             startActivity(intent)
         }
-
-
-
     }
 }
