@@ -81,28 +81,33 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.255" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/btnCall"
-        android:layout_width="89dp"
-        android:layout_height="56dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.166"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.518"
-        app:srcCompat="@drawable/ic_baseline_call" />
-
-    <ImageView
-        android:id="@+id/btnText"
-        android:layout_width="85dp"
+        android:layout_width="66dp"
         android:layout_height="59dp"
+        android:layout_marginStart="92dp"
+        android:background="@drawable/myshape"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_baseline_call"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.771"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.525"
-        app:srcCompat="@drawable/ic_baseline_message" />
+        app:layout_constraintVertical_bias="0.515"
+        tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck,DuplicateSpeakableTextCheck" />
+
+    <ImageButton
+        android:id="@+id/btnMessage"
+        android:layout_width="57dp"
+        android:layout_height="59dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginStart="260dp"
+        android:background="@drawable/myshape"
+        android:src="@drawable/ic_baseline_message"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.51"
+        tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck"
+        android:contentDescription="TODO" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

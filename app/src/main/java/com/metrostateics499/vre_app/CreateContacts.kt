@@ -59,7 +59,7 @@ class CreateContacts : AppCompatActivity() {
                         phoneNum.setError("Phone Name must be between 3 to 10 character long")
                     }
                 } else {
-                    fullName.setError("Full Name must be between 6 to 36 character long")
+                    fullName.setError("Full Name must be between 2 to 36 character long")
                 }
             } else {
                 Toast.makeText(this, "Need Information", Toast.LENGTH_SHORT).show()
