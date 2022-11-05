@@ -26,17 +26,14 @@ class ListOfContacts : AppCompatActivity() {
         textName = findViewById(R.id.textName)
         textPhone = findViewById(R.id.textPhone)
 
-
         val contact = intent.getSerializableExtra("key") as Contacts
         textName.text = contact.names
         textPhone.text = contact.phone
 
         callBtn.setOnClickListener {
-
         }
 
         messageBtn.setOnClickListener {
-
         }
     }
 }
