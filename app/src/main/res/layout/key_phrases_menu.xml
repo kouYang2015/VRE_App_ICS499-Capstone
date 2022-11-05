@@ -15,36 +15,24 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/refreshKP"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:onClick="goToKeyPhraseMenu"
-        android:text="Refresh"
-        app:layout_constraintBottom_toTopOf="@+id/listViewPhrases"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.827" />
-
-    <Button
         android:id="@+id/addKeyPhrase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="160dp"
         android:onClick="goToAddKeyPhraseMenu"
         android:text="Add"
         app:layout_constraintBottom_toTopOf="@+id/listViewPhrases"
         app:layout_constraintEnd_toStartOf="@+id/deleteKeyPhrase"
-        app:layout_constraintHorizontal_bias="0.445"
-        app:layout_constraintStart_toEndOf="@+id/refreshKP"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.827" />
+        app:layout_constraintVertical_bias="0.825" />
 
     <Button
         android:id="@+id/deleteKeyPhrase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
-        android:onClick="deleteKeyPhrase"
+        android:onClick="goToDeleteKeyPhraseConfirmation"
         android:text="Delete"
         app:layout_constraintBottom_toTopOf="@+id/listViewPhrases"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,4 +49,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/editKeyPhrase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="goToEditKeyPhraseMenu"
+        android:text="EDIT"
+        app:layout_constraintBottom_toTopOf="@+id/listViewPhrases"
+        app:layout_constraintEnd_toStartOf="@+id/deleteKeyPhrase"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toEndOf="@+id/addKeyPhrase"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.568" />
 </androidx.constraintlayout.widget.ConstraintLayout>
