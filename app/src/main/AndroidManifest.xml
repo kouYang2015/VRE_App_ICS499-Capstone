@@ -18,6 +18,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VRE_App"
         tools:targetApi="31">
+
+        <activity
+            android:name=".KeyPhraseActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+
         <activity
             android:name=".ListOfContacts"
             android:exported="false">
@@ -28,13 +38,6 @@
 
         <activity
             android:name=".CreateContacts"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".KeyWordsActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

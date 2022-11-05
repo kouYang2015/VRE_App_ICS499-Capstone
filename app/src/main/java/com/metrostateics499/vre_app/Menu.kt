@@ -8,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 class Menu : AppCompatActivity() {
 
     private lateinit var speechButton: Button
+    private lateinit var keyPhraseButton: Button
+    private lateinit var contactButton: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // This is to hide the action bar
@@ -18,18 +21,20 @@ class Menu : AppCompatActivity() {
         speechButton?.setOnClickListener() {
             startActivity(Intent(this, ListenSpeechActivity::class.java))
         }
-        val goToKeyPhraseMenu = findViewById<Button>(R.id.customKeyWords)
-
-        goToKeyPhraseMenu.setOnClickListener {
-            val intent = Intent(this, KeyPhraseActivity::class.java)
+        keyPhraseButton = findViewById(R.id.customKeyWords)
+        keyPhraseButton.setOnClickListener {
+            val intent = Intent(this,KeyPhraseActivity::class.java)
             // start your next activity
             startActivity(intent)
         }
 
-        val goToCreateContactList = findViewById<Button>(R.id.contactList)
-        goToCreateContactList.setOnClickListener {
+        contactButton = findViewById(R.id.contactList)
+        contactButton.setOnClickListener {
             val intent = Intent(this, CreateContacts::class.java)
             startActivity(intent)
         }
+
+
+
     }
 }
