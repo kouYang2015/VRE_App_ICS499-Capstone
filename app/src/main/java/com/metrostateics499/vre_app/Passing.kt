@@ -10,7 +10,7 @@ object Passing {
 
     private var newKeyPhraseList: MutableList<KeyPhrase> = LinkedList()
     var keyPhraseList = KeyPhraseList(newKeyPhraseList)
-
+    
     private var newCustomTextMessageListList: MutableList<CustomTextMessage> = LinkedList()
     var customTextMessageList = CustomTextMessageList(newCustomTextMessageListList)
 
