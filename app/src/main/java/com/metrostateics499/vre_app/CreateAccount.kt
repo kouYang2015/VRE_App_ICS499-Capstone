@@ -9,6 +9,11 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
+/**
+ * Create an account
+ *
+ * @constructor Create empty Create account
+ */
 class CreateAccount : AppCompatActivity() {
     private lateinit var btnCreateAccount: Button
     private lateinit var userName: EditText

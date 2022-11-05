@@ -7,6 +7,11 @@ import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
+/**
+ * Create contacts
+ *
+ * @constructor Create empty Create contacts
+ */
 class CreateContacts : AppCompatActivity() {
     private lateinit var btnNewAccount: Button
     private lateinit var fullName: EditText
