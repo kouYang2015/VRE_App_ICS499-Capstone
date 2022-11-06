@@ -23,38 +23,36 @@
 
     <ListView
         android:id="@+id/contactList"
-        android:layout_width="394dp"
-        android:layout_height="243dp"
+        android:layout_width="271dp"
+        android:layout_height="177dp"
+        android:choiceMode="singleChoice"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textCreateContact"
-        app:layout_constraintVertical_bias="0.041" />
+        app:layout_constraintVertical_bias="0.108" />
 
     <Button
         android:id="@+id/btnDeleteContact"
         android:layout_width="105dp"
         android:layout_height="49dp"
+        android:layout_marginStart="288dp"
         android:text="@string/btndelete"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.852"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.297" />
+        app:layout_constraintVertical_bias="0.3" />
 
     <Button
         android:id="@+id/btnAddContact"
         android:layout_width="109dp"
         android:layout_height="48dp"
+        android:layout_marginStart="24dp"
         android:text="@string/btnadd"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.149"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.298" />
+        app:layout_constraintVertical_bias="0.3" />
 
     <EditText
         android:id="@+id/editTextPersonName"
@@ -90,8 +88,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="391dp"
-        android:layout_height="107dp"
+        android:layout_width="385dp"
+        android:layout_height="83dp"
         android:background="#185CA5"
         android:backgroundTint="#003445DA"
         android:clickable="false"
@@ -102,5 +100,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.974"
         app:srcCompat="@drawable/mavricks" />
+
+    <Button
+        android:id="@+id/editButton"
+        android:layout_width="110dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="156dp"
+        android:text="@string/btnedit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
