@@ -8,8 +8,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.metrostateics499.vre_app.model.Passing
 
-class CreateAccount : AppCompatActivity() {
+class CreateAccountActivity : AppCompatActivity() {
     private lateinit var btnCreateAccount: Button
     private lateinit var userName: EditText
     private lateinit var fullName: EditText
@@ -36,16 +37,16 @@ class CreateAccount : AppCompatActivity() {
 
     private fun validateEmptyForm() {
         if (fullName.text.toString().isNotEmpty() && userName.text.toString()
-            .isNotEmpty() && email.text.toString().isNotEmpty() && password.text.toString()
-                .isNotEmpty() && confirmPassword.text.toString().isNotEmpty()
+                    .isNotEmpty() && email.text.toString().isNotEmpty() && password.text.toString()
+                    .isNotEmpty() && confirmPassword.text.toString().isNotEmpty()
         ) {
             // Need a valid Email to work (ex. abc123@gmail.net)
             if (email.length() in 6..319 && email.text.toString()
-                .matches(Regex("[a-zA-Z0-9._]+@[a-z].+[a-z]"))
+                        .matches(Regex("[a-zA-Z0-9._]+@[a-z].+[a-z]"))
             ) {
                 // Maximum length for the full name, username, password, email and confirm password
                 if (fullName.length() in 6..36 && userName.length() in 4..36 &&
-                    password.length() in 8..36 && confirmPassword.length() in 8..36
+                        password.length() in 8..36 && confirmPassword.length() in 8..36
                 ) {
                     if (password.text.toString() == confirmPassword.text.toString()) {
                         Toast.makeText(
@@ -64,7 +65,7 @@ class CreateAccount : AppCompatActivity() {
                         saveData()
 
                         // Goes to new Activity (Login Activity)
-                        val intent = Intent(this, Login::class.java)
+                        val intent = Intent(this, LoginActivity::class.java)
                         startActivity(intent)
 
                         // Clearing the info for next user
