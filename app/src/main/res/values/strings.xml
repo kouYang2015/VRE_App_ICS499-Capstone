@@ -34,6 +34,7 @@
     <string name="btndelete">Delete</string>
     <string name="textview_fullName">TextView</string>
     <string name="textview_PhoneNumber">TextView</string>
+    <string name="btnedit">Edit</string>
 
 
 </resources>
