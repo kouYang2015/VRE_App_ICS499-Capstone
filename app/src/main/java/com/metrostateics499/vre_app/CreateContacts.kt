@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.util.SparseBooleanArray
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
@@ -13,11 +14,12 @@ import androidx.appcompat.app.AppCompatActivity
  * @constructor Create empty Create contacts
  */
 class CreateContacts : AppCompatActivity() {
-    private lateinit var btnNewAccount: Button
+    private lateinit var btnAddContact: Button
     private lateinit var fullName: EditText
     private lateinit var phoneNum: EditText
     private lateinit var listContact: ListView
     private lateinit var btnDelete: Button
+    private lateinit var btnEdit: Button
 
     // Create the ArrayList and ArrayAdapter
     private lateinit var listNames: ArrayList<String>
@@ -28,66 +30,46 @@ class CreateContacts : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_contacts)
 
-        btnNewAccount = findViewById(R.id.btnAddContact)
+        btnAddContact = findViewById(R.id.btnAddContact)
         fullName = findViewById(R.id.editTextPersonName)
         phoneNum = findViewById(R.id.editTextPhone)
         listContact = findViewById(R.id.contactList)
         btnDelete = findViewById(R.id.btnDeleteContact)
+        btnEdit = findViewById(R.id.editButton)
 
         listNames = ArrayList()
         listOfContact = ArrayList()
-        createAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listNames)
+        createAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, listNames)
 
         listContact.adapter = createAdapter
 
-        btnNewAccount.setOnClickListener {
-            if (fullName.text.toString().isNotEmpty() && phoneNum.text.toString().isNotEmpty()) {
-                if (fullName.length() in 2..36) {
-                    if (phoneNum.length() in 3..10) {
-                        // Add Info to the View List
-                        var contact = Contacts(fullName.text.toString(), phoneNum.text.toString())
-                        listOfContact.add(contact)
-                        listNames.add(contact.names)
-                        saveData()
-                        createAdapter.notifyDataSetChanged()
-                        Toast.makeText(this, "Contact Added", Toast.LENGTH_SHORT).show()
-
-                        // Clear the inputs
-                        fullName.text.clear()
-                        phoneNum.text.clear()
-                    } else {
-                        phoneNum.setError("Phone Name must be between 3 to 10 character long")
-                    }
-                } else {
-                    fullName.setError("Full Name must be between 2 to 36 character long")
-                }
-            } else {
-                Toast.makeText(this, "Need Information", Toast.LENGTH_SHORT).show()
-            }
+        btnAddContact.setOnClickListener {
+            addContacts()
+            createAdapter.notifyDataSetChanged()
         }
         // Adding the toast message to the list when an item on the list is pressed
         listContact.setOnItemClickListener { adapterView, view, i, l ->
             Toast.makeText(this, "You Selected " + listNames.get(i), Toast.LENGTH_SHORT).show()
-            // Delete contact list
-            btnDelete.setOnClickListener {
-                listNames.remove(listNames.get(i))
-                saveData()
-                createAdapter.notifyDataSetChanged()
-                Toast.makeText(this, "Contact Delete", Toast.LENGTH_SHORT).show()
-            }
+            createAdapter.notifyDataSetChanged()
+        }
+        // Delete contact list
+        btnDelete.setOnClickListener {
+            deleteContacts()
+        }
+
+        btnEdit.setOnClickListener {
+            editContacts()
+            createAdapter.notifyDataSetChanged()
         }
 
         listContact.setOnItemLongClickListener { adapterView, view, i, l ->
-            var contact = Contacts(fullName.text.toString(), phoneNum.text.toString())
-            listOfContact.add(contact)
-            listNames.add(contact.names)
-
-            var contactclick = listOfContact[i]
+            val contactclick = listOfContact[i]
+            createAdapter.notifyDataSetChanged()
             // Next Activity for User Info
-            var i = Intent(this, ListOfContacts::class.java)
+            val intent = Intent(this, ListOfContacts::class.java)
             saveData()
-            i.putExtra("key", contactclick)
-            startActivity(i)
+            intent.putExtra("key", contactclick)
+            startActivity(intent)
             return@setOnItemLongClickListener true
         }
     }
@@ -103,5 +85,49 @@ class CreateContacts : AppCompatActivity() {
         edit.apply()
 
         sharedPref.getString("Name", "Phone")?.let { Log.d("Debug", it) }
+    }
+
+    private fun addContacts() {
+        if (fullName.text.toString().isNotEmpty() && phoneNum.text.toString().isNotEmpty()) {
+            if (fullName.length() in 2..36) {
+                if (phoneNum.length() in 3..10) {
+                    // Add Info to the View List
+                    val contact = Contacts(fullName.text.toString(), phoneNum.text.toString())
+                    listOfContact.add(contact)
+                    listNames.add(contact.names)
+                    saveData()
+                    createAdapter.notifyDataSetChanged()
+                    Toast.makeText(this, "Contact Added", Toast.LENGTH_SHORT).show()
+
+                    // Clear the inputs
+                    fullName.text.clear()
+                    phoneNum.text.clear()
+                } else {
+                    phoneNum.setError("Phone Name must be between 3 to 10 character long")
+                }
+            } else {
+                fullName.setError("Full Name must be between 2 to 36 character long")
+            }
+        } else {
+            Toast.makeText(this, "Need Information", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun deleteContacts() {
+        val position: SparseBooleanArray = listContact.checkedItemPositions
+        val count = listContact.count
+        var item = count - 1
+        while (item >= 0) {
+            if (position.get(item)) {
+                createAdapter.remove(listNames.get(item))
+            }
+            item--
+        }
+        position.clear()
+        createAdapter.notifyDataSetChanged()
+        Toast.makeText(this, "Contact Delete", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun editContacts() {
     }
 }
