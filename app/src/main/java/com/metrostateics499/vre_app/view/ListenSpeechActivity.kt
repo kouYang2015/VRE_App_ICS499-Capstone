@@ -1,4 +1,4 @@
-package com.metrostateics499.vre_app
+package com.metrostateics499.vre_app.view
 
 import android.Manifest
 import android.app.AlertDialog
@@ -17,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.metrostateics499.vre_app.R
 import java.util.*
 
 class ListenSpeechActivity : AppCompatActivity() {
@@ -106,7 +107,7 @@ class ListenSpeechActivity : AppCompatActivity() {
     private fun checkAndRequestPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission
-                (
+                        (
                         this,
                         Manifest.permission.RECORD_AUDIO
                     ) != PackageManager.PERMISSION_GRANTED

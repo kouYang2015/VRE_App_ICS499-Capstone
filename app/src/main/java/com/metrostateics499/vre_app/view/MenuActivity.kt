@@ -1,9 +1,10 @@
-package com.metrostateics499.vre_app
+package com.metrostateics499.vre_app.view
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.metrostateics499.vre_app.R
 
 class MenuActivity : AppCompatActivity() {
 
