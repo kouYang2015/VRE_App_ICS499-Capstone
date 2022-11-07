@@ -31,7 +31,7 @@ class EditEmergencyMessagePopUps(
                 textView.text = title
 
                 builder.setView(view)
-                    .setTitle("Edit $title")
+                    .setTitle("Edit Title")
                     .setNegativeButton("cancel") { dialogInterface, i -> }
                     .setPositiveButton("save") { dialogInterface, i ->
                         val customTextString = editText!!.text.toString()
