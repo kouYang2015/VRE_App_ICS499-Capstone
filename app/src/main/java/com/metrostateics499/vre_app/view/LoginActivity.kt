@@ -1,4 +1,4 @@
-package com.metrostateics499.vre_app
+package com.metrostateics499.vre_app.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,8 +7,10 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.metrostateics499.vre_app.R
+import com.metrostateics499.vre_app.model.Passing
 
-class Login : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     private lateinit var loginButton: Button
     private lateinit var createAccountButton: Button
     private lateinit var forgotPasswordTextClickable: TextView
@@ -38,14 +40,14 @@ class Login : AppCompatActivity() {
         createAccountButton.setOnClickListener {
             Toast.makeText(this, "Create an Account", Toast.LENGTH_LONG).show()
 
-            val intent = Intent(this, CreateAccount::class.java)
+            val intent = Intent(this, CreateAccountActivity::class.java)
             startActivity(intent)
         }
 
         forgotPasswordTextClickable.setOnClickListener {
             Toast.makeText(this, "Forgot your password? ", Toast.LENGTH_LONG).show()
 
-            val intent = Intent(this, ForgotPassword::class.java)
+            val intent = Intent(this, ForgotPasswordActivity::class.java)
             startActivity(intent)
         }
     }
@@ -73,7 +75,7 @@ class Login : AppCompatActivity() {
         ) {
 
             Toast.makeText(this, "Successfully Logged In", Toast.LENGTH_LONG).show()
-            val intent = Intent(this, Menu::class.java)
+            val intent = Intent(this, MenuActivity::class.java)
             startActivity(intent)
         } else {
             Toast.makeText(

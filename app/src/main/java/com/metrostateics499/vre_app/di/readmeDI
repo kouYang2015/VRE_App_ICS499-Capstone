@@ -1,0 +1,2 @@
+Add hilt module class in here to be used to provide singleton instantiations of the database
+object across the application context for the whole application to use.

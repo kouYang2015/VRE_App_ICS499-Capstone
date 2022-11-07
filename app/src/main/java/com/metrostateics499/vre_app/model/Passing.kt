@@ -1,5 +1,7 @@
-package com.metrostateics499.vre_app
+package com.metrostateics499.vre_app.model
 
+import com.metrostateics499.vre_app.model.data.KeyPhrase
+import com.metrostateics499.vre_app.model.data.KeyPhraseList
 import java.util.*
 
 // Tried to save username and password (First Time login-in)
