@@ -12,7 +12,7 @@ data class EmergencyMessageSetup(
 
     fun getContactListNames(): String {
         var nameString = ""
-        for(item in selectedContactList)
+        for (item in selectedContactList)
             nameString += (item.name + ", ")
 
         return nameString
@@ -31,5 +31,4 @@ data class EmergencyMessageSetup(
         }
         return false
     }
-
 }

@@ -9,15 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
 import com.metrostateics499.vre_app.model.data.Contact
-import com.metrostateics499.vre_app.model.data.CustomTextMessage
-import com.metrostateics499.vre_app.model.data.EmergencyMessageSetup
-import com.metrostateics499.vre_app.model.data.KeyPhrase
 import com.metrostateics499.vre_app.view.adapters.ContactAdapter
-import com.metrostateics499.vre_app.view.adapters.EmergencyMessageSetupAdapter
 import kotlinx.android.synthetic.main.activity_contacts.*
 import kotlinx.android.synthetic.main.activity_emergency_message_setup_menu.*
 
-class ContactActivity: AppCompatActivity(), ContactPopUps.Listener {
+class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
     private var buttonAdd: Button? = null
     private var buttonEdit: Button? = null
     private var buttonDelete: Button? = null
@@ -26,7 +22,7 @@ class ContactActivity: AppCompatActivity(), ContactPopUps.Listener {
     private var viewSelectedBoolean: Boolean = false
     private var viewSelected: View? = null
 
-    val selectedContact : Contact = Contact("","")
+    val selectedContact: Contact = Contact("", "")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +51,6 @@ class ContactActivity: AppCompatActivity(), ContactPopUps.Listener {
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "edit")
-
         } else if (contactName.isEmpty() && contactPhone.isNotEmpty()) {
             Toast.makeText(
                 this@ContactActivity,
@@ -63,7 +58,6 @@ class ContactActivity: AppCompatActivity(), ContactPopUps.Listener {
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "edit")
-
         } else if (contactName.isNotEmpty() && contactPhone.isEmpty()) {
             Toast.makeText(
                 this@ContactActivity,
@@ -74,10 +68,10 @@ class ContactActivity: AppCompatActivity(), ContactPopUps.Listener {
         } else if (contactName.isNotEmpty() &&
             Passing.selectedContact?.let {
                 Passing.contactList.editContact(
-                    it,
-                    contactName,
-                    contactPhone
-                )
+                        it,
+                        contactName,
+                        contactPhone
+                    )
             } == true
         ) {
             Toast.makeText(
@@ -89,7 +83,7 @@ class ContactActivity: AppCompatActivity(), ContactPopUps.Listener {
             Toast.makeText(
                 this@ContactActivity,
                 "That Name already exists. " +
-                        "Try something else or click cancel.",
+                    "Try something else or click cancel.",
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "edit")
@@ -102,7 +96,7 @@ class ContactActivity: AppCompatActivity(), ContactPopUps.Listener {
             Toast.makeText(
                 this@ContactActivity,
                 "You have deleted contact: " +
-                        textViewSelected,
+                    textViewSelected,
                 Toast.LENGTH_SHORT
             ).show()
             refreshList()
@@ -117,15 +111,13 @@ class ContactActivity: AppCompatActivity(), ContactPopUps.Listener {
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "add")
-
         } else if (contactName.isEmpty() && contactPhone.isNotEmpty()) {
-                Toast.makeText(
-                    this@ContactActivity,
-                    "Please enter a name",
-                    Toast.LENGTH_SHORT
-                ).show()
-                openPopUp(textViewSelected, "add")
-
+            Toast.makeText(
+                this@ContactActivity,
+                "Please enter a name",
+                Toast.LENGTH_SHORT
+            ).show()
+            openPopUp(textViewSelected, "add")
         } else if (contactName.isNotEmpty() && contactPhone.isEmpty()) {
             Toast.makeText(
                 this@ContactActivity,
@@ -135,16 +127,16 @@ class ContactActivity: AppCompatActivity(), ContactPopUps.Listener {
             openPopUp(textViewSelected, "add")
         } else if (contactName.isNotEmpty() && contactPhone.isNotEmpty() &&
             Passing.contactList.addContact(
-                Contact(
-                    contactName,
-                    contactPhone
+                    Contact(
+                            contactName,
+                            contactPhone
+                        )
                 )
-            )
         ) {
             Toast.makeText(
                 this@ContactActivity,
                 "Contact Successfully " +
-                        "Added",
+                    "Added",
                 Toast.LENGTH_SHORT
             ).show()
             Passing.selectedContact =
@@ -218,5 +210,3 @@ class ContactActivity: AppCompatActivity(), ContactPopUps.Listener {
         }
     }
 }
-
-

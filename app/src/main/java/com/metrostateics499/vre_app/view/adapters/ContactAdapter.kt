@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
 import com.metrostateics499.vre_app.model.data.Contact
-import com.metrostateics499.vre_app.model.data.EmergencyMessageSetup
 import kotlinx.android.synthetic.main.row.view.*
 
 class ContactAdapter(
@@ -28,7 +27,7 @@ class ContactAdapter(
 
             itemView.title.text = contact.name
             itemView.description.text = contact.phoneNumber
-            if(Passing.selectedEmergencyMessageSetup?.findContact(contact.name) == true) {
+            if (Passing.selectedEmergencyMessageSetup?.findContact(contact.name) == true) {
                 itemView.switch2.isChecked = true
             }
         }
@@ -73,13 +72,13 @@ class ContactAdapter(
                     "You have added " + mutableList[position].name,
                     Toast.LENGTH_SHORT
                 ).show()
-            } else{Passing.selectedEmergencyMessageSetup?.removeContact(mutableList[position])
+            } else {
+                Passing.selectedEmergencyMessageSetup?.removeContact(mutableList[position])
                 Toast.makeText(
                     context,
                     "You have removed " + mutableList[position].name,
                     Toast.LENGTH_SHORT
                 ).show()
-
             }
         }
     }

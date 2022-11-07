@@ -2,7 +2,6 @@ package com.metrostateics499.vre_app.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -69,10 +68,9 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
 //            }
 //        }
     }
-fun goToContactsMenu() {
+    fun goToContactsMenu() {
         startActivity(Intent(this, ContactActivity::class.java))
-
-}
+    }
 
     private fun refreshRelativeLayout() {
         val textView: TextView = findViewById(R.id.text_view_em)
@@ -103,15 +101,15 @@ fun goToContactsMenu() {
         }
     }
     private fun refreshRelativeLayout4() {
-        if (Passing.selectedEmergencyMessageSetup?.selectedContactList?.
-                isNotEmpty() == true
+        if (Passing.selectedEmergencyMessageSetup?.selectedContactList
+            ?.isNotEmpty() == true
         ) {
             val textView4: TextView = findViewById(R.id.text_contact_list)
             textView4.text =
                 (
-                        Passing.selectedEmergencyMessageSetup?.getContactListNames()
-                        )
-       //     textView4.text = "test"
+                    Passing.selectedEmergencyMessageSetup?.getContactListNames()
+                    )
+            //     textView4.text = "test"
         }
     }
 
@@ -226,8 +224,6 @@ fun goToContactsMenu() {
             ).show()
             openPopUp("customTextMessage")
         }
-
-
     }
     override fun onPostResume() {
         super.onPostResume()

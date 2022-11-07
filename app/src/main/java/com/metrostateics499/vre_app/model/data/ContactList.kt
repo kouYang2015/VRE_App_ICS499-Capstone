@@ -3,7 +3,7 @@ package com.metrostateics499.vre_app.model.data
 data class ContactList(var contacts: MutableList<Contact>) {
     fun getContactListNames(): String {
         var nameString = ""
-        for(item in contacts)
+        for (item in contacts)
             nameString += item.name
 
         return nameString
@@ -52,7 +52,7 @@ data class ContactList(var contacts: MutableList<Contact>) {
     }
 
     fun deleteContact(selectedContact: Contact?, contactName: String): Boolean {
-        if (contacts.remove(findContact(contactName))){
+        if (contacts.remove(findContact(contactName))) {
             return true
         }
         return false
