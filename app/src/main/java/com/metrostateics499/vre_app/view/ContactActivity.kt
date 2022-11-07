@@ -12,6 +12,8 @@ import com.metrostateics499.vre_app.model.data.Contact
 import com.metrostateics499.vre_app.view.adapters.ContactAdapter
 import kotlinx.android.synthetic.main.activity_contacts.*
 import kotlinx.android.synthetic.main.activity_emergency_message_setup_menu.*
+import kotlinx.android.synthetic.main.activity_menu.*
+import kotlinx.android.synthetic.main.activity_menu.view.*
 
 class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
     private var buttonAdd: Button? = null
@@ -31,14 +33,6 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
         buttonAdd = findViewById<View>(R.id.buttonAdd) as Button
         buttonEdit = findViewById<View>(R.id.buttonEdit) as Button
         buttonDelete = findViewById<View>(R.id.buttonDelete) as Button
-
-        val contact1 = Contact("Jon Doe1", "651-333-6341")
-        val contact2 = Contact("Jon Doe2", "651-333-6342")
-        val contact3 = Contact("Jon Doe3", "651-333-6343")
-
-        Passing.contactList.addContact(contact1)
-        Passing.contactList.addContact(contact2)
-        Passing.contactList.addContact(contact3)
 
         refreshList()
     }
@@ -68,7 +62,7 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
         } else if (contactName.isNotEmpty() &&
             Passing.selectedContact?.let {
                 Passing.contactList.editContact(
-                        it,
+                    it,
                         contactName,
                         contactPhone
                     )
@@ -92,14 +86,29 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
 
     override fun deleteContact(contactName: String) {
         if (textViewSelected.isNotEmpty()) {
-            Passing.contactList.deleteContact(Passing.selectedContact, textViewSelected)
+            Passing.contactList.deleteContact(Passing.selectedContact)
             Toast.makeText(
                 this@ContactActivity,
                 "You have deleted contact: " +
                     textViewSelected,
                 Toast.LENGTH_SHORT
             ).show()
-            refreshList()
+            for(item in Passing.emergencyMessageSetupList.emergencyMessageSetups) {
+                Passing.selectedContact?.let {
+                    item.removeContact(
+                        it
+                    )
+                }
+
+//                if (item.findContact(contactName)) {
+//                    Passing.selectedContact?.let {
+//                        Passing.selectedEmergencyMessageSetup!!.removeContact(
+//                            it
+//                        )
+//                    }
+//                }
+            }
+                refreshList()
         }
     }
 

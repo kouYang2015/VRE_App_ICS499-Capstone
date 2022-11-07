@@ -31,4 +31,51 @@ data class EmergencyMessageSetup(
         }
         return false
     }
+
+    fun editEmergencyMessageSetupKeyPhrase(
+        textViewSelected: String,
+        customTextString: String
+    ): Boolean {
+        if (textViewSelected == customTextString) {
+            return false
+        } else if (this.keyPhrase.keyPhrase == customTextString) {
+            return false
+        } else
+            return run {
+                this.keyPhrase.keyPhrase = customTextString
+                true
+            }
+    }
+
+    fun editEmergencyMessageSetupTitle(
+        textViewSelected: String,
+        customTextString: String
+    ): Boolean {
+        if (textViewSelected == customTextString) {
+            return false
+        } else if (this.title == customTextString) {
+                return false
+            } else
+            return run {
+                this.title = customTextString
+                true
+            }
+    }
+
+
+    fun editEmergencyMessageSetupCustomTextMessage(
+        textViewSelected: String,
+        customTextString: String
+    ): Boolean {
+        if (textViewSelected == customTextString) {
+            return false
+        } else if (this.customTextMessage.customTextMessage == customTextString) {
+            return false
+        }else
+            return run {
+                this.customTextMessage.customTextMessage = customTextString
+                true
+            }
+
+    }
 }

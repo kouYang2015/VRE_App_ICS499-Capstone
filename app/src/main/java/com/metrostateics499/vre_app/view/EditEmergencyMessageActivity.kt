@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_edit_emergency_message.*
 class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessagePopUps.Listener {
 
     private var textViewSelected: String = ""
+    private var emergencyMessageSelected = Passing.selectedEmergencyMessageSetup
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +69,7 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
 //            }
 //        }
     }
-    fun goToContactsMenu() {
+    private fun goToContactsMenu() {
         startActivity(Intent(this, ContactActivity::class.java))
     }
 
@@ -110,6 +111,10 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
                     Passing.selectedEmergencyMessageSetup?.getContactListNames()
                     )
             //     textView4.text = "test"
+        } else if (Passing.selectedEmergencyMessageSetup?.selectedContactList
+                ?.isEmpty() == true){
+            val textView4: TextView = findViewById(R.id.text_contact_list)
+            textView4.text = "Select Contact(s)"
         }
     }
 
@@ -133,10 +138,10 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
             ).show()
             openPopUp("title")
         } else if (customTextString.isNotEmpty() &&
-            Passing.emergencyMessageSetupList.editEmergencyMessageSetupTitle(
-                    textViewSelected,
-                    customTextString
-                )
+            emergencyMessageSelected?.editEmergencyMessageSetupTitle(
+                textViewSelected,
+                customTextString
+            ) == true
         ) {
             Toast.makeText(
                 this@EditEmergencyMessageActivity, "Successfully Edited",
@@ -169,10 +174,10 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
             ).show()
             openPopUp("keyphrase")
         } else if (customTextString.isNotEmpty() &&
-            Passing.emergencyMessageSetupList.editEmergencyMessageSetupKeyPhrase(
-                    textViewSelected,
-                    customTextString
-                )
+            emergencyMessageSelected?.editEmergencyMessageSetupKeyPhrase(
+                textViewSelected,
+                customTextString
+            ) == true
         ) {
             Toast.makeText(
                 this@EditEmergencyMessageActivity, "Successfully Edited",
@@ -205,10 +210,10 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
             ).show()
             openPopUp("customTextMessage")
         } else if (customTextString.isNotEmpty() &&
-            Passing.emergencyMessageSetupList.editEmergencyMessageSetupCustomTextMessage(
-                    textViewSelected,
-                    customTextString
-                )
+            emergencyMessageSelected?.editEmergencyMessageSetupCustomTextMessage(
+                textViewSelected,
+                customTextString
+            ) == true
         ) {
             Toast.makeText(
                 this@EditEmergencyMessageActivity, "Successfully Edited",
