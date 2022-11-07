@@ -1,4 +1,4 @@
-package com.metrostateics499.vre_app
+package com.metrostateics499.vre_app.view
 
 import android.content.Context
 import android.content.Intent
@@ -8,8 +8,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.metrostateics499.vre_app.R
+import com.metrostateics499.vre_app.model.Passing
 
-class CreateAccount : AppCompatActivity() {
+class CreateAccountActivity : AppCompatActivity() {
     private lateinit var btnCreateAccount: Button
     private lateinit var userName: EditText
     private lateinit var fullName: EditText
@@ -64,7 +66,7 @@ class CreateAccount : AppCompatActivity() {
                         saveData()
 
                         // Goes to new Activity (Login Activity)
-                        val intent = Intent(this, Login::class.java)
+                        val intent = Intent(this, LoginActivity::class.java)
                         startActivity(intent)
 
                         // Clearing the info for next user

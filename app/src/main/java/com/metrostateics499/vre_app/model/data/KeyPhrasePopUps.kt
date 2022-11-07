@@ -1,4 +1,4 @@
-package com.metrostateics499.vre_app
+package com.metrostateics499.vre_app.model.data
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDialogFragment
+import com.metrostateics499.vre_app.R
 
 class KeyPhrasePopUps(
     private val textViewSelected: String,

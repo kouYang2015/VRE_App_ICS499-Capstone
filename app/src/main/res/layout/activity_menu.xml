@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FF185CA5"
-    tools:context=".Menu">
+    tools:context=".view.MenuActivity">
 
     <TextView
         android:id="@+id/app_logo"
@@ -115,8 +115,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/contactList"
-        app:layout_constraintLeft_toLeftOf="@id/contactList"
-        />
+        app:layout_constraintLeft_toLeftOf="@id/contactList" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch1"

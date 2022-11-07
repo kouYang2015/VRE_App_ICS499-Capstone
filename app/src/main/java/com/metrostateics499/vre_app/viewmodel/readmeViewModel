@@ -1,0 +1,2 @@
+Add viewmodel classes here. These interacts with the Model to obtain data and provides it
+to classes in the view to display to user. Typically one viewmodel per activity/fragment.
