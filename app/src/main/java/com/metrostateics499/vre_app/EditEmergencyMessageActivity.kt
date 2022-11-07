@@ -73,8 +73,9 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
     }
 
     private fun refreshRelativeLayout3() {
-        if (Passing.selectedEmergencyMessageSetup?.customTextMessage?.customTextMessage?.
-                isNotEmpty() == true) {
+        if (Passing.selectedEmergencyMessageSetup?.customTextMessage?.customTextMessage
+            ?.isNotEmpty() == true
+        ) {
             val textView3: TextView = findViewById(R.id.text_custom_text)
             textView3.text =
                 (
