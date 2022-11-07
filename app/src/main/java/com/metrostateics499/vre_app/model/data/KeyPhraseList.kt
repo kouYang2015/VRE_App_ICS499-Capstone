@@ -1,7 +1,5 @@
 package com.metrostateics499.vre_app.model.data
 
-import com.metrostateics499.vre_app.model.data.KeyPhrase
-
 data class KeyPhraseList(var keyPhrases: MutableList<KeyPhrase>) {
 
     /**
