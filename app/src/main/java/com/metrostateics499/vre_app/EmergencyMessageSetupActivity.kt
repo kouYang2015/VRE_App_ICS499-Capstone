@@ -22,19 +22,19 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_emergency_message_setup_menu)
 
-        val keyphrase1 = KeyPhrase("keyphrase1")
-        val customTextMessage1 = CustomTextMessage("customtext1")
-        val emergencyMessageSetup1 = EmergencyMessageSetup("Title1", keyphrase1, customTextMessage1)
-        val keyphrase2 = KeyPhrase("keyphrase2")
-        val customTextMessage2 = CustomTextMessage("customtext2")
-        val emergencyMessageSetup2 = EmergencyMessageSetup("Title2", keyphrase2, customTextMessage2)
-        val keyphrase3 = KeyPhrase("keyphrase3")
-        val customTextMessage3 = CustomTextMessage("customtext3")
-        val emergencyMessageSetup3 = EmergencyMessageSetup("Title3", keyphrase3, customTextMessage3)
-
-        Passing.emergencyMessageSetupList.addEmergencyMessageSetup(emergencyMessageSetup1)
-        Passing.emergencyMessageSetupList.addEmergencyMessageSetup(emergencyMessageSetup2)
-        Passing.emergencyMessageSetupList.addEmergencyMessageSetup(emergencyMessageSetup3)
+//        val keyphrase1 = KeyPhrase("keyphrase1")
+//        val customTextMessage1 = CustomTextMessage("customtext1")
+//        val emergencyMessageSetup1 = EmergencyMessageSetup("Title1", keyphrase1, customTextMessage1)
+//        val keyphrase2 = KeyPhrase("keyphrase2")
+//        val customTextMessage2 = CustomTextMessage("customtext2")
+//        val emergencyMessageSetup2 = EmergencyMessageSetup("Title2", keyphrase2, customTextMessage2)
+//        val keyphrase3 = KeyPhrase("keyphrase3")
+//        val customTextMessage3 = CustomTextMessage("customtext3")
+//        val emergencyMessageSetup3 = EmergencyMessageSetup("Title3", keyphrase3, customTextMessage3)
+//
+//        Passing.emergencyMessageSetupList.addEmergencyMessageSetup(emergencyMessageSetup1)
+//        Passing.emergencyMessageSetupList.addEmergencyMessageSetup(emergencyMessageSetup2)
+//        Passing.emergencyMessageSetupList.addEmergencyMessageSetup(emergencyMessageSetup3)
 
 //        val emergencyMessageSetupAdapter = EmergencyMessageSetupAdapter(Passing.emergencyMessageSetupList.emergencyMessageSetups, this)
 //
@@ -50,7 +50,7 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
         refreshList()
     }
 
-    private fun refreshList() {
+    override fun refreshList() {
         val emergencyMessageSetupAdapter = EmergencyMessageSetupAdapter(
             Passing.emergencyMessageSetupList.emergencyMessageSetups, this
         )
@@ -93,6 +93,7 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
         if (viewSelectedBoolean) {
             Passing.selectedEmergencyMessageSetup =
                 Passing.emergencyMessageSetupList.findEmergencyMessageSetup(titleSelectedString)
+//            openPopUp(titleSelectedString,"edit")
             goToEditPage()
         } else {
             Toast.makeText(
@@ -136,8 +137,8 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
             Passing.emergencyMessageSetupList.addEmergencyMessageSetup(
                     EmergencyMessageSetup(
                             customTextString,
-                            KeyPhrase("null"),
-                            CustomTextMessage("null")
+                            KeyPhrase(""),
+                            CustomTextMessage("")
                         )
                 )
         ) {
@@ -158,6 +159,11 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
             ).show()
             openPopUp(titleSelectedString, "add")
         }
+    }
+
+    override fun onPostResume() {
+        super.onPostResume()
+        refreshList()
     }
 
     override fun goToEditPage() {

@@ -30,4 +30,5 @@
     <string name="onSpeech">Turn On</string>
     <string name="offSpeech">Turn Off</string>
     <string name="emergencyMessageSetup">Emergency Message Setup</string>
+    <string name="emergencyMessages">Emergency Messages</string>
 </resources>

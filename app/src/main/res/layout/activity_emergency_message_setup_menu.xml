@@ -55,7 +55,7 @@
         android:background="#2E3C89"
         android:backgroundTint="#002E3C8B"
         android:singleLine="false"
-        android:text="@string/emergencyMessageSetup"
+        android:text="@string/emergencyMessages"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#FFFFFF"
         android:textSize="32sp"
