@@ -1,5 +1,7 @@
 package com.metrostateics499.vre_app.model
 
+import com.metrostateics499.vre_app.model.data.CustomTextMessage
+import com.metrostateics499.vre_app.model.data.CustomTextMessageList
 import com.metrostateics499.vre_app.model.data.KeyPhrase
 import com.metrostateics499.vre_app.model.data.KeyPhraseList
 import java.util.*
@@ -12,7 +14,7 @@ object Passing {
 
     private var newKeyPhraseList: MutableList<KeyPhrase> = LinkedList()
     var keyPhraseList = KeyPhraseList(newKeyPhraseList)
-    
+
     private var newCustomTextMessageListList: MutableList<CustomTextMessage> = LinkedList()
     var customTextMessageList = CustomTextMessageList(newCustomTextMessageListList)
 

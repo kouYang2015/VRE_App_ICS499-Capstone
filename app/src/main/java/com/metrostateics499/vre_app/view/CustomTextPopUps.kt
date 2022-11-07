@@ -1,4 +1,4 @@
-package com.metrostateics499.vre_app.model.data
+package com.metrostateics499.vre_app.view
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -10,12 +10,12 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatDialogFragment
 import com.metrostateics499.vre_app.R
 
-class KeyPhrasePopUps(
+class CustomTextPopUps(
     private val textViewSelected: String,
     private val buttonType: String
 ) : AppCompatDialogFragment() {
 
-    private var editTextKeyphrase: EditText? = null
+    private var editTextCustomTextMessage: EditText? = null
     private var listener: Listener? = null
 
     @SuppressLint("CutPasteId")
@@ -29,27 +29,25 @@ class KeyPhrasePopUps(
                 val textView: TextView = view.findViewById(R.id.edit_text)
                 textView.text = textViewSelected
                 builder.setView(view)
-                    .setTitle("Edit Key Phrase")
+                    .setTitle("Edit Text Message")
                     .setNegativeButton("cancel") { dialogInterface, i -> }
                     .setPositiveButton("ok") { dialogInterface, i ->
-                        val keyphraseString = editTextKeyphrase!!.text.toString()
-                        listener!!.editKeyPhrase(keyphraseString)
+                        val customTextString = editTextCustomTextMessage!!.text.toString()
+                        listener!!.editCustomTextMessage(customTextString)
                     }
-                editTextKeyphrase = view.findViewById(R.id.edit_text)
+                editTextCustomTextMessage = view.findViewById(R.id.edit_text)
                 //            return builder.create()
             }
             "add" -> {
                 val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
-                val textView: TextView = view.findViewById(R.id.edit_text)
-                textView.hint = "Key Phrase"
                 builder.setView(view)
-                    .setTitle("New Key Phrase")
+                    .setTitle("New Custom Text Message")
                     .setNegativeButton("cancel") { dialogInterface, i -> }
                     .setPositiveButton("ok") { dialogInterface, i ->
-                        val keyphraseString = editTextKeyphrase!!.text.toString()
-                        listener!!.addKeyPhrase(keyphraseString)
+                        val customTextString = editTextCustomTextMessage!!.text.toString()
+                        listener!!.addCustomTextMessage(customTextString)
                     }
-                editTextKeyphrase = view.findViewById(R.id.edit_text)
+                editTextCustomTextMessage = view.findViewById(R.id.edit_text)
                 //            return builder.create()
             }
             "delete" -> {
@@ -57,10 +55,10 @@ class KeyPhrasePopUps(
                 val textView: TextView = view.findViewById(R.id.text_view_popup)
                 textView.text = textViewSelected
                 builder.setView(view)
-                    .setTitle("Are you sure you want to delete this key phrase?")
+                    .setTitle("Are you sure you want to delete this custom text message?")
                     .setNegativeButton("cancel") { dialogInterface, i -> }
                     .setPositiveButton("ok") { dialogInterface, i ->
-                        listener!!.deleteKeyPhrase(textViewSelected)
+                        listener!!.deleteCustomTextMessage(textViewSelected)
                     }
             }
         }
@@ -74,14 +72,14 @@ class KeyPhrasePopUps(
         } catch (e: ClassCastException) {
             throw ClassCastException(
                 context.toString() +
-                    "must implement ExampleDialogListener"
+                        "must implement ExampleDialogListener"
             )
         }
     }
 
     interface Listener {
-        fun editKeyPhrase(keyphraseString: String)
-        fun deleteKeyPhrase(keyphraseString: String)
-        fun addKeyPhrase(keyphraseString: String)
+        fun editCustomTextMessage(customTextString: String)
+        fun deleteCustomTextMessage(customTextString: String)
+        fun addCustomTextMessage(customTextString: String)
     }
 }

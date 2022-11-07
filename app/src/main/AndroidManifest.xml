@@ -27,7 +27,7 @@
         </activity>
 
         <activity
-            android:name=".CustomTextActivity"
+            android:name=".view.CustomTextActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
