@@ -6,16 +6,9 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
-import com.metrostateics499.vre_app.model.data.KeyPhrase
+import com.metrostateics499.vre_app.model.data.CustomTextMessage
 
-/**
- * Key words activity
- * This class is the Activity for the user to interact with the key phrases menu
- * It also initiates functions to add and remove key phrases
- *
- * @constructor Create empty Key words activity
- */
-class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
+class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
 
     private var buttonAdd: Button? = null
     private var buttonEdit: Button? = null
@@ -26,14 +19,14 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_key_phrases_menu)
+        setContentView(R.layout.activity_custom_text_message_menu)
 
-        buttonAdd = findViewById<View>(R.id.buttonAddKeyPhrase) as Button
+        buttonAdd = findViewById<View>(R.id.buttonAdd) as Button
         buttonAdd!!.setOnClickListener { openPopUp(textViewSelected, "add") }
-        buttonEdit = findViewById<View>(R.id.buttonEditKeyPhrase) as Button
-        buttonEdit!!.setOnClickListener { checkSelectForEditKeyPhrasePopUp() }
-        buttonDelete = findViewById<View>(R.id.buttonDeleteKeyPhrase) as Button
-        buttonDelete!!.setOnClickListener { checkSelectForDeleteKeyPhrasePopUp() }
+        buttonEdit = findViewById<View>(R.id.buttonEdit) as Button
+        buttonEdit!!.setOnClickListener { checkSelectForEdit() }
+        buttonDelete = findViewById<View>(R.id.buttonDelete) as Button
+        buttonDelete!!.setOnClickListener { checkSelectForDelete() }
         refreshList()
     }
 
@@ -41,9 +34,11 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
         textViewSelectedBoolean = false
         textViewSelected = ""
 
-        val listview: ListView = findViewById(R.id.listViewPhrases)
+        val listview: ListView = findViewById(R.id.listView)
         val arrayAdapter = ArrayAdapter(
-            this, android.R.layout.simple_list_item_1, Passing.keyPhraseList.keyPhrases
+            this,
+            android.R.layout.simple_list_item_1,
+            Passing.customTextMessageList.customTextMessages
         )
         listview.adapter = arrayAdapter
         listview.setOnItemClickListener { parent, view, position, id ->
@@ -52,7 +47,7 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
                     .abc_item_background_holo_light
             )
             Toast.makeText(
-                this@KeyPhraseActivity,
+                this@CustomTextActivity,
                 "You have selected " +
                     parent.getItemAtPosition(position),
                 Toast.LENGTH_SHORT
@@ -72,94 +67,99 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
      *
      * @param view
      */
-    fun goToKeyPhraseMenu(view: View) {
-        setContentView(R.layout.activity_key_phrases_menu)
+    fun goToCustomTextMessages(view: View) {
+        setContentView(R.layout.activity_custom_text_message_menu)
         refreshList()
     }
 
-    private fun checkSelectForDeleteKeyPhrasePopUp() {
+    private fun checkSelectForDelete() {
         if (textViewSelectedBoolean) {
             openPopUp(textViewSelected, "delete")
         } else {
             Toast.makeText(
-                this@KeyPhraseActivity, "You must select a key phrase first",
+                this@CustomTextActivity, "You must select a text message first",
                 Toast.LENGTH_SHORT
             ).show()
         }
     }
 
-    private fun checkSelectForEditKeyPhrasePopUp() {
+    private fun checkSelectForEdit() {
         if (textViewSelectedBoolean) {
             openPopUp(textViewSelected, "edit")
         } else {
             Toast.makeText(
-                this@KeyPhraseActivity, "You must select a key phrase first",
+                this@CustomTextActivity, "You must select a text message first",
                 Toast.LENGTH_SHORT
             ).show()
         }
     }
 
     private fun openPopUp(textViewSelected: String, buttonType: String) {
-        val keyPhrasePopUp = KeyPhrasePopUps(textViewSelected, buttonType)
-        keyPhrasePopUp.show(supportFragmentManager, "example dialog")
+        val customTextPopUp = CustomTextPopUps(textViewSelected, buttonType)
+        customTextPopUp.show(supportFragmentManager, "example dialog")
     }
 
-    override fun addKeyPhrase(keyphraseString: String) {
-        if (keyphraseString.isEmpty()) {
+    override fun addCustomTextMessage(customTextString: String) {
+        if (customTextString.isEmpty()) {
             Toast.makeText(
-                this@KeyPhraseActivity,
-                "Please enter a key phrase",
+                this@CustomTextActivity,
+                "Please enter a custom text message",
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "add")
-        } else if (keyphraseString.isNotEmpty() &&
-            Passing.keyPhraseList.addKeyPhrase(KeyPhrase(keyphraseString))
+        } else if (customTextString.isNotEmpty() &&
+            Passing.customTextMessageList.addCustomTextMessage(
+                    CustomTextMessage(
+                            customTextString
+                        )
+                )
         ) {
             Toast.makeText(
-                this@KeyPhraseActivity,
-                "New Key Phrase Successfully " +
+                this@CustomTextActivity,
+                "New Custom Text Message Successfully " +
                     "Added",
                 Toast.LENGTH_SHORT
             ).show()
             refreshList()
         } else {
             Toast.makeText(
-                this@KeyPhraseActivity,
-                "That Key Phrase already exists. Try something else or click cancel",
+                this@CustomTextActivity,
+                "That custom text message already exists. Type something else or click cancel",
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "add")
         }
     }
 
-    override fun editKeyPhrase(keyphraseString: String) {
-        if (keyphraseString.isEmpty()) {
+    override fun editCustomTextMessage(customTextString: String) {
+        if (customTextString.isEmpty()) {
             Toast.makeText(
-                this@KeyPhraseActivity,
-                "Key phrase can't be empty",
+                this@CustomTextActivity,
+                "Custom text message can't be empty",
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "edit")
-        } else if (keyphraseString == textViewSelected) {
+        } else if (customTextString == textViewSelected) {
             Toast.makeText(
-                this@KeyPhraseActivity, "Make a change or click cancel",
+                this@CustomTextActivity, "Make a change or click cancel",
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "edit")
-        } else if (keyphraseString.isNotEmpty() && Passing.keyPhraseList.editKeyPhrase(
-                KeyPhrase(textViewSelected),
-                keyphraseString
-            )
+        } else if (customTextString.isNotEmpty() &&
+            Passing.customTextMessageList.editCustomTextMessage(
+                    CustomTextMessage(textViewSelected),
+                    customTextString
+                )
         ) {
             Toast.makeText(
-                this@KeyPhraseActivity, "Successfully Edited",
+                this@CustomTextActivity, "Successfully Edited",
                 Toast.LENGTH_SHORT
             ).show()
             refreshList()
         } else {
             Toast.makeText(
-                this@KeyPhraseActivity,
-                "That Key Phrase already exists. " +
+                this@CustomTextActivity,
+                "That custom text message already exists. " +
                     "Try something else or click cancel.",
                 Toast.LENGTH_SHORT
             ).show()
@@ -167,12 +167,14 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
         }
     }
 
-    override fun deleteKeyPhrase(keyphraseString: String) {
+    override fun deleteCustomTextMessage(customTextString: String) {
         if (textViewSelected.isNotEmpty()) {
-            Passing.keyPhraseList.deleteKeyPhrase(KeyPhrase(textViewSelected))
+            Passing.customTextMessageList.deleteCustomTextMessage(
+                CustomTextMessage(textViewSelected)
+            )
             Toast.makeText(
-                this@KeyPhraseActivity,
-                "You have deleted phrase: " +
+                this@CustomTextActivity,
+                "You have deleted custom text message: " +
                     textViewSelected,
                 Toast.LENGTH_SHORT
             ).show()

@@ -20,12 +20,19 @@ class MenuActivity : AppCompatActivity() {
         speechButton?.setOnClickListener() {
             startActivity(Intent(this, ListenSpeechActivity::class.java))
         }
-        val goToKeyPhraseMenu = findViewById<Button>(R.id.customKeyWords)
 
+        val goToKeyPhraseMenu = findViewById<Button>(R.id.customKeyWords)
         goToKeyPhraseMenu.setOnClickListener {
             val intent = Intent(this, KeyPhraseActivity::class.java)
             // start your next activity
             startActivity(intent)
+        }
+
+        val goToCustomTextMessagesMenu = findViewById<Button>(R.id.customTextMessageContent)
+        goToCustomTextMessagesMenu.setOnClickListener {
+            val intent2 = Intent(this, CustomTextActivity::class.java)
+            // start your next activity
+            startActivity(intent2)
         }
     }
 }

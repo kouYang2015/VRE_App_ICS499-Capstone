@@ -1,4 +1,4 @@
-package com.metrostateics499.vre_app.model.data
+package com.metrostateics499.vre_app.view
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -26,7 +26,7 @@ class KeyPhrasePopUps(
         when (buttonType) {
             "edit" -> {
                 val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
-                val textView: TextView = view.findViewById(R.id.edit_keyphrase)
+                val textView: TextView = view.findViewById(R.id.edit_text)
                 textView.text = textViewSelected
                 builder.setView(view)
                     .setTitle("Edit Key Phrase")
@@ -35,11 +35,13 @@ class KeyPhrasePopUps(
                         val keyphraseString = editTextKeyphrase!!.text.toString()
                         listener!!.editKeyPhrase(keyphraseString)
                     }
-                editTextKeyphrase = view.findViewById(R.id.edit_keyphrase)
+                editTextKeyphrase = view.findViewById(R.id.edit_text)
                 //            return builder.create()
             }
             "add" -> {
                 val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
+                val textView: TextView = view.findViewById(R.id.edit_text)
+                textView.hint = "Key Phrase"
                 builder.setView(view)
                     .setTitle("New Key Phrase")
                     .setNegativeButton("cancel") { dialogInterface, i -> }
@@ -47,12 +49,12 @@ class KeyPhrasePopUps(
                         val keyphraseString = editTextKeyphrase!!.text.toString()
                         listener!!.addKeyPhrase(keyphraseString)
                     }
-                editTextKeyphrase = view.findViewById(R.id.edit_keyphrase)
+                editTextKeyphrase = view.findViewById(R.id.edit_text)
                 //            return builder.create()
             }
             "delete" -> {
                 val view = inflater.inflate(R.layout.layout_delete_popup, null)
-                val textView: TextView = view.findViewById(R.id.text_keyphrase_delete)
+                val textView: TextView = view.findViewById(R.id.text_view_popup)
                 textView.text = textViewSelected
                 builder.setView(view)
                     .setTitle("Are you sure you want to delete this key phrase?")
