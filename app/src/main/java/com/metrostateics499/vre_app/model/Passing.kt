@@ -1,9 +1,6 @@
 package com.metrostateics499.vre_app.model
 
-import com.metrostateics499.vre_app.model.data.CustomTextMessage
-import com.metrostateics499.vre_app.model.data.CustomTextMessageList
-import com.metrostateics499.vre_app.model.data.KeyPhrase
-import com.metrostateics499.vre_app.model.data.KeyPhraseList
+import com.metrostateics499.vre_app.model.data.*
 import java.util.*
 
 // Tried to save username and password (First Time login-in)
@@ -17,6 +14,11 @@ object Passing {
 
     private var newCustomTextMessageListList: MutableList<CustomTextMessage> = LinkedList()
     var customTextMessageList = CustomTextMessageList(newCustomTextMessageListList)
+
+    private var newEmergencyMessageSetupListList: MutableList<EmergencyMessageSetup> = LinkedList()
+    var emergencyMessageSetupList = EmergencyMessageSetupList(newEmergencyMessageSetupListList)
+
+    var selectedEmergencyMessageSetup: EmergencyMessageSetup? = null
 
     @JvmName("setUsername1")
     fun setUsername(username: String) {

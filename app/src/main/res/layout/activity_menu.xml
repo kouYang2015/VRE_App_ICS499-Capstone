@@ -77,12 +77,12 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <Button
-        android:id="@+id/customizableConfigurations"
+        android:id="@+id/emergencyMessageSetup"
         android:layout_width="370dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:background="@drawable/round_style"
-        android:text="@string/customizableConfigurations"
+        android:text="@string/emergencyMessageSetup"
         android:textAllCaps="false"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -100,7 +100,7 @@
         android:textAllCaps="false"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/customizableConfigurations"
+        app:layout_constraintTop_toBottomOf="@id/emergencyMessageSetup"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 

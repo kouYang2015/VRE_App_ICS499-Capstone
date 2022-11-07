@@ -34,5 +34,10 @@ class MenuActivity : AppCompatActivity() {
             // start your next activity
             startActivity(intent2)
         }
+
+        val goToEmergencyMessageSetup = findViewById<Button>(R.id.emergencyMessageSetup)
+        goToEmergencyMessageSetup.setOnClickListener {
+            startActivity(Intent(this, EmergencyMessageSetupActivity::class.java))
+        }
     }
 }
