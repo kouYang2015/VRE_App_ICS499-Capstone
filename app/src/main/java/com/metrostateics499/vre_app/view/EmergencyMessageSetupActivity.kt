@@ -126,7 +126,7 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
             Toast.makeText(
                 this@EmergencyMessageSetupActivity,
                 "You have deleted: " +
-                        customTextString,
+                    customTextString,
                 Toast.LENGTH_SHORT
             ).show()
             refreshList()
@@ -144,18 +144,18 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
             openPopUp(titleSelectedString, "add")
         } else if (customTextString.isNotEmpty() &&
             Passing.emergencyMessageSetupList.addEmergencyMessageSetup(
-                EmergencyMessageSetup(
-                    customTextString,
-                    KeyPhrase(""),
-                    CustomTextMessage(""),
-                    newContactList
+                    EmergencyMessageSetup(
+                            customTextString,
+                            KeyPhrase(""),
+                            CustomTextMessage(""),
+                            newContactList
+                        )
                 )
-            )
         ) {
             Toast.makeText(
                 this@EmergencyMessageSetupActivity,
                 "New Key Phrase Successfully " +
-                        "Added",
+                    "Added",
                 Toast.LENGTH_SHORT
             ).show()
             Passing.selectedEmergencyMessageSetup =

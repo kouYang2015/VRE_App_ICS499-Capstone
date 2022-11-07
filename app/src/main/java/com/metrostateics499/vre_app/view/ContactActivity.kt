@@ -62,7 +62,7 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
         } else if (contactName.isNotEmpty() &&
             Passing.selectedContact?.let {
                 Passing.contactList.editContact(
-                    it,
+                        it,
                         contactName,
                         contactPhone
                     )
@@ -93,7 +93,7 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
                     textViewSelected,
                 Toast.LENGTH_SHORT
             ).show()
-            for(item in Passing.emergencyMessageSetupList.emergencyMessageSetups) {
+            for (item in Passing.emergencyMessageSetupList.emergencyMessageSetups) {
                 Passing.selectedContact?.let {
                     item.removeContact(
                         it
@@ -108,7 +108,7 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
 //                    }
 //                }
             }
-                refreshList()
+            refreshList()
         }
     }
 

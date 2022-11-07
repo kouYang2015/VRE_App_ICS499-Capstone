@@ -112,7 +112,8 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
                     )
             //     textView4.text = "test"
         } else if (Passing.selectedEmergencyMessageSetup?.selectedContactList
-                ?.isEmpty() == true){
+            ?.isEmpty() == true
+        ) {
             val textView4: TextView = findViewById(R.id.text_contact_list)
             textView4.text = "Select Contact(s)"
         }
@@ -139,9 +140,9 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
             openPopUp("title")
         } else if (customTextString.isNotEmpty() &&
             emergencyMessageSelected?.editEmergencyMessageSetupTitle(
-                textViewSelected,
-                customTextString
-            ) == true
+                    textViewSelected,
+                    customTextString
+                ) == true
         ) {
             Toast.makeText(
                 this@EditEmergencyMessageActivity, "Successfully Edited",
@@ -175,9 +176,9 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
             openPopUp("keyphrase")
         } else if (customTextString.isNotEmpty() &&
             emergencyMessageSelected?.editEmergencyMessageSetupKeyPhrase(
-                textViewSelected,
-                customTextString
-            ) == true
+                    textViewSelected,
+                    customTextString
+                ) == true
         ) {
             Toast.makeText(
                 this@EditEmergencyMessageActivity, "Successfully Edited",
@@ -211,9 +212,9 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
             openPopUp("customTextMessage")
         } else if (customTextString.isNotEmpty() &&
             emergencyMessageSelected?.editEmergencyMessageSetupCustomTextMessage(
-                textViewSelected,
-                customTextString
-            ) == true
+                    textViewSelected,
+                    customTextString
+                ) == true
         ) {
             Toast.makeText(
                 this@EditEmergencyMessageActivity, "Successfully Edited",

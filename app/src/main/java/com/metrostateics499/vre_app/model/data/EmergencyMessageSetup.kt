@@ -54,14 +54,13 @@ data class EmergencyMessageSetup(
         if (textViewSelected == customTextString) {
             return false
         } else if (this.title == customTextString) {
-                return false
-            } else
+            return false
+        } else
             return run {
                 this.title = customTextString
                 true
             }
     }
-
 
     fun editEmergencyMessageSetupCustomTextMessage(
         textViewSelected: String,
@@ -71,11 +70,10 @@ data class EmergencyMessageSetup(
             return false
         } else if (this.customTextMessage.customTextMessage == customTextString) {
             return false
-        }else
+        } else
             return run {
                 this.customTextMessage.customTextMessage = customTextString
                 true
             }
-
     }
 }
