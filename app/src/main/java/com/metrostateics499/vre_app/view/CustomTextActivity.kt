@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.metrostateics499.vre_app.model.data.CustomTextMessage
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
+import com.metrostateics499.vre_app.model.data.CustomTextMessage
 
 class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
 
@@ -49,7 +49,7 @@ class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
             Toast.makeText(
                 this@CustomTextActivity,
                 "You have selected " +
-                        parent.getItemAtPosition(position),
+                    parent.getItemAtPosition(position),
                 Toast.LENGTH_SHORT
             ).show()
             textViewSelected = parent.getItemAtPosition(position).toString()
@@ -108,16 +108,16 @@ class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
             ).show()
             openPopUp(textViewSelected, "add")
         } else if (customTextString.isNotEmpty() &&
-                Passing.customTextMessageList.addCustomTextMessage(
+            Passing.customTextMessageList.addCustomTextMessage(
                     CustomTextMessage(
-                        customTextString
-                    )
+                            customTextString
+                        )
                 )
         ) {
             Toast.makeText(
                 this@CustomTextActivity,
                 "New Custom Text Message Successfully " +
-                        "Added",
+                    "Added",
                 Toast.LENGTH_SHORT
             ).show()
             refreshList()
@@ -146,7 +146,7 @@ class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
             ).show()
             openPopUp(textViewSelected, "edit")
         } else if (customTextString.isNotEmpty() &&
-                Passing.customTextMessageList.editCustomTextMessage(
+            Passing.customTextMessageList.editCustomTextMessage(
                     CustomTextMessage(textViewSelected),
                     customTextString
                 )
@@ -160,7 +160,7 @@ class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
             Toast.makeText(
                 this@CustomTextActivity,
                 "That custom text message already exists. " +
-                        "Try something else or click cancel.",
+                    "Try something else or click cancel.",
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "edit")
@@ -175,7 +175,7 @@ class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
             Toast.makeText(
                 this@CustomTextActivity,
                 "You have deleted custom text message: " +
-                        textViewSelected,
+                    textViewSelected,
                 Toast.LENGTH_SHORT
             ).show()
             refreshList()

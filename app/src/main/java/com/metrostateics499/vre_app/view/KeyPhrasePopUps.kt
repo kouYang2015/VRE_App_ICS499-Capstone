@@ -74,7 +74,7 @@ class KeyPhrasePopUps(
         } catch (e: ClassCastException) {
             throw ClassCastException(
                 context.toString() +
-                        "must implement ExampleDialogListener"
+                    "must implement ExampleDialogListener"
             )
         }
     }
