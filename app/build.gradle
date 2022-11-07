@@ -38,7 +38,7 @@ android {
 ktlint {
     android = true
     ignoreFailures = false
-    disabledRules = ["final-newline", "no-wildcard-imports"]
+    disabledRules = ["final-newline", "no-wildcard-imports","max-line-length"]
     reporters {
         reporter "plain"
         reporter "checkstyle"

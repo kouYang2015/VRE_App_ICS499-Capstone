@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/editNameTextContact"
+        android:layout_width="382dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="29dp"
+        android:ems="10"
+        android:hint="@string/full_name"
+        android:text="" />
+
+    <EditText
+        android:id="@+id/editTextPhoneContact"
+        android:layout_width="383dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editNameTextContact"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="29dp"
+        android:ems="10"
+        android:hint="@string/phone_numbers"
+        android:inputType="phone"
+        android:minHeight="48dp"
+        android:text="" />
+
+</RelativeLayout>

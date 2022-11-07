@@ -5,7 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.util.SparseBooleanArray
+import android.view.LayoutInflater
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
 /**
@@ -40,12 +42,10 @@ class CreateContacts : AppCompatActivity() {
         listNames = ArrayList()
         listOfContact = ArrayList()
         createAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, listNames)
-
         listContact.adapter = createAdapter
 
         btnAddContact.setOnClickListener {
             addContacts()
-            createAdapter.notifyDataSetChanged()
         }
         // Adding the toast message to the list when an item on the list is pressed
         listContact.setOnItemClickListener { adapterView, view, i, l ->
@@ -59,7 +59,6 @@ class CreateContacts : AppCompatActivity() {
 
         btnEdit.setOnClickListener {
             editContacts()
-            createAdapter.notifyDataSetChanged()
         }
 
         listContact.setOnItemLongClickListener { adapterView, view, i, l ->
@@ -129,5 +128,25 @@ class CreateContacts : AppCompatActivity() {
     }
 
     private fun editContacts() {
+        // Inflate the dialog with custom view
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.activity_edit_contacts, null)
+        // AlertDialogBuilder
+        val builder = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setTitle("Edit Contact")
+            .setNegativeButton("Cancel") { dialogInterface, i ->
+                Log.d("Test", "Cancel Button has been click")
+            }
+            .setPositiveButton("Save") { dialogInterface, i ->
+                val contact = Contacts(fullName.text.toString(), phoneNum.text.toString())
+                listOfContact.add(contact)
+                listNames.add(contact.names)
+                createAdapter.notifyDataSetChanged()
+                Toast.makeText(this, "Contact Edit", Toast.LENGTH_SHORT).show()
+                Log.d("Test", "Cancel Button has been click")
+            }
+        builder.create()
+        // Show Dialog
+        builder.show()
     }
 }
