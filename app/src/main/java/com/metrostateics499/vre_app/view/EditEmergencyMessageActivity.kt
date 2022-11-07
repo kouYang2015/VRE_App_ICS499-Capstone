@@ -1,12 +1,15 @@
 package com.metrostateics499.vre_app.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
+import kotlinx.android.synthetic.main.activity_edit_emergency_message.*
 
 class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessagePopUps.Listener {
 
@@ -19,6 +22,7 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
         refreshRelativeLayout()
         refreshRelativeLayout2()
         refreshRelativeLayout3()
+        refreshRelativeLayout4()
 
         val relativeLayout: RelativeLayout = findViewById(R.id.relativeLayout)
         val relativeLayout2: RelativeLayout = findViewById(R.id.relativeLayout2)
@@ -50,6 +54,14 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
             textViewSelected = Passing.selectedEmergencyMessageSetup?.customTextMessage.toString()
             openPopUp("customTextMessage")
         }
+        relativeLayout4.setOnClickListener {
+//            relativeLayout3.setBackgroundResource(
+//                androidx.appcompat.R.drawable
+//                    .abc_item_background_holo_light
+//            )
+            textViewSelected = Passing.selectedEmergencyMessageSetup?.customTextMessage.toString()
+            goToContactsMenu()
+        }
 
 //        buttonEdit!!.setOnClickListener {
 //            when (){
@@ -57,6 +69,10 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
 //            }
 //        }
     }
+fun goToContactsMenu() {
+        startActivity(Intent(this, ContactActivity::class.java))
+
+}
 
     private fun refreshRelativeLayout() {
         val textView: TextView = findViewById(R.id.text_view_em)
@@ -84,6 +100,18 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
                 Passing.selectedEmergencyMessageSetup?.customTextMessage?.customTextMessage
                     ?: String
                 ) as CharSequence?
+        }
+    }
+    private fun refreshRelativeLayout4() {
+        if (Passing.selectedEmergencyMessageSetup?.selectedContactList?.
+                isNotEmpty() == true
+        ) {
+            val textView4: TextView = findViewById(R.id.text_contact_list)
+            textView4.text =
+                (
+                        Passing.selectedEmergencyMessageSetup?.getContactListNames()
+                        )
+       //     textView4.text = "test"
         }
     }
 
@@ -198,5 +226,11 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
             ).show()
             openPopUp("customTextMessage")
         }
+
+
+    }
+    override fun onPostResume() {
+        super.onPostResume()
+        refreshRelativeLayout4()
     }
 }

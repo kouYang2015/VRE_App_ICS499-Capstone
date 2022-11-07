@@ -1,4 +1,4 @@
-package com.metrostateics499.vre_app.model.data
+package com.metrostateics499.vre_app.view
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog

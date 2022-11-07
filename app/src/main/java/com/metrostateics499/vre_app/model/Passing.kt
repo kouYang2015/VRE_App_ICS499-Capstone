@@ -1,5 +1,6 @@
 package com.metrostateics499.vre_app.model
 
+import com.metrostateics499.vre_app.model.data.*
 import java.util.*
 
 // Tried to save username and password (First Time login-in)
@@ -18,6 +19,10 @@ object Passing {
     var emergencyMessageSetupList = EmergencyMessageSetupList(newEmergencyMessageSetupListList)
 
     var selectedEmergencyMessageSetup: EmergencyMessageSetup? = null
+    var selectedContact: Contact? = null
+
+    private var newContactList: MutableList<Contact> = LinkedList()
+    var contactList = ContactList(newContactList)
 
     @JvmName("setUsername1")
     fun setUsername(username: String) {

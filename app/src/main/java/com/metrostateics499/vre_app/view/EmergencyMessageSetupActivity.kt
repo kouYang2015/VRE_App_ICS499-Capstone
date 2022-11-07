@@ -9,11 +9,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
+import com.metrostateics499.vre_app.model.data.Contact
 import com.metrostateics499.vre_app.model.data.CustomTextMessage
 import com.metrostateics499.vre_app.model.data.EmergencyMessageSetup
 import com.metrostateics499.vre_app.model.data.KeyPhrase
 import com.metrostateics499.vre_app.view.adapters.EmergencyMessageSetupAdapter
 import kotlinx.android.synthetic.main.activity_emergency_message_setup_menu.*
+import java.util.LinkedList
 
 class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUps.Listener {
     private var buttonAdd: Button? = null
@@ -132,6 +134,7 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
     }
 
     override fun addEmergencyMessageSetup(customTextString: String) {
+        val newContactList: MutableList<Contact> = LinkedList()
         if (customTextString.isEmpty()) {
             Toast.makeText(
                 this@EmergencyMessageSetupActivity,
@@ -144,7 +147,8 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
                     EmergencyMessageSetup(
                             customTextString,
                             KeyPhrase(""),
-                            CustomTextMessage("")
+                            CustomTextMessage(""),
+                            newContactList
                         )
                 )
         ) {
@@ -174,5 +178,9 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
 
     override fun goToEditPage() {
         startActivity(Intent(this, EditEmergencyMessageActivity()::class.java))
+    }
+
+    fun newEmergencyContact(){
+
     }
 }
