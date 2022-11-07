@@ -54,7 +54,8 @@ class EmergencyMessageSetupAdapter(
             Passing.selectedEmergencyMessageSetup = mutableList[position]
 
             holder.itemView.setBackgroundResource(
-                androidx.appcompat.R.drawable.abc_list_pressed_holo_dark)
+                androidx.appcompat.R.drawable.abc_list_pressed_holo_dark
+            )
         }
     }
 

@@ -105,8 +105,8 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
             openPopUp("edit")
         } else if (customTextString.isNotEmpty() &&
             Passing.emergencyMessageSetupList.editEmergencyMessageSetupTitle(
-                customTextString
-            )
+                    customTextString
+                )
         ) {
             Toast.makeText(
                 this@EditEmergencyMessageActivity, "Successfully Edited",

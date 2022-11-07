@@ -52,7 +52,8 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
 
     private fun refreshList() {
         val emergencyMessageSetupAdapter = EmergencyMessageSetupAdapter(
-            Passing.emergencyMessageSetupList.emergencyMessageSetups, this)
+            Passing.emergencyMessageSetupList.emergencyMessageSetups, this
+        )
 
         recyclerViewEmergencyMessageSetup.layoutManager = LinearLayoutManager(this)
         recyclerViewEmergencyMessageSetup.adapter = emergencyMessageSetupAdapter

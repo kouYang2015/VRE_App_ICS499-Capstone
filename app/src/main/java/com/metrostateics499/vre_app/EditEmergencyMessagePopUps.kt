@@ -27,7 +27,7 @@ class EditEmergencyMessagePopUps(
                 val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
                 val textView: TextView = view.findViewById(R.id.edit_text)
                 val title = (Passing.selectedEmergencyMessageSetup?.title ?: String)
-                        as CharSequence?
+                    as CharSequence?
                 textView.text = title
 
                 builder.setView(view)

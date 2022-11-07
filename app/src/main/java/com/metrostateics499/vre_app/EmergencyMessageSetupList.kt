@@ -1,7 +1,9 @@
 package com.metrostateics499.vre_app
 
-data class EmergencyMessageSetupList(var emergencyMessageSetups:
-                                     MutableList<EmergencyMessageSetup>) {
+data class EmergencyMessageSetupList(
+    var emergencyMessageSetups:
+        MutableList<EmergencyMessageSetup>
+) {
 
     fun addEmergencyMessageSetup(emergencyMessageSetup: EmergencyMessageSetup): Boolean {
         for (item in emergencyMessageSetups) {
