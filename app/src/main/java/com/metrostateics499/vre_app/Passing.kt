@@ -10,9 +10,14 @@ object Passing {
 
     private var newKeyPhraseList: MutableList<KeyPhrase> = LinkedList()
     var keyPhraseList = KeyPhraseList(newKeyPhraseList)
-    
+
     private var newCustomTextMessageListList: MutableList<CustomTextMessage> = LinkedList()
     var customTextMessageList = CustomTextMessageList(newCustomTextMessageListList)
+
+    private var newEmergencyMessageSetupListList: MutableList<EmergencyMessageSetup> = LinkedList()
+    var emergencyMessageSetupList = EmergencyMessageSetupList(newEmergencyMessageSetupListList)
+
+    var selectedEmergencyMessageSetup: EmergencyMessageSetup? = null
 
     @JvmName("setUsername1")
     fun setUsername(username: String) {
