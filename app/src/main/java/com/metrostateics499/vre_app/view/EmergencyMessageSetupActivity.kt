@@ -1,4 +1,4 @@
-package com.metrostateics499.vre_app
+package com.metrostateics499.vre_app.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,12 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.metrostateics499.vre_app.view.adapters.EmergencyMessageSetupAdapter
+import com.metrostateics499.vre_app.R
+import com.metrostateics499.vre_app.model.Passing
+import com.metrostateics499.vre_app.model.data.CustomTextMessage
+import com.metrostateics499.vre_app.model.data.EmergencyMessageSetup
+import com.metrostateics499.vre_app.model.data.KeyPhrase
 import kotlinx.android.synthetic.main.activity_emergency_message_setup_menu.*
 
 class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUps.Listener {

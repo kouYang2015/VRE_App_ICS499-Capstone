@@ -1,4 +1,4 @@
-package com.metrostateics499.vre_app
+package com.metrostateics499.vre_app.view.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.metrostateics499.vre_app.R
+import com.metrostateics499.vre_app.model.data.EmergencyMessageSetup
 import kotlinx.android.synthetic.main.row.view.*
 
 class EditEmergencyMessageAdapter(

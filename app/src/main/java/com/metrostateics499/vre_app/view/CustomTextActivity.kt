@@ -1,9 +1,12 @@
-package com.metrostateics499.vre_app
+package com.metrostateics499.vre_app.view
 
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.metrostateics499.vre_app.model.data.CustomTextMessage
+import com.metrostateics499.vre_app.R
+import com.metrostateics499.vre_app.model.Passing
 
 class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
 

@@ -1,4 +1,6 @@
-package com.metrostateics499.vre_app
+package com.metrostateics499.vre_app.model.data
+
+import com.metrostateics499.vre_app.model.data.EmergencyMessageSetup
 
 data class EmergencyMessageSetupList(
     var emergencyMessageSetups:

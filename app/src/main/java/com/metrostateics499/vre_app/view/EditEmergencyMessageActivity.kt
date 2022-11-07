@@ -1,10 +1,12 @@
-package com.metrostateics499.vre_app
+package com.metrostateics499.vre_app.view
 
 import android.os.Bundle
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.metrostateics499.vre_app.R
+import com.metrostateics499.vre_app.model.Passing
 
 class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessagePopUps.Listener {
 
