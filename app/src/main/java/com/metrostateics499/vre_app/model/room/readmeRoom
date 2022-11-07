@@ -1,0 +1,3 @@
+place all relevant ROOM files here. This includes the Entity classes, DAO, and actual
+database class itself in addition to mappers that maps the data from the Entity classes to
+the business model classes in the data package.

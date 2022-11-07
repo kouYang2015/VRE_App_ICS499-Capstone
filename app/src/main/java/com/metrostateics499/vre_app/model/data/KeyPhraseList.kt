@@ -1,4 +1,4 @@
-package com.metrostateics499.vre_app
+package com.metrostateics499.vre_app.model.data
 
 data class KeyPhraseList(var keyPhrases: MutableList<KeyPhrase>) {
 
