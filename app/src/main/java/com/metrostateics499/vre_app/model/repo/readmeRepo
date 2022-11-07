@@ -1,0 +1,2 @@
+Place all repository classes here. Viewmodel classes interacts with these to interact with ROOM
+database. These classes uses the interface classes from the interfaces package.
