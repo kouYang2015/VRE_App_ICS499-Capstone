@@ -40,6 +40,11 @@ class MenuActivity : AppCompatActivity() {
         goToEmergencyMessageSetup.setOnClickListener {
             startActivity(Intent(this, EmergencyMessageSetupActivity::class.java))
         }
+
+        val goToContacts = findViewById<Button>(R.id.contactList)
+        goToContacts.setOnClickListener {
+            startActivity(Intent(this, ContactActivity::class.java))
+        }
     }
     override fun onPostResume() {
         super.onPostResume()
