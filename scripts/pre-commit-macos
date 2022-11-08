@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo "Running lint format..."
+echo "Running lint check..."
+
+./gradlew app:ktlintFormat --daemon
+./gradlew app:ktlintCheck --daemon
+
+status=$?
+
+# return 1 exit code if running checks fails
+[ $status -ne 0 ] && exit 1
+exit 0
