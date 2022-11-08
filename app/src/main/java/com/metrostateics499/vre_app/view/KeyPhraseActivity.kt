@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
 import com.metrostateics499.vre_app.model.data.KeyPhrase
+import com.metrostateics499.vre_app.utility.KeyPhrasePopUps
 
 /**
  * Key words activity

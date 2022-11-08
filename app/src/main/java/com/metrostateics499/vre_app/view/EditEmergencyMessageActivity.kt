@@ -1,5 +1,6 @@
 package com.metrostateics499.vre_app.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -7,10 +8,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
+import com.metrostateics499.vre_app.utility.EditEmergencyMessagePopUps
+import kotlinx.android.synthetic.main.activity_edit_emergency_message.*
 
 class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessagePopUps.Listener {
 
     private var textViewSelected: String = ""
+    private var emergencyMessageSelected = Passing.selectedEmergencyMessageSetup
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +23,7 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
         refreshRelativeLayout()
         refreshRelativeLayout2()
         refreshRelativeLayout3()
+        refreshRelativeLayout4()
 
         val relativeLayout: RelativeLayout = findViewById(R.id.relativeLayout)
         val relativeLayout2: RelativeLayout = findViewById(R.id.relativeLayout2)
@@ -50,12 +55,23 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
             textViewSelected = Passing.selectedEmergencyMessageSetup?.customTextMessage.toString()
             openPopUp("customTextMessage")
         }
+        relativeLayout4.setOnClickListener {
+//            relativeLayout3.setBackgroundResource(
+//                androidx.appcompat.R.drawable
+//                    .abc_item_background_holo_light
+//            )
+            textViewSelected = Passing.selectedEmergencyMessageSetup?.customTextMessage.toString()
+            goToContactsMenu()
+        }
 
 //        buttonEdit!!.setOnClickListener {
 //            when (){
 //
 //            }
 //        }
+    }
+    private fun goToContactsMenu() {
+        startActivity(Intent(this, ContactActivity::class.java))
     }
 
     private fun refreshRelativeLayout() {
@@ -86,6 +102,23 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
                 ) as CharSequence?
         }
     }
+    private fun refreshRelativeLayout4() {
+        if (Passing.selectedEmergencyMessageSetup?.selectedContactList
+            ?.isNotEmpty() == true
+        ) {
+            val textView4: TextView = findViewById(R.id.text_contact_list)
+            textView4.text =
+                (
+                    Passing.selectedEmergencyMessageSetup?.getContactListNames()
+                    )
+            //     textView4.text = "test"
+        } else if (Passing.selectedEmergencyMessageSetup?.selectedContactList
+            ?.isEmpty() == true
+        ) {
+            val textView4: TextView = findViewById(R.id.text_contact_list)
+            textView4.text = "Select Contact(s)"
+        }
+    }
 
     private fun openPopUp(buttonType: String) {
         val editEmergencyMessagePopUps = EditEmergencyMessagePopUps(buttonType)
@@ -107,10 +140,10 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
             ).show()
             openPopUp("title")
         } else if (customTextString.isNotEmpty() &&
-            Passing.emergencyMessageSetupList.editEmergencyMessageSetupTitle(
+            emergencyMessageSelected?.editEmergencyMessageSetupTitle(
                     textViewSelected,
                     customTextString
-                )
+                ) == true
         ) {
             Toast.makeText(
                 this@EditEmergencyMessageActivity, "Successfully Edited",
@@ -143,10 +176,10 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
             ).show()
             openPopUp("keyphrase")
         } else if (customTextString.isNotEmpty() &&
-            Passing.emergencyMessageSetupList.editEmergencyMessageSetupKeyPhrase(
+            emergencyMessageSelected?.editEmergencyMessageSetupKeyPhrase(
                     textViewSelected,
                     customTextString
-                )
+                ) == true
         ) {
             Toast.makeText(
                 this@EditEmergencyMessageActivity, "Successfully Edited",
@@ -179,10 +212,10 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
             ).show()
             openPopUp("customTextMessage")
         } else if (customTextString.isNotEmpty() &&
-            Passing.emergencyMessageSetupList.editEmergencyMessageSetupCustomTextMessage(
+            emergencyMessageSelected?.editEmergencyMessageSetupCustomTextMessage(
                     textViewSelected,
                     customTextString
-                )
+                ) == true
         ) {
             Toast.makeText(
                 this@EditEmergencyMessageActivity, "Successfully Edited",
@@ -198,5 +231,9 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
             ).show()
             openPopUp("customTextMessage")
         }
+    }
+    override fun onPostResume() {
+        super.onPostResume()
+        refreshRelativeLayout4()
     }
 }

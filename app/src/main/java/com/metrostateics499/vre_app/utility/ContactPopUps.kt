@@ -1,4 +1,4 @@
-package com.metrostateics499.vre_app.view
+package com.metrostateics499.vre_app.utility
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -9,13 +9,14 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDialogFragment
 import com.metrostateics499.vre_app.R
+import com.metrostateics499.vre_app.model.Passing
 
-class KeyPhrasePopUps(
+class ContactPopUps(
     private val textViewSelected: String,
     private val buttonType: String
 ) : AppCompatDialogFragment() {
 
-    private var editTextKeyphrase: EditText? = null
+    private var editText: EditText? = null
     private var listener: Listener? = null
 
     @SuppressLint("CutPasteId")
@@ -25,31 +26,41 @@ class KeyPhrasePopUps(
 
         when (buttonType) {
             "edit" -> {
-                val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
+                val view = inflater.inflate(R.layout.layout_edit_text2_popup, null)
                 val textView: TextView = view.findViewById(R.id.edit_text)
-                textView.text = textViewSelected
+                val textView2: TextView = view.findViewById(R.id.edit_text2)
+                textView.text = Passing.selectedContact?.name ?: toString()
+                textView2.text = Passing.selectedContact?.phoneNumber ?: toString()
                 builder.setView(view)
-                    .setTitle("Edit Key Phrase")
+//                    .setTitle("Edit " + this.textViewSelected)
                     .setNegativeButton("cancel") { dialogInterface, i -> }
-                    .setPositiveButton("ok") { dialogInterface, i ->
-                        val keyphraseString = editTextKeyphrase!!.text.toString()
-                        listener!!.editKeyPhrase(keyphraseString)
+                    .setPositiveButton("save") { dialogInterface, i ->
+
+                        val contactName = textView.text.toString()
+                        val contactPhone = textView2.text.toString()
+                        listener!!.editContact(contactName, contactPhone)
+//                        val customTextString = editTextCustomTextMessage!!.text.toString()
                     }
-                editTextKeyphrase = view.findViewById(R.id.edit_text)
+                editText = view.findViewById(R.id.edit_text)
+//                editTextCustomTextMessage = view.findViewById(R.id.edit_text)
                 //            return builder.create()
             }
             "add" -> {
-                val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
+                val view = inflater.inflate(R.layout.layout_edit_text2_popup, null)
                 val textView: TextView = view.findViewById(R.id.edit_text)
-                textView.hint = "Key Phrase"
+                val textView2: TextView = view.findViewById(R.id.edit_text2)
+                textView.hint = "Name"
+                textView2.hint = "Phone Number"
                 builder.setView(view)
-                    .setTitle("New Key Phrase")
+                    .setTitle("New Contact")
                     .setNegativeButton("cancel") { dialogInterface, i -> }
                     .setPositiveButton("ok") { dialogInterface, i ->
-                        val keyphraseString = editTextKeyphrase!!.text.toString()
-                        listener!!.addKeyPhrase(keyphraseString)
+                        val contactName = textView.text.toString()
+                        val contactPhone = textView2.text.toString()
+                        listener!!.addContact(contactName, contactPhone)
+//                        listener!!.goToEditPage()
                     }
-                editTextKeyphrase = view.findViewById(R.id.edit_text)
+                editText = view.findViewById(R.id.edit_text)
                 //            return builder.create()
             }
             "delete" -> {
@@ -57,10 +68,10 @@ class KeyPhrasePopUps(
                 val textView: TextView = view.findViewById(R.id.text_view_popup)
                 textView.text = textViewSelected
                 builder.setView(view)
-                    .setTitle("Are you sure you want to delete this key phrase?")
+                    .setTitle("Are you sure you want to delete this custom text message?")
                     .setNegativeButton("cancel") { dialogInterface, i -> }
                     .setPositiveButton("ok") { dialogInterface, i ->
-                        listener!!.deleteKeyPhrase(textViewSelected)
+                        listener!!.deleteContact(textViewSelected)
                     }
             }
         }
@@ -80,8 +91,10 @@ class KeyPhrasePopUps(
     }
 
     interface Listener {
-        fun editKeyPhrase(keyphraseString: String)
-        fun deleteKeyPhrase(keyphraseString: String)
-        fun addKeyPhrase(keyphraseString: String)
+        fun editContact(contactName: String, contactPhone: String)
+        fun deleteContact(contactName: String)
+        fun addContact(contactName: String, contactPhone: String)
+//        fun goToEditPage()
+        fun refreshList()
     }
 }

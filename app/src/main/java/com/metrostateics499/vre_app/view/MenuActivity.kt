@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.metrostateics499.vre_app.R
+import com.metrostateics499.vre_app.model.Passing
 
 class MenuActivity : AppCompatActivity() {
 
@@ -39,5 +40,14 @@ class MenuActivity : AppCompatActivity() {
         goToEmergencyMessageSetup.setOnClickListener {
             startActivity(Intent(this, EmergencyMessageSetupActivity::class.java))
         }
+
+        val goToContacts = findViewById<Button>(R.id.contactList)
+        goToContacts.setOnClickListener {
+            startActivity(Intent(this, ContactActivity::class.java))
+        }
+    }
+    override fun onPostResume() {
+        super.onPostResume()
+        Passing.selectedEmergencyMessageSetup = null
     }
 }
