@@ -32,6 +32,16 @@ data class EmergencyMessageSetup(
         return false
     }
 
+    fun editContact(originalContact: Contact, editedContact: Contact): Boolean {
+        for (item in this.selectedContactList)
+            if (item == originalContact) {
+                item.name = editedContact.name
+                item.phoneNumber = editedContact.phoneNumber
+                return true
+            }
+        return false
+    }
+
     fun editEmergencyMessageSetupKeyPhrase(
         textViewSelected: String,
         customTextString: String
@@ -75,5 +85,50 @@ data class EmergencyMessageSetup(
                 this.customTextMessage.customTextMessage = customTextString
                 true
             }
+    }
+
+    fun editContact(contact: Contact, name: String, phone: String): Boolean {
+//        var targetContact: Contact? = null
+//        if (contact.name == name) {
+//            return false
+//        }
+
+        for (item in this.selectedContactList)
+            if (item == contact) {
+                item.name = name
+                item.phoneNumber = phone
+                return true
+            }
+        return false
+
+//        for (item in selectedContactList) {
+//            if (item.name == contact.name) {
+//                item.name = name
+//                item.phoneNumber = phone
+//                return true
+//            }
+//        }
+//        return false
+    }
+
+//                targetContact = item
+//            if (item.name == name) {
+//                return false
+
+//        }
+//        return if (targetContact != null) {
+//            targetContact.name = name
+//            targetContact.phoneNumber = phone
+//            true
+//            }
+//        }
+//    }
+
+    fun findContactObject(contact: Contact): Boolean {
+        for (item in this.selectedContactList)
+            if (item == contact) {
+                return true
+            }
+        return false
     }
 }

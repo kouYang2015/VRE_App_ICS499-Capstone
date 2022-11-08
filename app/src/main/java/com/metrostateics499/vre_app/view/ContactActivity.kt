@@ -58,18 +58,21 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
             ).show()
             openPopUp(textViewSelected, "edit")
         } else if (contactName.isNotEmpty() &&
-            Passing.selectedContact?.let {
-                Passing.contactList.editContact(
-                        it,
-                        contactName,
-                        contactPhone
-                    )
-            } == true
+            (
+                Passing.selectedContact?.let {
+                    Passing.contactList.editContact(
+                            it,
+                            contactName,
+                            contactPhone
+                        )
+                } == true
+                )
         ) {
             Toast.makeText(
-                this@ContactActivity, "Successfully Edited",
+                this@ContactActivity, "Contact Successfully Edited",
                 Toast.LENGTH_SHORT
             ).show()
+
             refreshList()
         } else {
             Toast.makeText(
@@ -97,14 +100,6 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
                         it
                     )
                 }
-
-//                if (item.findContact(contactName)) {
-//                    Passing.selectedContact?.let {
-//                        Passing.selectedEmergencyMessageSetup!!.removeContact(
-//                            it
-//                        )
-//                    }
-//                }
             }
             refreshList()
         }
@@ -168,9 +163,9 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
         recyclerViewContacts.adapter = contactAdapter
 
         buttonAdd!!.setOnClickListener {
-            textViewSelected = contactAdapter.titleSelectedString
-            viewSelectedBoolean = contactAdapter.viewSelectedBoolean
-            viewSelected = contactAdapter.viewSelected
+//            textViewSelected = contactAdapter.titleSelectedString
+//            viewSelectedBoolean = contactAdapter.viewSelectedBoolean
+//            viewSelected = contactAdapter.viewSelected
             openPopUp(textViewSelected, "add")
         }
         buttonEdit!!.setOnClickListener {
@@ -192,7 +187,7 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
         contactPopUps.show(supportFragmentManager, "example dialog")
     }
 
-    fun checkSelectForDelete(viewSelectedBoolean: Boolean, titleSelectedString: String) {
+    private fun checkSelectForDelete(viewSelectedBoolean: Boolean, titleSelectedString: String) {
         if (viewSelectedBoolean) {
             openPopUp(titleSelectedString, "delete")
         } else {
@@ -205,9 +200,6 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
 
     private fun checkSelectForEdit(viewSelectedBoolean: Boolean, titleSelectedString: String) {
         if (viewSelectedBoolean) {
-            Passing.selectedEmergencyMessageSetup =
-                Passing.emergencyMessageSetupList.findEmergencyMessageSetup(titleSelectedString)
-//            openPopUp(titleSelectedString,"edit")
             openPopUp(titleSelectedString, "edit")
         } else {
             Toast.makeText(

@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
+import com.metrostateics499.vre_app.model.Passing.emergencyMessageSetupList
 import com.metrostateics499.vre_app.utility.EditEmergencyMessagePopUps
 import kotlinx.android.synthetic.main.activity_edit_emergency_message.*
 
@@ -28,6 +29,7 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
         val relativeLayout: RelativeLayout = findViewById(R.id.relativeLayout)
         val relativeLayout2: RelativeLayout = findViewById(R.id.relativeLayout2)
         val relativeLayout3: RelativeLayout = findViewById(R.id.relativeLayout3)
+        val relativeLayout4: RelativeLayout = findViewById(R.id.relativeLayout4)
 
         relativeLayout.setOnClickListener {
 //            relativeLayout.setBackgroundResource(
@@ -76,7 +78,7 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
 
     private fun refreshRelativeLayout() {
         val textView: TextView = findViewById(R.id.text_view_em)
-        textView.text = (Passing.selectedEmergencyMessageSetup?.title ?: String) as CharSequence?
+        textView.text = (Passing.selectedEmergencyMessageSetup?.title)
     }
     private fun refreshRelativeLayout2() {
         val textView2: TextView = findViewById(R.id.text_view_keyphrase)
@@ -140,10 +142,10 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
             ).show()
             openPopUp("title")
         } else if (customTextString.isNotEmpty() &&
-            emergencyMessageSelected?.editEmergencyMessageSetupTitle(
+            emergencyMessageSetupList.editEmergencyMessageSetupTitle(
                     textViewSelected,
                     customTextString
-                ) == true
+                )
         ) {
             Toast.makeText(
                 this@EditEmergencyMessageActivity, "Successfully Edited",
