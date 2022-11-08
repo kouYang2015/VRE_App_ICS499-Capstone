@@ -139,7 +139,7 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
         if (customTextString.isEmpty()) {
             Toast.makeText(
                 this@EmergencyMessageSetupActivity,
-                "Please enter a key phrase",
+                "Please enter a title",
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(titleSelectedString, "add")
@@ -155,17 +155,18 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
         ) {
             Toast.makeText(
                 this@EmergencyMessageSetupActivity,
-                "New Key Phrase Successfully " +
+                "New Emergency Message Successfully " +
                     "Added",
                 Toast.LENGTH_SHORT
             ).show()
             Passing.selectedEmergencyMessageSetup =
                 Passing.emergencyMessageSetupList.findEmergencyMessageSetup(customTextString)
-            refreshList()
+//            refreshList()
+            goToEditPage()
         } else {
             Toast.makeText(
                 this@EmergencyMessageSetupActivity,
-                "That Key Phrase already exists. Try something else or click cancel",
+                "That Emergency Message already exists. Try something else or click cancel",
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(titleSelectedString, "add")

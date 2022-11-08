@@ -47,8 +47,9 @@ class EmergencyMessagePopUps(
                     .setNegativeButton("cancel") { dialogInterface, i -> }
                     .setPositiveButton("next") { dialogInterface, i ->
                         val emergencyMessageString = editText!!.text.toString()
+
                         listener!!.addEmergencyMessageSetup(emergencyMessageString)
-                        listener!!.goToEditPage()
+//                        listener!!.goToEditPage()
                     }
                 editText = view.findViewById(R.id.edit_text)
                 //            return builder.create()

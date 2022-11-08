@@ -1,7 +1,7 @@
 package com.metrostateics499.vre_app.model
 
-import java.util.*
 import com.metrostateics499.vre_app.model.data.*
+import java.util.*
 
 // Tried to save username and password (First Time login-in)
 object Passing {
