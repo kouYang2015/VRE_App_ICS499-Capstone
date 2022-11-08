@@ -9,11 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
 import com.metrostateics499.vre_app.model.data.Contact
+import com.metrostateics499.vre_app.utility.ContactPopUps
 import com.metrostateics499.vre_app.view.adapters.ContactAdapter
 import kotlinx.android.synthetic.main.activity_contacts.*
-import kotlinx.android.synthetic.main.activity_emergency_message_setup_menu.*
-import kotlinx.android.synthetic.main.activity_menu.*
-import kotlinx.android.synthetic.main.activity_menu.view.*
 
 class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
     private var buttonAdd: Button? = null

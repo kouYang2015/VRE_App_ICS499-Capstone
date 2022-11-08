@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
+import com.metrostateics499.vre_app.utility.EditEmergencyMessagePopUps
 import kotlinx.android.synthetic.main.activity_edit_emergency_message.*
 
 class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessagePopUps.Listener {
