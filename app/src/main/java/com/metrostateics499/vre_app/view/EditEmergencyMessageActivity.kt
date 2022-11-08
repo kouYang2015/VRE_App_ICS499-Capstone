@@ -28,6 +28,7 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
         val relativeLayout: RelativeLayout = findViewById(R.id.relativeLayout)
         val relativeLayout2: RelativeLayout = findViewById(R.id.relativeLayout2)
         val relativeLayout3: RelativeLayout = findViewById(R.id.relativeLayout3)
+        val relativeLayout4: RelativeLayout = findViewById(R.id.relativeLayout4)
 
         relativeLayout.setOnClickListener {
 //            relativeLayout.setBackgroundResource(

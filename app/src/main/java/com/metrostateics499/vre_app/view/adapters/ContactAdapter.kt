@@ -27,7 +27,7 @@ class ContactAdapter(
 
             itemView.title.text = contact.name
             itemView.description.text = contact.phoneNumber
-            if (Passing.selectedEmergencyMessageSetup?.findContact(contact.name) == true) {
+            if (Passing.selectedEmergencyMessageSetup?.findContactObject(contact) == true) {
                 itemView.switch2.isChecked = true
             }
         }

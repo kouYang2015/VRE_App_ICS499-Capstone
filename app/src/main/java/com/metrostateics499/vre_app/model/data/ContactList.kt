@@ -33,7 +33,8 @@ data class ContactList(var contacts: MutableList<Contact>) {
     fun editContact(contact: Contact, name: String, phone: String): Boolean {
         var targetContact: Contact? = null
         if (contact.name == name) {
-            return false
+            contact.phoneNumber = phone
+            return true
         }
         for (item in contacts) {
             if (item.name == contact.name)
