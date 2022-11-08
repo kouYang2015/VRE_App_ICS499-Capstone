@@ -58,21 +58,22 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
             ).show()
             openPopUp(textViewSelected, "edit")
         } else if (contactName.isNotEmpty() &&
-            (Passing.selectedContact?.let {
-                Passing.contactList.editContact(
-                    it,
-                    contactName,
-                    contactPhone
+            (
+                Passing.selectedContact?.let {
+                    Passing.contactList.editContact(
+                            it,
+                            contactName,
+                            contactPhone
+                        )
+                } == true
                 )
-            } == true)
         ) {
             Toast.makeText(
-            this@ContactActivity, "Contact Successfully Edited",
-                    Toast.LENGTH_SHORT
-        ).show()
+                this@ContactActivity, "Contact Successfully Edited",
+                Toast.LENGTH_SHORT
+            ).show()
 
-                refreshList()
-
+            refreshList()
         } else {
             Toast.makeText(
                 this@ContactActivity,

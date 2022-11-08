@@ -32,9 +32,9 @@ data class EmergencyMessageSetup(
         return false
     }
 
-    fun editContact(originalContact: Contact, editedContact:Contact):Boolean{
-        for(item in this.selectedContactList)
-            if (item == originalContact){
+    fun editContact(originalContact: Contact, editedContact: Contact): Boolean {
+        for (item in this.selectedContactList)
+            if (item == originalContact) {
                 item.name = editedContact.name
                 item.phoneNumber = editedContact.phoneNumber
                 return true
@@ -93,8 +93,8 @@ data class EmergencyMessageSetup(
 //            return false
 //        }
 
-        for(item in this.selectedContactList)
-            if (item == contact){
+        for (item in this.selectedContactList)
+            if (item == contact) {
                 item.name = name
                 item.phoneNumber = phone
                 return true
@@ -125,8 +125,8 @@ data class EmergencyMessageSetup(
 //    }
 
     fun findContactObject(contact: Contact): Boolean {
-        for(item in this.selectedContactList)
-            if (item == contact){
+        for (item in this.selectedContactList)
+            if (item == contact) {
                 return true
             }
         return false
