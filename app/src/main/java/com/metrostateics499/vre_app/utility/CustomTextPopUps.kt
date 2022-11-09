@@ -40,6 +40,8 @@ class CustomTextPopUps(
             }
             "add" -> {
                 val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
+                val textView: TextView = view.findViewById(R.id.edit_text)
+                textView.hint = ("Custom Text Message")
                 builder.setView(view)
                     .setTitle("New Custom Text Message")
                     .setNegativeButton("cancel") { dialogInterface, i -> }
