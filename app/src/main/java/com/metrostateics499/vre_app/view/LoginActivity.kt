@@ -66,14 +66,14 @@ class LoginActivity : AppCompatActivity() {
 
         // Cannot able to login with an empty text
         if (username.text.toString().isEmpty() && password.text.toString()
-                .isEmpty() && email.text.isEmpty()
+            .isEmpty() && email.text.isEmpty()
         ) {
             invalidCredentials.text = emptyInfo
         } else if ((
-                    (inputUsername == Passing.username && inputPassword == Passing.password) ||
-                            (inputUsername == adminUsername && inputPassword == adminPassword) ||
-                            (inputEmail == Passing.email && inputPassword == Passing.password)
-                    )
+            (inputUsername == Passing.username && inputPassword == Passing.password) ||
+                (inputUsername == adminUsername && inputPassword == adminPassword) ||
+                (inputEmail == Passing.email && inputPassword == Passing.password)
+            )
         ) {
             Toast.makeText(this, "Successfully Logged In", Toast.LENGTH_LONG).show()
             val intent = Intent(this, MenuActivity::class.java)
