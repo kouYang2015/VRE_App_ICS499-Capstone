@@ -52,29 +52,46 @@ class SetNewPasswordActivity : AppCompatActivity() {
         val inputConfirmNewPassword = confirmNewPassword.text.toString()
         val emptyNewPassword = "Password is needed to continue"
         val doesNotMatchPassword = "Password does not match. Try Again"
+        val lengthNotCorrectPassword = "Password must be 8 to 36 characters"
 
         /**
          * Check and display message if new password or confirm new password is empty, are equal,
          * or does not match
          */
-        if (newPassword.text.toString().isEmpty() && confirmNewPassword.text.toString().isEmpty()) {
-            invalidNewPassword.text = emptyNewPassword
-        } else if ((inputNewPassword == inputConfirmNewPassword && username == Passing.username) ||
-            (inputNewPassword == inputConfirmNewPassword && username == adminUsername)
+
+        if (newPassword.text.toString().isNotEmpty() && confirmNewPassword.text.toString()
+                .isNotEmpty()
         ) {
-            replacingPassword()
-            saveData()
 
-            Toast.makeText(this, "Successfully Changed Password", Toast.LENGTH_LONG).show()
+            if (newPassword.length() in 8..36 && confirmNewPassword.length() in 8..36) {
 
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+                if ((inputNewPassword == inputConfirmNewPassword && username == Passing.username) ||
+                    (inputNewPassword == inputConfirmNewPassword && username == adminUsername)
+                ) {
+
+                    replacingPassword()
+                    saveData()
+
+                    Toast.makeText(this, "Successfully Changed Password", Toast.LENGTH_LONG).show()
+
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    // Password does not match
+                    invalidNewPassword.text = doesNotMatchPassword
+
+                    newPassword.text.clear()
+                    confirmNewPassword.text.clear()
+                }
+            } else {
+                // Password is not a length of 8 or more
+                invalidNewPassword.text = lengthNotCorrectPassword
+            }
         } else {
-            invalidNewPassword.text = doesNotMatchPassword
-
-            newPassword.text.clear()
-            confirmNewPassword.text.clear()
+            // IS EMPTY
+            invalidNewPassword.text = emptyNewPassword
         }
+
     }
 
     // Replace old password with new password
@@ -98,4 +115,5 @@ class SetNewPasswordActivity : AppCompatActivity() {
         Toast.makeText(this, username.plus(" your password has been saved"), Toast.LENGTH_LONG)
             .show()
     }
+
 }
