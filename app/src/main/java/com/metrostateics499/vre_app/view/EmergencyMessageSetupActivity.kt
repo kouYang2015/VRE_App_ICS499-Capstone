@@ -147,23 +147,21 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(titleSelectedString, "add")
-        } else if(Passing.emergencyMessageSetupList.checkKeyPhraseDuplicate(keyPhrase)){
+        } else if (Passing.emergencyMessageSetupList.checkKeyPhraseDuplicate(keyPhrase)) {
             Toast.makeText(
                 this@EmergencyMessageSetupActivity,
                 "That Key Phrase Already Exists. Try again.",
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(titleSelectedString, "add")
-        }
-
-        else if (Passing.emergencyMessageSetupList.addEmergencyMessageSetup(
-                    EmergencyMessageSetup(
-                            titleName,
-                            KeyPhrase(keyPhrase),
-                            CustomTextMessage(customText),
-                            newContactList
-                        )
-                )
+        } else if (Passing.emergencyMessageSetupList.addEmergencyMessageSetup(
+                EmergencyMessageSetup(
+                        titleName,
+                        KeyPhrase(keyPhrase),
+                        CustomTextMessage(customText),
+                        newContactList
+                    )
+            )
         ) {
             Toast.makeText(
                 this@EmergencyMessageSetupActivity,

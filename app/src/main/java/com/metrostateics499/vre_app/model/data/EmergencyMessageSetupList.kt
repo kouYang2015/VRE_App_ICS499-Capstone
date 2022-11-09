@@ -79,8 +79,6 @@ data class EmergencyMessageSetupList(
         return false
     }
 
-
-
     fun editEmergencyMessageSetupKeyPhrase(
         textViewSelected: String,
         customTextString: String
