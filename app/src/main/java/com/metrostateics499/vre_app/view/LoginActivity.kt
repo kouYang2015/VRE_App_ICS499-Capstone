@@ -20,8 +20,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var email: EditText
     private var adminUsername: String = "username"
     private var adminPassword: String = "password"
-    
-    /**
+
+/**
      * This overrides the onCreate of this activity
      */
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,15 +75,15 @@ class LoginActivity : AppCompatActivity() {
 
         // Cannot login with an empty text
         if (username.text.toString().isEmpty() && password.text.toString()
-                .isEmpty() && email.text.isEmpty()
+            .isEmpty() && email.text.isEmpty()
         ) {
             // Displays a message on screen if it is empty
             invalidCredentials.text = emptyInfo
         } else if ((
-                    (inputUsername == Passing.username && inputPassword == Passing.password) ||
-                            (inputUsername == adminUsername && inputPassword == adminPassword) ||
-                            (inputEmail == Passing.email && inputPassword == Passing.password)
-                    )
+            (inputUsername == Passing.username && inputPassword == Passing.password) ||
+                (inputUsername == adminUsername && inputPassword == adminPassword) ||
+                (inputEmail == Passing.email && inputPassword == Passing.password)
+            )
         ) {
             // Displays message when successfully logged in
             Toast.makeText(this, "Successfully Logged In", Toast.LENGTH_LONG).show()

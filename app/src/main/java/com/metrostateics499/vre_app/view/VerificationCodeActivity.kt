@@ -49,8 +49,8 @@ class VerificationCodeActivity : AppCompatActivity() {
             verifyCode()
         }
     }
-    
-    /**
+
+/**
      * A function to Verify code
      */
     private fun verifyCode() {

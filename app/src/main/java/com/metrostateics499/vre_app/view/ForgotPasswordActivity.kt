@@ -75,8 +75,8 @@ class ForgotPasswordActivity : AppCompatActivity() {
             invalidUsername.text = notFoundUsername
         }
     }
-    
-    /**
+
+/**
      * Generate a random 6 number total for verification
      */
     private fun verificationRandomCode() {

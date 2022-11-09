@@ -65,7 +65,7 @@ class SetNewPasswordActivity : AppCompatActivity() {
          * or does not match
          */
         if (newPassword.text.toString().isNotEmpty() && confirmNewPassword.text.toString()
-                .isNotEmpty()
+            .isNotEmpty()
         ) {
             if (newPassword.length() in 8..36 && confirmNewPassword.length() in 8..36) {
                 if ((inputNewPassword == inputConfirmNewPassword && username == Passing.username) ||
