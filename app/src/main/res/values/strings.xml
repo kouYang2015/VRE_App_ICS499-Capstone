@@ -29,4 +29,19 @@
     <string name="coming_soon_text">Coming Soon</string>
     <string name="onSpeech">Turn On</string>
     <string name="offSpeech">Turn Off</string>
+    <string name="verify_email_username_text">Email or Username</string>
+    <string name="verify_email_username_button">Verify</string>
+    <string name="forgot_password_info">Enter Email or Username. An verification code will be sent to your email.</string>
+    <string name="verify_account_text">Verify your account</string>
+    <string name="title_activity_verification_code">VerificationCode</string>
+
+    <string name="verification_code_text">Enter the verification code</string>
+    <string name="verification_code_info">Verification code was sent to your email</string>
+    <string name="enter_code_text">Enter code</string>
+    <string name="verify_code_button">Verify</string>
+    <string name="set_new_password_text">Set new password</string>
+    <string name="set_new_password_info">Enter your new password and confirm new password</string>
+    <string name="new_password">New password</string>
+    <string name="confirm_new_password_text">Confirm new password</string>
+    <string name="new_password_cont_button">Continue</string>
 </resources>

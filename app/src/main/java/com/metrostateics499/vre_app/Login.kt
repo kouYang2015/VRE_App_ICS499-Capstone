@@ -15,6 +15,8 @@ class Login : AppCompatActivity() {
     private lateinit var username: EditText
     private lateinit var password: EditText
     private lateinit var email: EditText
+    private var adminUsername: String = "username"
+    private var adminPassword: String = "password"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +60,7 @@ class Login : AppCompatActivity() {
 
         // Cannot able to login with an empty text
         if (username.text.toString().isEmpty() && password.text.toString()
-            .isEmpty() && email.text.isEmpty()
+                .isEmpty() && email.text.isEmpty()
         ) {
             Toast.makeText(
                 this,
@@ -66,10 +68,10 @@ class Login : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         } else if ((
-            (inputUsername == Passing.username && inputPassword == Passing.password) ||
-                (inputUsername == "username" && inputPassword == "password") ||
-                (inputEmail == Passing.email && inputPassword == Passing.password)
-            )
+                    (inputUsername == Passing.username && inputPassword == Passing.password) ||
+                            (inputUsername == adminUsername && inputPassword == adminPassword) ||
+                            (inputEmail == Passing.email && inputPassword == Passing.password)
+                    )
         ) {
 
             Toast.makeText(this, "Successfully Logged In", Toast.LENGTH_LONG).show()
