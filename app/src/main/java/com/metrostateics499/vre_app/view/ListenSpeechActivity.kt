@@ -93,7 +93,7 @@ class ListenSpeechActivity : AppCompatActivity() {
 
     private fun recognizeKeyPhrase(incomingSpeech: String?) {
         if (Passing.keyPhraseList.keyPhrases.isEmpty() && Passing.emergencyMessageSetupList
-                    .emergencyMessageSetups.isEmpty()
+            .emergencyMessageSetups.isEmpty()
         ) {
             txtResult.text = buildString { append("No KeyPhrase(s) set") }
         } else {
@@ -148,7 +148,7 @@ class ListenSpeechActivity : AppCompatActivity() {
     private fun checkAndRequestPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission
-                        (
+                (
                         this,
                         Manifest.permission.RECORD_AUDIO
                     ) != PackageManager.PERMISSION_GRANTED
