@@ -5,18 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FF185CA5"
-    tools:context=".Menu">
+    tools:context=".view.MenuActivity">
 
     <TextView
         android:id="@+id/app_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/emblema_one"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/blinker_bold"
         android:text="@string/app_logo_name"
         android:textColor="@color/white"
-        android:textSize="90sp"
+        android:textSize="110sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,8 +24,10 @@
         android:id="@+id/logout_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/round_style"
+        android:backgroundTint="#1F2B6C"
+
         android:text="@string/logout"
+
         android:textAllCaps="false"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -37,23 +39,25 @@
     <Button
         android:id="@+id/customKeyWords"
         android:layout_width="370dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
-        android:background="@drawable/round_style"
+        android:layout_height="60dp"
+        android:layout_marginTop="28dp"
+        android:backgroundTint="#1F2B6C"
+
         android:text="@string/customKeyWords"
         android:textAllCaps="false"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/app_logo"
+        app:layout_constraintHorizontal_bias="0.609"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_logo" />
 
     <Button
         android:id="@+id/speechRecognition"
         android:layout_width="370dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/round_style"
+        android:backgroundTint="#1F2B6C"
         android:text="@string/speechRecognition"
         android:textAllCaps="false"
         android:textSize="20sp"
@@ -65,9 +69,9 @@
     <Button
         android:id="@+id/customTextMessageContent"
         android:layout_width="370dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/round_style"
+        android:backgroundTint="#1F2B6C"
         android:text="@string/customTextMessageContent"
         android:textAllCaps="false"
         android:textSize="20sp"
@@ -77,12 +81,13 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <Button
-        android:id="@+id/customizableConfigurations"
+        android:id="@+id/emergencyMessageSetup"
         android:layout_width="370dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/round_style"
-        android:text="@string/customizableConfigurations"
+        android:backgroundTint="#1F2B6C"
+
+        android:text="@string/emergencyMessageSetup"
         android:textAllCaps="false"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -93,30 +98,31 @@
     <Button
         android:id="@+id/contactList"
         android:layout_width="370dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/round_style"
+        android:backgroundTint="#1F2B6C"
+
         android:text="@string/contactList"
         android:textAllCaps="false"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/customizableConfigurations"
+        app:layout_constraintTop_toBottomOf="@id/emergencyMessageSetup"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
     <Button
         android:id="@+id/profile"
         android:layout_width="370dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/round_style"
+        android:backgroundTint="#1F2B6C"
+
         android:text="@string/profile"
         android:textAllCaps="false"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/contactList"
-        app:layout_constraintLeft_toLeftOf="@id/contactList"
-        />
+        app:layout_constraintLeft_toLeftOf="@id/contactList" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch1"
