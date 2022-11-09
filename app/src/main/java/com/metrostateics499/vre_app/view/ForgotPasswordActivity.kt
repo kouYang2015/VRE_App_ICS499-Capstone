@@ -15,7 +15,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
     // private lateinit var verifyEmailUsername: EditText
 
     // MIGHT USE THIS, NOT SURE YET
-    private lateinit var verifyEmail: EditText
+    // private lateinit var verifyEmail: EditText   // Implement in milestone 4
     private lateinit var verifyUsername: EditText
     private lateinit var verifyEmailUsernameButton: Button
     private var adminUsername: String = "username"
@@ -29,7 +29,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_forgot_password)
 
-        verifyEmail = findViewById(R.id.verify_email_username)
+        //verifyEmail = findViewById(R.id.verify_email_username)  // Implement in milestone 4
         verifyUsername = findViewById(R.id.verify_email_username)
         verifyEmailUsernameButton = findViewById(R.id.verify_email_username_button)
 
@@ -42,19 +42,18 @@ class ForgotPasswordActivity : AppCompatActivity() {
     // This is only taking username for now
     private fun verifyAccount() {
         val inputUsername = verifyUsername.text.toString()
-        val inputEmail = verifyEmail.text.toString()
+        // val inputEmail = verifyEmail.text.toString() // Implement in milestone 4
 
         // Check and display message if Email/Username is empty, is correct, and is incorrect
-        if (verifyUsername.text.toString().isEmpty() && verifyEmail.text.isEmpty()) {
+        if (verifyUsername.text.toString().isEmpty()) {
             Toast.makeText(
                 this,
-                "Email/Username can not be empty. Please enter and Email/Username.",
+                "Username can not be empty. Please enter and Username.",
                 Toast.LENGTH_SHORT
             ).show()
         } else if ((
                     (inputUsername == Passing.username) ||
-                            (inputUsername == adminUsername) ||
-                            (inputEmail == Passing.email)
+                            (inputUsername == adminUsername)
                     )
         ) {
             verificationRandomCode()
@@ -67,7 +66,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
         } else {
             Toast.makeText(
                 this,
-                "Sorry, Email/Username was not found",
+                "Sorry, Username was not found",
                 Toast.LENGTH_LONG
             ).show()
         }
