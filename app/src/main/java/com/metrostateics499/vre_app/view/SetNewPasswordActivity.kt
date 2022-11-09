@@ -17,6 +17,7 @@ class SetNewPasswordActivity : AppCompatActivity() {
     private lateinit var confirmNewPassword: EditText
     private lateinit var textEmailUsernameHint: TextView
     private lateinit var newPasswordContButton: Button
+    private lateinit var invalidNewPassword: TextView
     private var adminUsername: String = "username"
     private var username: String = ""
 
@@ -32,6 +33,7 @@ class SetNewPasswordActivity : AppCompatActivity() {
         confirmNewPassword = findViewById(R.id.confirm_new_password)
         newPasswordContButton = findViewById(R.id.new_password_cont_button)
         textEmailUsernameHint = findViewById(R.id.set_password_email_username_display)
+        invalidNewPassword = findViewById(R.id.invalid_new_password)
 
         // Get the Email/Username from ForgotPasswordActivity
         username = intent.getStringExtra("email/username").toString()
@@ -48,17 +50,16 @@ class SetNewPasswordActivity : AppCompatActivity() {
     private fun verifyReplacePassword() {
         val inputNewPassword = newPassword.text.toString()
         val inputConfirmNewPassword = confirmNewPassword.text.toString()
+        val emptyNewPassword = "Password is needed to continue"
+        val doesNotMatchPassword = "Password does not match. Try Again"
 
         /**
          * Check and display message if new password or confirm new password is empty, are equal,
          * or does not match
          */
         if (newPassword.text.toString().isEmpty() && confirmNewPassword.text.toString().isEmpty()) {
-            Toast.makeText(
-                this,
-                "Password is needed to continue",
-                Toast.LENGTH_SHORT
-            ).show()
+            invalidNewPassword.text = emptyNewPassword
+
         } else if ((inputNewPassword == inputConfirmNewPassword && username == Passing.username) ||
             (inputNewPassword == inputConfirmNewPassword && username == adminUsername)
         ) {
@@ -70,11 +71,10 @@ class SetNewPasswordActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         } else {
-            Toast.makeText(
-                this,
-                "Password does not match. Try Again",
-                Toast.LENGTH_LONG
-            ).show()
+            invalidNewPassword.text = doesNotMatchPassword
+
+            newPassword.text.clear()
+            confirmNewPassword.text.clear()
         }
     }
 

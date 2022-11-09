@@ -52,11 +52,6 @@ class VerificationCodeActivity : AppCompatActivity() {
         if (enterCode.text.toString().isEmpty()) {
             invalidCode.text = emptyEnterCode
 
-            Toast.makeText(
-                this,
-                "Enter code can not be empty",
-                Toast.LENGTH_SHORT
-            ).show()
         } else if ((inputCode == adminCode) || (inputCode == codeHint)) {
             Toast.makeText(this, "Continue to Set New Password", Toast.LENGTH_LONG).show()
 
@@ -64,14 +59,13 @@ class VerificationCodeActivity : AppCompatActivity() {
                 Intent(this, SetNewPasswordActivity::class.java)
                     .putExtra("email/username", username)
             startActivity(intent)
+
+            invalidCode.text = ""
+            enterCode.text.clear()
+            
         } else {
             invalidCode.text = incorrectEnterCode
 
-            Toast.makeText(
-                this,
-                "Sorry, Code is Incorrect. Try again",
-                Toast.LENGTH_LONG
-            ).show()
         }
     }
 }

@@ -52,4 +52,5 @@
     <string name="error_info_display"> </string>
     <string name="error_code_display">" "</string>
     <string name="error_account_display">" "</string>
+    <string name="error_new_password_display">" "</string>
 </resources>
