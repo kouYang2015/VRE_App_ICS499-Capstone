@@ -5,18 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FF185CA5"
-    tools:context=".view.LoginActivity">
+    tools:context=".view.VerificationCodeActivity">
 
     <TextView
         android:id="@+id/app_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/blinker_bold"
         android:text="@string/app_logo_name"
         android:textColor="@color/white"
         android:textSize="90sp"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -33,33 +32,72 @@
         app:layout_constraintTop_toBottomOf="@+id/app_logo"
         app:layout_constraintVertical_bias="0.0" />
 
+
     <TextView
-        android:id="@+id/invalid_credentials"
+        android:id="@+id/verify_email_username_display"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/error_info_display"
+        android:text="@string/display_email_username"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_front_title"
+        app:layout_constraintVertical_bias="0.056" />
+
+    <TextView
+        android:id="@+id/verification_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/verification_code_text"
+        android:textColor="#FFFF00"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/verify_email_username_display" />
+
+    <TextView
+        android:id="@+id/verification_code_info"
+        android:layout_width="277dp"
+        android:layout_height="44dp"
+        android:text="@string/verification_code_info"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/verification_code" />
+
+    <TextView
+        android:id="@+id/invalid_verification_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/error_code_display"
         android:textColor="#FA8072"
         android:textSize="16sp"
         android:textAlignment="textStart"
-        app:layout_constraintBottom_toTopOf="@id/username_text"
-        app:layout_constraintLeft_toLeftOf="@id/username"
-        app:layout_constraintRight_toRightOf="@id/username" />
+        app:layout_constraintBottom_toTopOf="@id/enter_code_text"
+        app:layout_constraintLeft_toLeftOf="@id/enter_code"
+        app:layout_constraintRight_toRightOf="@id/enter_code" />
 
     <TextView
-        android:id="@+id/username_text"
+        android:id="@+id/enter_code_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/username_text"
-        android:labelFor="@id/username"
+        android:text="@string/enter_code_text"
+        android:labelFor="@+id/enter_code"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintLeft_toLeftOf="@id/username"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_front_title" />
+        app:layout_constraintLeft_toLeftOf="@id/enter_code" />
 
     <EditText
-        android:id="@+id/username"
+        android:id="@id/enter_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="70dp"
@@ -69,72 +107,24 @@
         android:inputType="textVisiblePassword|textNoSuggestions"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/username_text"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <TextView
-        android:id="@+id/password_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/password_text"
-        android:labelFor="@id/password"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/username"
-        app:layout_constraintLeft_toLeftOf="@id/password" />
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="70dp"
-        android:background="@drawable/round_style"
-        android:backgroundTint="@color/white"
-        android:importantForAutofill="no"
-        android:inputType="textPassword"
-        android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/password_text" />
-
-    <TextView
-        android:id="@+id/forgot_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/forgot_password_text"
-        android:textColor="#ADD8E6"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/password"
-        app:layout_constraintLeft_toLeftOf="@id/password" />
+        app:layout_constraintTop_toBottomOf="@id/enter_code_text" />
 
     <Button
-        android:id="@+id/login_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#1F2B6C"
-        android:text="@string/login"
-        android:textAllCaps="false"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/forgot_password" />
-
-    <Button
-        android:id="@+id/create_account_button"
+        android:id="@+id/verify_code_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:backgroundTint="#1F2B6C"
-        android:text="@string/create_account"
+        android:background="@drawable/round_style"
+        android:text="@string/verify_code_button"
         android:textAllCaps="false"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_button" />
+        app:layout_constraintTop_toBottomOf="@id/enter_code" />
+
 
     <ImageView
         android:id="@+id/maverick_image"
@@ -146,7 +136,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/create_account_button"
         app:layout_constraintVertical_bias="1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
