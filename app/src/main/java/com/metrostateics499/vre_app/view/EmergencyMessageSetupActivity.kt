@@ -134,43 +134,47 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
         }
     }
 
-    override fun addEmergencyMessageSetup(customTextString: String) {
-        val newContactList: MutableList<Contact> = LinkedList()
-        if (customTextString.isEmpty()) {
-            Toast.makeText(
-                this@EmergencyMessageSetupActivity,
-                "Please enter a title",
-                Toast.LENGTH_SHORT
-            ).show()
-            openPopUp(titleSelectedString, "add")
-        } else if (customTextString.isNotEmpty() &&
-            Passing.emergencyMessageSetupList.addEmergencyMessageSetup(
-                    EmergencyMessageSetup(
-                            customTextString,
-                            KeyPhrase(""),
-                            CustomTextMessage(""),
-                            newContactList
-                        )
-                )
-        ) {
-            Toast.makeText(
-                this@EmergencyMessageSetupActivity,
-                "New Emergency Message Successfully " +
-                    "Added",
-                Toast.LENGTH_SHORT
-            ).show()
-            Passing.selectedEmergencyMessageSetup =
-                Passing.emergencyMessageSetupList.findEmergencyMessageSetup(customTextString)
-//            refreshList()
-            goToEditPage()
-        } else {
-            Toast.makeText(
-                this@EmergencyMessageSetupActivity,
-                "That Emergency Message already exists. Try something else or click cancel",
-                Toast.LENGTH_SHORT
-            ).show()
-            openPopUp(titleSelectedString, "add")
-        }
+    override fun addEmergencyMessageSetup(
+        titleName: String,
+        keyPhrase: String,
+        customText: String) {
+            val newContactList: MutableList<Contact> = LinkedList()
+            if (titleName.isEmpty() || keyPhrase.isEmpty() || customText.isEmpty()) {
+                Toast.makeText(
+                    this@EmergencyMessageSetupActivity,
+                    "Please enter all fields",
+                    Toast.LENGTH_SHORT
+                ).show()
+                openPopUp(titleSelectedString, "add")
+            } else if (titleName.isNotEmpty() &&
+                Passing.emergencyMessageSetupList.addEmergencyMessageSetup(
+                        EmergencyMessageSetup(
+                                titleName,
+                                KeyPhrase(keyPhrase),
+                                CustomTextMessage(customText),
+                                newContactList
+                            )
+                    )
+            ) {
+                Toast.makeText(
+                    this@EmergencyMessageSetupActivity,
+                    "New Emergency Message Successfully " +
+                        "Added",
+                    Toast.LENGTH_SHORT
+                ).show()
+                Passing.selectedEmergencyMessageSetup =
+                    Passing.emergencyMessageSetupList.findEmergencyMessageSetup(titleName)
+    //            refreshList()
+                goToEditPage()
+            } else {
+                Toast.makeText(
+                    this@EmergencyMessageSetupActivity,
+                    "That Emergency Message already exists. " +
+                            "Try something else or click cancel",
+                    Toast.LENGTH_SHORT
+                ).show()
+                openPopUp(titleSelectedString, "add")
+            }
     }
 
     override fun onPostResume() {
