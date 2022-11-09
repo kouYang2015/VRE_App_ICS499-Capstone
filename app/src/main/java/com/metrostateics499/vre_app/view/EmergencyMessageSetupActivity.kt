@@ -134,24 +134,34 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
         }
     }
 
-    override fun addEmergencyMessageSetup(customTextString: String) {
+    override fun addEmergencyMessageSetup(
+        titleName: String,
+        keyPhrase: String,
+        customText: String
+    ) {
         val newContactList: MutableList<Contact> = LinkedList()
-        if (customTextString.isEmpty()) {
+        if (titleName.isEmpty() || keyPhrase.isEmpty() || customText.isEmpty()) {
             Toast.makeText(
                 this@EmergencyMessageSetupActivity,
-                "Please enter a title",
+                "Please enter all fields",
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(titleSelectedString, "add")
-        } else if (customTextString.isNotEmpty() &&
-            Passing.emergencyMessageSetupList.addEmergencyMessageSetup(
-                    EmergencyMessageSetup(
-                            customTextString,
-                            KeyPhrase(""),
-                            CustomTextMessage(""),
-                            newContactList
-                        )
-                )
+        } else if (Passing.emergencyMessageSetupList.checkKeyPhraseDuplicate(keyPhrase)) {
+            Toast.makeText(
+                this@EmergencyMessageSetupActivity,
+                "That Key Phrase Already Exists. Try again.",
+                Toast.LENGTH_SHORT
+            ).show()
+            openPopUp(titleSelectedString, "add")
+        } else if (Passing.emergencyMessageSetupList.addEmergencyMessageSetup(
+                EmergencyMessageSetup(
+                        titleName,
+                        KeyPhrase(keyPhrase),
+                        CustomTextMessage(customText),
+                        newContactList
+                    )
+            )
         ) {
             Toast.makeText(
                 this@EmergencyMessageSetupActivity,
@@ -160,13 +170,14 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
                 Toast.LENGTH_SHORT
             ).show()
             Passing.selectedEmergencyMessageSetup =
-                Passing.emergencyMessageSetupList.findEmergencyMessageSetup(customTextString)
-//            refreshList()
+                Passing.emergencyMessageSetupList.findEmergencyMessageSetup(titleName)
+            //            refreshList()
             goToEditPage()
         } else {
             Toast.makeText(
                 this@EmergencyMessageSetupActivity,
-                "That Emergency Message already exists. Try something else or click cancel",
+                "That Emergency Message already exists. " +
+                    "Try something else or click cancel",
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(titleSelectedString, "add")

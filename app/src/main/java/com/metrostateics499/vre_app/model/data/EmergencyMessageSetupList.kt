@@ -68,6 +68,17 @@ data class EmergencyMessageSetupList(
         return emergencyMessageSetups.toString()
     }
 
+    fun checkKeyPhraseDuplicate(
+        keyPhrase: String,
+    ): Boolean {
+        for (item in emergencyMessageSetups) {
+            if (item.keyPhrase.keyPhrase == keyPhrase) {
+                return true
+            }
+        }
+        return false
+    }
+
     fun editEmergencyMessageSetupKeyPhrase(
         textViewSelected: String,
         customTextString: String
