@@ -29,7 +29,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_forgot_password)
 
-        //verifyEmail = findViewById(R.id.verify_email_username)  // Implement in milestone 4
+        // verifyEmail = findViewById(R.id.verify_email_username)  // Implement in milestone 4
         verifyUsername = findViewById(R.id.verify_email_username)
         verifyEmailUsernameButton = findViewById(R.id.verify_email_username_button)
 
