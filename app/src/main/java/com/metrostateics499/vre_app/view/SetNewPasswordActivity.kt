@@ -21,6 +21,9 @@ class SetNewPasswordActivity : AppCompatActivity() {
     private var adminUsername: String = "username"
     private var username: String = ""
 
+    /**
+     * This overrides the onCreate of this activity
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -47,6 +50,9 @@ class SetNewPasswordActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * The function to verify the new password and replaces it
+     */
     private fun verifyReplacePassword() {
         val inputNewPassword = newPassword.text.toString()
         val inputConfirmNewPassword = confirmNewPassword.text.toString()
@@ -59,15 +65,12 @@ class SetNewPasswordActivity : AppCompatActivity() {
          * or does not match
          */
         if (newPassword.text.toString().isNotEmpty() && confirmNewPassword.text.toString()
-            .isNotEmpty()
+                .isNotEmpty()
         ) {
-
             if (newPassword.length() in 8..36 && confirmNewPassword.length() in 8..36) {
-
                 if ((inputNewPassword == inputConfirmNewPassword && username == Passing.username) ||
                     (inputNewPassword == inputConfirmNewPassword && username == adminUsername)
                 ) {
-
                     replacingPassword()
                     saveData()
 
@@ -95,13 +98,17 @@ class SetNewPasswordActivity : AppCompatActivity() {
         }
     }
 
-    // Replace old password with new password
+    /**
+     * The function to replace old password with new password
+     */
     private fun replacingPassword() {
         Passing.setUsername(username)
         Passing.setPassword(confirmNewPassword.text.toString())
     }
 
-    // Save data to file
+    /**
+     * The function to save data to file
+     */
     private fun saveData() {
         // Save user Info, but not stored
         // (UserAccount.xml) is the file where the user is being saved from

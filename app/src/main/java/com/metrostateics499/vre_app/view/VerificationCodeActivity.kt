@@ -19,6 +19,9 @@ class VerificationCodeActivity : AppCompatActivity() {
     private var codeHint: String = ""
     private var username: String = ""
 
+    /**
+     * This overrides the onCreate of this activity
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -32,18 +35,24 @@ class VerificationCodeActivity : AppCompatActivity() {
         enterCodeButton = findViewById(R.id.verify_code_button)
         invalidCode = findViewById(R.id.invalid_verification_code)
 
+        // Get the generate number from previous activity and stores it to this value
         codeHint = intent.getStringExtra("genNum").toString()
+        // Get the username from previous activity and stores it to this value
         username = intent.getStringExtra("email/username").toString() // Use to display username
 
+        // A message to display on the screen about the user and the generate code
         textEmailUsernameHint.text =
             username.plus(" ").plus(codeHint) // Change later to send to email
 
+        // The verify button located on screen
         enterCodeButton.setOnClickListener {
             verifyCode()
         }
     }
-
-    // Verify code
+    
+    /**
+     * A function to Verify code
+     */
     private fun verifyCode() {
         val inputCode = enterCode.text.toString()
         val emptyEnterCode = "Enter code can not be empty"
