@@ -1,12 +1,12 @@
 package com.metrostateics499.vre_app
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 
 class VerificationCode : AppCompatActivity() {
 
@@ -30,16 +30,14 @@ class VerificationCode : AppCompatActivity() {
         enterCodeButton = findViewById(R.id.verify_code_button)
 
         codeHint = intent.getStringExtra("genNum").toString()
-        username = intent.getStringExtra("email/username").toString()  // Use to display username
+        username = intent.getStringExtra("email/username").toString() // Use to display username
 
         textEmailUsernameHint.text =
             username.plus(" ").plus(codeHint) // Change later to send to email
 
         enterCodeButton.setOnClickListener {
             verifyCode()
-
         }
-
     }
 
     private fun verifyCode() {

@@ -2,12 +2,12 @@ package com.metrostateics499.vre_app
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 
 class SetNewPassword : AppCompatActivity() {
 
@@ -17,7 +17,6 @@ class SetNewPassword : AppCompatActivity() {
     private lateinit var newPasswordContButton: Button
     private var adminUsername: String = "username"
     private var username: String = ""
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,8 +57,8 @@ class SetNewPassword : AppCompatActivity() {
                 "Password is needed to continue",
                 Toast.LENGTH_SHORT
             ).show()
-        } else if ((inputNewPassword == inputConfirmNewPassword && username == Passing.username)
-            || (inputNewPassword == inputConfirmNewPassword && username == adminUsername)
+        } else if ((inputNewPassword == inputConfirmNewPassword && username == Passing.username) ||
+            (inputNewPassword == inputConfirmNewPassword && username == adminUsername)
         ) {
             replacingPassword()
             saveData()
@@ -90,14 +89,14 @@ class SetNewPassword : AppCompatActivity() {
         val edit = sharedPref.edit()
 
         // Save their name,username,email and password
-        //edit.putString("Name", fullName.text.toString())
+        // edit.putString("Name", fullName.text.toString())
         edit.putString("User Name", username)
-        //edit.putString("Email", email.text.toString())
+        // edit.putString("Email", email.text.toString())
         edit.putString("Password", confirmNewPassword.text.toString())
         edit.apply()
 
         Toast.makeText(this, username.plus(" your password has been saved"), Toast.LENGTH_LONG)
             .show()
-        //sharedPref.getString("Name", "User Name")?.let { Log.d("Debug", it) }
+        // sharedPref.getString("Name", "User Name")?.let { Log.d("Debug", it) }
     }
 }

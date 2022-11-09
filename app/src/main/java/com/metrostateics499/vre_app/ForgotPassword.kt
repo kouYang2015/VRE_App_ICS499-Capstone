@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 class ForgotPassword : AppCompatActivity() {
 
     // DELETE AFTER DONE
-    //private lateinit var verifyEmailUsername: EditText
+    // private lateinit var verifyEmailUsername: EditText
 
     // MIGHT USE THIS, NOT SURE YET
     private lateinit var verifyEmail: EditText
@@ -51,10 +51,10 @@ class ForgotPassword : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         } else if ((
-                    (inputUsername == Passing.username) ||
-                            (inputUsername == adminUsername) ||
-                            (inputEmail == Passing.email)
-                    )
+            (inputUsername == Passing.username) ||
+                (inputUsername == adminUsername) ||
+                (inputEmail == Passing.email)
+            )
         ) {
             verificationRandomCode()
 
