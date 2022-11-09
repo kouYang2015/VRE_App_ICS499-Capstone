@@ -49,7 +49,6 @@ class ForgotPasswordActivity : AppCompatActivity() {
         // Check and display message if Email/Username is empty, is correct, and is incorrect
         if (verifyUsername.text.toString().isEmpty()) {
             invalidUsername.text = emptyUsernameInfo
-
         } else if (((inputUsername == Passing.username) || (inputUsername == adminUsername))) {
             verificationRandomCode()
 
@@ -61,7 +60,6 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
             invalidUsername.text = ""
             verifyUsername.text.clear()
-
         } else {
             invalidUsername.text = notFoundUsername
         }
