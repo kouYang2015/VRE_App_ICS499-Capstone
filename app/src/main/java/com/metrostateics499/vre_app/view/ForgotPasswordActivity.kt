@@ -53,7 +53,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
         // val inputEmail = verifyEmail.text.toString() // Implement in milestone 4
 
         // Check and display message if Email/Username is empty, is correct, and is incorrect
-        if (verifyUsername.text.toString().isEmpty()) {
+        if (verifyUsername.text.isEmpty()) {
             // Display message telling user the name can not be empty
             invalidUsername.text = emptyUsernameInfo
         } else if (((inputUsername == Passing.username) || (inputUsername == adminUsername))) {
@@ -76,7 +76,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
         }
     }
 
-/**
+    /**
      * Generate a random 6 number total for verification
      */
     private fun verificationRandomCode() {
