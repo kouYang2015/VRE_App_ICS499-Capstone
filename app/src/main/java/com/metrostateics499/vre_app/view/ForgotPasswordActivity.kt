@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.metrostateics499.vre_app.R
@@ -11,13 +12,11 @@ import com.metrostateics499.vre_app.model.Passing
 
 class ForgotPasswordActivity : AppCompatActivity() {
 
-    // DELETE AFTER DONE
-    // private lateinit var verifyEmailUsername: EditText
-
     // MIGHT USE THIS, NOT SURE YET
     // private lateinit var verifyEmail: EditText   // Implement in milestone 4
     private lateinit var verifyUsername: EditText
     private lateinit var verifyEmailUsernameButton: Button
+    private lateinit var invalidUsername: TextView
     private var adminUsername: String = "username"
     private var generatedNumber: String = ""
 
@@ -32,30 +31,26 @@ class ForgotPasswordActivity : AppCompatActivity() {
         // verifyEmail = findViewById(R.id.verify_email_username)  // Implement in milestone 4
         verifyUsername = findViewById(R.id.verify_email_username)
         verifyEmailUsernameButton = findViewById(R.id.verify_email_username_button)
+        invalidUsername = findViewById(R.id.invalid_username)
 
         verifyEmailUsernameButton.setOnClickListener {
             verifyAccount()
         }
     }
 
-    // Verifying if email or username is in the system
-    // This is only taking username for now
+    // Verifying if username is in the system
     private fun verifyAccount() {
         val inputUsername = verifyUsername.text.toString()
+        val emptyUsernameInfo = "Username can not be empty"
+        val notFoundUsername = "Sorry, Username was not found"
+
         // val inputEmail = verifyEmail.text.toString() // Implement in milestone 4
 
         // Check and display message if Email/Username is empty, is correct, and is incorrect
         if (verifyUsername.text.toString().isEmpty()) {
-            Toast.makeText(
-                this,
-                "Username can not be empty. Please enter and Username.",
-                Toast.LENGTH_SHORT
-            ).show()
-        } else if ((
-            (inputUsername == Passing.username) ||
-                (inputUsername == adminUsername)
-            )
-        ) {
+            invalidUsername.text = emptyUsernameInfo
+
+        } else if (((inputUsername == Passing.username) || (inputUsername == adminUsername))) {
             verificationRandomCode()
 
             Toast.makeText(this, "Account Successfully Verified", Toast.LENGTH_LONG).show()
@@ -63,12 +58,12 @@ class ForgotPasswordActivity : AppCompatActivity() {
                 .putExtra("genNum", generatedNumber)
                 .putExtra("email/username", inputUsername)
             startActivity(intent)
+
+            invalidUsername.text = ""
+            verifyUsername.text.clear()
+
         } else {
-            Toast.makeText(
-                this,
-                "Sorry, Username was not found",
-                Toast.LENGTH_LONG
-            ).show()
+            invalidUsername.text = notFoundUsername
         }
     }
 

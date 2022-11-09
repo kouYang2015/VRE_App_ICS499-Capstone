@@ -50,4 +50,5 @@
     <string name="display_email_username">Username display</string>
     <string name="noKeyPhrase">No keyPhrases set</string>
     <string name="error_info_display"> </string>
+    <string name="error_code_display">" "</string>
 </resources>
