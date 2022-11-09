@@ -32,4 +32,5 @@
     <string name="emergencyMessageSetup">Emergency Message Setup</string>
     <string name="emergencyMessages">Emergency Messages</string>
     <string name="contacts">Contacts</string>
+    <string name="noKeyPhrase">No keyPhrases set</string>
 </resources>
