@@ -19,7 +19,6 @@ class ForgotPasswordActivity : AppCompatActivity() {
     private lateinit var verifyUsername: EditText
     private lateinit var verifyEmailUsernameButton: Button
     private var adminUsername: String = "username"
-
     private var generatedNumber: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,10 +52,10 @@ class ForgotPasswordActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         } else if ((
-            (inputUsername == Passing.username) ||
-                (inputUsername == adminUsername) ||
-                (inputEmail == Passing.email)
-            )
+                    (inputUsername == Passing.username) ||
+                            (inputUsername == adminUsername) ||
+                            (inputEmail == Passing.email)
+                    )
         ) {
             verificationRandomCode()
 
@@ -79,11 +78,5 @@ class ForgotPasswordActivity : AppCompatActivity() {
         val randomNumber = (123457..987654).shuffled().last()
 
         generatedNumber = randomNumber.toString()
-
-        Toast.makeText(
-            this,
-            generatedNumber,
-            Toast.LENGTH_LONG
-        ).show()
     }
 }

@@ -33,26 +33,26 @@ class SetNewPasswordActivity : AppCompatActivity() {
         newPasswordContButton = findViewById(R.id.new_password_cont_button)
         textEmailUsernameHint = findViewById(R.id.set_password_email_username_display)
 
+        // Get the Email/Username from ForgotPasswordActivity
         username = intent.getStringExtra("email/username").toString()
 
+        // Display username on user interface xml
         textEmailUsernameHint.text = username
 
+        // The continue button on user interface
         newPasswordContButton.setOnClickListener {
             verifyReplacePassword()
         }
-
-        // Get the Email/Username
-        // Replace New password with Old password
-        // Check and display message
     }
 
     private fun verifyReplacePassword() {
         val inputNewPassword = newPassword.text.toString()
         val inputConfirmNewPassword = confirmNewPassword.text.toString()
 
-        // If new password or confirm new password is empty, display msg
-        // If New password is equal to Confirm new password, then replace New password with Old password
-        // Else, password does not match
+        /**
+         * Check and display message if new password or confirm new password is empty, are equal,
+         * or does not match
+         */
         if (newPassword.text.toString().isEmpty() && confirmNewPassword.text.toString().isEmpty()) {
             Toast.makeText(
                 this,
@@ -78,27 +78,25 @@ class SetNewPasswordActivity : AppCompatActivity() {
         }
     }
 
+    // Replace old password with new password
     private fun replacingPassword() {
         Passing.setUsername(username)
         Passing.setPassword(confirmNewPassword.text.toString())
     }
 
-    // This did not work when i forgot .text in replacingPassword
+    // Save data to file
     private fun saveData() {
         // Save user Info, but not stored
         // (UserAccount.xml) is the file where the user is being saved from
         val sharedPref = getSharedPreferences("UserAccount", Context.MODE_PRIVATE)
         val edit = sharedPref.edit()
 
-        // Save their name,username,email and password
-        // edit.putString("Name", fullName.text.toString())
+        // Save their username and password
         edit.putString("User Name", username)
-        // edit.putString("Email", email.text.toString())
         edit.putString("Password", confirmNewPassword.text.toString())
         edit.apply()
 
         Toast.makeText(this, username.plus(" your password has been saved"), Toast.LENGTH_LONG)
             .show()
-        // sharedPref.getString("Name", "User Name")?.let { Log.d("Debug", it) }
     }
 }

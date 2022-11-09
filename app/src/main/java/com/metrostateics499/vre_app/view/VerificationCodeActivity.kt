@@ -41,6 +41,7 @@ class VerificationCodeActivity : AppCompatActivity() {
         }
     }
 
+    // Verify code
     private fun verifyCode() {
         val inputCode = enterCode.text.toString()
 

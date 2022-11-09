@@ -37,7 +37,7 @@
         android:id="@+id/verify_email_username_display"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email/Username display with Code Hint"
+        android:text="@string/display_email_username"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
