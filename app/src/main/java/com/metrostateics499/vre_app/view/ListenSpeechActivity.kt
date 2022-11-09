@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -41,7 +40,7 @@ class ListenSpeechActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        speechRecognizer!!.destroy()
+        speechRecognizer.destroy()
     }
 
     /**
@@ -59,11 +58,11 @@ class ListenSpeechActivity : AppCompatActivity() {
         )
         speechRecognizer.setRecognitionListener(object : RecognitionListener {
             override fun onReadyForSpeech(p0: Bundle?) {
-                txtResult!!.setHint("Waiting for speech")
+                txtResult.hint = "Waiting for speech"
             }
 
             override fun onBeginningOfSpeech() {
-                txtResult!!.setHint("Listening to speech")
+                txtResult.hint = "Listening to speech"
             }
 
             override fun onRmsChanged(p0: Float) {}
@@ -77,18 +76,17 @@ class ListenSpeechActivity : AppCompatActivity() {
             override fun onResults(bundle: Bundle?) {
                 val data = bundle?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
                 recognizeKeyPhrase(data!![0])
-                //txtResult.text = data!![0]
             }
 
             override fun onPartialResults(bundle: Bundle?) {}
 
             override fun onEvent(p0: Int, p1: Bundle?) {}
         })
-        speechOnButton?.setOnClickListener() {
+        speechOnButton.setOnClickListener() {
             checkAndRequestPermissions()
             speechRecognizer.startListening(speechRecognizerIntent)
         }
-        speechOffButton?.setOnClickListener() {
+        speechOffButton.setOnClickListener() {
             speechRecognizer.stopListening()
         }
     }
@@ -97,13 +95,13 @@ class ListenSpeechActivity : AppCompatActivity() {
         if (Passing.keyPhraseList.keyPhrases.isEmpty() && Passing.emergencyMessageSetupList
                     .emergencyMessageSetups.isEmpty()
         ) {
-            txtResult.text = getString(R.string.noKeyPhrase)
+            txtResult.text = buildString { append("No KeyPhrase(s) set") }
         } else {
-            if (findMatchKeyPhrase(incomingSpeech) != null) {
+            if (findKeyPhraseMatch(incomingSpeech) != null) {
                 txtResult.text = buildString {
-                    findMatchKeyPhrase(incomingSpeech)?.let {
+                    findKeyPhraseMatch(incomingSpeech)?.let {
                         append(
-                            "Matched KeyPhrase: ",
+                            "KeyPhrase Recognized!\n",
                             it.keyPhrase
                         )
                     }
@@ -116,27 +114,14 @@ class ListenSpeechActivity : AppCompatActivity() {
         }
     }
 
-    private fun findMatchKeyPhrase(incomingSpeech: String?): KeyPhrase? {
+    private fun findKeyPhraseMatch(incomingSpeech: String?): KeyPhrase? {
         for (keyPhraseElement in Passing.keyPhraseList.keyPhrases) {
-            Log.d("keyphrase", keyPhraseElement.keyPhrase)
-            if (incomingSpeech != null) {
-                Log.d("incomingSpeech", incomingSpeech)
-                Log.d("equals", (keyPhraseElement.keyPhrase == incomingSpeech).toString())
-            }
-            if (incomingSpeech?.contains(keyPhraseElement.keyPhrase) == true) {
+            if (incomingSpeech?.contains(keyPhraseElement.keyPhrase, true) == true) {
                 return keyPhraseElement
             }
         }
         for (emergencySetup in Passing.emergencyMessageSetupList.emergencyMessageSetups) {
-            Log.d("EMS keyphrase", emergencySetup.keyPhrase.keyPhrase)
-            if (incomingSpeech != null) {
-                Log.d("EMS incomingSpeech", incomingSpeech)
-                Log.d(
-                    "EMS equals",
-                    (emergencySetup.keyPhrase.keyPhrase == incomingSpeech).toString()
-                )
-            }
-            if (incomingSpeech?.contains(emergencySetup.keyPhrase.keyPhrase) == true) {
+            if (incomingSpeech?.contains(emergencySetup.keyPhrase.keyPhrase, true) == true) {
                 return emergencySetup.keyPhrase
             }
         }
