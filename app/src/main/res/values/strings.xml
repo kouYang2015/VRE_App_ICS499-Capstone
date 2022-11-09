@@ -48,4 +48,5 @@
     <string name="emergencyMessages">Emergency Messages</string>
     <string name="contacts">Contacts</string>
     <string name="display_email_username">Username display</string>
+    <string name="noKeyPhrase">No keyPhrases set</string>
 </resources>
