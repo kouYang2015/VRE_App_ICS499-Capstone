@@ -54,8 +54,8 @@ class SetNewPasswordActivity : AppCompatActivity() {
      * The function to verify the new password and replaces it
      */
     private fun verifyReplacePassword() {
-        val inputNewPassword = newPassword.text
-        val inputConfirmNewPassword = confirmNewPassword.text
+        val inputNewPassword = newPassword.text.toString()
+        val inputConfirmNewPassword = confirmNewPassword.text.toString()
         val emptyNewPassword = "Password is needed to continue"
         val doesNotMatchPassword = "Password does not match. Try Again"
         val lengthNotCorrectPassword = "Password must be 8 to 36 characters"
@@ -102,6 +102,11 @@ class SetNewPasswordActivity : AppCompatActivity() {
      * The function to replace old password with new password
      */
     private fun replacingPassword() {
+        if (username == Passing.username) {
+            Passing.password = newPassword.toString()
+        } else {
+            Passing.setPassword(confirmNewPassword.text.toString())
+        }
         Passing.setUsername(username)
         Passing.setPassword(confirmNewPassword.text.toString())
     }
