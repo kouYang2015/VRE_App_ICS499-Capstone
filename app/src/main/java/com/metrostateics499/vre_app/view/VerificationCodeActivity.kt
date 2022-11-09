@@ -15,7 +15,7 @@ class VerificationCodeActivity : AppCompatActivity() {
     private lateinit var textEmailUsernameHint: TextView
     private lateinit var enterCodeButton: Button
     private lateinit var invalidCode: TextView
-    private var adminCode: String = "123456"
+    private var adminCode: String = "123455"
     private var codeHint: String = ""
     private var username: String = ""
 
@@ -48,21 +48,31 @@ class VerificationCodeActivity : AppCompatActivity() {
         val inputCode = enterCode.text.toString()
         val emptyEnterCode = "Enter code can not be empty"
         val incorrectEnterCode = "Sorry, code is incorrect. Try again"
+        val lengthNotCorrectCode = "Code must be 6 digits"
 
-        if (enterCode.text.toString().isEmpty()) {
-            invalidCode.text = emptyEnterCode
-        } else if ((inputCode == adminCode) || (inputCode == codeHint)) {
-            Toast.makeText(this, "Continue to Set New Password", Toast.LENGTH_LONG).show()
+        if (enterCode.text.toString().isNotEmpty()) {
+            if (enterCode.length() == 6) {
+                if ((inputCode == adminCode) || (inputCode == codeHint)) {
+                    Toast.makeText(this, "Continue to Set New Password", Toast.LENGTH_LONG).show()
 
-            val intent =
-                Intent(this, SetNewPasswordActivity::class.java)
-                    .putExtra("email/username", username)
-            startActivity(intent)
+                    val intent =
+                        Intent(this, SetNewPasswordActivity::class.java)
+                            .putExtra("email/username", username)
+                    startActivity(intent)
 
-            invalidCode.text = ""
-            enterCode.text.clear()
+                    invalidCode.text = ""
+                    enterCode.text.clear()
+                } else {
+                    // Display message telling user code is not correct
+                    invalidCode.text = incorrectEnterCode
+                }
+            } else {
+                // Display message telling user code needs to be 6 digits
+                invalidCode.text = lengthNotCorrectCode
+            }
         } else {
-            invalidCode.text = incorrectEnterCode
+            // Display message if code is empty
+            invalidCode.text = emptyEnterCode
         }
     }
 }

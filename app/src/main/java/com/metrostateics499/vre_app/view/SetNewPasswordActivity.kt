@@ -58,9 +58,8 @@ class SetNewPasswordActivity : AppCompatActivity() {
          * Check and display message if new password or confirm new password is empty, are equal,
          * or does not match
          */
-
         if (newPassword.text.toString().isNotEmpty() && confirmNewPassword.text.toString()
-            .isNotEmpty()
+                .isNotEmpty()
         ) {
 
             if (newPassword.length() in 8..36 && confirmNewPassword.length() in 8..36) {
@@ -76,6 +75,9 @@ class SetNewPasswordActivity : AppCompatActivity() {
 
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
+
+                    newPassword.text.clear()
+                    confirmNewPassword.text.clear()
                 } else {
                     // Password does not match
                     invalidNewPassword.text = doesNotMatchPassword
@@ -84,11 +86,11 @@ class SetNewPasswordActivity : AppCompatActivity() {
                     confirmNewPassword.text.clear()
                 }
             } else {
-                // Password is not a length of 8 or more
+                // Password is not a length of 8 to 36
                 invalidNewPassword.text = lengthNotCorrectPassword
             }
         } else {
-            // IS EMPTY
+            // Password is empty
             invalidNewPassword.text = emptyNewPassword
         }
     }
