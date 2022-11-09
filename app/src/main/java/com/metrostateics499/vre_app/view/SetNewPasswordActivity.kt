@@ -59,7 +59,6 @@ class SetNewPasswordActivity : AppCompatActivity() {
          */
         if (newPassword.text.toString().isEmpty() && confirmNewPassword.text.toString().isEmpty()) {
             invalidNewPassword.text = emptyNewPassword
-
         } else if ((inputNewPassword == inputConfirmNewPassword && username == Passing.username) ||
             (inputNewPassword == inputConfirmNewPassword && username == adminUsername)
         ) {
