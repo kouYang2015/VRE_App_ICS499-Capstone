@@ -53,10 +53,10 @@ class ForgotPasswordActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         } else if ((
-                    (inputUsername == Passing.username) ||
-                            (inputUsername == adminUsername) ||
-                            (inputEmail == Passing.email)
-                    )
+            (inputUsername == Passing.username) ||
+                (inputUsername == adminUsername) ||
+                (inputEmail == Passing.email)
+            )
         ) {
             verificationRandomCode()
 
