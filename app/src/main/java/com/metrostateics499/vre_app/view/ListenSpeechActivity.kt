@@ -18,8 +18,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.metrostateics499.vre_app.R
+import com.metrostateics499.vre_app.model.Passing
+import com.metrostateics499.vre_app.model.data.KeyPhrase
 import java.util.*
 
+/**
+ * Listen speech activity. Activity used to show view of and handle user interaction when they
+ * want to test speech recognition of saved KeyPhrases.
+ *
+ * @constructor Create empty Listen speech activity
+ */
 class ListenSpeechActivity : AppCompatActivity() {
 
     private lateinit var speechOnButton: Button
@@ -38,7 +46,7 @@ class ListenSpeechActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        speechRecognizer!!.destroy()
+        speechRecognizer.destroy()
     }
 
     /**
@@ -55,10 +63,12 @@ class ListenSpeechActivity : AppCompatActivity() {
             Locale.getDefault()
         )
         speechRecognizer.setRecognitionListener(object : RecognitionListener {
-            override fun onReadyForSpeech(p0: Bundle?) {}
+            override fun onReadyForSpeech(p0: Bundle?) {
+                txtResult.hint = "Waiting for speech"
+            }
 
             override fun onBeginningOfSpeech() {
-                txtResult!!.setHint("Listening to speech")
+                txtResult.hint = "Listening to speech"
             }
 
             override fun onRmsChanged(p0: Float) {}
@@ -71,20 +81,70 @@ class ListenSpeechActivity : AppCompatActivity() {
 
             override fun onResults(bundle: Bundle?) {
                 val data = bundle?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
-                txtResult.text = data!![0]
+                recognizeKeyPhrase(data!![0])
             }
 
             override fun onPartialResults(bundle: Bundle?) {}
 
             override fun onEvent(p0: Int, p1: Bundle?) {}
         })
-        speechOnButton?.setOnClickListener() {
+        speechOnButton.setOnClickListener {
             checkAndRequestPermissions()
             speechRecognizer.startListening(speechRecognizerIntent)
+            txtResult.text = null
         }
-        speechOffButton?.setOnClickListener() {
+        speechOffButton.setOnClickListener {
             speechRecognizer.stopListening()
         }
+    }
+
+    /**
+     * Checks if there are any keyPhrases set. If there is, check if User has spoken any of them
+     * and displays to screen the recognized key phrase.
+     *
+     * @param incomingSpeech
+     */
+    private fun recognizeKeyPhrase(incomingSpeech: String?) {
+        if (Passing.keyPhraseList.keyPhrases.isEmpty() && Passing.emergencyMessageSetupList
+                    .emergencyMessageSetups.isEmpty()
+        ) {
+            txtResult.text = buildString { append("No KeyPhrase(s) set") }
+        } else {
+            if (findKeyPhraseMatch(incomingSpeech) != null) {
+                txtResult.text = buildString {
+                    findKeyPhraseMatch(incomingSpeech)?.let {
+                        append(
+                            "KeyPhrase Recognized!\n",
+                            it.keyPhrase
+                        )
+                    }
+                }
+            } else {
+                txtResult.text = buildString {
+                    append("No Keyphrase matched")
+                }
+            }
+        }
+    }
+
+    /**
+     * Find keyPhrase object in the list of set keyPhrase that matches User's speech.
+     *
+     * @param incomingSpeech
+     * @return KeyPhrase if there is a KeyPhrase object that matches User's speech.
+     */
+    private fun findKeyPhraseMatch(incomingSpeech: String?): KeyPhrase? {
+        for (keyPhraseElement in Passing.keyPhraseList.keyPhrases) {
+            if (incomingSpeech?.contains(keyPhraseElement.keyPhrase, true) == true) {
+                return keyPhraseElement
+            }
+        }
+        for (emergencySetup in Passing.emergencyMessageSetupList.emergencyMessageSetups) {
+            if (incomingSpeech?.contains(emergencySetup.keyPhrase.keyPhrase, true) == true) {
+                return emergencySetup.keyPhrase
+            }
+        }
+        return null
     }
 
     /**
@@ -94,8 +154,8 @@ class ListenSpeechActivity : AppCompatActivity() {
         recordAudioPermissionRequest =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
             }
-        speechOnButton = findViewById<Button>(R.id.activateSpeech)
-        speechOffButton = findViewById<Button>(R.id.disableSpeech)
+        speechOnButton = findViewById(R.id.activateSpeech)
+        speechOffButton = findViewById(R.id.disableSpeech)
         txtResult = findViewById(R.id.speechToTextBox)
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
     }
@@ -107,7 +167,7 @@ class ListenSpeechActivity : AppCompatActivity() {
     private fun checkAndRequestPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission
-                (
+                        (
                         this,
                         Manifest.permission.RECORD_AUDIO
                     ) != PackageManager.PERMISSION_GRANTED
