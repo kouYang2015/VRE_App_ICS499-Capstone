@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
 import com.metrostateics499.vre_app.model.data.EmergencyMessageSetup
-import kotlinx.android.synthetic.main.row.view.*
+import kotlinx.android.synthetic.main.row_contacts.view.*
 
 class EmergencyMessageSetupAdapter(
     private val mutableList: MutableList<EmergencyMessageSetup>,

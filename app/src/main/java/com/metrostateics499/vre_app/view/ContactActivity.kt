@@ -58,15 +58,15 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
             ).show()
             openPopUp(textViewSelected, "edit")
         } else if (contactName.isNotEmpty() &&
-            (
-                Passing.selectedContact?.let {
-                    Passing.contactList.editContact(
-                            it,
-                            contactName,
-                            contactPhone
+                (
+                        Passing.selectedContact?.let {
+                            Passing.contactList.editContact(
+                                it,
+                                contactName,
+                                contactPhone
+                            )
+                        } == true
                         )
-                } == true
-                )
         ) {
             Toast.makeText(
                 this@ContactActivity, "Contact Successfully Edited",
@@ -78,7 +78,7 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
             Toast.makeText(
                 this@ContactActivity,
                 "That Name already exists. " +
-                    "Try something else or click cancel.",
+                        "Try something else or click cancel.",
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "edit")
@@ -91,7 +91,7 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
             Toast.makeText(
                 this@ContactActivity,
                 "You have deleted contact: " +
-                    textViewSelected,
+                        textViewSelected,
                 Toast.LENGTH_SHORT
             ).show()
             for (item in Passing.emergencyMessageSetupList.emergencyMessageSetups) {
@@ -128,17 +128,17 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
             ).show()
             openPopUp(textViewSelected, "add")
         } else if (contactName.isNotEmpty() && contactPhone.isNotEmpty() &&
-            Passing.contactList.addContact(
+                Passing.contactList.addContact(
                     Contact(
-                            contactName,
-                            contactPhone
-                        )
+                        contactName,
+                        contactPhone
+                    )
                 )
         ) {
             Toast.makeText(
                 this@ContactActivity,
                 "Contact Successfully " +
-                    "Added",
+                        "Added",
                 Toast.LENGTH_SHORT
             ).show()
             Passing.selectedContact =
@@ -156,7 +156,7 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
 
     override fun refreshList() {
         val contactAdapter = ContactAdapter(
-            Passing.contactList.contacts, this
+            Passing.contactList.contacts
         )
 
         recyclerViewContacts.layoutManager = LinearLayoutManager(this)

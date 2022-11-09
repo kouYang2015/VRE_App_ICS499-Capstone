@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.data.EmergencyMessageSetup
-import kotlinx.android.synthetic.main.row.view.*
+import kotlinx.android.synthetic.main.row_contacts.view.*
 
 class EditEmergencyMessageAdapter(
     private val mutableList: MutableList<EmergencyMessageSetup>,
@@ -27,6 +27,7 @@ class EditEmergencyMessageAdapter(
 
             itemView.title.text = emergencyMessageSetup.title
         }
+
         fun bindItems2(emergencyMessageSetup: EmergencyMessageSetup) {
 
             itemView.description.text = emergencyMessageSetup.keyPhrase.keyPhrase

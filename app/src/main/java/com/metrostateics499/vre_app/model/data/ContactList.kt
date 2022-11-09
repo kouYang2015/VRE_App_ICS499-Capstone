@@ -21,9 +21,9 @@ data class ContactList(var contacts: MutableList<Contact>) {
 
     fun findContact(contactName: String): Contact? {
         var targetContact: Contact? = null
-        for (item in contacts) {
-            if (item.name == contactName) {
-                targetContact = item
+        for (contactElement in contacts) {
+            if (contactElement.name == contactName) {
+                targetContact = contactElement
                 break
             }
         }
@@ -52,7 +52,7 @@ data class ContactList(var contacts: MutableList<Contact>) {
         }
     }
 
-    fun deleteContact(selectedContact: Contact?,): Boolean {
+    fun deleteContact(selectedContact: Contact?): Boolean {
         if (contacts.remove(selectedContact)) {
             return true
         }
