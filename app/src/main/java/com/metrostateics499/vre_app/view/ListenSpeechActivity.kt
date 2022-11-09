@@ -22,6 +22,12 @@ import com.metrostateics499.vre_app.model.Passing
 import com.metrostateics499.vre_app.model.data.KeyPhrase
 import java.util.*
 
+/**
+ * Listen speech activity. Activity used to show view of and handle user interaction when they
+ * want to test speech recognition of saved KeyPhrases.
+ *
+ * @constructor Create empty Listen speech activity
+ */
 class ListenSpeechActivity : AppCompatActivity() {
 
     private lateinit var speechOnButton: Button
@@ -91,9 +97,15 @@ class ListenSpeechActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Checks if there are any keyPhrases set. If there is, check if User has spoken any of them
+     * and displays to screen the recognized key phrase.
+     *
+     * @param incomingSpeech
+     */
     private fun recognizeKeyPhrase(incomingSpeech: String?) {
         if (Passing.keyPhraseList.keyPhrases.isEmpty() && Passing.emergencyMessageSetupList
-            .emergencyMessageSetups.isEmpty()
+                    .emergencyMessageSetups.isEmpty()
         ) {
             txtResult.text = buildString { append("No KeyPhrase(s) set") }
         } else {
@@ -114,6 +126,12 @@ class ListenSpeechActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Find keyPhrase object in the list of set keyPhrase that matches User's speech.
+     *
+     * @param incomingSpeech
+     * @return KeyPhrase if there is a KeyPhrase object that matches User's speech.
+     */
     private fun findKeyPhraseMatch(incomingSpeech: String?): KeyPhrase? {
         for (keyPhraseElement in Passing.keyPhraseList.keyPhrases) {
             if (incomingSpeech?.contains(keyPhraseElement.keyPhrase, true) == true) {
@@ -148,7 +166,7 @@ class ListenSpeechActivity : AppCompatActivity() {
     private fun checkAndRequestPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission
-                (
+                        (
                         this,
                         Manifest.permission.RECORD_AUDIO
                     ) != PackageManager.PERMISSION_GRANTED
