@@ -21,14 +21,14 @@
         android:theme="@style/Theme.VRE_App"
         tools:targetApi="31">
         <activity
-            android:name=".SetNewPassword"
+            android:name=".view.SetNewPasswordActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".VerificationCode"
+            android:name=".view.VerificationCodeActivity"
             android:exported="false"
             android:label="@string/title_activity_verification_code"
             android:theme="@style/Theme.VRE_App.NoActionBar">

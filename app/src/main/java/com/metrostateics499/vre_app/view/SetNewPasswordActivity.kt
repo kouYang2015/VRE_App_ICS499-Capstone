@@ -1,4 +1,4 @@
-package com.metrostateics499.vre_app
+package com.metrostateics499.vre_app.view
 
 import android.content.Context
 import android.content.Intent
@@ -8,8 +8,10 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.metrostateics499.vre_app.R
+import com.metrostateics499.vre_app.model.Passing
 
-class SetNewPassword : AppCompatActivity() {
+class SetNewPasswordActivity : AppCompatActivity() {
 
     private lateinit var newPassword: EditText
     private lateinit var confirmNewPassword: EditText
@@ -65,7 +67,7 @@ class SetNewPassword : AppCompatActivity() {
 
             Toast.makeText(this, "Successfully Changed Password", Toast.LENGTH_LONG).show()
 
-            val intent = Intent(this, Login::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         } else {
             Toast.makeText(

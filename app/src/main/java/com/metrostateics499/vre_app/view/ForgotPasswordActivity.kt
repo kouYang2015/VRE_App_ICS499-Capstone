@@ -7,7 +7,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.metrostateics499.vre_app.R
-import com.metrostateics499.vre_app.VerificationCode
 import com.metrostateics499.vre_app.model.Passing
 
 class ForgotPasswordActivity : AppCompatActivity() {
@@ -62,7 +61,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
             verificationRandomCode()
 
             Toast.makeText(this, "Account Successfully Verified", Toast.LENGTH_LONG).show()
-            val intent = Intent(this, VerificationCode::class.java)
+            val intent = Intent(this, VerificationCodeActivity::class.java)
                 .putExtra("genNum", generatedNumber)
                 .putExtra("email/username", inputUsername)
             startActivity(intent)
