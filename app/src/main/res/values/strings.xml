@@ -51,4 +51,5 @@
     <string name="noKeyPhrase">No keyPhrases set</string>
     <string name="error_info_display"> </string>
     <string name="error_code_display">" "</string>
+    <string name="error_account_display">" "</string>
 </resources>

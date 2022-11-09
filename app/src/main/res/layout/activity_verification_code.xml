@@ -73,6 +73,18 @@
         app:layout_constraintTop_toBottomOf="@id/verification_code" />
 
     <TextView
+        android:id="@+id/invalid_verification_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/error_code_display"
+        android:textColor="#FA8072"
+        android:textSize="16sp"
+        android:textAlignment="textStart"
+        app:layout_constraintBottom_toTopOf="@id/enter_code_text"
+        app:layout_constraintLeft_toLeftOf="@id/enter_code"
+        app:layout_constraintRight_toRightOf="@id/enter_code" />
+
+    <TextView
         android:id="@+id/enter_code_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

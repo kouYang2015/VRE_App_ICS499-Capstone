@@ -14,6 +14,7 @@ class VerificationCodeActivity : AppCompatActivity() {
     private lateinit var enterCode: EditText
     private lateinit var textEmailUsernameHint: TextView
     private lateinit var enterCodeButton: Button
+    private lateinit var invalidCode: TextView
     private var adminCode: String = "123456"
     private var codeHint: String = ""
     private var username: String = ""
@@ -29,6 +30,7 @@ class VerificationCodeActivity : AppCompatActivity() {
         enterCode = findViewById(R.id.enter_code)
         textEmailUsernameHint = findViewById(R.id.verify_email_username_display)
         enterCodeButton = findViewById(R.id.verify_code_button)
+        invalidCode = findViewById(R.id.invalid_verification_code)
 
         codeHint = intent.getStringExtra("genNum").toString()
         username = intent.getStringExtra("email/username").toString() // Use to display username
@@ -44,11 +46,15 @@ class VerificationCodeActivity : AppCompatActivity() {
     // Verify code
     private fun verifyCode() {
         val inputCode = enterCode.text.toString()
+        val emptyEnterCode = "Enter code can not be empty"
+        val incorrectEnterCode = "Sorry, code is incorrect. Try again"
 
         if (enterCode.text.toString().isEmpty()) {
+            invalidCode.text = emptyEnterCode
+
             Toast.makeText(
                 this,
-                "Enter code can not be empty.",
+                "Enter code can not be empty",
                 Toast.LENGTH_SHORT
             ).show()
         } else if ((inputCode == adminCode) || (inputCode == codeHint)) {
@@ -59,9 +65,11 @@ class VerificationCodeActivity : AppCompatActivity() {
                     .putExtra("email/username", username)
             startActivity(intent)
         } else {
+            invalidCode.text = incorrectEnterCode
+
             Toast.makeText(
                 this,
-                "Sorry, Code is Incorrect. Try again.",
+                "Sorry, Code is Incorrect. Try again",
                 Toast.LENGTH_LONG
             ).show()
         }
