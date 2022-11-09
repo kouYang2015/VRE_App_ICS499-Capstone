@@ -60,7 +60,7 @@ class SetNewPasswordActivity : AppCompatActivity() {
          */
 
         if (newPassword.text.toString().isNotEmpty() && confirmNewPassword.text.toString()
-                .isNotEmpty()
+            .isNotEmpty()
         ) {
 
             if (newPassword.length() in 8..36 && confirmNewPassword.length() in 8..36) {
@@ -91,7 +91,6 @@ class SetNewPasswordActivity : AppCompatActivity() {
             // IS EMPTY
             invalidNewPassword.text = emptyNewPassword
         }
-
     }
 
     // Replace old password with new password
@@ -115,5 +114,4 @@ class SetNewPasswordActivity : AppCompatActivity() {
         Toast.makeText(this, username.plus(" your password has been saved"), Toast.LENGTH_LONG)
             .show()
     }
-
 }
