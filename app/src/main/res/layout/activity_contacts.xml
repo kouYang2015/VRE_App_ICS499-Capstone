@@ -23,7 +23,6 @@
         android:id="@+id/buttonAdd"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="80dp"
 
         android:layout_marginEnd="160dp"
         android:backgroundTint="#1F2B6C"
@@ -39,14 +38,13 @@
         android:id="@+id/buttonDelete"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="80dp"
         android:layout_marginEnd="40dp"
         android:backgroundTint="#1F2B6C"
         app:icon="@android:drawable/ic_menu_delete"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewContacts"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.826" />
+        app:layout_constraintVertical_bias="0.803" />
 
     <TextView
         android:id="@+id/textView2"
@@ -73,9 +71,9 @@
         android:text="edit"
         app:icon="@android:drawable/ic_menu_edit"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewContacts"
-        app:layout_constraintEnd_toStartOf="@+id/buttonDelete"
-        app:layout_constraintHorizontal_bias="0.479"
-        app:layout_constraintStart_toEndOf="@+id/buttonAdd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.931" />
+        app:layout_constraintVertical_bias="0.803" />
 </androidx.constraintlayout.widget.ConstraintLayout>

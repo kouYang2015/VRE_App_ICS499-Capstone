@@ -32,7 +32,7 @@
         app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.833" />
+        app:layout_constraintVertical_bias="0.839" />
 
     <Button
         android:id="@+id/buttonDeleteKeyPhrase"
@@ -71,9 +71,9 @@
         android:text="edit"
         app:icon="@android:drawable/ic_menu_edit"
         app:layout_constraintBottom_toTopOf="@+id/listViewPhrases"
-        app:layout_constraintEnd_toStartOf="@+id/buttonDeleteKeyPhrase"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toEndOf="@+id/buttonAddKeyPhrase"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.833" />
 </androidx.constraintlayout.widget.ConstraintLayout>
