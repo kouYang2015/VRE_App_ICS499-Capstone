@@ -24,6 +24,7 @@ class CustomTextPopUps(
         val inflater = requireActivity().layoutInflater
 
         when (buttonType) {
+
             "edit" -> {
                 val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
                 val textView: TextView = view.findViewById(R.id.edit_text)
@@ -36,8 +37,8 @@ class CustomTextPopUps(
                         listener!!.editCustomTextMessage(customTextString)
                     }
                 editTextCustomTextMessage = view.findViewById(R.id.edit_text)
-                //            return builder.create()
             }
+
             "add" -> {
                 val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
                 val textView: TextView = view.findViewById(R.id.edit_text)
@@ -50,8 +51,8 @@ class CustomTextPopUps(
                         listener!!.addCustomTextMessage(customTextString)
                     }
                 editTextCustomTextMessage = view.findViewById(R.id.edit_text)
-                //            return builder.create()
             }
+
             "delete" -> {
                 val view = inflater.inflate(R.layout.layout_delete_popup, null)
                 val textView: TextView = view.findViewById(R.id.text_view_popup)

@@ -96,6 +96,5 @@ class EditEmergencyMessagePopUps(
         fun editEmergencyMessageSetupTitle(customTextString: String)
         fun editEmergencyMessageSetupKeyPhrase(customTextString: String)
         fun editEmergencyMessageSetupCustomTextMessage(customTextString: String)
-//        fun goToEditPage()
     }
 }

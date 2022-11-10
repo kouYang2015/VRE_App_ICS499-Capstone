@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.row.view.*
 
 class ContactAdapter(
     private val mutableList: MutableList<Contact>,
-//    val emergencyMessageSetupList: EmergencyMessageSetupList,
     val context: Context
 ) : RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
 

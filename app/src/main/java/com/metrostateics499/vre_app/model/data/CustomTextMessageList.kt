@@ -65,13 +65,4 @@ data class CustomTextMessageList(var customTextMessages: MutableList<CustomTextM
         }
         return true
     }
-
-    /**
-     * To string
-     *
-     * @return keyPhrases
-     */
-    override fun toString(): String {
-        return customTextMessages.toString()
-    }
 }

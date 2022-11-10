@@ -32,19 +32,16 @@ class ContactPopUps(
                 textView.text = Passing.selectedContact?.name ?: toString()
                 textView2.text = Passing.selectedContact?.phoneNumber ?: toString()
                 builder.setView(view)
-//                    .setTitle("Edit " + this.textViewSelected)
                     .setNegativeButton("cancel") { dialogInterface, i -> }
                     .setPositiveButton("save") { dialogInterface, i ->
 
                         val contactName = textView.text.toString()
                         val contactPhone = textView2.text.toString()
                         listener!!.editContact(contactName, contactPhone)
-//                        val customTextString = editTextCustomTextMessage!!.text.toString()
                     }
                 editText = view.findViewById(R.id.edit_text)
-//                editTextCustomTextMessage = view.findViewById(R.id.edit_text)
-                //            return builder.create()
             }
+
             "add" -> {
                 val view = inflater.inflate(R.layout.layout_edit_text2_popup, null)
                 val textView: TextView = view.findViewById(R.id.edit_text)
@@ -58,11 +55,10 @@ class ContactPopUps(
                         val contactName = textView.text.toString()
                         val contactPhone = textView2.text.toString()
                         listener!!.addContact(contactName, contactPhone)
-//                        listener!!.goToEditPage()
                     }
                 editText = view.findViewById(R.id.edit_text)
-                //            return builder.create()
             }
+
             "delete" -> {
                 val view = inflater.inflate(R.layout.layout_delete_popup, null)
                 val textView: TextView = view.findViewById(R.id.text_view_popup)
@@ -94,7 +90,6 @@ class ContactPopUps(
         fun editContact(contactName: String, contactPhone: String)
         fun deleteContact(contactName: String)
         fun addContact(contactName: String, contactPhone: String)
-//        fun goToEditPage()
         fun refreshList()
     }
 }
