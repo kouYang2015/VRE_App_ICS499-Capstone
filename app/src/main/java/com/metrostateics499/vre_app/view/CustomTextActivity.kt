@@ -97,7 +97,7 @@ class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
             openPopUp(textViewSelected, "add")
         } else if (customTextString.isNotEmpty() &&
             Passing.customTextMessageList.addCustomTextMessage(
-                CustomTextMessage(customTextString.trim()))
+                    CustomTextMessage(customTextString.trim()))
         ) {
             Toast.makeText(
                 this@CustomTextActivity,
