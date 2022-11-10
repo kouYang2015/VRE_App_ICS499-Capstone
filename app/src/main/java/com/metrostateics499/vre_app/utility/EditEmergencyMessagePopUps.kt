@@ -39,8 +39,8 @@ class EditEmergencyMessagePopUps(
                         listener!!.editEmergencyMessageSetupTitle(customTextString)
                     }
                 editText = view.findViewById(R.id.edit_text)
-                //            return builder.create()
             }
+
             "keyphrase" -> {
                 val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
                 val textView: TextView = view.findViewById(R.id.edit_text)
@@ -55,11 +55,10 @@ class EditEmergencyMessagePopUps(
                     .setPositiveButton("save") { dialogInterface, i ->
                         val customTextString = editText!!.text.toString()
                         listener!!.editEmergencyMessageSetupKeyPhrase(customTextString)
-//                        listener!!.goToEditPage()
                     }
                 editText = view.findViewById(R.id.edit_text)
-                //            return builder.create()
             }
+
             "customTextMessage" -> {
                 val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
                 val textView: TextView = view.findViewById(R.id.edit_text)
@@ -74,22 +73,9 @@ class EditEmergencyMessagePopUps(
                     .setPositiveButton("save") { dialogInterface, i ->
                         val customTextString = editText!!.text.toString()
                         listener!!.editEmergencyMessageSetupCustomTextMessage(customTextString)
-//                        listener!!.goToEditPage()
                     }
                 editText = view.findViewById(R.id.edit_text)
-                //            return builder.create()
             }
-//            "delete" -> {
-//                val view = inflater.inflate(R.layout.layout_delete_popup, null)
-//                val textView: TextView = view.findViewById(R.id.text_view_popup)
-//                textView.text = textViewSelected
-//                builder.setView(view)
-//                    .setTitle("Are you sure you want to delete this custom text message?")
-//                    .setNegativeButton("cancel") { dialogInterface, i -> }
-//                    .setPositiveButton("ok") { dialogInterface, i ->
-//                        listener!!.deleteEmergencyMessageSetup(textViewSelected)
-//                    }
-//            }
         }
         return builder.create()
     }

@@ -36,7 +36,6 @@ class KeyPhrasePopUps(
                         listener!!.editKeyPhrase(keyphraseString)
                     }
                 editTextKeyphrase = view.findViewById(R.id.edit_text)
-                //            return builder.create()
             }
             "add" -> {
                 val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
@@ -50,7 +49,6 @@ class KeyPhrasePopUps(
                         listener!!.addKeyPhrase(keyphraseString)
                     }
                 editTextKeyphrase = view.findViewById(R.id.edit_text)
-                //            return builder.create()
             }
             "delete" -> {
                 val view = inflater.inflate(R.layout.layout_delete_popup, null)

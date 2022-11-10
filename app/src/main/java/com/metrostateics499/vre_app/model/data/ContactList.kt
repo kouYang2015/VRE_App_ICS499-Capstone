@@ -11,7 +11,7 @@ data class ContactList(var contacts: MutableList<Contact>) {
 
     fun addContact(contact: Contact): Boolean {
         for (item in contacts) {
-            if (item.name == contact.name) {
+            if (item.name.equals(contact.name, true)) {
                 return false
             }
         }
@@ -32,14 +32,14 @@ data class ContactList(var contacts: MutableList<Contact>) {
 
     fun editContact(contact: Contact, name: String, phone: String): Boolean {
         var targetContact: Contact? = null
-        if (contact.name == name) {
+        if (contact.name.equals(name, true)) {
             contact.phoneNumber = phone
             return true
         }
         for (item in contacts) {
-            if (item.name == contact.name)
+            if (item.name.equals(contact.name, true))
                 targetContact = item
-            if (item.name == name) {
+            if (item.name.equals(name, true)) {
                 return false
             }
         }

@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.row.view.*
 
 class EmergencyMessageSetupAdapter(
     private val mutableList: MutableList<EmergencyMessageSetup>,
-//    val emergencyMessageSetupList: EmergencyMessageSetupList,
     val context: Context
 ) : RecyclerView.Adapter<EmergencyMessageSetupAdapter.ViewHolder>() {
 

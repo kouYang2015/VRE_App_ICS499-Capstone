@@ -29,15 +29,12 @@ class EmergencyMessagePopUps(
                 val textView: TextView = view.findViewById(R.id.text_view_em)
                 textView.text = textViewSelected
                 builder.setView(view)
-//                    .setTitle("Edit " + this.textViewSelected)
                     .setNegativeButton("cancel") { dialogInterface, i -> }
                     .setPositiveButton("save") { dialogInterface, i ->
-//                        val customTextString = editTextCustomTextMessage!!.text.toString()
                         listener!!.refreshList()
                     }
-//                editTextCustomTextMessage = view.findViewById(R.id.edit_text)
-                //            return builder.create()
             }
+
             "add" -> {
                 val view = inflater.inflate(R.layout.layout_edit_text3_popup, null)
                 val textView: TextView = view.findViewById(R.id.edit_text)
@@ -55,11 +52,10 @@ class EmergencyMessagePopUps(
                         val customText = textView3.text.toString()
 
                         listener!!.addEmergencyMessageSetup(titleName, keyPhrase, customText)
-//                        listener!!.goToEditPage()
                     }
                 editText = view.findViewById(R.id.edit_text)
-                //            return builder.create()
             }
+
             "delete" -> {
                 val view = inflater.inflate(R.layout.layout_delete_popup, null)
                 val textView: TextView = view.findViewById(R.id.text_view_popup)
@@ -88,7 +84,6 @@ class EmergencyMessagePopUps(
     }
 
     interface Listener {
-        fun editEmergencyMessageSetup(customTextString: String)
         fun deleteEmergencyMessageSetup(customTextString: String)
         fun addEmergencyMessageSetup(titleName: String, keyPhrase: String, customText: String)
         fun goToEditPage()

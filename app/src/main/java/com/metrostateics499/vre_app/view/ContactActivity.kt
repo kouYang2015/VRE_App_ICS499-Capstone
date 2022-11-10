@@ -22,8 +22,6 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
     private var viewSelectedBoolean: Boolean = false
     private var viewSelected: View? = null
 
-    val selectedContact: Contact = Contact("", "")
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contacts)
@@ -33,6 +31,82 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
         buttonDelete = findViewById<View>(R.id.buttonDelete) as Button
 
         refreshList()
+    }
+
+    private fun openPopUp(textViewSelected: String, buttonType: String) {
+        val contactPopUps = ContactPopUps(textViewSelected, buttonType)
+        contactPopUps.show(supportFragmentManager, "example dialog")
+    }
+
+    private fun checkSelectForDelete(viewSelectedBoolean: Boolean, titleSelectedString: String) {
+        if (viewSelectedBoolean) {
+            openPopUp(titleSelectedString, "delete")
+        } else {
+            Toast.makeText(
+                this@ContactActivity, "You must select something first",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun checkSelectForEdit(viewSelectedBoolean: Boolean, titleSelectedString: String) {
+        if (viewSelectedBoolean) {
+            openPopUp(titleSelectedString, "edit")
+        } else {
+            Toast.makeText(
+                this@ContactActivity, "You must select something first",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    override fun addContact(contactName: String, contactPhone: String) {
+        if (contactName.isEmpty() && contactPhone.isEmpty()) {
+            Toast.makeText(
+                this@ContactActivity,
+                "Please enter fields",
+                Toast.LENGTH_SHORT
+            ).show()
+            openPopUp(textViewSelected, "add")
+        } else if (contactName.isEmpty() && contactPhone.isNotEmpty()) {
+            Toast.makeText(
+                this@ContactActivity,
+                "Please enter a name",
+                Toast.LENGTH_SHORT
+            ).show()
+            openPopUp(textViewSelected, "add")
+        } else if (contactName.isNotEmpty() && contactPhone.isEmpty()) {
+            Toast.makeText(
+                this@ContactActivity,
+                "Please enter a phone number",
+                Toast.LENGTH_SHORT
+            ).show()
+            openPopUp(textViewSelected, "add")
+        } else if (contactName.isNotEmpty() && contactPhone.isNotEmpty() &&
+            Passing.contactList.addContact(
+                    Contact(
+                            contactName.trim(),
+                            contactPhone.trim()
+                        )
+                )
+        ) {
+            Toast.makeText(
+                this@ContactActivity,
+                "Contact Successfully " +
+                    "Added",
+                Toast.LENGTH_SHORT
+            ).show()
+            Passing.selectedContact =
+                Passing.contactList.findContact(contactName)
+            refreshList()
+        } else {
+            Toast.makeText(
+                this@ContactActivity,
+                "That Name already exists. Try something else or click cancel",
+                Toast.LENGTH_SHORT
+            ).show()
+            openPopUp(textViewSelected, "add")
+        }
     }
 
     override fun editContact(contactName: String, contactPhone: String) {
@@ -62,8 +136,8 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
                 Passing.selectedContact?.let {
                     Passing.contactList.editContact(
                             it,
-                            contactName,
-                            contactPhone
+                            contactName.trim(),
+                            contactPhone.trim()
                         )
                 } == true
                 )
@@ -105,55 +179,6 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
         }
     }
 
-    override fun addContact(contactName: String, contactPhone: String) {
-        if (contactName.isEmpty() && contactPhone.isEmpty()) {
-            Toast.makeText(
-                this@ContactActivity,
-                "Please enter fields",
-                Toast.LENGTH_SHORT
-            ).show()
-            openPopUp(textViewSelected, "add")
-        } else if (contactName.isEmpty() && contactPhone.isNotEmpty()) {
-            Toast.makeText(
-                this@ContactActivity,
-                "Please enter a name",
-                Toast.LENGTH_SHORT
-            ).show()
-            openPopUp(textViewSelected, "add")
-        } else if (contactName.isNotEmpty() && contactPhone.isEmpty()) {
-            Toast.makeText(
-                this@ContactActivity,
-                "Please enter a phone number",
-                Toast.LENGTH_SHORT
-            ).show()
-            openPopUp(textViewSelected, "add")
-        } else if (contactName.isNotEmpty() && contactPhone.isNotEmpty() &&
-            Passing.contactList.addContact(
-                    Contact(
-                            contactName,
-                            contactPhone
-                        )
-                )
-        ) {
-            Toast.makeText(
-                this@ContactActivity,
-                "Contact Successfully " +
-                    "Added",
-                Toast.LENGTH_SHORT
-            ).show()
-            Passing.selectedContact =
-                Passing.contactList.findContact(contactName)
-            refreshList()
-        } else {
-            Toast.makeText(
-                this@ContactActivity,
-                "That Name already exists. Try something else or click cancel",
-                Toast.LENGTH_SHORT
-            ).show()
-            openPopUp(textViewSelected, "add")
-        }
-    }
-
     override fun refreshList() {
         val contactAdapter = ContactAdapter(
             Passing.contactList.contacts, this
@@ -163,9 +188,6 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
         recyclerViewContacts.adapter = contactAdapter
 
         buttonAdd!!.setOnClickListener {
-//            textViewSelected = contactAdapter.titleSelectedString
-//            viewSelectedBoolean = contactAdapter.viewSelectedBoolean
-//            viewSelected = contactAdapter.viewSelected
             openPopUp(textViewSelected, "add")
         }
         buttonEdit!!.setOnClickListener {
@@ -179,33 +201,6 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
             viewSelectedBoolean = contactAdapter.viewSelectedBoolean
             viewSelected = contactAdapter.viewSelected
             checkSelectForDelete(viewSelectedBoolean, textViewSelected)
-        }
-    }
-
-    private fun openPopUp(textViewSelected: String, buttonType: String) {
-        val contactPopUps = ContactPopUps(textViewSelected, buttonType)
-        contactPopUps.show(supportFragmentManager, "example dialog")
-    }
-
-    private fun checkSelectForDelete(viewSelectedBoolean: Boolean, titleSelectedString: String) {
-        if (viewSelectedBoolean) {
-            openPopUp(titleSelectedString, "delete")
-        } else {
-            Toast.makeText(
-                this@ContactActivity, "You must select something first",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
-
-    private fun checkSelectForEdit(viewSelectedBoolean: Boolean, titleSelectedString: String) {
-        if (viewSelectedBoolean) {
-            openPopUp(titleSelectedString, "edit")
-        } else {
-            Toast.makeText(
-                this@ContactActivity, "You must select something first",
-                Toast.LENGTH_SHORT
-            ).show()
         }
     }
 }
