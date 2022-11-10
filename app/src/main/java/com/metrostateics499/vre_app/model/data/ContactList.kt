@@ -51,6 +51,4 @@ data class ContactList(var contacts: MutableList<Contact>) {
         }
         return targetContact
     }
-
-
 }
