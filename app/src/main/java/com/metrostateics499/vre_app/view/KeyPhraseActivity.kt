@@ -102,8 +102,9 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "add")
-        } else if (keyphraseString.trim().isNotEmpty()
-            && checkUniqueness(keyphraseString.trim())) {
+        } else if (keyphraseString.trim().isNotEmpty() &&
+            checkUniqueness(keyphraseString.trim())
+        ) {
             Passing.keyPhraseList.add(KeyPhrase(keyphraseString.trim()))
             Toast.makeText(
                 this@KeyPhraseActivity,
@@ -136,9 +137,10 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
 //                Toast.LENGTH_SHORT
 //            ).show()
 //            openPopUp(textViewSelected, "edit")
-        } else if (keyphraseString.trim().isNotEmpty()
-            && !objectSelected.toString().equals(keyphraseString.trim(), true)
-            && checkUniqueness(keyphraseString.trim())) {
+        } else if (keyphraseString.trim().isNotEmpty() &&
+            !objectSelected.toString().equals(keyphraseString.trim(), true) &&
+            checkUniqueness(keyphraseString.trim())
+        ) {
             objectSelected.phrase = keyphraseString
             Toast.makeText(
                 this@KeyPhraseActivity, "Successfully Edited",

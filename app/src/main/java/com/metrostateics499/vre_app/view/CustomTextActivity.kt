@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
 import com.metrostateics499.vre_app.model.data.CustomTextMessage
-import com.metrostateics499.vre_app.model.data.KeyPhrase
 import com.metrostateics499.vre_app.utility.CustomTextPopUps
 
 class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
@@ -98,9 +97,9 @@ class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "add")
-        } else if (customTextString.trim().isNotEmpty()
-            && checkUniqueness(customTextString.trim()) )
-        {
+        } else if (customTextString.trim().isNotEmpty() &&
+            checkUniqueness(customTextString.trim())
+        ) {
             Passing.customTextMessageList.add(CustomTextMessage(customTextString.trim()))
             Toast.makeText(
                 this@CustomTextActivity,
@@ -133,8 +132,7 @@ class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "edit")
-        } else if (customTextString.trim().isNotEmpty())
-        {
+        } else if (customTextString.trim().isNotEmpty()) {
             customTextObjectSelected.textMessage = customTextString
             Toast.makeText(
                 this@CustomTextActivity, "Successfully Edited",

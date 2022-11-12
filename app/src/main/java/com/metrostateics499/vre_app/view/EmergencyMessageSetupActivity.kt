@@ -113,7 +113,6 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
     ) {
         val newContactList: MutableList<Contact> = mutableListOf()
 
-
         if (inputTitle.isEmpty() || inputPhrase.isEmpty() || inputText.isEmpty()) {
             Toast.makeText(
                 this@EmergencyMessageSetupActivity,
@@ -135,7 +134,6 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(titleSelectedString, "add")
-
         } else if (checkTitleUniqueness(inputTitle) && checkKeyPhraseUniqueness(inputPhrase)) {
             val newEmergencyMessageSetup = EmergencyMessageSetup(
                 inputTitle,
@@ -172,7 +170,7 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
         refreshList()
     }
 
-    private fun checkKeyPhraseUniqueness(keyPhrase: String, ): Boolean {
+    private fun checkKeyPhraseUniqueness(keyPhrase: String,): Boolean {
         for (item in Passing.emergencyMessageSetupList) {
             if (item.keyPhrase.phrase.equals(keyPhrase, true)) {
                 return false

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.metrostateics499.vre_app.R
-import com.metrostateics499.vre_app.model.Passing
 
 class MenuActivity : AppCompatActivity() {
 

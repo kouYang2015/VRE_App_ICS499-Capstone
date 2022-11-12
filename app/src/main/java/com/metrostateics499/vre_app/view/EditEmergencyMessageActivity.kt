@@ -89,21 +89,19 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
             val textView3: TextView = findViewById(R.id.text_custom_text)
             textView3.text =
                 (
-                Passing.selectedEmergencyMessageSetup.customTextMessage.textMessage
-                )
+                    Passing.selectedEmergencyMessageSetup.customTextMessage.textMessage
+                    )
         }
     }
 
     private fun refreshRelativeLayout4() {
-        if (Passing.selectedEmergencyMessageSetup.selectedContactList.isNotEmpty())
-        {
+        if (Passing.selectedEmergencyMessageSetup.selectedContactList.isNotEmpty()) {
             val textView4: TextView = findViewById(R.id.text_contact_list)
             textView4.text =
                 (
                     Passing.selectedEmergencyMessageSetup.getContactListNames()
                     )
-        } else if (Passing.selectedEmergencyMessageSetup.selectedContactList.isEmpty())
-        {
+        } else if (Passing.selectedEmergencyMessageSetup.selectedContactList.isEmpty()) {
             val textView4: TextView = findViewById(R.id.text_contact_list)
             textView4.text = "Select Contact(s)"
         }
@@ -128,9 +126,9 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp("title")
-        } else if (inputTitle.isNotEmpty()
-            && checkTitleUniqueness(inputTitle))
-        {
+        } else if (inputTitle.isNotEmpty() &&
+            checkTitleUniqueness(inputTitle)
+        ) {
             Passing.selectedEmergencyMessageSetup.title = inputTitle
             Toast.makeText(
                 this@EditEmergencyMessageActivity, "Successfully Edited",
@@ -162,9 +160,9 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp("keyphrase")
-        } else if (inputPhrase.isNotEmpty()
-            && checkKeyPhraseUniqueness(inputPhrase))
-        {
+        } else if (inputPhrase.isNotEmpty() &&
+            checkKeyPhraseUniqueness(inputPhrase)
+        ) {
             Passing.selectedEmergencyMessageSetup.keyPhrase.phrase = inputPhrase
             Toast.makeText(
                 this@EditEmergencyMessageActivity, "Successfully Edited",
@@ -196,8 +194,7 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp("customTextMessage")
-        } else if (inputText.isNotEmpty())
-        {
+        } else if (inputText.isNotEmpty()) {
             Passing.selectedEmergencyMessageSetup.customTextMessage.textMessage = inputText
             Toast.makeText(
                 this@EditEmergencyMessageActivity, "Successfully Edited",

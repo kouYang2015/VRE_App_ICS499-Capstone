@@ -1,7 +1,5 @@
 package com.metrostateics499.vre_app.model
 
-import com.metrostateics499.vre_app.model.data.*
-
 /**
  * Singleton object that is used to store user data.
  *
@@ -12,10 +10,10 @@ object Passing {
     var password: String = ""
     var email: String = ""
 
-    var keyPhraseList : MutableList<KeyPhrase> = mutableListOf()
-    var customTextMessageList : MutableList<CustomTextMessage> = mutableListOf()
-    var contactList : MutableList<Contact> = mutableListOf()
-    var emergencyMessageSetupList : MutableList<EmergencyMessageSetup> = mutableListOf()
+    var keyPhraseList: MutableList<KeyPhrase> = mutableListOf()
+    var customTextMessageList: MutableList<CustomTextMessage> = mutableListOf()
+    var contactList: MutableList<Contact> = mutableListOf()
+    var emergencyMessageSetupList: MutableList<EmergencyMessageSetup> = mutableListOf()
 
     var selectedEmergencyMessageSetup: EmergencyMessageSetup? = null
     lateinit var selectedContactObject: Contact

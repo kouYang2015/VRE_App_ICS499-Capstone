@@ -108,10 +108,10 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "add")
-        } else if (contactName.isNotEmpty()
-            && contactPhone.isNotEmpty()
-            && checkUniqueness(Contact(contactName.trim(), contactPhone.trim())))
-        {
+        } else if (contactName.isNotEmpty() &&
+            contactPhone.isNotEmpty() &&
+            checkUniqueness(Contact(contactName.trim(), contactPhone.trim()))
+        ) {
             Passing.contactList.add(
                 Contact(
                     contactName.trim(),
@@ -138,7 +138,7 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
     }
 
     override fun editContact(contactName: String, contactPhone: String) {
-        var editedContact = Contact(contactName.trim(),contactPhone.trim())
+        var editedContact = Contact(contactName.trim(), contactPhone.trim())
         if (contactName.isEmpty() && contactPhone.isEmpty()) {
             Toast.makeText(
                 this@ContactActivity,
@@ -146,8 +146,7 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "edit")
-        }
-        else if (contactName.isEmpty() && contactPhone.isNotEmpty()) {
+        } else if (contactName.isEmpty() && contactPhone.isNotEmpty()) {
             Toast.makeText(
                 this@ContactActivity,
                 "Please enter a name",
@@ -161,12 +160,12 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "edit")
-        }
-        else if (contactName.trim().isNotEmpty()
-            && checkUniqueness(editedContact)
-            && !Passing.selectedContactObject.name.equals(
-                contactName.trim(), true))
-        {
+        } else if (contactName.trim().isNotEmpty() &&
+            checkUniqueness(editedContact) &&
+            !Passing.selectedContactObject.name.equals(
+                    contactName.trim(), true
+                )
+        ) {
             Passing.selectedContactObject.name = contactName
             Passing.selectedContactObject.phoneNumber = contactPhone
             Toast.makeText(
