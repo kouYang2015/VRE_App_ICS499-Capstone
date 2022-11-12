@@ -20,17 +20,21 @@ class ContactAdapter(
     var titleSelectedString: String = ""
     var viewSelectedBoolean: Boolean = false
 
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         fun bindItems(contact: Contact) {
-
             itemView.title.text = contact.name
             itemView.description.text = contact.phoneNumber
-            if (Passing.selectedEmergencyMessageSetup?.findContactObject(contact) == true) {
-                itemView.switch2.isChecked = true
+            if(Passing.checkInitializationSelectedEmergencyMessageSetup()){
+                val checkedContact =
+                    Passing.selectedEmergencyMessageSetup.selectedContactList.find { it == contact }
+                if (checkedContact != null) {
+                    itemView.switch2.isChecked = true
+                }
             }
         }
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.row, parent, false)
@@ -62,21 +66,23 @@ class ContactAdapter(
                 androidx.appcompat.R.drawable.abc_list_pressed_holo_dark
             )
         }
-        holder.itemView.switch2.setOnClickListener() {
-            if (holder.itemView.switch2.isChecked) {
-                Passing.selectedEmergencyMessageSetup?.addContact(mutableList[position])
-                Toast.makeText(
-                    context,
-                    "You have added " + mutableList[position].name,
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
-                Passing.selectedEmergencyMessageSetup?.removeContact(mutableList[position])
-                Toast.makeText(
-                    context,
-                    "You have removed " + mutableList[position].name,
-                    Toast.LENGTH_SHORT
-                ).show()
+        if (Passing.checkInitializationSelectedEmergencyMessageSetup()) {
+            holder.itemView.switch2.setOnClickListener {
+                if (holder.itemView.switch2.isChecked) {
+                    Passing.selectedEmergencyMessageSetup.addContact(mutableList[position])
+                    Toast.makeText(
+                        context,
+                        "You have added " + mutableList[position].name,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Passing.selectedEmergencyMessageSetup.removeContact(mutableList[position])
+                    Toast.makeText(
+                        context,
+                        "You have removed " + mutableList[position].name,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
     }

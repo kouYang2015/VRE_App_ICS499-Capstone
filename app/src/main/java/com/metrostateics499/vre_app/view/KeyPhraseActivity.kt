@@ -48,7 +48,7 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
             this, android.R.layout.simple_list_item_1, Passing.keyPhraseList
         )
         listview.adapter = arrayAdapter
-        listview.setOnItemClickListener { parent, view, position, id ->
+        listview.setOnItemClickListener { parent, view, position, _ ->
             viewSelected?.setBackgroundResource(
                 androidx.appcompat.R.drawable
                     .abc_item_background_holo_light

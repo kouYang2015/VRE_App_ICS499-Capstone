@@ -28,7 +28,7 @@ class EditEmergencyMessagePopUps(
             "title" -> {
                 val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
                 val textView: TextView = view.findViewById(R.id.edit_text)
-                val title = (Passing.selectedEmergencyMessageSetup?.title)
+                val title = (Passing.selectedEmergencyMessageSetup.title)
                 textView.text = title
 
                 builder.setView(view)
@@ -44,8 +44,7 @@ class EditEmergencyMessagePopUps(
             "keyphrase" -> {
                 val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
                 val textView: TextView = view.findViewById(R.id.edit_text)
-                val keyPhrase = Passing.selectedEmergencyMessageSetup?.keyPhrase?.phrase
-                    ?: toString()
+                val keyPhrase = Passing.selectedEmergencyMessageSetup.keyPhrase.phrase
                 textView.text = keyPhrase
 
                 textView.hint = "Key Phrase"
@@ -62,7 +61,7 @@ class EditEmergencyMessagePopUps(
             "customTextMessage" -> {
                 val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
                 val textView: TextView = view.findViewById(R.id.edit_text)
-                val customTextMessage = Passing.selectedEmergencyMessageSetup?.customTextMessage
+                val customTextMessage = Passing.selectedEmergencyMessageSetup.customTextMessage
                     .toString()
                 textView.text = customTextMessage
 

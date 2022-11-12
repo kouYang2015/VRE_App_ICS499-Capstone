@@ -86,7 +86,7 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
     }
 
     override fun addContact(contactName: String, contactPhone: String) {
-        var editedContact = Contact(contactName, contactPhone)
+
         if (contactName.isEmpty() && contactPhone.isEmpty()) {
             Toast.makeText(
                 this@ContactActivity,
@@ -112,12 +112,8 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
             contactPhone.isNotEmpty() &&
             checkUniqueness(Contact(contactName.trim(), contactPhone.trim()))
         ) {
-            Passing.contactList.add(
-                Contact(
-                    contactName.trim(),
-                    contactPhone.trim()
-                )
-            )
+            val editedContact = Contact(contactName, contactPhone)
+            Passing.contactList.add(editedContact)
             Toast.makeText(
                 this@ContactActivity,
                 "Contact Successfully " +
@@ -138,7 +134,7 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
     }
 
     override fun editContact(contactName: String, contactPhone: String) {
-        var editedContact = Contact(contactName.trim(), contactPhone.trim())
+        val editedContact = Contact(contactName.trim(), contactPhone.trim())
         if (contactName.isEmpty() && contactPhone.isEmpty()) {
             Toast.makeText(
                 this@ContactActivity,

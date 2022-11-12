@@ -43,7 +43,7 @@ class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
             Passing.customTextMessageList
         )
         listview.adapter = arrayAdapter
-        listview.setOnItemClickListener { parent, view, position, id ->
+        listview.setOnItemClickListener { parent, view, position, _ ->
             viewSelected?.setBackgroundResource(
                 androidx.appcompat.R.drawable
                     .abc_item_background_holo_light
@@ -163,7 +163,7 @@ class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
         }
     }
 
-    fun checkUniqueness(customTextString: String): Boolean {
+    private fun checkUniqueness(customTextString: String): Boolean {
         for (item in Passing.customTextMessageList) {
             if (item.textMessage == customTextString) {
                 return false

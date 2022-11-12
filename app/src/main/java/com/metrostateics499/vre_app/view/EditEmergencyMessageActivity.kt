@@ -10,7 +10,7 @@ import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
 import com.metrostateics499.vre_app.utility.EditEmergencyMessagePopUps
 
-class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessagePopUps.Listener {
+class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePopUps.Listener {
 
     private var textViewSelected: String = ""
 //    private var emergencyMessageSelected = Passing.selectedEmergencyMessageSetup
@@ -30,35 +30,21 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
         val relativeLayout4: RelativeLayout = findViewById(R.id.relativeLayout4)
 
         relativeLayout.setOnClickListener {
-//            relativeLayout.setBackgroundResource(
-//                androidx.appcompat.R.drawable
-//                    .abc_item_background_holo_light
-//            )
             textViewSelected = Passing.selectedEmergencyMessageSetup.title
             openPopUp("title")
         }
 
         relativeLayout2.setOnClickListener {
-//            relativeLayout2.setBackgroundResource(
-//                androidx.appcompat.R.drawable
-//                    .abc_item_background_holo_light
-//            )
             textViewSelected = Passing.selectedEmergencyMessageSetup.keyPhrase.phrase
             openPopUp("keyphrase")
         }
+
         relativeLayout3.setOnClickListener {
-//            relativeLayout3.setBackgroundResource(
-//                androidx.appcompat.R.drawable
-//                    .abc_item_background_holo_light
-//            )
             textViewSelected = Passing.selectedEmergencyMessageSetup.customTextMessage.toString()
             openPopUp("customTextMessage")
         }
+
         relativeLayout4.setOnClickListener {
-//            relativeLayout3.setBackgroundResource(
-//                androidx.appcompat.R.drawable
-//                    .abc_item_background_holo_light
-//            )
             textViewSelected = Passing.selectedEmergencyMessageSetup.customTextMessage.toString()
             goToContactsMenu()
         }
@@ -103,7 +89,7 @@ class EditEmergencyMessageActivity() : AppCompatActivity(), EditEmergencyMessage
                     )
         } else if (Passing.selectedEmergencyMessageSetup.selectedContactList.isEmpty()) {
             val textView4: TextView = findViewById(R.id.text_contact_list)
-            textView4.text = "Select Contact(s)"
+            textView4.text = "select_contacts"
         }
     }
 

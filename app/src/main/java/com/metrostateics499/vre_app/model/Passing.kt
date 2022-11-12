@@ -1,5 +1,10 @@
 package com.metrostateics499.vre_app.model
 
+import com.metrostateics499.vre_app.model.data.Contact
+import com.metrostateics499.vre_app.model.data.CustomTextMessage
+import com.metrostateics499.vre_app.model.data.EmergencyMessageSetup
+import com.metrostateics499.vre_app.model.data.KeyPhrase
+
 /**
  * Singleton object that is used to store user data.
  *
@@ -15,7 +20,7 @@ object Passing {
     var contactList: MutableList<Contact> = mutableListOf()
     var emergencyMessageSetupList: MutableList<EmergencyMessageSetup> = mutableListOf()
 
-    var selectedEmergencyMessageSetup: EmergencyMessageSetup? = null
+    lateinit var selectedEmergencyMessageSetup: EmergencyMessageSetup
     lateinit var selectedContactObject: Contact
 
     @JvmName("setUsername1")
@@ -31,5 +36,9 @@ object Passing {
     @JvmName("setPassword1")
     fun setPassword(password: String) {
         password.also { Passing.password = it }
+    }
+
+    fun checkInitializationSelectedEmergencyMessageSetup() : Boolean {
+        return ::selectedEmergencyMessageSetup.isInitialized
     }
 }
