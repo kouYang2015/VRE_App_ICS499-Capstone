@@ -105,8 +105,7 @@ class ListenSpeechActivity : AppCompatActivity() {
      * @param incomingSpeech
      */
     private fun recognizeKeyPhrase(incomingSpeech: String?) {
-        if (Passing.keyPhraseList.keyPhrases.isEmpty() && Passing.emergencyMessageSetupList
-            .emergencyMessageSetups.isEmpty()
+        if (Passing.keyPhraseList.isEmpty() && Passing.emergencyMessageSetupList.isEmpty()
         ) {
             txtResult.text = buildString { append("No KeyPhrase(s) set") }
         } else {
@@ -115,7 +114,7 @@ class ListenSpeechActivity : AppCompatActivity() {
                     findKeyPhraseMatch(incomingSpeech)?.let {
                         append(
                             "KeyPhrase Recognized!\n",
-                            it.keyPhrase
+                            it.phrase
                         )
                     }
                 }
@@ -134,13 +133,13 @@ class ListenSpeechActivity : AppCompatActivity() {
      * @return KeyPhrase if there is a KeyPhrase object that matches User's speech.
      */
     private fun findKeyPhraseMatch(incomingSpeech: String?): KeyPhrase? {
-        for (keyPhraseElement in Passing.keyPhraseList.keyPhrases) {
-            if (incomingSpeech?.contains(keyPhraseElement.keyPhrase, true) == true) {
+        for (keyPhraseElement in Passing.keyPhraseList) {
+            if (incomingSpeech?.contains(keyPhraseElement.phrase, true) == true) {
                 return keyPhraseElement
             }
         }
-        for (emergencySetup in Passing.emergencyMessageSetupList.emergencyMessageSetups) {
-            if (incomingSpeech?.contains(emergencySetup.keyPhrase.keyPhrase, true) == true) {
+        for (emergencySetup in Passing.emergencyMessageSetupList) {
+            if (incomingSpeech?.contains(emergencySetup.keyPhrase.phrase, true) == true) {
                 return emergencySetup.keyPhrase
             }
         }

@@ -25,7 +25,7 @@ class EmergencyMessageSetupAdapter(
         fun bindItems(emergencyMessageSetup: EmergencyMessageSetup) {
 
             itemView.title.text = emergencyMessageSetup.title
-            itemView.description.text = emergencyMessageSetup.keyPhrase.keyPhrase
+            itemView.description.text = emergencyMessageSetup.keyPhrase.phrase
         }
     }
 
@@ -44,7 +44,7 @@ class EmergencyMessageSetupAdapter(
             )
             viewSelectedBoolean = false
             titleSelectedString = ""
-            Passing.selectedEmergencyMessageSetup = null
+            Passing.selectedEmergencyMessageSetup
             Toast.makeText(
                 context,
                 "You have selected " + mutableList[position].title,

@@ -18,7 +18,7 @@ class MenuActivity : AppCompatActivity() {
         setContentView(R.layout.activity_menu)
 
         speechButton = findViewById(R.id.speechRecognition)
-        speechButton?.setOnClickListener() {
+        speechButton.setOnClickListener() {
             startActivity(Intent(this, ListenSpeechActivity::class.java))
         }
 
@@ -48,6 +48,6 @@ class MenuActivity : AppCompatActivity() {
     }
     override fun onPostResume() {
         super.onPostResume()
-        Passing.selectedEmergencyMessageSetup = null
+//        Passing.selectedEmergencyMessageSetup = null
     }
 }

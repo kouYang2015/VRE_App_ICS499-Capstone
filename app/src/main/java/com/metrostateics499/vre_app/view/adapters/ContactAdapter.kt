@@ -48,7 +48,6 @@ class ContactAdapter(
             )
             viewSelectedBoolean = false
             titleSelectedString = ""
-            Passing.selectedContact = null
             Toast.makeText(
                 context,
                 "You have selected " + mutableList[position].name,
@@ -57,7 +56,7 @@ class ContactAdapter(
             viewSelected = holder.itemView
             titleSelectedString = mutableList[position].name
             viewSelectedBoolean = true
-            Passing.selectedContact = mutableList[position]
+            Passing.selectedContactObject = mutableList[position]
 
             holder.itemView.setBackgroundResource(
                 androidx.appcompat.R.drawable.abc_list_pressed_holo_dark

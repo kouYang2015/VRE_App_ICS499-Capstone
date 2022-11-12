@@ -11,12 +11,14 @@ object Passing {
     var username: String = ""
     var password: String = ""
     var email: String = ""
-    var keyPhraseList = KeyPhraseList(mutableListOf())
-    var customTextMessageList = CustomTextMessageList(mutableListOf())
-    var emergencyMessageSetupList = EmergencyMessageSetupList(mutableListOf())
-    var contactList = ContactList(mutableListOf())
+
+    var keyPhraseList : MutableList<KeyPhrase> = mutableListOf()
+    var customTextMessageList : MutableList<CustomTextMessage> = mutableListOf()
+    var contactList : MutableList<Contact> = mutableListOf()
+    var emergencyMessageSetupList : MutableList<EmergencyMessageSetup> = mutableListOf()
+
     var selectedEmergencyMessageSetup: EmergencyMessageSetup? = null
-    var selectedContact: Contact? = null
+    lateinit var selectedContactObject: Contact
 
     @JvmName("setUsername1")
     fun setUsername(username: String) {

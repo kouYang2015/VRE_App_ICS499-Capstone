@@ -22,21 +22,6 @@ data class EmergencyMessageSetup(
         return nameString
     }
 
-    fun editEmergencyMessageSetupCustomTextMessage(
-        textViewSelected: String,
-        customTextString: String
-    ): Boolean {
-        return if (textViewSelected.equals(customTextString, true)) {
-            false
-        } else if (this.customTextMessage.customTextMessage.equals(customTextString, true)) {
-            false
-        } else
-            run {
-                this.customTextMessage.customTextMessage = customTextString
-                true
-            }
-    }
-
     fun findContactObject(contact: Contact): Boolean {
         for (item in this.selectedContactList)
             if (item == contact) {
