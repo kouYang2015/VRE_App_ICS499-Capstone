@@ -20,12 +20,11 @@ class ContactAdapter(
     var titleSelectedString: String = ""
     var viewSelectedBoolean: Boolean = false
 
-
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindItems(contact: Contact) {
             itemView.title.text = contact.name
             itemView.description.text = contact.phoneNumber
-            if(Passing.checkInitializationSelectedEmergencyMessageSetup()){
+            if (Passing.checkInitializationSelectedEmergencyMessageSetup()) {
                 val checkedContact =
                     Passing.selectedEmergencyMessageSetup.selectedContactList.find { it == contact }
                 if (checkedContact != null) {
@@ -34,7 +33,6 @@ class ContactAdapter(
             }
         }
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.row, parent, false)

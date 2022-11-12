@@ -38,7 +38,7 @@ object Passing {
         password.also { Passing.password = it }
     }
 
-    fun checkInitializationSelectedEmergencyMessageSetup() : Boolean {
+    fun checkInitializationSelectedEmergencyMessageSetup(): Boolean {
         return ::selectedEmergencyMessageSetup.isInitialized
     }
 }
