@@ -28,8 +28,10 @@
         android:text="@string/app_title_name"
         android:textColor="@color/white"
         android:textSize="20sp"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/app_logo"
         app:layout_constraintVertical_bias="0.0" />
 
