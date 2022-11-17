@@ -53,4 +53,5 @@
     <string name="error_code_display">" "</string>
     <string name="error_account_display">" "</string>
     <string name="error_new_password_display">" "</string>
+    <string name="forgot_email_username_text">Forgot Email/Username</string>
 </resources>

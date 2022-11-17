@@ -37,12 +37,12 @@
 
     <TextView
         android:id="@+id/invalid_credentials"
-        android:layout_width="wrap_content"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:text="@string/error_info_display"
         android:textColor="#FA8072"
-        android:textSize="16sp"
-        android:textAlignment="textStart"
+        android:textSize="14sp"
+        android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@id/username_text"
         app:layout_constraintLeft_toLeftOf="@id/username"
         app:layout_constraintRight_toRightOf="@id/username" />
@@ -76,6 +76,16 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
+        android:id="@+id/forgot_email_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/forgot_email_username_text"
+        android:textColor="#ADD8E6"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/username"
+        app:layout_constraintLeft_toLeftOf="@id/username" />
+
+    <TextView
         android:id="@+id/password_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -83,7 +93,7 @@
         android:labelFor="@id/password"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/username"
+        app:layout_constraintTop_toBottomOf="@id/forgot_email_username"
         app:layout_constraintLeft_toLeftOf="@id/password" />
 
     <EditText
