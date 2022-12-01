@@ -120,24 +120,31 @@ class ListenSpeechActivity : AppCompatActivity() {
                         try {
                             val smsManager: SmsManager =
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                                applicationContext.getSystemService<SmsManager>(
-                                    SmsManager::class.java)
-                            } else {
-                                SmsManager.getDefault()
-                            }
+                                    applicationContext.getSystemService<SmsManager>(
+                                        SmsManager::class.java
+                                    )
+                                } else {
+                                    SmsManager.getDefault()
+                                }
                             val emergencyTextMessage =
                                 "VOICE RECOGNITION EMERGENCY: " +
-                                        emergencySetup.customTextMessage.toString()
+                                    emergencySetup.customTextMessage.toString()
                             smsManager.sendTextMessage(
                                 contact.phoneNumber, null,
                                 emergencyTextMessage, null, null
                             )
 
-                            Toast.makeText(applicationContext, "Message Sent",
-                                Toast.LENGTH_LONG).show()
+                            Toast.makeText(
+                                applicationContext, "Message Sent",
+                                Toast.LENGTH_LONG
+                            ).show()
                         } catch (e: Exception) {
-                            Toast.makeText(applicationContext, "Missing Contact Data" +
-                                    e.message.toString(), Toast.LENGTH_LONG)
+                            Toast.makeText(
+                                applicationContext,
+                                "Missing Contact Data" +
+                                    e.message.toString(),
+                                Toast.LENGTH_LONG
+                            )
                                 .show()
                         }
                     }
@@ -157,7 +164,6 @@ class ListenSpeechActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun findEmergencyMessageSetupMatch(keyPhraseMatch: String?): EmergencyMessageSetup? {
         for (emergencySetup in Passing.emergencyMessageSetupList) {
