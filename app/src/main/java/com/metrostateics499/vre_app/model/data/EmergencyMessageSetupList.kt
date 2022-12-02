@@ -7,7 +7,7 @@ data class EmergencyMessageSetupList(
 
     fun addEmergencyMessageSetup(emergencyMessageSetup: EmergencyMessageSetup): Boolean {
         for (item in emergencyMessageSetups) {
-            if (item.title == emergencyMessageSetup.title) {
+            if (item.title.equals(emergencyMessageSetup.title, true)) {
                 return false
             }
         }
@@ -15,32 +15,9 @@ data class EmergencyMessageSetupList(
         return true
     }
 
-    fun editEmergencyMessageSetup(
-        emergencyMessageSetup: EmergencyMessageSetup,
-        editedEmergencyMessageSetup: EmergencyMessageSetup
-    ): Boolean {
-        var targetEmergencyMessageSetup: EmergencyMessageSetup? = null
-        if (emergencyMessageSetup.title == editedEmergencyMessageSetup.title) {
-            return false
-        }
-        for (item in emergencyMessageSetups) {
-            if (item.title == emergencyMessageSetup.title)
-                targetEmergencyMessageSetup = item
-            if (item.title == editedEmergencyMessageSetup.title) {
-                return false
-            }
-        }
-        return if (targetEmergencyMessageSetup != null) {
-            targetEmergencyMessageSetup = editedEmergencyMessageSetup
-            true
-        } else {
-            false
-        }
-    }
-
     fun deleteEmergencyMessageSetup(emergencyMessageSetupTitle: String): Boolean {
         for (item in emergencyMessageSetups) {
-            if (item.title == emergencyMessageSetupTitle) {
+            if (item.title.equals(emergencyMessageSetupTitle, true)) {
                 emergencyMessageSetups.remove(item)
                 break
             }
@@ -51,7 +28,7 @@ data class EmergencyMessageSetupList(
     fun findEmergencyMessageSetup(emergencyMessageSetupTitle: String): EmergencyMessageSetup? {
         var targetEmergencyMessageSetup: EmergencyMessageSetup? = null
         for (item in emergencyMessageSetups) {
-            if (item.title == emergencyMessageSetupTitle) {
+            if (item.title.equals(emergencyMessageSetupTitle, true)) {
                 targetEmergencyMessageSetup = item
                 break
             }
@@ -59,20 +36,11 @@ data class EmergencyMessageSetupList(
         return targetEmergencyMessageSetup
     }
 
-    /**
-     * To string
-     *
-     * @return keyPhrases
-     */
-    override fun toString(): String {
-        return emergencyMessageSetups.toString()
-    }
-
     fun checkKeyPhraseDuplicate(
         keyPhrase: String,
     ): Boolean {
         for (item in emergencyMessageSetups) {
-            if (item.keyPhrase.keyPhrase == keyPhrase) {
+            if (item.keyPhrase.keyPhrase.equals(keyPhrase, true)) {
                 return true
             }
         }
@@ -84,18 +52,18 @@ data class EmergencyMessageSetupList(
         customTextString: String
     ): Boolean {
         var targetEmergencyMessageSetup: EmergencyMessageSetup? = null
-        if (textViewSelected == customTextString) {
+        if (textViewSelected.equals(customTextString, true)) {
             return false
         }
         for (item in emergencyMessageSetups) {
-            if (item.keyPhrase.keyPhrase == textViewSelected)
+            if (item.keyPhrase.keyPhrase.equals(textViewSelected, true))
                 targetEmergencyMessageSetup = item
-            if (item.keyPhrase.keyPhrase == customTextString) {
+            if (item.keyPhrase.keyPhrase.equals(customTextString, true)) {
                 return false
             }
         }
         return if (targetEmergencyMessageSetup != null) {
-            targetEmergencyMessageSetup.keyPhrase.keyPhrase = customTextString
+            targetEmergencyMessageSetup.keyPhrase.keyPhrase = (customTextString)
             true
         } else {
             false
@@ -107,24 +75,33 @@ data class EmergencyMessageSetupList(
         customTextString: String
     ): Boolean {
         var targetEmergencyMessageSetup: EmergencyMessageSetup? = null
-        if (textViewSelected == customTextString) {
+        if (textViewSelected.equals(customTextString, true)) {
             return false
         }
         for (item in emergencyMessageSetups) {
-            if (item.title == textViewSelected)
+            if (item.title.equals(textViewSelected, true))
                 targetEmergencyMessageSetup = item
-            if (item.title == customTextString) {
+            if (item.title.equals(customTextString, true)) {
                 return false
             }
         }
         return if (targetEmergencyMessageSetup != null) {
-            targetEmergencyMessageSetup.title = customTextString
+            targetEmergencyMessageSetup.title = (customTextString)
             true
         } else {
             false
         }
     }
 
+    /**
+     * Edit emergency message setup custom text message
+     * This may not be needed here because we don't care about duplicates in the list.
+     * The object can use it's own editCustomTextMessage
+     *
+     * @param textViewSelected
+     * @param customTextString
+     * @return
+     */
     fun editEmergencyMessageSetupCustomTextMessage(
         textViewSelected: String,
         customTextString: String

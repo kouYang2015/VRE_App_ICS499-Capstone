@@ -1,17 +1,10 @@
 package com.metrostateics499.vre_app.model.data
 
 data class ContactList(var contacts: MutableList<Contact>) {
-    fun getContactListNames(): String {
-        var nameString = ""
-        for (item in contacts)
-            nameString += item.name
-
-        return nameString
-    }
 
     fun addContact(contact: Contact): Boolean {
         for (item in contacts) {
-            if (item.name == contact.name) {
+            if (item.name.equals(contact.name, true)) {
                 return false
             }
         }
@@ -19,27 +12,16 @@ data class ContactList(var contacts: MutableList<Contact>) {
         return true
     }
 
-    fun findContact(contactName: String): Contact? {
-        var targetContact: Contact? = null
-        for (item in contacts) {
-            if (item.name == contactName) {
-                targetContact = item
-                break
-            }
-        }
-        return targetContact
-    }
-
     fun editContact(contact: Contact, name: String, phone: String): Boolean {
         var targetContact: Contact? = null
-        if (contact.name == name) {
+        if (contact.name.equals(name, true)) {
             contact.phoneNumber = phone
             return true
         }
         for (item in contacts) {
-            if (item.name == contact.name)
+            if (item.name.equals(contact.name, true))
                 targetContact = item
-            if (item.name == name) {
+            if (item.name.equals(name, true)) {
                 return false
             }
         }
@@ -57,5 +39,16 @@ data class ContactList(var contacts: MutableList<Contact>) {
             return true
         }
         return false
+    }
+
+    fun findContact(contactName: String): Contact? {
+        var targetContact: Contact? = null
+        for (item in contacts) {
+            if (item.name == contactName) {
+                targetContact = item
+                break
+            }
+        }
+        return targetContact
     }
 }

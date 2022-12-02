@@ -60,19 +60,6 @@ class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
         }
     }
 
-    /**
-     * Not currently used by might be needed later
-     * Go to key phrase menu
-     * This is used by the buttons that navigate to the key phrases menu
-     * It also refreshes the key phrases list every time it is used
-     *
-     * @param view
-     */
-    fun goToCustomTextMessages(view: View) {
-        setContentView(R.layout.activity_custom_text_message_menu)
-        refreshList()
-    }
-
     private fun checkSelectForDelete() {
         if (textViewSelectedBoolean) {
             openPopUp(textViewSelected, "delete")
@@ -109,7 +96,9 @@ class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
             ).show()
             openPopUp(textViewSelected, "add")
         } else if (customTextString.isNotEmpty() &&
-            Passing.customTextMessageList.addCustomTextMessage(CustomTextMessage(customTextString))
+            Passing.customTextMessageList.addCustomTextMessage(
+                    CustomTextMessage(customTextString.trim())
+                )
         ) {
             Toast.makeText(
                 this@CustomTextActivity,
@@ -145,7 +134,7 @@ class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
         } else if (customTextString.isNotEmpty() &&
             Passing.customTextMessageList.editCustomTextMessage(
                     CustomTextMessage(textViewSelected),
-                    customTextString
+                    customTextString.trim()
                 )
         ) {
             Toast.makeText(

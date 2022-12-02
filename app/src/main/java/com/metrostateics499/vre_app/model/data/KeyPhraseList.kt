@@ -10,7 +10,7 @@ data class KeyPhraseList(var keyPhrases: MutableList<KeyPhrase>) {
      */
     fun addKeyPhrase(keyPhrase: KeyPhrase): Boolean {
         for (item in keyPhrases) {
-            if (item.keyPhrase == keyPhrase.keyPhrase) {
+            if (item.keyPhrase.equals(keyPhrase.keyPhrase, true)) {
                 return false
             }
         }
@@ -29,17 +29,18 @@ data class KeyPhraseList(var keyPhrases: MutableList<KeyPhrase>) {
      */
     fun editKeyPhrase(keyPhrase: KeyPhrase, editedKeyPhrase: String): Boolean {
         var targetKeyPhrase: KeyPhrase? = null
-        if (keyPhrase.toString() == editedKeyPhrase) {
+        if (keyPhrase.toString().equals(editedKeyPhrase, true)) {
             return false
         }
         for (item in keyPhrases) {
-            if (item.keyPhrase == keyPhrase.keyPhrase)
+            if (item.keyPhrase.equals(keyPhrase.keyPhrase, true))
                 targetKeyPhrase = item
-            if (item.keyPhrase == editedKeyPhrase) {
+            if (item.keyPhrase.equals(editedKeyPhrase, true)) {
                 return false
             }
         }
         return if (targetKeyPhrase != null) {
+            editedKeyPhrase.trim()
             targetKeyPhrase.keyPhrase = editedKeyPhrase
             true
         } else {
@@ -55,39 +56,11 @@ data class KeyPhraseList(var keyPhrases: MutableList<KeyPhrase>) {
      */
     fun deleteKeyPhrase(keyPhrase: KeyPhrase): Boolean {
         for (item in keyPhrases) {
-            if (item.keyPhrase == keyPhrase.keyPhrase) {
+            if (item.keyPhrase.equals(keyPhrase.keyPhrase, true)) {
                 keyPhrases.remove(item)
                 break
             }
         }
         return true
     }
-
-    /**
-     * To string
-     *
-     * @return keyPhrases
-     */
-    override fun toString(): String {
-        return keyPhrases.toString()
-    }
-
-    /**
-     * Leaving this in here because I'm not sure if it's needed
-     * Companion
-     * Instantiates the KeyPhraseList if it doesn't exist and returns the list
-     *
-     * @constructor Create empty Companion
-     * @return keyPhraseList
-     */
-//    companion object {
-//        private var keyPhraseList: KeyPhraseList? = null
-//        val instance: KeyPhraseList?
-//            get() {
-//                if (keyPhraseList == null) {
-//                    keyPhraseList = KeyPhraseList()
-//                }
-//                return keyPhraseList
-//            }
-//    }
 }

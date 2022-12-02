@@ -65,19 +65,6 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
         }
     }
 
-    /**
-     * Not currently used by might be needed later
-     * Go to key phrase menu
-     * This is used by the buttons that navigate to the key phrases menu
-     * It also refreshes the key phrases list every time it is used
-     *
-     * @param view
-     */
-    fun goToKeyPhraseMenu(view: View) {
-        setContentView(R.layout.activity_key_phrases_menu)
-        refreshList()
-    }
-
     private fun checkSelectForDeleteKeyPhrasePopUp() {
         if (textViewSelectedBoolean) {
             openPopUp(textViewSelected, "delete")
@@ -114,7 +101,7 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
             ).show()
             openPopUp(textViewSelected, "add")
         } else if (keyphraseString.isNotEmpty() &&
-            Passing.keyPhraseList.addKeyPhrase(KeyPhrase(keyphraseString))
+            Passing.keyPhraseList.addKeyPhrase(KeyPhrase(keyphraseString.trim()))
         ) {
             Toast.makeText(
                 this@KeyPhraseActivity,
@@ -149,7 +136,7 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
             openPopUp(textViewSelected, "edit")
         } else if (keyphraseString.isNotEmpty() && Passing.keyPhraseList.editKeyPhrase(
                 KeyPhrase(textViewSelected),
-                keyphraseString
+                keyphraseString.trim()
             )
         ) {
             Toast.makeText(
