@@ -345,7 +345,8 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
                 ?.show(supportFragmentManager, "example dialog")
         } else {
             val testListenKeyPhrasePopUp = TestListenKeyPhrasePopUp(
-                textViewSelected, "unrecognized")
+                textViewSelected, "unrecognized"
+            )
             testListenKeyPhrasePopUp.show(supportFragmentManager, "example dialog")
         }
     }
