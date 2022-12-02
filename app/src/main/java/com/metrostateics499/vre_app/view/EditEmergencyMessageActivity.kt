@@ -49,6 +49,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
             goToContactsMenu()
         }
     }
+
     private fun goToContactsMenu() {
         startActivity(Intent(this, ContactActivity::class.java))
     }
@@ -57,6 +58,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         val textView: TextView = findViewById(R.id.text_view_em)
         textView.text = (Passing.selectedEmergencyMessageSetup.title)
     }
+
     private fun refreshRelativeLayout2() {
         val textView2: TextView = findViewById(R.id.text_view_keyphrase)
         if (Passing.selectedEmergencyMessageSetup.keyPhrase.phrase.isNotEmpty()) {
@@ -89,7 +91,9 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
                     )
         } else if (Passing.selectedEmergencyMessageSetup.selectedContactList.isEmpty()) {
             val textView4: TextView = findViewById(R.id.text_contact_list)
-            textView4.text = "select_contacts"
+            textView4.text = buildString {
+                append("Choose Contacts")
+            }
         }
     }
 
@@ -197,6 +201,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
             openPopUp("customTextMessage")
         }
     }
+
     override fun onPostResume() {
         super.onPostResume()
         refreshRelativeLayout4()
@@ -210,6 +215,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         }
         return true
     }
+
     private fun checkKeyPhraseUniqueness(phrase: String): Boolean {
         for (item in Passing.emergencyMessageSetupList) {
             if (item.keyPhrase.phrase.equals(phrase, true)) {
