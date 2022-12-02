@@ -71,7 +71,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
                     )
         } else if (Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isEmpty()) {
             val textView2: TextView = findViewById(R.id.text_view_keyphrase)
-            textView2.text = "Select or Create Key Phrase(s)"
+            textView2.text = "Choose or Create Key Phrase(s)"
         }
 
 //        val textView2: TextView = findViewById(R.id.text_view_keyphrase)
@@ -105,7 +105,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
                     )
         } else if (Passing.selectedEmergencyMessageSetup.selectedContactList.isEmpty()) {
             val textView4: TextView = findViewById(R.id.text_contact_list)
-            textView4.text = "select_contacts"
+            textView4.text = "Choose or Create Contacts"
         }
     }
 
