@@ -63,22 +63,22 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         val textView2: TextView = findViewById(R.id.text_view_keyphrase)
         if (Passing.selectedEmergencyMessageSetup.keyPhrase.phrase.isNotEmpty()) {
             textView2.text = (
-                    (
-                            Passing.selectedEmergencyMessageSetup.keyPhrase.phrase
-                            )
+                (
+                    Passing.selectedEmergencyMessageSetup.keyPhrase.phrase
                     )
+                )
         }
     }
 
     private fun refreshRelativeLayout3() {
         if (Passing.selectedEmergencyMessageSetup.customTextMessage.textMessage
-                    .isNotEmpty()
+            .isNotEmpty()
         ) {
             val textView3: TextView = findViewById(R.id.text_custom_text)
             textView3.text =
                 (
-                        Passing.selectedEmergencyMessageSetup.customTextMessage.textMessage
-                        )
+                    Passing.selectedEmergencyMessageSetup.customTextMessage.textMessage
+                    )
         }
     }
 
@@ -87,8 +87,8 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
             val textView4: TextView = findViewById(R.id.text_contact_list)
             textView4.text =
                 (
-                        Passing.selectedEmergencyMessageSetup.getContactListNames()
-                        )
+                    Passing.selectedEmergencyMessageSetup.getContactListNames()
+                    )
         } else if (Passing.selectedEmergencyMessageSetup.selectedContactList.isEmpty()) {
             val textView4: TextView = findViewById(R.id.text_contact_list)
             textView4.text = buildString {
@@ -117,7 +117,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
             ).show()
             openPopUp("title")
         } else if (inputTitle.isNotEmpty() &&
-                checkTitleUniqueness(inputTitle)
+            checkTitleUniqueness(inputTitle)
         ) {
             Passing.selectedEmergencyMessageSetup.title = inputTitle
             Toast.makeText(
@@ -129,7 +129,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
             Toast.makeText(
                 this@EditEmergencyMessageActivity,
                 "That Key Phrase already exists. " +
-                        "Try something else or click cancel.",
+                    "Try something else or click cancel.",
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp("title")
@@ -151,7 +151,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
             ).show()
             openPopUp("keyphrase")
         } else if (inputPhrase.isNotEmpty() &&
-                checkKeyPhraseUniqueness(inputPhrase)
+            checkKeyPhraseUniqueness(inputPhrase)
         ) {
             Passing.selectedEmergencyMessageSetup.keyPhrase.phrase = inputPhrase
             Toast.makeText(
@@ -163,7 +163,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
             Toast.makeText(
                 this@EditEmergencyMessageActivity,
                 "That Key Phrase already exists. " +
-                        "Try something else or click cancel.",
+                    "Try something else or click cancel.",
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp("keyphrase")
@@ -195,7 +195,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
             Toast.makeText(
                 this@EditEmergencyMessageActivity,
                 "That custom text message already exists. " +
-                        "Try something else or click cancel.",
+                    "Try something else or click cancel.",
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp("customTextMessage")
