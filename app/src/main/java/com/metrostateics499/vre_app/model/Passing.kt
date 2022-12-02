@@ -42,4 +42,8 @@ object Passing {
     fun checkInitializationSelectedEmergencyMessageSetup(): Boolean {
         return ::selectedEmergencyMessageSetup.isInitialized
     }
+
+    fun checkInitializationSelectedKeyPhrase(): Boolean {
+        return ::selectedKeyPhraseObject.isInitialized
+    }
 }

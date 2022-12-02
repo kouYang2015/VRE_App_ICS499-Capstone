@@ -1,15 +1,24 @@
 package com.metrostateics499.vre_app.view
 
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.speech.RecognitionListener
+import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
 import com.metrostateics499.vre_app.model.data.KeyPhrase
 import com.metrostateics499.vre_app.utility.KeyPhrasePopUps
+import com.metrostateics499.vre_app.utility.TestListenKeyPhrasePopUp
 import com.metrostateics499.vre_app.view.adapters.KeyPhraseAdapter
+import java.util.*
 import kotlinx.android.synthetic.main.activity_key_phrases_menu.*
 
 /**
@@ -24,24 +33,37 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
     private var buttonAdd: Button? = null
     private var buttonEdit: Button? = null
     private var buttonDelete: Button? = null
+    private var buttonTest: Button? = null
 
     private var textViewSelected: String = ""
-//    private var textViewSelectedBoolean: Boolean = false
     private var viewSelectedBoolean: Boolean = false
     private var viewSelected: View? = null
-    private lateinit var objectSelected: KeyPhrase
+
+    private lateinit var speechRecognizer: SpeechRecognizer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_key_phrases_menu)
 
-        buttonAdd = findViewById<View>(R.id.buttonAddKeyPhrase) as Button
-//        buttonAdd!!.setOnClickListener { openPopUp(textViewSelected, "add") }
-        buttonEdit = findViewById<View>(R.id.buttonEditKeyPhrase) as Button
-//        buttonEdit!!.setOnClickListener { checkSelectForEdit() }
-        buttonDelete = findViewById<View>(R.id.buttonDeleteKeyPhrase) as Button
-//        buttonDelete!!.setOnClickListener { checkSelectForDelete() }
+        initializeComponents()
         refreshList()
+        setListeners()
+    }
+
+    private fun initializeComponents() {
+        buttonAdd = findViewById<View>(R.id.buttonAddKeyPhrase) as Button
+        buttonEdit = findViewById<View>(R.id.buttonEditKeyPhrase) as Button
+        buttonDelete = findViewById<View>(R.id.buttonDeleteKeyPhrase) as Button
+        buttonTest = findViewById<View>(R.id.buttonTest) as Button
+//        recordAudioPermissionRequest =
+//            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+//            }
+//        speechOnButton = findViewById(R.id.activateSpeech)
+//        speechOffButton = findViewById(R.id.disableSpeech)
+//        txtResult = findViewById(R.id.speechToTextBox)
+        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
+//        requestSmsPermission()
+        requestRecordAudioPermission()
     }
 
 //    private fun refreshList() {
@@ -133,6 +155,9 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
             viewSelected = keyPhraseAdapter.viewSelected
             checkSelectForDelete(viewSelectedBoolean, textViewSelected)
         }
+//        buttonTest!!.setOnClickListener {
+//            textViewSelected = keyPhraseAdapter.titleSelectedString
+//        }
     }
 //
 //    private fun checkSelectForEditKeyPhrasePopUp() {
@@ -190,10 +215,10 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
 //            ).show()
 //            openPopUp(textViewSelected, "edit")
         } else if (keyphraseString.trim().isNotEmpty() &&
-            !objectSelected.toString().equals(keyphraseString.trim(), true) &&
+            !Passing.selectedKeyPhraseObject.phrase.equals(keyphraseString.trim(), true) &&
             checkUniqueness(keyphraseString.trim())
         ) {
-            objectSelected.phrase = keyphraseString
+            Passing.selectedKeyPhraseObject.phrase = keyphraseString
             Toast.makeText(
                 this@KeyPhraseActivity, "Successfully Edited",
                 Toast.LENGTH_SHORT
@@ -212,7 +237,7 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
 
     override fun deleteKeyPhrase() {
         if (textViewSelected.isNotEmpty()) {
-            Passing.keyPhraseList.remove(objectSelected)
+            Passing.keyPhraseList.remove(Passing.selectedKeyPhraseObject)
             Toast.makeText(
                 this@KeyPhraseActivity,
                 "You have deleted phrase: " +
@@ -230,5 +255,105 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
             }
         }
         return true
+    }
+
+    private fun requestRecordAudioPermission() {
+        val permission = android.Manifest.permission.RECORD_AUDIO
+        val grant = ContextCompat.checkSelfPermission(this, permission)
+        if (grant != PackageManager.PERMISSION_GRANTED) {
+            val permissionList = arrayOfNulls<String>(1)
+            permissionList[0] = permission
+            ActivityCompat.requestPermissions(this, permissionList, 1)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        speechRecognizer.destroy()
+    }
+
+    /**
+     * Sets listener for button components and SpeechRecognizer
+     */
+    private fun setListeners() {
+        val speechRecognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        speechRecognizerIntent.putExtra(
+            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+            RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH
+        )
+        speechRecognizerIntent.putExtra(
+            RecognizerIntent.EXTRA_LANGUAGE,
+            Locale.getDefault()
+        )
+        speechRecognizer.setRecognitionListener(object : RecognitionListener {
+            override fun onReadyForSpeech(p0: Bundle?) {
+                testKeyPhraseTextView.text = "Waiting for speech"
+            }
+
+            override fun onBeginningOfSpeech() {
+                testKeyPhraseTextView.text = "Listening to speech"
+            }
+
+            override fun onRmsChanged(p0: Float) {}
+
+            override fun onBufferReceived(p0: ByteArray?) {}
+
+            override fun onEndOfSpeech() {
+                testKeyPhraseTextView.text = ""
+            }
+
+            override fun onError(p0: Int) {}
+
+            override fun onResults(bundle: Bundle?) {
+                val data = bundle?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+                recognizeKeyPhrase(data!![0])
+            }
+
+            override fun onPartialResults(bundle: Bundle?) {}
+
+            override fun onEvent(p0: Int, p1: Bundle?) {}
+        })
+        buttonTest?.setOnClickListener {
+            if (Passing.checkInitializationSelectedKeyPhrase()) {
+                textViewSelected = Passing.selectedKeyPhraseObject.phrase
+                requestRecordAudioPermission()
+                speechRecognizer.startListening(speechRecognizerIntent)
+                //            txtResult.text = null
+            } else {
+                Toast.makeText(
+                    this@KeyPhraseActivity,
+                    "You must select or create a key phrase first",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+//        speechOffButton.setOnClickListener {
+//            speechRecognizer.stopListening()
+//        }
+    }
+
+    private fun recognizeKeyPhrase(incomingSpeech: String?) {
+        if (textViewSelected.isEmpty()) {
+            Toast.makeText(
+                this@KeyPhraseActivity,
+                "You must select a Key Phrase first",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else if (findKeyPhraseMatch(incomingSpeech) != null) {
+            findKeyPhraseMatch(incomingSpeech)?.phrase
+                ?.let { TestListenKeyPhrasePopUp(it, "success") }
+                ?.show(supportFragmentManager, "example dialog")
+        } else {
+            val testListenKeyPhrasePopUp = TestListenKeyPhrasePopUp(
+                textViewSelected, "unrecognized")
+            testListenKeyPhrasePopUp.show(supportFragmentManager, "example dialog")
+        }
+    }
+
+    private fun findKeyPhraseMatch(incomingSpeech: String?): KeyPhrase? {
+        if (incomingSpeech?.contains(textViewSelected, true) == true) {
+            return Passing.selectedKeyPhraseObject
+        }
+        return null
     }
 }

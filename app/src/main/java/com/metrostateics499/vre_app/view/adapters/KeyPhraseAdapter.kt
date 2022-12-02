@@ -1,6 +1,7 @@
 package com.metrostateics499.vre_app.view.adapters
 
 import android.content.Context
+import android.speech.SpeechRecognizer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,16 +10,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
 import com.metrostateics499.vre_app.model.data.KeyPhrase
+import java.util.*
 import kotlinx.android.synthetic.main.row.view.*
+import kotlinx.android.synthetic.main.row.view.description
+import kotlinx.android.synthetic.main.row.view.switch2
+import kotlinx.android.synthetic.main.row.view.title
+import kotlinx.android.synthetic.main.row_key_phrases.view.*
 
 class KeyPhraseAdapter(
     private val mutableList: MutableList<KeyPhrase>,
     val context: Context
+
 ) : RecyclerView.Adapter<KeyPhraseAdapter.ViewHolder>() {
 
     var viewSelected: View? = null
     var titleSelectedString: String = ""
     var viewSelectedBoolean: Boolean = false
+    private lateinit var speechRecognizer: SpeechRecognizer
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindItems(keyPhrase: KeyPhrase) {
@@ -102,6 +110,16 @@ class KeyPhraseAdapter(
                 }
             }
         }
+//        holder.itemView.test_button.setOnClickListener(){
+//            KeyPhraseActivity.testListenKeyPhrasePopUp()
+// //            val testListenKeyPhrasePopUp = TestListenKeyPhrasePopUp(mutableList[position].phrase)
+// //            testListenKeyPhrasePopUp.show(supportFragmentManager, "example dialog")
+//
+//            requestRecordAudioPermission()
+//            setListeners()
+//            listenSpeech(mutableList[position].phrase)
+//
+//        }
     }
 
     override fun getItemCount(): Int {
