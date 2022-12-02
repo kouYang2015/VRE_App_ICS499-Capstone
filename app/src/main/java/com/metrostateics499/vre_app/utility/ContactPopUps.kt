@@ -29,14 +29,14 @@ class ContactPopUps(
                 val view = inflater.inflate(R.layout.layout_edit_text2_popup, null)
                 val textView: TextView = view.findViewById(R.id.edit_text)
                 val textView2: TextView = view.findViewById(R.id.edit_text2)
-                textView.text = Passing.selectedContact?.name ?: toString()
-                textView2.text = Passing.selectedContact?.phoneNumber ?: toString()
+                textView.text = Passing.selectedContactObject.name
+                textView2.text = Passing.selectedContactObject.phoneNumber
                 builder.setView(view)
                     .setNegativeButton("cancel") { dialogInterface, i -> }
                     .setPositiveButton("save") { dialogInterface, i ->
 
-                        val contactName = textView.text.toString()
-                        val contactPhone = textView2.text.toString()
+                        val contactName = textView.text.toString().trim()
+                        val contactPhone = textView2.text.toString().trim()
                         listener!!.editContact(contactName, contactPhone)
                     }
                 editText = view.findViewById(R.id.edit_text)
@@ -52,8 +52,8 @@ class ContactPopUps(
                     .setTitle("New Contact")
                     .setNegativeButton("cancel") { dialogInterface, i -> }
                     .setPositiveButton("ok") { dialogInterface, i ->
-                        val contactName = textView.text.toString()
-                        val contactPhone = textView2.text.toString()
+                        val contactName = textView.text.toString().trim()
+                        val contactPhone = textView2.text.toString().trim()
                         listener!!.addContact(contactName, contactPhone)
                     }
                 editText = view.findViewById(R.id.edit_text)

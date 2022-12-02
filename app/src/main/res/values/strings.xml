@@ -53,4 +53,5 @@
     <string name="error_code_display">" "</string>
     <string name="error_account_display">" "</string>
     <string name="error_new_password_display">" "</string>
+    <string name="select_contacts">"Select Contact(s)"</string>
 </resources>

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.metrostateics499.vre_app.R
-import com.metrostateics499.vre_app.model.Passing
 
 class MenuActivity : AppCompatActivity() {
 
@@ -18,7 +17,7 @@ class MenuActivity : AppCompatActivity() {
         setContentView(R.layout.activity_menu)
 
         speechButton = findViewById(R.id.speechRecognition)
-        speechButton?.setOnClickListener() {
+        speechButton.setOnClickListener() {
             startActivity(Intent(this, ListenSpeechActivity::class.java))
         }
 
@@ -48,6 +47,6 @@ class MenuActivity : AppCompatActivity() {
     }
     override fun onPostResume() {
         super.onPostResume()
-        Passing.selectedEmergencyMessageSetup = null
+//        Passing.selectedEmergencyMessageSetup = null
     }
 }

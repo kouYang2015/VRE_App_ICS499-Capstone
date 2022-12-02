@@ -33,7 +33,7 @@ class CustomTextPopUps(
                     .setTitle("Edit Text Message")
                     .setNegativeButton("cancel") { dialogInterface, i -> }
                     .setPositiveButton("ok") { dialogInterface, i ->
-                        val customTextString = editTextCustomTextMessage!!.text.toString()
+                        val customTextString = editTextCustomTextMessage!!.text.toString().trim()
                         listener!!.editCustomTextMessage(customTextString)
                     }
                 editTextCustomTextMessage = view.findViewById(R.id.edit_text)
@@ -47,7 +47,7 @@ class CustomTextPopUps(
                     .setTitle("New Custom Text Message")
                     .setNegativeButton("cancel") { dialogInterface, i -> }
                     .setPositiveButton("ok") { dialogInterface, i ->
-                        val customTextString = editTextCustomTextMessage!!.text.toString()
+                        val customTextString = editTextCustomTextMessage!!.text.toString().trim()
                         listener!!.addCustomTextMessage(customTextString)
                     }
                 editTextCustomTextMessage = view.findViewById(R.id.edit_text)
