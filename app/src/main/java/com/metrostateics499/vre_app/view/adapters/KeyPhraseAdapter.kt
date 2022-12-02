@@ -26,8 +26,8 @@ class KeyPhraseAdapter(
 //            itemView.description.text = contact.phoneNumber
             if (Passing.checkInitializationSelectedEmergencyMessageSetup()) {
                 val checkedKeyPhrase =
-                    Passing.selectedEmergencyMessageSetup.
-                        selectedKeyPhraseList.find { it == keyPhrase }
+                    Passing.selectedEmergencyMessageSetup
+                        .selectedKeyPhraseList.find { it == keyPhrase }
                 if (checkedKeyPhrase != null) {
                     itemView.switch2.isChecked = true
                     itemView.description.text = "In use by this EM"
@@ -73,8 +73,8 @@ class KeyPhraseAdapter(
         if (Passing.checkInitializationSelectedEmergencyMessageSetup()) {
             holder.itemView.switch2.setOnClickListener {
                 if (holder.itemView.switch2.isChecked && !mutableList[position].inUse) {
-                    Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.
-                        add(mutableList[position])
+                    Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList
+                        .add(mutableList[position])
                     mutableList[position].inUse = true
                     holder.itemView.description.text = "In use by this EM"
                     Toast.makeText(
@@ -90,8 +90,8 @@ class KeyPhraseAdapter(
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.
-                        remove(mutableList[position])
+                    Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList
+                        .remove(mutableList[position])
                     mutableList[position].inUse = false
                     holder.itemView.description.text = "Not in use"
                     Toast.makeText(
