@@ -12,7 +12,6 @@ import com.metrostateics499.vre_app.model.Passing
 
 class ForgotPasswordActivity : AppCompatActivity() {
 
-    //private lateinit var verifyEmail: EditText    // DELETE
     private lateinit var verifyEmailUsername: EditText
     private lateinit var verifyEmailUsernameButton: Button
     private lateinit var invalidEmailUsername: TextView
@@ -30,7 +29,6 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_forgot_password)
 
-        //verifyEmail = findViewById(R.id.verify_email_username)    // DELETE
         verifyEmailUsername = findViewById(R.id.verify_email_username)
         verifyEmailUsernameButton = findViewById(R.id.verify_email_username_button)
         invalidEmailUsername = findViewById(R.id.invalid_username)
@@ -48,8 +46,6 @@ class ForgotPasswordActivity : AppCompatActivity() {
         val inputEmailUsername = verifyEmailUsername.text.toString()
         val emptyEmailUsernameInfo = "Email or Username can not be empty"
         val notFoundEmailUsername = "Sorry, Email or Username was not found"
-
-        // val inputEmail = verifyEmail.text.toString() // DELETE AFTER RUN, Implement in milestone 4
 
         // Check and display message if Email/Username is empty, is correct, and is incorrect
         if (verifyEmailUsername.text.isEmpty()) {
