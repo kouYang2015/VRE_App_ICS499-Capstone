@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     android:background="#185CA4">
 
-    <ListView
-        android:id="@+id/listViewPhrases"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewPhrases"
         android:layout_width="351dp"
         android:layout_height="414dp"
         android:background="#FFFFFF"
@@ -27,7 +27,7 @@
 
         android:backgroundTint="#1F2B6C"
         app:icon="@android:drawable/ic_input_add"
-        app:layout_constraintBottom_toTopOf="@+id/listViewPhrases"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewPhrases"
         app:layout_constraintEnd_toStartOf="@+id/buttonDeleteKeyPhrase"
         app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +41,7 @@
         android:layout_marginEnd="40dp"
         android:backgroundTint="#1F2B6C"
         app:icon="@android:drawable/ic_menu_delete"
-        app:layout_constraintBottom_toTopOf="@+id/listViewPhrases"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewPhrases"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.839" />
@@ -70,7 +70,7 @@
         android:backgroundTint="#1F2B6C"
         android:text="edit"
         app:icon="@android:drawable/ic_menu_edit"
-        app:layout_constraintBottom_toTopOf="@+id/listViewPhrases"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewPhrases"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

@@ -25,7 +25,7 @@ class EmergencyMessageSetupAdapter(
         fun bindItems(emergencyMessageSetup: EmergencyMessageSetup) {
 
             itemView.title.text = emergencyMessageSetup.title
-            itemView.description.text = emergencyMessageSetup.keyPhrase.phrase
+            itemView.description.text = emergencyMessageSetup.getKeyPhraseListString()
         }
     }
 

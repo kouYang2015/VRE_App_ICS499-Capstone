@@ -21,29 +21,29 @@ class MenuActivity : AppCompatActivity() {
             startActivity(Intent(this, ListenSpeechActivity::class.java))
         }
 
-        val goToKeyPhraseMenu = findViewById<Button>(R.id.customKeyWords)
-        goToKeyPhraseMenu.setOnClickListener {
-            val intent = Intent(this, KeyPhraseActivity::class.java)
-            // start your next activity
-            startActivity(intent)
-        }
+//        val goToKeyPhraseMenu = findViewById<Button>(R.id.customKeyWords)
+//        goToKeyPhraseMenu.setOnClickListener {
+//            val intent = Intent(this, KeyPhraseActivity::class.java)
+//            // start your next activity
+//            startActivity(intent)
+//        }
 
-        val goToCustomTextMessagesMenu = findViewById<Button>(R.id.customTextMessageContent)
-        goToCustomTextMessagesMenu.setOnClickListener {
-            val intent2 = Intent(this, CustomTextActivity::class.java)
-            // start your next activity
-            startActivity(intent2)
-        }
+//        val goToCustomTextMessagesMenu = findViewById<Button>(R.id.customTextMessageContent)
+//        goToCustomTextMessagesMenu.setOnClickListener {
+//            val intent2 = Intent(this, CustomTextActivity::class.java)
+//            // start your next activity
+//            startActivity(intent2)
+//        }
 
         val goToEmergencyMessageSetup = findViewById<Button>(R.id.emergencyMessageSetup)
         goToEmergencyMessageSetup.setOnClickListener {
             startActivity(Intent(this, EmergencyMessageSetupActivity::class.java))
         }
 
-        val goToContacts = findViewById<Button>(R.id.contactList)
-        goToContacts.setOnClickListener {
-            startActivity(Intent(this, ContactActivity::class.java))
-        }
+//        val goToContacts = findViewById<Button>(R.id.contactList)
+//        goToContacts.setOnClickListener {
+//            startActivity(Intent(this, ContactActivity::class.java))
+//        }
     }
     override fun onPostResume() {
         super.onPostResume()

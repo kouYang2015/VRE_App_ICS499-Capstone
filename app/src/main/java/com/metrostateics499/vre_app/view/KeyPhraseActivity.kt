@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
 import com.metrostateics499.vre_app.model.data.KeyPhrase
 import com.metrostateics499.vre_app.utility.KeyPhrasePopUps
+import com.metrostateics499.vre_app.view.adapters.KeyPhraseAdapter
+import kotlinx.android.synthetic.main.activity_key_phrases_menu.*
 
 /**
  * Key words activity
@@ -21,8 +24,10 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
     private var buttonAdd: Button? = null
     private var buttonEdit: Button? = null
     private var buttonDelete: Button? = null
+
     private var textViewSelected: String = ""
-    private var textViewSelectedBoolean: Boolean = false
+//    private var textViewSelectedBoolean: Boolean = false
+    private var viewSelectedBoolean: Boolean = false
     private var viewSelected: View? = null
     private lateinit var objectSelected: KeyPhrase
 
@@ -31,68 +36,115 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
         setContentView(R.layout.activity_key_phrases_menu)
 
         buttonAdd = findViewById<View>(R.id.buttonAddKeyPhrase) as Button
-        buttonAdd!!.setOnClickListener { openPopUp(textViewSelected, "add") }
+//        buttonAdd!!.setOnClickListener { openPopUp(textViewSelected, "add") }
         buttonEdit = findViewById<View>(R.id.buttonEditKeyPhrase) as Button
-        buttonEdit!!.setOnClickListener { checkSelectForEditKeyPhrasePopUp() }
+//        buttonEdit!!.setOnClickListener { checkSelectForEdit() }
         buttonDelete = findViewById<View>(R.id.buttonDeleteKeyPhrase) as Button
-        buttonDelete!!.setOnClickListener { checkSelectForDeleteKeyPhrasePopUp() }
+//        buttonDelete!!.setOnClickListener { checkSelectForDelete() }
         refreshList()
     }
 
-    private fun refreshList() {
-        textViewSelectedBoolean = false
-        textViewSelected = ""
+//    private fun refreshList() {
+//        textViewSelectedBoolean = false
+//        textViewSelected = ""
+//
+//        val listview: ListView = findViewById(R.id.listViewPhrases)
+//        val arrayAdapter = ArrayAdapter(
+//            this, android.R.layout.simple_list_item_1, Passing.keyPhraseList
+//        )
+//        listview.adapter = arrayAdapter
+//        listview.setOnItemClickListener { parent, view, position, _ ->
+//            viewSelected?.setBackgroundResource(
+//                androidx.appcompat.R.drawable
+//                    .abc_item_background_holo_light
+//            )
+//            Toast.makeText(
+//                this@KeyPhraseActivity,
+//                "You have selected " +
+//                    parent.getItemAtPosition(position),
+//                Toast.LENGTH_SHORT
+//            ).show()
+//            textViewSelected = parent.getItemAtPosition(position).toString()
+//            objectSelected = parent.getItemAtPosition(position) as KeyPhrase
+//            viewSelected = view
+//            textViewSelectedBoolean = true
+//            view.setBackgroundResource(androidx.appcompat.R.drawable.abc_list_pressed_holo_dark)
+//        }
+//    }
 
-        val listview: ListView = findViewById(R.id.listViewPhrases)
-        val arrayAdapter = ArrayAdapter(
-            this, android.R.layout.simple_list_item_1, Passing.keyPhraseList
-        )
-        listview.adapter = arrayAdapter
-        listview.setOnItemClickListener { parent, view, position, _ ->
-            viewSelected?.setBackgroundResource(
-                androidx.appcompat.R.drawable
-                    .abc_item_background_holo_light
-            )
-            Toast.makeText(
-                this@KeyPhraseActivity,
-                "You have selected " +
-                    parent.getItemAtPosition(position),
-                Toast.LENGTH_SHORT
-            ).show()
-            textViewSelected = parent.getItemAtPosition(position).toString()
-            objectSelected = parent.getItemAtPosition(position) as KeyPhrase
-            viewSelected = view
-            textViewSelectedBoolean = true
-            view.setBackgroundResource(androidx.appcompat.R.drawable.abc_list_pressed_holo_dark)
-        }
-    }
-
-    private fun checkSelectForDeleteKeyPhrasePopUp() {
-        if (textViewSelectedBoolean) {
-            openPopUp(textViewSelected, "delete")
-        } else {
-            Toast.makeText(
-                this@KeyPhraseActivity, "You must select a key phrase first",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
-
-    private fun checkSelectForEditKeyPhrasePopUp() {
-        if (textViewSelectedBoolean) {
-            openPopUp(textViewSelected, "edit")
-        } else {
-            Toast.makeText(
-                this@KeyPhraseActivity, "You must select a key phrase first",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
+//    private fun checkSelectForDeleteKeyPhrasePopUp() {
+//        if (textViewSelectedBoolean) {
+//            openPopUp(textViewSelected, "delete")
+//        } else {
+//            Toast.makeText(
+//                this@KeyPhraseActivity, "You must select a key phrase first",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        }
+//    }
 
     private fun openPopUp(textViewSelected: String, buttonType: String) {
         val keyPhrasePopUp = KeyPhrasePopUps(textViewSelected, buttonType)
         keyPhrasePopUp.show(supportFragmentManager, "example dialog")
     }
+
+    private fun checkSelectForDelete(viewSelectedBoolean: Boolean, titleSelectedString: String) {
+        if (viewSelectedBoolean) {
+            openPopUp(titleSelectedString, "delete")
+        } else {
+            Toast.makeText(
+                this@KeyPhraseActivity, "You must select something first",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun checkSelectForEdit(viewSelectedBoolean: Boolean, titleSelectedString: String) {
+        if (viewSelectedBoolean) {
+            openPopUp(titleSelectedString, "edit")
+        } else {
+            Toast.makeText(
+                this@KeyPhraseActivity, "You must select something first",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun refreshList() {
+        val keyPhraseAdapter = KeyPhraseAdapter(
+            Passing.keyPhraseList, this
+        )
+
+        recyclerViewPhrases.layoutManager = LinearLayoutManager(this)
+        recyclerViewPhrases.adapter = keyPhraseAdapter
+
+        buttonAdd!!.setOnClickListener {
+            openPopUp(textViewSelected, "add")
+        }
+        buttonEdit!!.setOnClickListener {
+            textViewSelected = keyPhraseAdapter.titleSelectedString
+            viewSelectedBoolean = keyPhraseAdapter.viewSelectedBoolean
+            viewSelected = keyPhraseAdapter.viewSelected
+            checkSelectForEdit(viewSelectedBoolean, textViewSelected)
+        }
+        buttonDelete!!.setOnClickListener {
+            textViewSelected = keyPhraseAdapter.titleSelectedString
+            viewSelectedBoolean = keyPhraseAdapter.viewSelectedBoolean
+            viewSelected = keyPhraseAdapter.viewSelected
+            checkSelectForDelete(viewSelectedBoolean, textViewSelected)
+        }
+    }
+//
+//    private fun checkSelectForEditKeyPhrasePopUp() {
+//        if (textViewSelectedBoolean) {
+//            openPopUp(textViewSelected, "edit")
+//        } else {
+//            Toast.makeText(
+//                this@KeyPhraseActivity, "You must select a key phrase first",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        }
+//    }
 
     override fun addKeyPhrase(keyphraseString: String) {
         if (keyphraseString.isEmpty()) {

@@ -35,8 +35,9 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         }
 
         relativeLayout2.setOnClickListener {
-            textViewSelected = Passing.selectedEmergencyMessageSetup.keyPhrase.phrase
-            openPopUp("keyphrase")
+//            textViewSelected = Passing.selectedEmergencyMessageSetup.keyPhrase.phrase
+//            openPopUp("keyphrase")
+            goToKeyPhraseMenu()
         }
 
         relativeLayout3.setOnClickListener {
@@ -49,6 +50,10 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
             goToContactsMenu()
         }
     }
+    private fun goToKeyPhraseMenu() {
+        startActivity(Intent(this, KeyPhraseActivity::class.java))
+    }
+
     private fun goToContactsMenu() {
         startActivity(Intent(this, ContactActivity::class.java))
     }
@@ -58,14 +63,25 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         textView.text = (Passing.selectedEmergencyMessageSetup.title)
     }
     private fun refreshRelativeLayout2() {
-        val textView2: TextView = findViewById(R.id.text_view_keyphrase)
-        if (Passing.selectedEmergencyMessageSetup.keyPhrase.phrase.isNotEmpty()) {
-            textView2.text = (
+        if (Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isNotEmpty()) {
+            val textView2: TextView = findViewById(R.id.text_view_keyphrase)
+            textView2.text =
                 (
-                    Passing.selectedEmergencyMessageSetup.keyPhrase.phrase
+                    Passing.selectedEmergencyMessageSetup.getKeyPhraseListString()
                     )
-                )
+        } else if (Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isEmpty()) {
+            val textView2: TextView = findViewById(R.id.text_view_keyphrase)
+            textView2.text = "Select or Create Key Phrase(s)"
         }
+
+//        val textView2: TextView = findViewById(R.id.text_view_keyphrase)
+//        if (Passing.selectedEmergencyMessageSetup.keyPhrase.phrase.isNotEmpty()) {
+//            textView2.text = (
+//                (
+//                    Passing.selectedEmergencyMessageSetup.keyPhrase.phrase
+//                    )
+//                )
+//        }
     }
 
     private fun refreshRelativeLayout3() {
@@ -132,39 +148,39 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         }
     }
 
-    override fun editEmergencyMessageSetupKeyPhrase(inputPhrase: String) {
-        if (inputPhrase.isEmpty()) {
-            Toast.makeText(
-                this@EditEmergencyMessageActivity,
-                "Key phrase can't be empty",
-                Toast.LENGTH_SHORT
-            ).show()
-            openPopUp("keyphrase")
-        } else if (inputPhrase == textViewSelected) {
-            Toast.makeText(
-                this@EditEmergencyMessageActivity, "Make a change or click cancel",
-                Toast.LENGTH_SHORT
-            ).show()
-            openPopUp("keyphrase")
-        } else if (inputPhrase.isNotEmpty() &&
-            checkKeyPhraseUniqueness(inputPhrase)
-        ) {
-            Passing.selectedEmergencyMessageSetup.keyPhrase.phrase = inputPhrase
-            Toast.makeText(
-                this@EditEmergencyMessageActivity, "Successfully Edited",
-                Toast.LENGTH_SHORT
-            ).show()
-            refreshRelativeLayout2()
-        } else {
-            Toast.makeText(
-                this@EditEmergencyMessageActivity,
-                "That Key Phrase already exists. " +
-                    "Try something else or click cancel.",
-                Toast.LENGTH_SHORT
-            ).show()
-            openPopUp("keyphrase")
-        }
-    }
+//    override fun editEmergencyMessageSetupKeyPhrase(inputPhrase: String) {
+//        if (inputPhrase.isEmpty()) {
+//            Toast.makeText(
+//                this@EditEmergencyMessageActivity,
+//                "Key phrase can't be empty",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//            openPopUp("keyphrase")
+//        } else if (inputPhrase == textViewSelected) {
+//            Toast.makeText(
+//                this@EditEmergencyMessageActivity, "Make a change or click cancel",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//            openPopUp("keyphrase")
+//        } else if (inputPhrase.isNotEmpty() &&
+//            checkKeyPhraseUniqueness(inputPhrase)
+//        ) {
+//            Passing.selectedEmergencyMessageSetup.keyPhrase.phrase = inputPhrase
+//            Toast.makeText(
+//                this@EditEmergencyMessageActivity, "Successfully Edited",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//            refreshRelativeLayout2()
+//        } else {
+//            Toast.makeText(
+//                this@EditEmergencyMessageActivity,
+//                "That Key Phrase already exists. " +
+//                    "Try something else or click cancel.",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//            openPopUp("keyphrase")
+//        }
+//    }
 
     override fun editEmergencyMessageSetupCustomTextMessage(inputText: String) {
         if (inputText.isEmpty()) {
@@ -199,6 +215,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
     }
     override fun onPostResume() {
         super.onPostResume()
+        refreshRelativeLayout2()
         refreshRelativeLayout4()
     }
 
@@ -210,12 +227,12 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         }
         return true
     }
-    private fun checkKeyPhraseUniqueness(phrase: String): Boolean {
-        for (item in Passing.emergencyMessageSetupList) {
-            if (item.keyPhrase.phrase.equals(phrase, true)) {
-                return false
-            }
-        }
-        return true
-    }
+//    private fun checkKeyPhraseUniqueness(phrase: String): Boolean {
+//        for (item in Passing.emergencyMessageSetupList) {
+//            if (item.keyPhrase.phrase.equals(phrase, true)) {
+//                return false
+//            }
+//        }
+//        return true
+//    }
 }

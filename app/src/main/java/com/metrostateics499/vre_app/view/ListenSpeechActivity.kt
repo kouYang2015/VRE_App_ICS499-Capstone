@@ -167,8 +167,10 @@ class ListenSpeechActivity : AppCompatActivity() {
 
     private fun findEmergencyMessageSetupMatch(keyPhraseMatch: String?): EmergencyMessageSetup? {
         for (emergencySetup in Passing.emergencyMessageSetupList) {
-            if (keyPhraseMatch?.contains(emergencySetup.keyPhrase.phrase, true) == true) {
-                return emergencySetup
+            for (phrase in emergencySetup.selectedKeyPhraseList) {
+                if (keyPhraseMatch?.contains(phrase.toString(), true) == true) {
+                    return emergencySetup
+                }
             }
         }
         return null
@@ -187,8 +189,10 @@ class ListenSpeechActivity : AppCompatActivity() {
             }
         }
         for (emergencySetup in Passing.emergencyMessageSetupList) {
-            if (incomingSpeech?.contains(emergencySetup.keyPhrase.phrase, true) == true) {
-                return emergencySetup.keyPhrase
+            for (phrase in emergencySetup.selectedKeyPhraseList) {
+                if (incomingSpeech?.contains(phrase.toString(), true) == true) {
+                    return phrase
+                }
             }
         }
         return null

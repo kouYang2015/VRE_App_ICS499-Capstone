@@ -108,36 +108,56 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
 
     override fun addEmergencyMessageSetup(
         inputTitle: String,
-        inputPhrase: String,
+//        inputPhrase: String,
         inputText: String
     ) {
         val newContactList: MutableList<Contact> = mutableListOf()
+        val newKeyPhraseList: MutableList<KeyPhrase> = mutableListOf()
 
-        if (inputTitle.isEmpty() || inputPhrase.isEmpty() || inputText.isEmpty()) {
+        if (inputTitle.isEmpty() || inputText.isEmpty()) {
             Toast.makeText(
                 this@EmergencyMessageSetupActivity,
                 "Please enter all fields",
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(titleSelectedString, "add")
-        } else if (!checkTitleUniqueness(inputTitle) && !checkKeyPhraseUniqueness(inputPhrase)) {
+        } else if (!checkTitleUniqueness(inputTitle)) {
             Toast.makeText(
                 this@EmergencyMessageSetupActivity,
-                "That Title and Key Phrase Already Exists. Try again.",
+                "That Title Already Exists. Try again.",
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(titleSelectedString, "add")
-        } else if (!checkKeyPhraseUniqueness(inputPhrase)) {
-            Toast.makeText(
-                this@EmergencyMessageSetupActivity,
-                "That Key Phrase Already Exists. Try again.",
-                Toast.LENGTH_SHORT
-            ).show()
-            openPopUp(titleSelectedString, "add")
-        } else if (checkTitleUniqueness(inputTitle) && checkKeyPhraseUniqueness(inputPhrase)) {
+        }
+//        else if (!checkTitleUniqueness(inputTitle) && !checkKeyPhraseUniqueness(inputPhrase)) {
+//            Toast.makeText(
+//                this@EmergencyMessageSetupActivity,
+//                "That Title and Key Phrase Already Exists. Try again.",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//            openPopUp(titleSelectedString, "add")
+//        }
+//        else if (!checkKeyPhraseUniqueness(inputPhrase)) {
+//            Toast.makeText(
+//                this@EmergencyMessageSetupActivity,
+//                "That Key Phrase Already Exists. Try again.",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//            openPopUp(titleSelectedString, "add")
+//        }
+
+//        else if (checkTitleUniqueness(inputTitle) && checkKeyPhraseUniqueness(inputPhrase)) {
+//            val newEmergencyMessageSetup = EmergencyMessageSetup(
+//                inputTitle,
+//                KeyPhrase(inputPhrase),
+//                CustomTextMessage(inputText),
+//                newContactList
+//            )
+//        }
+        else if (checkTitleUniqueness(inputTitle)) {
             val newEmergencyMessageSetup = EmergencyMessageSetup(
                 inputTitle,
-                KeyPhrase(inputPhrase),
+                newKeyPhraseList,
                 CustomTextMessage(inputText),
                 newContactList
             )
@@ -170,14 +190,14 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
         refreshList()
     }
 
-    private fun checkKeyPhraseUniqueness(keyPhrase: String,): Boolean {
-        for (item in Passing.emergencyMessageSetupList) {
-            if (item.keyPhrase.phrase.equals(keyPhrase, true)) {
-                return false
-            }
-        }
-        return true
-    }
+//    private fun checkKeyPhraseUniqueness(keyPhrase: String,): Boolean {
+//        for (item in Passing.emergencyMessageSetupList) {
+//            if (item.keyPhrase.phrase.equals(keyPhrase, true)) {
+//                return false
+//            }
+//        }
+//        return true
+//    }
 
     private fun checkTitleUniqueness(title: String): Boolean {
         for (item in Passing.emergencyMessageSetupList) {

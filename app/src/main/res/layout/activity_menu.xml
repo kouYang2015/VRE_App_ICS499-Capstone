@@ -37,22 +37,6 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <Button
-        android:id="@+id/customKeyWords"
-        android:layout_width="370dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="28dp"
-        android:backgroundTint="#1F2B6C"
-
-        android:text="@string/customKeyWords"
-        android:textAllCaps="false"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.609"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_logo" />
-
-    <Button
         android:id="@+id/speechRecognition"
         android:layout_width="370dp"
         android:layout_height="60dp"
@@ -62,7 +46,7 @@
         android:textAllCaps="false"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/customKeyWords"
+        app:layout_constraintTop_toBottomOf="@id/app_logo"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
@@ -96,21 +80,6 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <Button
-        android:id="@+id/contactList"
-        android:layout_width="370dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="5dp"
-        android:backgroundTint="#1F2B6C"
-
-        android:text="@string/contactList"
-        android:textAllCaps="false"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/emergencyMessageSetup"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <Button
         android:id="@+id/profile"
         android:layout_width="370dp"
         android:layout_height="60dp"
@@ -121,8 +90,9 @@
         android:textAllCaps="false"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/contactList"
-        app:layout_constraintLeft_toLeftOf="@id/contactList" />
+        app:layout_constraintTop_toBottomOf="@id/emergencyMessageSetup"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch1"
