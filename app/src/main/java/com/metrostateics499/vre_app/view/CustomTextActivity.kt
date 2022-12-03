@@ -130,8 +130,13 @@ class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
             ).show()
             openPopUp(textViewSelected, "add")
         } else {
-            Passing.customTextMessageList.add(CustomTextMessage(customTextTitle, customTextString
-                .trim()))
+            Passing.customTextMessageList.add(
+                CustomTextMessage(
+                    customTextTitle,
+                    customTextString
+                        .trim()
+                )
+            )
             Toast.makeText(
                 this@CustomTextActivity,
                 "New Custom Text Message Successfully " +
