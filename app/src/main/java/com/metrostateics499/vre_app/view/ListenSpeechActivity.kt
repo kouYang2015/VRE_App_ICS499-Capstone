@@ -190,10 +190,10 @@ class ListenSpeechActivity : AppCompatActivity() {
 //        }
         for (emergencySetup in Passing.emergencyMessageSetupList) {
             for (phrase in emergencySetup.selectedKeyPhraseList) {
-                if (Passing.selectedEmergencyMessageSetup.activeEMS){
+                if (Passing.selectedEmergencyMessageSetup.activeEMS) {
                     if (incomingSpeech?.contains(phrase.toString(), true) == true) {
                         return phrase
-                }
+                    }
                 }
             }
         }

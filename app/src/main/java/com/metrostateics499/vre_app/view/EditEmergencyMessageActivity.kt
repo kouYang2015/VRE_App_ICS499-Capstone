@@ -56,9 +56,9 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         }
 
         relativeLayout6.switch5.setOnClickListener {
-            if (switch5.isChecked
-                && Passing.selectedEmergencyMessageSetup.selectedContactList.isNotEmpty()
-                && Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isNotEmpty()
+            if (switch5.isChecked &&
+                Passing.selectedEmergencyMessageSetup.selectedContactList.isNotEmpty() &&
+                Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isNotEmpty()
             ) {
                 textViewActive.setTextColor(Color.parseColor("#1BB100"))
                 textViewActive.text = "Active"
@@ -68,9 +68,9 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
                     "You have activated VRE service for this EMS",
                     Toast.LENGTH_SHORT
                 ).show()
-            } else if (switch5.isChecked
-                && Passing.selectedEmergencyMessageSetup.selectedContactList.isEmpty()
-                && Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isNotEmpty()
+            } else if (switch5.isChecked &&
+                Passing.selectedEmergencyMessageSetup.selectedContactList.isEmpty() &&
+                Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isNotEmpty()
             ) {
                 switch5.isChecked = false
                 Toast.makeText(
@@ -78,9 +78,9 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
                     "You must add a contact in order to activate",
                     Toast.LENGTH_SHORT
                 ).show()
-            } else if (switch5.isChecked
-                && Passing.selectedEmergencyMessageSetup.selectedContactList.isNotEmpty()
-                && Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isEmpty()
+            } else if (switch5.isChecked &&
+                Passing.selectedEmergencyMessageSetup.selectedContactList.isNotEmpty() &&
+                Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isEmpty()
             ) {
                 switch5.isChecked = false
                 Toast.makeText(
@@ -88,9 +88,9 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
                     "You must add a key phrase in order to activate",
                     Toast.LENGTH_SHORT
                 ).show()
-            } else if (switch5.isChecked
-                && Passing.selectedEmergencyMessageSetup.selectedContactList.isEmpty()
-                && Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isEmpty()
+            } else if (switch5.isChecked &&
+                Passing.selectedEmergencyMessageSetup.selectedContactList.isEmpty() &&
+                Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isEmpty()
             ) {
                 switch5.isChecked = false
                 Toast.makeText(
@@ -170,14 +170,15 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         }
     }
 
-    private fun refreshRelativeLayout6(){
-        if(Passing.selectedEmergencyMessageSetup.activeEMS
-            && Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isNotEmpty()
-            && Passing.selectedEmergencyMessageSetup.selectedContactList.isNotEmpty()) {
+    private fun refreshRelativeLayout6() {
+        if (Passing.selectedEmergencyMessageSetup.activeEMS &&
+            Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isNotEmpty() &&
+            Passing.selectedEmergencyMessageSetup.selectedContactList.isNotEmpty()
+        ) {
             switch5.isChecked = true
             textViewActive.setTextColor(Color.parseColor("#1BB100"))
             textViewActive.text = "Active"
-        } else{
+        } else {
             Passing.selectedEmergencyMessageSetup.activeEMS = false
             switch5.isChecked = false
             textViewActive.setTextColor(Color.parseColor("#B50909"))

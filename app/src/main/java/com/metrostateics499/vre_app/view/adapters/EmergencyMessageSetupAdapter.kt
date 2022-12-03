@@ -28,13 +28,14 @@ class EmergencyMessageSetupAdapter(
 
             itemView.title.text = emergencyMessageSetup.title
             itemView.description.text = emergencyMessageSetup.getKeyPhraseListString()
-            if(emergencyMessageSetup.activeEMS
-                && emergencyMessageSetup.selectedKeyPhraseList.isNotEmpty()
-                && emergencyMessageSetup.selectedContactList.isNotEmpty()) {
+            if (emergencyMessageSetup.activeEMS &&
+                emergencyMessageSetup.selectedKeyPhraseList.isNotEmpty() &&
+                emergencyMessageSetup.selectedContactList.isNotEmpty()
+            ) {
                 itemView.switch2.isChecked = true
                 itemView.activeSwitchTextView.setTextColor(Color.parseColor("#1BB100"))
                 itemView.activeSwitchTextView.text = "Active"
-            } else{
+            } else {
                 emergencyMessageSetup.activeEMS = false
                 itemView.activeSwitchTextView.setTextColor(Color.parseColor("#B50909"))
                 itemView.activeSwitchTextView.text = "Inactive"
@@ -73,11 +74,12 @@ class EmergencyMessageSetupAdapter(
             )
         }
         holder.itemView.switch2.setOnClickListener {
-            if (holder.itemView.switch2.isChecked
-                && Passing.selectedEmergencyMessageSetup.selectedContactList.isNotEmpty()
-                && Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isNotEmpty()) {
-                holder.itemView.activeSwitchTextView.
-                    setTextColor(Color.parseColor("#1BB100"))
+            if (holder.itemView.switch2.isChecked &&
+                Passing.selectedEmergencyMessageSetup.selectedContactList.isNotEmpty() &&
+                Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isNotEmpty()
+            ) {
+                holder.itemView.activeSwitchTextView
+                    .setTextColor(Color.parseColor("#1BB100"))
                 holder.itemView.activeSwitchTextView.text = "Active"
                 Passing.selectedEmergencyMessageSetup.activeEMS = true
                 Toast.makeText(
@@ -85,37 +87,39 @@ class EmergencyMessageSetupAdapter(
                     "You have activated VRE service for EMS: " + mutableList[position].title,
                     Toast.LENGTH_SHORT
                 ).show()
-            } else if (holder.itemView.switch2.isChecked
-                && Passing.selectedEmergencyMessageSetup.selectedContactList.isEmpty()
-                && Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isNotEmpty()){
+            } else if (holder.itemView.switch2.isChecked &&
+                Passing.selectedEmergencyMessageSetup.selectedContactList.isEmpty() &&
+                Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isNotEmpty()
+            ) {
                 holder.itemView.switch2.isChecked = false
                 Toast.makeText(
                     context,
                     "You must add a contact in order to activate",
                     Toast.LENGTH_SHORT
                 ).show()
-            } else if (holder.itemView.switch2.isChecked
-                && Passing.selectedEmergencyMessageSetup.selectedContactList.isNotEmpty()
-                && Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isEmpty()){
+            } else if (holder.itemView.switch2.isChecked &&
+                Passing.selectedEmergencyMessageSetup.selectedContactList.isNotEmpty() &&
+                Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isEmpty()
+            ) {
                 holder.itemView.switch2.isChecked = false
                 Toast.makeText(
                     context,
                     "You must add a key phrase in order to activate",
                     Toast.LENGTH_SHORT
                 ).show()
-            } else if (holder.itemView.switch2.isChecked
-                && Passing.selectedEmergencyMessageSetup.selectedContactList.isEmpty()
-                && Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isEmpty()){
+            } else if (holder.itemView.switch2.isChecked &&
+                Passing.selectedEmergencyMessageSetup.selectedContactList.isEmpty() &&
+                Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isEmpty()
+            ) {
                 holder.itemView.switch2.isChecked = false
                 Toast.makeText(
                     context,
                     "You must add a key phrase and a contact in order to activate",
                     Toast.LENGTH_SHORT
                 ).show()
-            }
-            else {
-                holder.itemView.activeSwitchTextView.
-                    setTextColor(Color.parseColor("#B50909"))
+            } else {
+                holder.itemView.activeSwitchTextView
+                    .setTextColor(Color.parseColor("#B50909"))
                 holder.itemView.activeSwitchTextView.text = "Inactive"
                 Passing.selectedEmergencyMessageSetup.activeEMS = false
                 Toast.makeText(
