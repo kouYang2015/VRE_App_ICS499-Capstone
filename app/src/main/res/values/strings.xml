@@ -31,7 +31,7 @@
     <string name="offSpeech">Turn Off</string>
     <string name="verify_email_username_text">Email or Username</string>
     <string name="verify_email_username_button">Verify</string>
-    <string name="forgot_password_info">Enter your Email or Username. An verification code will be sent to your email.</string>
+    <string name="forgot_password_info">Enter your Email or Username. A text with a verification code will be sent to you.</string>
     <string name="verify_account_text">Verify your account</string>
     <string name="title_activity_verification_code">VerificationCode</string>
 
