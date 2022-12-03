@@ -26,7 +26,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         refreshRelativeLayout2()
         refreshRelativeLayout3()
         refreshRelativeLayout4()
-        refreshRelativeLayout5GPS()
+//        refreshRelativeLayout5GPS() TODO()
         refreshRelativeLayout6()
 
         val relativeLayout: RelativeLayout = findViewById(R.id.relativeLayout)
@@ -176,9 +176,9 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         }
     }
 
-    private fun refreshRelativeLayout5GPS() {
-        TODO()
-    }
+//    private fun refreshRelativeLayout5GPS() {
+//        TODO()
+//    }
 
     private fun refreshRelativeLayout6() {
         if (Passing.selectedEmergencyMessageSetup.activeEMS &&
