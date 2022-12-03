@@ -126,6 +126,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
     private fun refreshRelativeLayout2() {
         if (Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isNotEmpty()) {
             val textView2: TextView = findViewById(R.id.text_view_keyphrase)
+            text_view_keyphrase_required.text = ""
             textView2.text =
                 (
                     Passing.selectedEmergencyMessageSetup.getKeyPhraseListString()
@@ -133,6 +134,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         } else if (Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isEmpty()) {
             val textView2: TextView = findViewById(R.id.text_view_keyphrase)
             textView2.text = "Choose or Create Key Phrase(s)"
+            text_view_keyphrase_required.text = "*"
         }
 
 //        val textView2: TextView = findViewById(R.id.text_view_keyphrase)
@@ -149,6 +151,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         if (Passing.selectedEmergencyMessageSetup.customTextMessage.textMessage
             .isNotEmpty()
         ) {
+            text_view_contact_required.text = ""
             val textView3: TextView = findViewById(R.id.text_custom_text)
             textView3.text =
                 (
@@ -159,6 +162,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
 
     private fun refreshRelativeLayout4() {
         if (Passing.selectedEmergencyMessageSetup.selectedContactList.isNotEmpty()) {
+            text_view_contact_required.text = ""
             val textView4: TextView = findViewById(R.id.text_contact_list)
             textView4.text =
                 (
@@ -167,6 +171,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         } else if (Passing.selectedEmergencyMessageSetup.selectedContactList.isEmpty()) {
             val textView4: TextView = findViewById(R.id.text_contact_list)
             textView4.text = "Choose or Create Contacts"
+            text_view_contact_required.text = "*"
         }
     }
 
