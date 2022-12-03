@@ -1,5 +1,6 @@
 package com.metrostateics499.vre_app.utility
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Looper
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -25,6 +26,7 @@ class LocationGPS(context: Context) {
         locationRequest.fastestInterval = FASTEST_UPDATE_INTERVAL_MILLISECONDS
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
     }
+    @SuppressLint("MissingPermission")
     fun startLocationTracking(locationCallback: LocationCallback) {
         if (!startedLocationTracking) {
             fusedLocationClient.requestLocationUpdates(

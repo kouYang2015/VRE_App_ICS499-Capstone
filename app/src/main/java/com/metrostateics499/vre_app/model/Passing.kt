@@ -1,10 +1,5 @@
 package com.metrostateics499.vre_app.model
 
-import com.metrostateics499.vre_app.model.data.Contact
-import com.metrostateics499.vre_app.model.data.CustomTextMessage
-import com.metrostateics499.vre_app.model.data.EmergencyMessageSetup
-import com.metrostateics499.vre_app.model.data.KeyPhrase
-
 /**
  * Singleton object that is used to store user data.
  *
@@ -19,11 +14,14 @@ object Passing {
     var customTextMessageList: MutableList<CustomTextMessage> = mutableListOf()
     var contactList: MutableList<Contact> = mutableListOf()
     var emergencyMessageSetupList: MutableList<EmergencyMessageSetup> = mutableListOf()
+    var callMessageList: MutableList<CallMessage> = mutableListOf()
 
     lateinit var selectedEmergencyMessageSetup: EmergencyMessageSetup
     lateinit var selectedContactObject: Contact
     lateinit var selectedKeyPhraseObject: KeyPhrase
     lateinit var selectedCustomTextObject: CustomTextMessage
+    lateinit var selectedCallMessageObject: CallMessage
+
     var locationTrackingRequested = false
     var latitude: String = "Unknown"
     var longitude: String = "Unknown"
