@@ -11,8 +11,8 @@
         android:id="@+id/app_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="68dp"
         android:fontFamily="@font/blinker_bold"
         android:text="@string/app_logo_name"
         android:textColor="@color/white"
@@ -36,33 +36,21 @@
         app:layout_constraintLeft_toRightOf="@id/app_logo"
         app:layout_constraintRight_toRightOf="parent" />
 
+
     <Button
         android:id="@+id/speechRecognition"
         android:layout_width="370dp"
         android:layout_height="60dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="72dp"
         android:backgroundTint="#1F2B6C"
         android:text="@string/speechRecognition"
         android:textAllCaps="false"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/app_logo"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <Button
-        android:id="@+id/customTextMessageContent"
-        android:layout_width="370dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="5dp"
-        android:backgroundTint="#1F2B6C"
-        android:text="@string/customTextMessageContent"
-        android:textAllCaps="false"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/speechRecognition"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_logo" />
 
     <Button
         android:id="@+id/emergencyMessageSetup"
@@ -75,7 +63,7 @@
         android:textAllCaps="false"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/customTextMessageContent"
+        app:layout_constraintTop_toBottomOf="@id/speechRecognition"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 

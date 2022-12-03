@@ -109,12 +109,13 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
     override fun addEmergencyMessageSetup(
         inputTitle: String,
 //        inputPhrase: String,
-        inputText: String
+//        inputText: String
     ) {
         val newContactList: MutableList<Contact> = mutableListOf()
         val newKeyPhraseList: MutableList<KeyPhrase> = mutableListOf()
+        val newCustomTextMessageList: MutableList<CustomTextMessage> = mutableListOf()
 
-        if (inputTitle.isEmpty() || inputText.isEmpty()) {
+        if (inputTitle.isEmpty()) {
             Toast.makeText(
                 this@EmergencyMessageSetupActivity,
                 "Please enter all fields",
@@ -158,7 +159,7 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
             val newEmergencyMessageSetup = EmergencyMessageSetup(
                 inputTitle,
                 newKeyPhraseList,
-                CustomTextMessage(inputText),
+                newCustomTextMessageList,
                 newContactList
             )
             Passing.emergencyMessageSetupList.add(newEmergencyMessageSetup)
