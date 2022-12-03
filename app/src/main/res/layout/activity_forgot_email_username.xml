@@ -119,12 +119,12 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <Button
-        android:id="@+id/forgot_emailUsername_verify_email_username_button"
+        android:id="@+id/search_email_username_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:background="@drawable/round_style"
-        android:text="@string/verify_email_username_button"
+        android:text="@string/search_email_username_button"
         android:textAllCaps="false"
         android:textSize="18sp"
         android:textStyle="bold"

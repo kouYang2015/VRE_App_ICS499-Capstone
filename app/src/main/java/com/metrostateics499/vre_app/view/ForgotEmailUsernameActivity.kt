@@ -12,8 +12,8 @@ import com.metrostateics499.vre_app.model.Passing
 
 class ForgotEmailUsernameActivity : AppCompatActivity() {
 
-    private lateinit var verifyEmailUsername: EditText
-    private lateinit var verifyEmailUsernameButton: Button
+    private lateinit var findEmailUsername: EditText
+    private lateinit var findEmailUsernameButton: Button
     private lateinit var invalidEmailUsername: TextView
     private var adminUsername: String = "username"
     private var generatedNumber: String = ""
@@ -29,40 +29,39 @@ class ForgotEmailUsernameActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_forgot_email_username)
 
-        verifyEmailUsername = findViewById(R.id.forgot_emailUsername_verify_email_username)
-        verifyEmailUsernameButton =
-            findViewById(R.id.forgot_emailUsername_verify_email_username_button)
+        findEmailUsername = findViewById(R.id.forgot_emailUsername_verify_email_username)
+        findEmailUsernameButton =
+            findViewById(R.id.search_email_username_button)
         invalidEmailUsername = findViewById(R.id.forgot_emailUsername_invalid)
 
         // This is the verify button
-        verifyEmailUsernameButton.setOnClickListener {
-            verifyAccount()
+        findEmailUsernameButton.setOnClickListener {
+            findAccount()
         }
     }
 
     /**
-     * Verifying if username is in the system
+     * Search for email or username in the system
      */
-    private fun verifyAccount() {
-        val inputEmailUsername = verifyEmailUsername.text.toString()
+    private fun findAccount() {
+        val inputEmailUsername = findEmailUsername.text.toString()
         val emptyEmailUsernameInfo = "Email or Username can not be empty"
         val notFoundEmailUsername = "Sorry, Email or Username was not found"
 
         // Check and display message if Email/Username is empty, is correct, and is incorrect
-        if (verifyEmailUsername.text.isEmpty()) {
+        if (findEmailUsername.text.isEmpty()) {
             // Display message telling user the name can not be empty
             invalidEmailUsername.text = emptyEmailUsernameInfo
-        } else if ((
-            (inputEmailUsername == Passing.username || inputEmailUsername == Passing.email) ||
-                (inputEmailUsername == adminUsername)
-            )
+        } else if (((inputEmailUsername == Passing.username || inputEmailUsername == Passing.email)
+                    || (inputEmailUsername == adminUsername)
+                    )
         ) {
             verificationRandomCode()
 
             // Display message when successfully verified
             Toast.makeText(this, "Account Found", Toast.LENGTH_LONG)
                 .show()
-            val intent = Intent(this, VerificationCodeActivity::class.java)
+            val intent = Intent(this, VerificationCodeLoginActivity::class.java)
                 .putExtra("genNum", generatedNumber)
                 .putExtra("email/username", inputEmailUsername)
             startActivity(intent)
@@ -70,7 +69,7 @@ class ForgotEmailUsernameActivity : AppCompatActivity() {
             // Clears on screen message
             invalidEmailUsername.text = ""
             // Clears verify username on the screen
-            verifyEmailUsername.text.clear()
+            findEmailUsername.text.clear()
         } else {
             // Display message telling user username is not found
             invalidEmailUsername.text = notFoundEmailUsername

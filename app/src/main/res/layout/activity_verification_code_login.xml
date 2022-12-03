@@ -4,6 +4,163 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FF185CA5"
     tools:context=".view.VerificationCodeLoginActivity">
+
+    <TextView
+        android:id="@+id/app_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/blinker_bold"
+        android:text="@string/app_logo_name"
+        android:textColor="@color/white"
+        android:textSize="90sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/app_front_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_title_name"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_logo"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <TextView
+        android:id="@+id/code_login_email_username_display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/display_email_username"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_front_title"
+        app:layout_constraintVertical_bias="0.056" />
+
+    <TextView
+        android:id="@+id/code_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/code_login_text"
+        android:textColor="#FFFF00"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/code_login_email_username_display" />
+
+    <TextView
+        android:id="@+id/code_login_info"
+        android:layout_width="277dp"
+        android:layout_height="44dp"
+        android:text="@string/code_login_info_text"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/code_login" />
+
+    <TextView
+        android:id="@+id/code_login_invalid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/error_new_password_display"
+        android:textColor="#FA8072"
+        android:textSize="16sp"
+        android:textAlignment="textStart"
+        app:layout_constraintBottom_toTopOf="@id/code_login_code_text"
+        app:layout_constraintLeft_toLeftOf="@id/code_login_verification_code"
+        app:layout_constraintRight_toRightOf="@id/code_login_verification_code" />
+
+    <TextView
+        android:id="@+id/code_login_code_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/verification_code"
+        android:labelFor="@+id/code_login_password"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/code_login_verification_code" />
+
+    <EditText
+        android:id="@+id/code_login_verification_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="70dp"
+        android:background="@drawable/round_style"
+        android:backgroundTint="@color/white"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/code_login_code_text" />
+
+    <TextView
+        android:id="@+id/code_login_password_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/password_text"
+        android:labelFor="@+id/confirm_new_password"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="@id/code_login_password"
+        app:layout_constraintTop_toBottomOf="@id/code_login_verification_code" />
+
+    <EditText
+        android:id="@id/code_login_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="70dp"
+        android:background="@drawable/round_style"
+        android:backgroundTint="@color/white"
+        android:importantForAutofill="no"
+        android:inputType="textPassword|textNoSuggestions"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/code_login_password_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/code_login_cont_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/round_style"
+        android:text="@string/continue_button"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/code_login_password" />
+
+    <ImageView
+        android:id="@+id/maverick_image"
+        android:layout_width="205dp"
+        android:layout_height="43dp"
+        android:contentDescription="@null"
+        android:scaleType="centerInside"
+        android:src="@drawable/mavricks"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -43,7 +43,7 @@
     <string name="set_new_password_info">Enter your new password and confirm new password</string>
     <string name="new_password">New password</string>
     <string name="confirm_new_password_text">Confirm new password</string>
-    <string name="new_password_cont_button">Continue</string>
+    <string name="continue_button">Continue</string>
     <string name="emergencyMessageSetup">Emergency Message Setup</string>
     <string name="emergencyMessages">Emergency Messages</string>
     <string name="contacts">Contacts</string>
@@ -57,4 +57,8 @@
     <string name="select_contacts">"Select Contact(s)"</string>
     <string name="forgot_email_username_info">Enter your Email or Username that you used to register. A text with a verification code will be sent to you.</string>
     <string name="find_account_text">Find Account</string>
+    <string name="code_login_text">Login with Verification Code</string>
+    <string name="code_login_info_text">Use verification code and your password to login to your account</string>
+    <string name="verification_code">Verification code</string>
+    <string name="search_email_username_button">Search</string>
 </resources>
