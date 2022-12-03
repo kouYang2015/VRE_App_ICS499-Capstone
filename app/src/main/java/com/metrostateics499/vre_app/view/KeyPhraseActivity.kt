@@ -302,7 +302,9 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
                 testKeyPhraseTextView.text = ""
             }
 
-            override fun onError(p0: Int) {}
+            override fun onError(p0: Int) {
+                testKeyPhraseTextView.text = ""
+            }
 
             override fun onResults(bundle: Bundle?) {
                 val data = bundle?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
