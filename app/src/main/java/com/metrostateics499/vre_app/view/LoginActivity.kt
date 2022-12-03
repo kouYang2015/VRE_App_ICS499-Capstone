@@ -72,7 +72,6 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, ForgotEmailUsernameActivity::class.java)
             startActivity(intent)
         }
-
     }
 
     /**
@@ -87,17 +86,17 @@ class LoginActivity : AppCompatActivity() {
 
         // Cannot login with an empty text
         if (username.text.toString().isEmpty() && password.text.toString()
-                .isEmpty() && email.text.isEmpty()
+            .isEmpty() && email.text.isEmpty()
         ) {
             // Displays a message on screen if it is empty
             invalidCredentials.text = emptyInfo
         } else if ((
-                    (
-                            (inputUsername == Passing.username || inputEmail == Passing.email) &&
-                                    inputPassword == Passing.password
-                            ) ||
-                            (inputUsername == adminUsername && inputPassword == adminPassword)
-                    )
+            (
+                (inputUsername == Passing.username || inputEmail == Passing.email) &&
+                    inputPassword == Passing.password
+                ) ||
+                (inputUsername == adminUsername && inputPassword == adminPassword)
+            )
         ) {
             // Displays message when successfully logged in
             Toast.makeText(this, "Successfully Logged In", Toast.LENGTH_LONG).show()

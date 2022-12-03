@@ -1,10 +1,10 @@
 package com.metrostateics499.vre_app.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.metrostateics499.vre_app.R
 
 class VerificationCodeLoginActivity : AppCompatActivity() {
@@ -28,7 +28,5 @@ class VerificationCodeLoginActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         setContentView(R.layout.activity_verification_code_login)
-
-        
     }
 }
