@@ -56,7 +56,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
             goToContactsMenu()
         }
 
-        refreshRelativeLayout5GPS.switchGPS.setOnClickListener{
+        refreshRelativeLayout5GPS.switchGPS.setOnClickListener {
             TODO()
         }
 
@@ -175,7 +175,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         }
     }
 
-    private fun refreshRelativeLayout5GPS(){
+    private fun refreshRelativeLayout5GPS() {
         TODO()
     }
 
