@@ -23,6 +23,13 @@
         android:theme="@style/Theme.VRE_App"
         tools:targetApi="31">
         <activity
+            android:name=".VerificationCodeLogin"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ForgotEmailUsernameActivity"
             android:exported="false">
             <meta-data
