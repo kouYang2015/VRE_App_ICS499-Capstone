@@ -55,4 +55,5 @@
     <string name="error_new_password_display">" "</string>
     <string name="forgot_email_username_text">Forgot Email/Username</string>
     <string name="select_contacts">"Select Contact(s)"</string>
+    <string name="forgot_email_username_info">Enter your Email or Username that you used to register. A text with a verification code will be sent to you.</string>
 </resources>
