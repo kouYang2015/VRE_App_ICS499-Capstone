@@ -5,7 +5,8 @@ data class EmergencyMessageSetup(
     var selectedKeyPhraseList: MutableList<KeyPhrase>,
     var customTextMessage: CustomTextMessage,
     var selectedContactList: MutableList<Contact>,
-    var activeEMS: Boolean = false
+    var activeEMS: Boolean = false,
+    var activeGPS: Boolean = false
 ) {
     fun addContact(contact: Contact) {
         selectedContactList.add(contact)

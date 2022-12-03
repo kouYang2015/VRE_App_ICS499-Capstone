@@ -27,6 +27,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         refreshRelativeLayout2()
         refreshRelativeLayout3()
         refreshRelativeLayout4()
+        refreshRelativeLayout5GPS()
         refreshRelativeLayout6()
 
         val relativeLayout: RelativeLayout = findViewById(R.id.relativeLayout)
@@ -53,6 +54,10 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         relativeLayout4.setOnClickListener {
             textViewSelected = Passing.selectedEmergencyMessageSetup.customTextMessage.toString()
             goToContactsMenu()
+        }
+
+        refreshRelativeLayout5GPS.switchGPS.setOnClickListener{
+            TODO()
         }
 
         relativeLayout6.switch5.setOnClickListener {
@@ -168,6 +173,10 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
             val textView4: TextView = findViewById(R.id.text_contact_list)
             textView4.text = "Choose or Create Contacts"
         }
+    }
+
+    private fun refreshRelativeLayout5GPS(){
+        TODO()
     }
 
     private fun refreshRelativeLayout6() {

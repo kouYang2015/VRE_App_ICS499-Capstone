@@ -184,7 +184,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/relativeLayout5"
+            android:id="@+id/refreshRelativeLayout5GPS"
             android:layout_width="398dp"
             android:layout_height="89dp"
             android:layout_marginTop="7dp"
@@ -220,7 +220,7 @@
                 android:textSize="14sp" />
 
             <Switch
-                android:id="@+id/switch4"
+                android:id="@+id/switchGPS"
                 android:layout_width="64dp"
                 android:layout_height="73dp"
                 android:layout_alignParentTop="true"
