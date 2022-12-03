@@ -1,6 +1,7 @@
 package com.metrostateics499.vre_app.view
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -9,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
 import com.metrostateics499.vre_app.utility.EditEmergencyMessagePopUps
+import kotlinx.android.synthetic.main.activity_edit_emergency_message.*
+import kotlinx.android.synthetic.main.activity_edit_emergency_message.view.*
+import kotlinx.android.synthetic.main.row.view.*
 
 class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePopUps.Listener {
 
@@ -23,6 +27,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         refreshRelativeLayout2()
         refreshRelativeLayout3()
         refreshRelativeLayout4()
+        refreshRelativeLayout6()
 
         val relativeLayout: RelativeLayout = findViewById(R.id.relativeLayout)
         val relativeLayout2: RelativeLayout = findViewById(R.id.relativeLayout2)
@@ -49,7 +54,63 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
             textViewSelected = Passing.selectedEmergencyMessageSetup.customTextMessage.toString()
             goToContactsMenu()
         }
+
+        relativeLayout6.switch5.setOnClickListener {
+            if (switch5.isChecked
+                && Passing.selectedEmergencyMessageSetup.selectedContactList.isNotEmpty()
+                && Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isNotEmpty()
+            ) {
+                textViewActive.setTextColor(Color.parseColor("#1BB100"))
+                textViewActive.text = "Active"
+                Passing.selectedEmergencyMessageSetup.activeEMS = true
+                Toast.makeText(
+                    this@EditEmergencyMessageActivity,
+                    "You have activated VRE service for this EMS",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else if (switch5.isChecked
+                && Passing.selectedEmergencyMessageSetup.selectedContactList.isEmpty()
+                && Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isNotEmpty()
+            ) {
+                switch5.isChecked = false
+                Toast.makeText(
+                    this@EditEmergencyMessageActivity,
+                    "You must add a contact in order to activate",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else if (switch5.isChecked
+                && Passing.selectedEmergencyMessageSetup.selectedContactList.isNotEmpty()
+                && Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isEmpty()
+            ) {
+                switch5.isChecked = false
+                Toast.makeText(
+                    this@EditEmergencyMessageActivity,
+                    "You must add a key phrase in order to activate",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else if (switch5.isChecked
+                && Passing.selectedEmergencyMessageSetup.selectedContactList.isEmpty()
+                && Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isEmpty()
+            ) {
+                switch5.isChecked = false
+                Toast.makeText(
+                    this@EditEmergencyMessageActivity,
+                    "You must add a key phrase and a contact in order to activate",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                textViewActive.setTextColor(Color.parseColor("#B50909"))
+                textViewActive.text = "Inactive"
+                Passing.selectedEmergencyMessageSetup.activeEMS = false
+                Toast.makeText(
+                    this@EditEmergencyMessageActivity,
+                    "You have deactivated VRE service for this EMS",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
+
     private fun goToKeyPhraseMenu() {
         startActivity(Intent(this, KeyPhraseActivity::class.java))
     }
@@ -106,6 +167,21 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         } else if (Passing.selectedEmergencyMessageSetup.selectedContactList.isEmpty()) {
             val textView4: TextView = findViewById(R.id.text_contact_list)
             textView4.text = "Choose or Create Contacts"
+        }
+    }
+
+    private fun refreshRelativeLayout6(){
+        if(Passing.selectedEmergencyMessageSetup.activeEMS
+            && Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isNotEmpty()
+            && Passing.selectedEmergencyMessageSetup.selectedContactList.isNotEmpty()) {
+            switch5.isChecked = true
+            textViewActive.setTextColor(Color.parseColor("#1BB100"))
+            textViewActive.text = "Active"
+        } else{
+            Passing.selectedEmergencyMessageSetup.activeEMS = false
+            switch5.isChecked = false
+            textViewActive.setTextColor(Color.parseColor("#B50909"))
+            textViewActive.text = "Inactive"
         }
     }
 
@@ -217,6 +293,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         super.onPostResume()
         refreshRelativeLayout2()
         refreshRelativeLayout4()
+        refreshRelativeLayout6()
     }
 
     private fun checkTitleUniqueness(title: String): Boolean {

@@ -183,15 +183,17 @@ class ListenSpeechActivity : AppCompatActivity() {
      * @return KeyPhrase if there is a KeyPhrase object that matches User's speech.
      */
     private fun findKeyPhraseMatch(incomingSpeech: String?): KeyPhrase? {
-        for (keyPhraseElement in Passing.keyPhraseList) {
-            if (incomingSpeech?.contains(keyPhraseElement.phrase, true) == true) {
-                return keyPhraseElement
-            }
-        }
+//        for (keyPhraseElement in Passing.keyPhraseList) {
+//            if (incomingSpeech?.contains(keyPhraseElement.phrase, true) == true) {
+//                return keyPhraseElement
+//            }
+//        }
         for (emergencySetup in Passing.emergencyMessageSetupList) {
             for (phrase in emergencySetup.selectedKeyPhraseList) {
-                if (incomingSpeech?.contains(phrase.toString(), true) == true) {
-                    return phrase
+                if (Passing.selectedEmergencyMessageSetup.activeEMS){
+                    if (incomingSpeech?.contains(phrase.toString(), true) == true) {
+                        return phrase
+                }
                 }
             }
         }
