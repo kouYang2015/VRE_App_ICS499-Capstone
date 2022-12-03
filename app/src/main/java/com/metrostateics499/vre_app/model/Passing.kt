@@ -22,6 +22,7 @@ object Passing {
 
     lateinit var selectedEmergencyMessageSetup: EmergencyMessageSetup
     lateinit var selectedContactObject: Contact
+    lateinit var selectedKeyPhraseObject: KeyPhrase
 
     @JvmName("setUsername1")
     fun setUsername(username: String) {
@@ -40,5 +41,9 @@ object Passing {
 
     fun checkInitializationSelectedEmergencyMessageSetup(): Boolean {
         return ::selectedEmergencyMessageSetup.isInitialized
+    }
+
+    fun checkInitializationSelectedKeyPhrase(): Boolean {
+        return ::selectedKeyPhraseObject.isInitialized
     }
 }

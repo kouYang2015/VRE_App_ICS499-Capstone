@@ -2,7 +2,7 @@ package com.metrostateics499.vre_app.model.data
 
 data class EmergencyMessageSetup(
     var title: String,
-    var keyPhrase: KeyPhrase,
+    var selectedKeyPhraseList: MutableList<KeyPhrase>,
     var customTextMessage: CustomTextMessage,
     var selectedContactList: MutableList<Contact>
 ) {
@@ -22,6 +22,14 @@ data class EmergencyMessageSetup(
         return nameString
     }
 
+    fun getKeyPhraseListString(): String {
+        var nameString = ""
+        for (item in selectedKeyPhraseList)
+            nameString += (item.phrase + ", ")
+
+        return nameString
+    }
+
     fun findContactObject(contact: Contact): Boolean {
         for (item in this.selectedContactList)
             if (item == contact) {
@@ -29,4 +37,8 @@ data class EmergencyMessageSetup(
             }
         return false
     }
+
+//    fun useKeyPhrase(keyPhrase: KeyPhrase) {
+//
+//    }
 }
