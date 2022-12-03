@@ -184,7 +184,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/refreshRelativeLayout5GPS"
+            android:id="@+id/relativeLayout5GPS"
             android:layout_width="398dp"
             android:layout_height="89dp"
             android:layout_marginTop="7dp"

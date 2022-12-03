@@ -12,7 +12,6 @@ import com.metrostateics499.vre_app.model.Passing
 import com.metrostateics499.vre_app.utility.EditEmergencyMessagePopUps
 import kotlinx.android.synthetic.main.activity_edit_emergency_message.*
 import kotlinx.android.synthetic.main.activity_edit_emergency_message.view.*
-import kotlinx.android.synthetic.main.row.view.*
 
 class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePopUps.Listener {
 
@@ -34,6 +33,8 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         val relativeLayout2: RelativeLayout = findViewById(R.id.relativeLayout2)
         val relativeLayout3: RelativeLayout = findViewById(R.id.relativeLayout3)
         val relativeLayout4: RelativeLayout = findViewById(R.id.relativeLayout4)
+        val relativeLayout5GPS: RelativeLayout = findViewById(R.id.relativeLayout5GPS)
+        val relativeLayout6: RelativeLayout = findViewById(R.id.relativeLayout6)
 
         relativeLayout.setOnClickListener {
             textViewSelected = Passing.selectedEmergencyMessageSetup.title
@@ -56,7 +57,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
             goToContactsMenu()
         }
 
-        refreshRelativeLayout5GPS.switchGPS.setOnClickListener {
+        relativeLayout5GPS.switchGPS.setOnClickListener {
             TODO()
         }
 
