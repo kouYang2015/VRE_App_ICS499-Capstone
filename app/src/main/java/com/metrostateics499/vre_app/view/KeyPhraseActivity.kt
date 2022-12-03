@@ -244,6 +244,11 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
                     textViewSelected,
                 Toast.LENGTH_SHORT
             ).show()
+            for (item in Passing.emergencyMessageSetupList) {
+                Passing.selectedKeyPhraseObject.let {
+                    item.selectedKeyPhraseList.remove(it)
+                }
+            }
             refreshList()
         }
     }
