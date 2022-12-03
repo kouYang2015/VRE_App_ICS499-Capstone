@@ -53,9 +53,9 @@ class ForgotEmailUsernameActivity : AppCompatActivity() {
             // Display message telling user the name can not be empty
             invalidEmailUsername.text = emptyEmailUsernameInfo
         } else if ((
-                    (inputEmailUsername == Passing.username || inputEmailUsername == Passing.email) ||
-                            (inputEmailUsername == adminUsername)
-                    )
+            (inputEmailUsername == Passing.username || inputEmailUsername == Passing.email) ||
+                (inputEmailUsername == adminUsername)
+            )
         ) {
             verificationRandomCode()
 
@@ -85,5 +85,4 @@ class ForgotEmailUsernameActivity : AppCompatActivity() {
 
         generatedNumber = randomNumber.toString()
     }
-
 }
