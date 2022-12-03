@@ -17,6 +17,7 @@ class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
     private var textViewSelected: String = ""
     private var textViewSelectedBoolean: Boolean = false
     private var viewSelected: View? = null
+    private lateinit var customTextObjectSelected: CustomTextMessage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,10 +40,10 @@ class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
         val arrayAdapter = ArrayAdapter(
             this,
             android.R.layout.simple_list_item_1,
-            Passing.customTextMessageList.customTextMessages
+            Passing.customTextMessageList
         )
         listview.adapter = arrayAdapter
-        listview.setOnItemClickListener { parent, view, position, id ->
+        listview.setOnItemClickListener { parent, view, position, _ ->
             viewSelected?.setBackgroundResource(
                 androidx.appcompat.R.drawable
                     .abc_item_background_holo_light
@@ -54,23 +55,11 @@ class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
                 Toast.LENGTH_SHORT
             ).show()
             textViewSelected = parent.getItemAtPosition(position).toString()
+            customTextObjectSelected = parent.getItemAtPosition(position) as CustomTextMessage
             viewSelected = view
             textViewSelectedBoolean = true
             view.setBackgroundResource(androidx.appcompat.R.drawable.abc_list_pressed_holo_dark)
         }
-    }
-
-    /**
-     * Not currently used by might be needed later
-     * Go to key phrase menu
-     * This is used by the buttons that navigate to the key phrases menu
-     * It also refreshes the key phrases list every time it is used
-     *
-     * @param view
-     */
-    fun goToCustomTextMessages(view: View) {
-        setContentView(R.layout.activity_custom_text_message_menu)
-        refreshList()
     }
 
     private fun checkSelectForDelete() {
@@ -101,16 +90,17 @@ class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
     }
 
     override fun addCustomTextMessage(customTextString: String) {
-        if (customTextString.isEmpty()) {
+        if (customTextString.trim().isEmpty()) {
             Toast.makeText(
                 this@CustomTextActivity,
                 "Please enter a custom text message",
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "add")
-        } else if (customTextString.isNotEmpty() &&
-            Passing.customTextMessageList.addCustomTextMessage(CustomTextMessage(customTextString))
+        } else if (customTextString.trim().isNotEmpty() &&
+            checkUniqueness(customTextString.trim())
         ) {
+            Passing.customTextMessageList.add(CustomTextMessage(customTextString.trim()))
             Toast.makeText(
                 this@CustomTextActivity,
                 "New Custom Text Message Successfully " +
@@ -129,7 +119,7 @@ class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
     }
 
     override fun editCustomTextMessage(customTextString: String) {
-        if (customTextString.isEmpty()) {
+        if (customTextString.trim().isEmpty()) {
             Toast.makeText(
                 this@CustomTextActivity,
                 "Custom text message can't be empty",
@@ -142,12 +132,8 @@ class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "edit")
-        } else if (customTextString.isNotEmpty() &&
-            Passing.customTextMessageList.editCustomTextMessage(
-                    CustomTextMessage(textViewSelected),
-                    customTextString
-                )
-        ) {
+        } else if (customTextString.trim().isNotEmpty()) {
+            customTextObjectSelected.textMessage = customTextString
             Toast.makeText(
                 this@CustomTextActivity, "Successfully Edited",
                 Toast.LENGTH_SHORT
@@ -166,9 +152,7 @@ class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
 
     override fun deleteCustomTextMessage(customTextString: String) {
         if (textViewSelected.isNotEmpty()) {
-            Passing.customTextMessageList.deleteCustomTextMessage(
-                CustomTextMessage(textViewSelected)
-            )
+            Passing.customTextMessageList.remove(customTextObjectSelected)
             Toast.makeText(
                 this@CustomTextActivity,
                 "You have deleted custom text message: " +
@@ -177,5 +161,14 @@ class CustomTextActivity : AppCompatActivity(), CustomTextPopUps.Listener {
             ).show()
             refreshList()
         }
+    }
+
+    private fun checkUniqueness(customTextString: String): Boolean {
+        for (item in Passing.customTextMessageList) {
+            if (item.textMessage == customTextString) {
+                return false
+            }
+        }
+        return true
     }
 }

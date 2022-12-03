@@ -15,7 +15,6 @@ import com.metrostateics499.vre_app.model.data.EmergencyMessageSetup
 import com.metrostateics499.vre_app.model.data.KeyPhrase
 import com.metrostateics499.vre_app.utility.EmergencyMessagePopUps
 import com.metrostateics499.vre_app.view.adapters.EmergencyMessageSetupAdapter
-import java.util.LinkedList
 import kotlinx.android.synthetic.main.activity_emergency_message_setup_menu.*
 
 class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUps.Listener {
@@ -31,29 +30,8 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_emergency_message_setup_menu)
 
-//        val keyphrase1 = KeyPhrase("keyphrase1")
-//        val customTextMessage1 = CustomTextMessage("customtext1")
-//        val emergencyMessageSetup1 = EmergencyMessageSetup("Title1", keyphrase1, customTextMessage1)
-//        val keyphrase2 = KeyPhrase("keyphrase2")
-//        val customTextMessage2 = CustomTextMessage("customtext2")
-//        val emergencyMessageSetup2 = EmergencyMessageSetup("Title2", keyphrase2, customTextMessage2)
-//        val keyphrase3 = KeyPhrase("keyphrase3")
-//        val customTextMessage3 = CustomTextMessage("customtext3")
-//        val emergencyMessageSetup3 = EmergencyMessageSetup("Title3", keyphrase3, customTextMessage3)
-//
-//        Passing.emergencyMessageSetupList.addEmergencyMessageSetup(emergencyMessageSetup1)
-//        Passing.emergencyMessageSetupList.addEmergencyMessageSetup(emergencyMessageSetup2)
-//        Passing.emergencyMessageSetupList.addEmergencyMessageSetup(emergencyMessageSetup3)
-
-//        val emergencyMessageSetupAdapter = EmergencyMessageSetupAdapter(Passing.emergencyMessageSetupList.emergencyMessageSetups, this)
-//
-//        recyclerViewEmergencyMessageSetup.layoutManager = LinearLayoutManager(this)
-//        recyclerViewEmergencyMessageSetup.adapter = emergencyMessageSetupAdapter
-
         buttonAdd = findViewById<View>(R.id.buttonAdd) as Button
-
         buttonEdit = findViewById<View>(R.id.buttonEdit) as Button
-
         buttonDelete = findViewById<View>(R.id.buttonDelete) as Button
 
         refreshList()
@@ -61,7 +39,7 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
 
     override fun refreshList() {
         val emergencyMessageSetupAdapter = EmergencyMessageSetupAdapter(
-            Passing.emergencyMessageSetupList.emergencyMessageSetups, this
+            Passing.emergencyMessageSetupList, this
         )
 
         recyclerViewEmergencyMessageSetup.layoutManager = LinearLayoutManager(this)
@@ -77,7 +55,7 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
             titleSelectedString = emergencyMessageSetupAdapter.titleSelectedString
             viewSelectedBoolean = emergencyMessageSetupAdapter.viewSelectedBoolean
             viewSelected = emergencyMessageSetupAdapter.viewSelected
-            checkSelectForEdit(viewSelectedBoolean, titleSelectedString)
+            checkSelectForEdit(viewSelectedBoolean)
         }
         buttonDelete!!.setOnClickListener {
             titleSelectedString = emergencyMessageSetupAdapter.titleSelectedString
@@ -87,7 +65,7 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
         }
     }
 
-    fun checkSelectForDelete(viewSelectedBoolean: Boolean, titleSelectedString: String) {
+    private fun checkSelectForDelete(viewSelectedBoolean: Boolean, titleSelectedString: String) {
         if (viewSelectedBoolean) {
             openPopUp(titleSelectedString, "delete")
         } else {
@@ -98,10 +76,10 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
         }
     }
 
-    private fun checkSelectForEdit(viewSelectedBoolean: Boolean, titleSelectedString: String) {
+    private fun checkSelectForEdit(viewSelectedBoolean: Boolean) {
         if (viewSelectedBoolean) {
-            Passing.selectedEmergencyMessageSetup =
-                Passing.emergencyMessageSetupList.findEmergencyMessageSetup(titleSelectedString)
+//            Passing.selectedEmergencyMessageSetup =
+//                Passing.emergencyMessageSetupList.findEmergencyMessageSetup(titleSelectedString)
 //            openPopUp(titleSelectedString,"edit")
             goToEditPage()
         } else {
@@ -117,66 +95,65 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
         emergencyMessagePopUps.show(supportFragmentManager, "example dialog")
     }
 
-    override fun editEmergencyMessageSetup(customTextString: String) {
-        TODO("Not yet implemented")
-    }
-
     override fun deleteEmergencyMessageSetup(customTextString: String) {
-        if (customTextString.isNotEmpty()) {
-            Passing.emergencyMessageSetupList.deleteEmergencyMessageSetup((customTextString))
-            Toast.makeText(
-                this@EmergencyMessageSetupActivity,
-                "You have deleted: " +
-                    customTextString,
-                Toast.LENGTH_SHORT
-            ).show()
-            refreshList()
-        }
+        Passing.emergencyMessageSetupList.remove(Passing.selectedEmergencyMessageSetup)
+        Toast.makeText(
+            this@EmergencyMessageSetupActivity,
+            "You have deleted: " +
+                customTextString,
+            Toast.LENGTH_SHORT
+        ).show()
+        refreshList()
     }
 
     override fun addEmergencyMessageSetup(
-        titleName: String,
-        keyPhrase: String,
-        customText: String
+        inputTitle: String,
+        inputPhrase: String,
+        inputText: String
     ) {
-        val newContactList: MutableList<Contact> = LinkedList()
-        if (titleName.isEmpty() || keyPhrase.isEmpty() || customText.isEmpty()) {
+        val newContactList: MutableList<Contact> = mutableListOf()
+
+        if (inputTitle.isEmpty() || inputPhrase.isEmpty() || inputText.isEmpty()) {
             Toast.makeText(
                 this@EmergencyMessageSetupActivity,
                 "Please enter all fields",
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(titleSelectedString, "add")
-        } else if (Passing.emergencyMessageSetupList.checkKeyPhraseDuplicate(keyPhrase)) {
+        } else if (!checkTitleUniqueness(inputTitle) && !checkKeyPhraseUniqueness(inputPhrase)) {
+            Toast.makeText(
+                this@EmergencyMessageSetupActivity,
+                "That Title and Key Phrase Already Exists. Try again.",
+                Toast.LENGTH_SHORT
+            ).show()
+            openPopUp(titleSelectedString, "add")
+        } else if (!checkKeyPhraseUniqueness(inputPhrase)) {
             Toast.makeText(
                 this@EmergencyMessageSetupActivity,
                 "That Key Phrase Already Exists. Try again.",
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(titleSelectedString, "add")
-        } else if (Passing.emergencyMessageSetupList.addEmergencyMessageSetup(
-                EmergencyMessageSetup(
-                        titleName,
-                        KeyPhrase(keyPhrase),
-                        CustomTextMessage(customText),
-                        newContactList
-                    )
+        } else if (checkTitleUniqueness(inputTitle) && checkKeyPhraseUniqueness(inputPhrase)) {
+            val newEmergencyMessageSetup = EmergencyMessageSetup(
+                inputTitle,
+                KeyPhrase(inputPhrase),
+                CustomTextMessage(inputText),
+                newContactList
             )
-        ) {
+            Passing.emergencyMessageSetupList.add(newEmergencyMessageSetup)
             Toast.makeText(
                 this@EmergencyMessageSetupActivity,
                 "New Emergency Message Successfully " +
                     "Added",
                 Toast.LENGTH_SHORT
             ).show()
-            Passing.selectedEmergencyMessageSetup =
-                Passing.emergencyMessageSetupList.findEmergencyMessageSetup(titleName)
-            //            refreshList()
+            Passing.selectedEmergencyMessageSetup = newEmergencyMessageSetup
             goToEditPage()
         } else {
             Toast.makeText(
                 this@EmergencyMessageSetupActivity,
-                "That Emergency Message already exists. " +
+                "That Emergency Message Title already exists. " +
                     "Try something else or click cancel",
                 Toast.LENGTH_SHORT
             ).show()
@@ -184,12 +161,30 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
         }
     }
 
+    override fun goToEditPage() {
+        startActivity(Intent(this, EditEmergencyMessageActivity()::class.java))
+    }
+
     override fun onPostResume() {
         super.onPostResume()
         refreshList()
     }
 
-    override fun goToEditPage() {
-        startActivity(Intent(this, EditEmergencyMessageActivity()::class.java))
+    private fun checkKeyPhraseUniqueness(keyPhrase: String,): Boolean {
+        for (item in Passing.emergencyMessageSetupList) {
+            if (item.keyPhrase.phrase.equals(keyPhrase, true)) {
+                return false
+            }
+        }
+        return true
+    }
+
+    private fun checkTitleUniqueness(title: String): Boolean {
+        for (item in Passing.emergencyMessageSetupList) {
+            if (item.title.equals(title, true)) {
+                return false
+            }
+        }
+        return true
     }
 }

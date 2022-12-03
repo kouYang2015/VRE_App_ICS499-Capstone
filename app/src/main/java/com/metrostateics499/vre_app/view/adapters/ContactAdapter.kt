@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.row.view.*
 
 class ContactAdapter(
     private val mutableList: MutableList<Contact>,
-//    val emergencyMessageSetupList: EmergencyMessageSetupList,
     val context: Context
 ) : RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
 
@@ -22,13 +21,15 @@ class ContactAdapter(
     var viewSelectedBoolean: Boolean = false
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         fun bindItems(contact: Contact) {
-
             itemView.title.text = contact.name
             itemView.description.text = contact.phoneNumber
-            if (Passing.selectedEmergencyMessageSetup?.findContactObject(contact) == true) {
-                itemView.switch2.isChecked = true
+            if (Passing.checkInitializationSelectedEmergencyMessageSetup()) {
+                val checkedContact =
+                    Passing.selectedEmergencyMessageSetup.selectedContactList.find { it == contact }
+                if (checkedContact != null) {
+                    itemView.switch2.isChecked = true
+                }
             }
         }
     }
@@ -49,7 +50,6 @@ class ContactAdapter(
             )
             viewSelectedBoolean = false
             titleSelectedString = ""
-            Passing.selectedContact = null
             Toast.makeText(
                 context,
                 "You have selected " + mutableList[position].name,
@@ -58,27 +58,29 @@ class ContactAdapter(
             viewSelected = holder.itemView
             titleSelectedString = mutableList[position].name
             viewSelectedBoolean = true
-            Passing.selectedContact = mutableList[position]
+            Passing.selectedContactObject = mutableList[position]
 
             holder.itemView.setBackgroundResource(
                 androidx.appcompat.R.drawable.abc_list_pressed_holo_dark
             )
         }
-        holder.itemView.switch2.setOnClickListener() {
-            if (holder.itemView.switch2.isChecked) {
-                Passing.selectedEmergencyMessageSetup?.addContact(mutableList[position])
-                Toast.makeText(
-                    context,
-                    "You have added " + mutableList[position].name,
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
-                Passing.selectedEmergencyMessageSetup?.removeContact(mutableList[position])
-                Toast.makeText(
-                    context,
-                    "You have removed " + mutableList[position].name,
-                    Toast.LENGTH_SHORT
-                ).show()
+        if (Passing.checkInitializationSelectedEmergencyMessageSetup()) {
+            holder.itemView.switch2.setOnClickListener {
+                if (holder.itemView.switch2.isChecked) {
+                    Passing.selectedEmergencyMessageSetup.addContact(mutableList[position])
+                    Toast.makeText(
+                        context,
+                        "You have added " + mutableList[position].name,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Passing.selectedEmergencyMessageSetup.removeContact(mutableList[position])
+                    Toast.makeText(
+                        context,
+                        "You have removed " + mutableList[position].name,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
     }

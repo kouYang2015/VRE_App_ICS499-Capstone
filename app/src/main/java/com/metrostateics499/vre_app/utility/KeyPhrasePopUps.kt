@@ -36,7 +36,6 @@ class KeyPhrasePopUps(
                         listener!!.editKeyPhrase(keyphraseString)
                     }
                 editTextKeyphrase = view.findViewById(R.id.edit_text)
-                //            return builder.create()
             }
             "add" -> {
                 val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
@@ -50,7 +49,6 @@ class KeyPhrasePopUps(
                         listener!!.addKeyPhrase(keyphraseString)
                     }
                 editTextKeyphrase = view.findViewById(R.id.edit_text)
-                //            return builder.create()
             }
             "delete" -> {
                 val view = inflater.inflate(R.layout.layout_delete_popup, null)
@@ -60,7 +58,7 @@ class KeyPhrasePopUps(
                     .setTitle("Are you sure you want to delete this key phrase?")
                     .setNegativeButton("cancel") { dialogInterface, i -> }
                     .setPositiveButton("ok") { dialogInterface, i ->
-                        listener!!.deleteKeyPhrase(textViewSelected)
+                        listener!!.deleteKeyPhrase()
                     }
             }
         }
@@ -81,7 +79,7 @@ class KeyPhrasePopUps(
 
     interface Listener {
         fun editKeyPhrase(keyphraseString: String)
-        fun deleteKeyPhrase(keyphraseString: String)
+        fun deleteKeyPhrase()
         fun addKeyPhrase(keyphraseString: String)
     }
 }

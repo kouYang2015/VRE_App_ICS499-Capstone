@@ -24,6 +24,7 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
     private var textViewSelected: String = ""
     private var textViewSelectedBoolean: Boolean = false
     private var viewSelected: View? = null
+    private lateinit var objectSelected: KeyPhrase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,10 +45,10 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
 
         val listview: ListView = findViewById(R.id.listViewPhrases)
         val arrayAdapter = ArrayAdapter(
-            this, android.R.layout.simple_list_item_1, Passing.keyPhraseList.keyPhrases
+            this, android.R.layout.simple_list_item_1, Passing.keyPhraseList
         )
         listview.adapter = arrayAdapter
-        listview.setOnItemClickListener { parent, view, position, id ->
+        listview.setOnItemClickListener { parent, view, position, _ ->
             viewSelected?.setBackgroundResource(
                 androidx.appcompat.R.drawable
                     .abc_item_background_holo_light
@@ -59,23 +60,11 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
                 Toast.LENGTH_SHORT
             ).show()
             textViewSelected = parent.getItemAtPosition(position).toString()
+            objectSelected = parent.getItemAtPosition(position) as KeyPhrase
             viewSelected = view
             textViewSelectedBoolean = true
             view.setBackgroundResource(androidx.appcompat.R.drawable.abc_list_pressed_holo_dark)
         }
-    }
-
-    /**
-     * Not currently used by might be needed later
-     * Go to key phrase menu
-     * This is used by the buttons that navigate to the key phrases menu
-     * It also refreshes the key phrases list every time it is used
-     *
-     * @param view
-     */
-    fun goToKeyPhraseMenu(view: View) {
-        setContentView(R.layout.activity_key_phrases_menu)
-        refreshList()
     }
 
     private fun checkSelectForDeleteKeyPhrasePopUp() {
@@ -113,9 +102,10 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "add")
-        } else if (keyphraseString.isNotEmpty() &&
-            Passing.keyPhraseList.addKeyPhrase(KeyPhrase(keyphraseString))
+        } else if (keyphraseString.trim().isNotEmpty() &&
+            checkUniqueness(keyphraseString.trim())
         ) {
+            Passing.keyPhraseList.add(KeyPhrase(keyphraseString.trim()))
             Toast.makeText(
                 this@KeyPhraseActivity,
                 "New Key Phrase Successfully " +
@@ -141,17 +131,17 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "edit")
-        } else if (keyphraseString == textViewSelected) {
-            Toast.makeText(
-                this@KeyPhraseActivity, "Make a change or click cancel",
-                Toast.LENGTH_SHORT
-            ).show()
-            openPopUp(textViewSelected, "edit")
-        } else if (keyphraseString.isNotEmpty() && Passing.keyPhraseList.editKeyPhrase(
-                KeyPhrase(textViewSelected),
-                keyphraseString
-            )
+//        } else if (keyphraseString == textViewSelected) {
+//            Toast.makeText(
+//                this@KeyPhraseActivity, "Make a change or click cancel",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//            openPopUp(textViewSelected, "edit")
+        } else if (keyphraseString.trim().isNotEmpty() &&
+            !objectSelected.toString().equals(keyphraseString.trim(), true) &&
+            checkUniqueness(keyphraseString.trim())
         ) {
+            objectSelected.phrase = keyphraseString
             Toast.makeText(
                 this@KeyPhraseActivity, "Successfully Edited",
                 Toast.LENGTH_SHORT
@@ -168,9 +158,9 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
         }
     }
 
-    override fun deleteKeyPhrase(keyphraseString: String) {
+    override fun deleteKeyPhrase() {
         if (textViewSelected.isNotEmpty()) {
-            Passing.keyPhraseList.deleteKeyPhrase(KeyPhrase(textViewSelected))
+            Passing.keyPhraseList.remove(objectSelected)
             Toast.makeText(
                 this@KeyPhraseActivity,
                 "You have deleted phrase: " +
@@ -179,5 +169,14 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
             ).show()
             refreshList()
         }
+    }
+
+    private fun checkUniqueness(keyphraseString: String): Boolean {
+        for (item in Passing.keyPhraseList) {
+            if (item.phrase.equals(keyphraseString, true)) {
+                return false
+            }
+        }
+        return true
     }
 }

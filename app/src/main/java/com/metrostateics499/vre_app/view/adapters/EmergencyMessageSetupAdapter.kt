@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.row.view.*
 
 class EmergencyMessageSetupAdapter(
     private val mutableList: MutableList<EmergencyMessageSetup>,
-//    val emergencyMessageSetupList: EmergencyMessageSetupList,
     val context: Context
 ) : RecyclerView.Adapter<EmergencyMessageSetupAdapter.ViewHolder>() {
 
@@ -26,7 +25,7 @@ class EmergencyMessageSetupAdapter(
         fun bindItems(emergencyMessageSetup: EmergencyMessageSetup) {
 
             itemView.title.text = emergencyMessageSetup.title
-            itemView.description.text = emergencyMessageSetup.keyPhrase.keyPhrase
+            itemView.description.text = emergencyMessageSetup.keyPhrase.phrase
         }
     }
 
@@ -45,7 +44,7 @@ class EmergencyMessageSetupAdapter(
             )
             viewSelectedBoolean = false
             titleSelectedString = ""
-            Passing.selectedEmergencyMessageSetup = null
+            Passing.selectedEmergencyMessageSetup
             Toast.makeText(
                 context,
                 "You have selected " + mutableList[position].title,

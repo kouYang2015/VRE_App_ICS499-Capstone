@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
+import android.telephony.SmsManager
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -19,6 +20,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
+import com.metrostateics499.vre_app.model.data.EmergencyMessageSetup
 import com.metrostateics499.vre_app.model.data.KeyPhrase
 import java.util.*
 
@@ -105,17 +107,53 @@ class ListenSpeechActivity : AppCompatActivity() {
      * @param incomingSpeech
      */
     private fun recognizeKeyPhrase(incomingSpeech: String?) {
-        if (Passing.keyPhraseList.keyPhrases.isEmpty() && Passing.emergencyMessageSetupList
-            .emergencyMessageSetups.isEmpty()
+        if (Passing.keyPhraseList.isEmpty() && Passing.emergencyMessageSetupList.isEmpty()
         ) {
             txtResult.text = buildString { append("No KeyPhrase(s) set") }
         } else {
             if (findKeyPhraseMatch(incomingSpeech) != null) {
+                val emergencySetup =
+                    (findEmergencyMessageSetupMatch(findKeyPhraseMatch(incomingSpeech)?.phrase))
+
+                if (emergencySetup != null) {
+                    for (contact in emergencySetup.selectedContactList) {
+                        try {
+                            val smsManager: SmsManager =
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                                    applicationContext.getSystemService<SmsManager>(
+                                        SmsManager::class.java
+                                    )
+                                } else {
+                                    SmsManager.getDefault()
+                                }
+                            val emergencyTextMessage =
+                                "VOICE RECOGNITION EMERGENCY: " +
+                                    emergencySetup.customTextMessage.toString()
+                            smsManager.sendTextMessage(
+                                contact.phoneNumber, null,
+                                emergencyTextMessage, null, null
+                            )
+
+                            Toast.makeText(
+                                applicationContext, "Message Sent",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        } catch (e: Exception) {
+                            Toast.makeText(
+                                applicationContext,
+                                "Missing Contact Data" +
+                                    e.message.toString(),
+                                Toast.LENGTH_LONG
+                            )
+                                .show()
+                        }
+                    }
+                }
                 txtResult.text = buildString {
                     findKeyPhraseMatch(incomingSpeech)?.let {
                         append(
                             "KeyPhrase Recognized!\n",
-                            it.keyPhrase
+                            it.phrase
                         )
                     }
                 }
@@ -127,6 +165,15 @@ class ListenSpeechActivity : AppCompatActivity() {
         }
     }
 
+    private fun findEmergencyMessageSetupMatch(keyPhraseMatch: String?): EmergencyMessageSetup? {
+        for (emergencySetup in Passing.emergencyMessageSetupList) {
+            if (keyPhraseMatch?.contains(emergencySetup.keyPhrase.phrase, true) == true) {
+                return emergencySetup
+            }
+        }
+        return null
+    }
+
     /**
      * Find keyPhrase object in the list of set keyPhrase that matches User's speech.
      *
@@ -134,13 +181,13 @@ class ListenSpeechActivity : AppCompatActivity() {
      * @return KeyPhrase if there is a KeyPhrase object that matches User's speech.
      */
     private fun findKeyPhraseMatch(incomingSpeech: String?): KeyPhrase? {
-        for (keyPhraseElement in Passing.keyPhraseList.keyPhrases) {
-            if (incomingSpeech?.contains(keyPhraseElement.keyPhrase, true) == true) {
+        for (keyPhraseElement in Passing.keyPhraseList) {
+            if (incomingSpeech?.contains(keyPhraseElement.phrase, true) == true) {
                 return keyPhraseElement
             }
         }
-        for (emergencySetup in Passing.emergencyMessageSetupList.emergencyMessageSetups) {
-            if (incomingSpeech?.contains(emergencySetup.keyPhrase.keyPhrase, true) == true) {
+        for (emergencySetup in Passing.emergencyMessageSetupList) {
+            if (incomingSpeech?.contains(emergencySetup.keyPhrase.phrase, true) == true) {
                 return emergencySetup.keyPhrase
             }
         }
@@ -158,6 +205,7 @@ class ListenSpeechActivity : AppCompatActivity() {
         speechOffButton = findViewById(R.id.disableSpeech)
         txtResult = findViewById(R.id.speechToTextBox)
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
+        requestSmsPermission()
     }
 
     /**
@@ -234,5 +282,15 @@ class ListenSpeechActivity : AppCompatActivity() {
             }
             .setNegativeButton("Cancel", null)
             .show()
+    }
+
+    private fun requestSmsPermission() {
+        val permission = Manifest.permission.SEND_SMS
+        val grant = ContextCompat.checkSelfPermission(this, permission)
+        if (grant != PackageManager.PERMISSION_GRANTED) {
+            val permissionList = arrayOfNulls<String>(1)
+            permissionList[0] = permission
+            ActivityCompat.requestPermissions(this, permissionList, 1)
+        }
     }
 }

@@ -28,24 +28,23 @@ class EditEmergencyMessagePopUps(
             "title" -> {
                 val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
                 val textView: TextView = view.findViewById(R.id.edit_text)
-                val title = (Passing.selectedEmergencyMessageSetup?.title)
+                val title = (Passing.selectedEmergencyMessageSetup.title)
                 textView.text = title
 
                 builder.setView(view)
                     .setTitle("Edit Title")
                     .setNegativeButton("cancel") { dialogInterface, i -> }
                     .setPositiveButton("save") { dialogInterface, i ->
-                        val customTextString = editText!!.text.toString()
-                        listener!!.editEmergencyMessageSetupTitle(customTextString)
+                        val inputTitle = editText!!.text.toString().trim()
+                        listener!!.editEmergencyMessageSetupTitle(inputTitle)
                     }
                 editText = view.findViewById(R.id.edit_text)
-                //            return builder.create()
             }
+
             "keyphrase" -> {
                 val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
                 val textView: TextView = view.findViewById(R.id.edit_text)
-                val keyPhrase = Passing.selectedEmergencyMessageSetup?.keyPhrase?.keyPhrase
-                    ?: toString()
+                val keyPhrase = Passing.selectedEmergencyMessageSetup.keyPhrase.phrase
                 textView.text = keyPhrase
 
                 textView.hint = "Key Phrase"
@@ -53,17 +52,16 @@ class EditEmergencyMessagePopUps(
                     .setTitle("Edit Key Phrase")
                     .setNegativeButton("cancel") { dialogInterface, i -> }
                     .setPositiveButton("save") { dialogInterface, i ->
-                        val customTextString = editText!!.text.toString()
-                        listener!!.editEmergencyMessageSetupKeyPhrase(customTextString)
-//                        listener!!.goToEditPage()
+                        val inputPhrase = editText!!.text.toString().trim()
+                        listener!!.editEmergencyMessageSetupKeyPhrase(inputPhrase)
                     }
                 editText = view.findViewById(R.id.edit_text)
-                //            return builder.create()
             }
+
             "customTextMessage" -> {
                 val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
                 val textView: TextView = view.findViewById(R.id.edit_text)
-                val customTextMessage = Passing.selectedEmergencyMessageSetup?.customTextMessage
+                val customTextMessage = Passing.selectedEmergencyMessageSetup.customTextMessage
                     .toString()
                 textView.text = customTextMessage
 
@@ -72,24 +70,11 @@ class EditEmergencyMessagePopUps(
                     .setTitle("Edit Custom Text Message")
                     .setNegativeButton("cancel") { dialogInterface, i -> }
                     .setPositiveButton("save") { dialogInterface, i ->
-                        val customTextString = editText!!.text.toString()
-                        listener!!.editEmergencyMessageSetupCustomTextMessage(customTextString)
-//                        listener!!.goToEditPage()
+                        val inputText = editText!!.text.toString().trim()
+                        listener!!.editEmergencyMessageSetupCustomTextMessage(inputText)
                     }
                 editText = view.findViewById(R.id.edit_text)
-                //            return builder.create()
             }
-//            "delete" -> {
-//                val view = inflater.inflate(R.layout.layout_delete_popup, null)
-//                val textView: TextView = view.findViewById(R.id.text_view_popup)
-//                textView.text = textViewSelected
-//                builder.setView(view)
-//                    .setTitle("Are you sure you want to delete this custom text message?")
-//                    .setNegativeButton("cancel") { dialogInterface, i -> }
-//                    .setPositiveButton("ok") { dialogInterface, i ->
-//                        listener!!.deleteEmergencyMessageSetup(textViewSelected)
-//                    }
-//            }
         }
         return builder.create()
     }
@@ -107,9 +92,8 @@ class EditEmergencyMessagePopUps(
     }
 
     interface Listener {
-        fun editEmergencyMessageSetupTitle(customTextString: String)
-        fun editEmergencyMessageSetupKeyPhrase(customTextString: String)
-        fun editEmergencyMessageSetupCustomTextMessage(customTextString: String)
-//        fun goToEditPage()
+        fun editEmergencyMessageSetupTitle(inputTitle: String)
+        fun editEmergencyMessageSetupKeyPhrase(inputPhrase: String)
+        fun editEmergencyMessageSetupCustomTextMessage(inputText: String)
     }
 }
