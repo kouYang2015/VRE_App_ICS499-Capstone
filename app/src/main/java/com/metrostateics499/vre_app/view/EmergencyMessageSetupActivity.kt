@@ -125,9 +125,7 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(titleSelectedString, "add")
-        }
-
-        else if (checkTitleUniqueness(inputTitle)) {
+        } else if (checkTitleUniqueness(inputTitle)) {
             val newEmergencyMessageSetup = EmergencyMessageSetup(
                 inputTitle,
                 newKeyPhraseList,
