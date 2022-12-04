@@ -104,7 +104,7 @@
         android:background="@drawable/round_style"
         android:backgroundTint="@color/white"
         android:importantForAutofill="no"
-        android:inputType="textVisiblePassword|textNoSuggestions"
+        android:inputType="number"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
