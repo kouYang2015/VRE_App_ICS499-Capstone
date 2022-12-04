@@ -68,6 +68,9 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
                         "You have activated GPS location for this EMS",
                         Toast.LENGTH_SHORT
                     ).show()
+                    if (!Passing.locationTrackingRequested) {
+                        openPopUp("menuGPSTrackingInactive")
+                    }
                 } else {
                     switchGPS.isChecked = false
                     Passing.selectedEmergencyMessageSetup.activeGPS = false
@@ -153,6 +156,9 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
                     "Permission Granted.\nYou have activated GPS location for this EMS",
                     Toast.LENGTH_SHORT
                 ).show()
+                if (!Passing.locationTrackingRequested) {
+                    openPopUp("menuGPSTrackingInactive")
+                }
             } else {
                 Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
             }

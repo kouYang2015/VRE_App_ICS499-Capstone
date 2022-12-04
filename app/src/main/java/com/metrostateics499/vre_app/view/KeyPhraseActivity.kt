@@ -18,6 +18,7 @@ import com.metrostateics499.vre_app.model.data.KeyPhrase
 import com.metrostateics499.vre_app.utility.KeyPhrasePopUps
 import com.metrostateics499.vre_app.view.adapters.KeyPhraseAdapter
 import java.util.*
+import kotlinx.android.synthetic.main.activity_edit_emergency_message.*
 import kotlinx.android.synthetic.main.activity_key_phrases_menu.*
 
 /**
@@ -56,7 +57,6 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
         buttonDelete = findViewById<View>(R.id.buttonDeleteKeyPhrase) as Button
         buttonTest = findViewById<View>(R.id.buttonTest) as Button
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
-        requestRecordAudioPermission()
     }
 
     private fun openPopUp(textViewSelected: String, buttonType: String) {
@@ -185,6 +185,12 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
                 Toast.LENGTH_SHORT
             ).show()
             refreshList()
+            for (item in Passing.emergencyMessageSetupList) {
+                Passing.selectedKeyPhraseObject.let {
+                    item.selectedKeyPhraseList.remove(it)
+                }
+            }
+            refreshList()
         }
     }
 
@@ -197,7 +203,27 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
         return true
     }
 
-    private fun requestRecordAudioPermission() {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 1) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                switchGPS.isChecked = true
+                Toast.makeText(
+                    this@KeyPhraseActivity,
+                    "Permission Granted.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun requestRecordAudioPermission(): Boolean {
         val permission = android.Manifest.permission.RECORD_AUDIO
         val grant = ContextCompat.checkSelfPermission(this, permission)
         if (grant != PackageManager.PERMISSION_GRANTED) {
@@ -205,6 +231,7 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
             permissionList[0] = permission
             ActivityCompat.requestPermissions(this, permissionList, 1)
         }
+        return grant == PackageManager.PERMISSION_GRANTED
     }
 
     override fun onDestroy() {
@@ -256,17 +283,19 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
             override fun onEvent(p0: Int, p1: Bundle?) {}
         })
         buttonTest?.setOnClickListener {
-            if (Passing.checkInitializationSelectedKeyPhrase()) {
-                textViewSelected = Passing.selectedKeyPhraseObject.phrase
-                requestRecordAudioPermission()
-                speechRecognizer.startListening(speechRecognizerIntent)
-                //            txtResult.text = null
-            } else {
-                Toast.makeText(
-                    this@KeyPhraseActivity,
-                    "You must select or create a key phrase first",
-                    Toast.LENGTH_SHORT
-                ).show()
+            if (requestRecordAudioPermission()) {
+                if (Passing.checkInitializationSelectedKeyPhrase()) {
+                    textViewSelected = Passing.selectedKeyPhraseObject.phrase
+                    requestRecordAudioPermission()
+                    speechRecognizer.startListening(speechRecognizerIntent)
+                    //            txtResult.text = null
+                } else {
+                    Toast.makeText(
+                        this@KeyPhraseActivity,
+                        "You must select or create a key phrase first",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
 //        speechOffButton.setOnClickListener {

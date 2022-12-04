@@ -76,6 +76,7 @@ class CustomTextPopUps(
                 val textView: TextView = view.findViewById(R.id.text)
                 textView.text = Passing.selectedEmergencyMessageSetup.getCustomTextListString()
                 builder.setView(view)
+                    .setTitle("Entire Custom Text")
                     .setPositiveButton("ok") { dialogInterface, i ->
                     }
             }

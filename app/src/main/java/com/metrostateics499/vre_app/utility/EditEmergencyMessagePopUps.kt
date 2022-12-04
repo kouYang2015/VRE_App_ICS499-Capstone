@@ -39,6 +39,18 @@ class EditEmergencyMessagePopUps(
                     }
                 editText = view.findViewById(R.id.edit_text)
             }
+            "menuGPSTrackingInactive" -> {
+                val view = inflater.inflate(R.layout.layout_text_view_popup, null)
+                val textView: TextView = view.findViewById(R.id.text)
+                textView.text = "You must also activate GPS tracking in " +
+                    "the Main Menu in order for your gps coordinates to be " +
+                    "sent with your emergency messages"
+
+                builder.setView(view)
+                    .setTitle("Alert")
+                    .setPositiveButton("ok") { dialogInterface, i ->
+                    }
+            }
         }
         return builder.create()
     }

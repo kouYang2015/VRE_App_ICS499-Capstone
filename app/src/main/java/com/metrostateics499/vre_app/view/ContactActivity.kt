@@ -198,9 +198,7 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
             ).show()
             for (item in Passing.emergencyMessageSetupList) {
                 Passing.selectedContactObject.let {
-                    item.removeContact(
-                        it
-                    )
+                    item.selectedContactList.remove(it)
                 }
             }
             refreshList()

@@ -116,19 +116,22 @@ class ListenSpeechActivity : AppCompatActivity() {
                 val emergencySetup =
                     (findEmergencyMessageSetupMatch(findKeyPhraseMatch(incomingSpeech)?.phrase))
                 val coordinatesLinks: String
-                val coordinatesDate: String =
-                    "Last known coordinates were taken on date: \n" + Passing.dateTimeGPS +
-                        "\nLatitude: " + Passing.latitude +
-                        "\nLongitude: " + Passing.longitude
+                val coordinatesDate: String
 
                 if (emergencySetup != null) {
-                    coordinatesLinks = if (emergencySetup.activeGPS) {
-                        "My last known location: www.google.com/maps/place/" +
+                    if (emergencySetup.activeGPS) {
+                        coordinatesLinks =
+                            "My last known location: www.google.com/maps/place/" +
                             Passing.latitude + "," + Passing.longitude +
                             " or http://maps.apple.com/?daddr=" +
                             Passing.latitude + "," + Passing.longitude
+                        coordinatesDate =
+                            "Last known coordinates were taken on date: \n" + Passing.dateTimeGPS +
+                            "\nLatitude: " + Passing.latitude +
+                            "\nLongitude: " + Passing.longitude
                     } else {
-                        "Last Known Location: Unavailable or Deactivated "
+                        coordinatesLinks = "Last Known Location: Unavailable or Deactivated "
+                        coordinatesDate = ""
                     }
                     for (contact in emergencySetup.selectedContactList) {
                         try {
@@ -145,9 +148,17 @@ class ListenSpeechActivity : AppCompatActivity() {
                                     emergencySetup.getCustomTextListString()
                             var textMessages: List<String>
 
-                            if (emergencyTextMessage.length > 160) {
+                            if (emergencyTextMessage.length > 160 && emergencySetup.activeGPS) {
                                 textMessages = splitEmergencyTextMessage(emergencyTextMessage)
                                 textMessages = (textMessages + coordinatesLinks + coordinatesDate)
+                            } else if (emergencyTextMessage.length > 160
+                                && !emergencySetup.activeGPS) {
+                                textMessages = splitEmergencyTextMessage(emergencyTextMessage)
+                                textMessages = (textMessages + coordinatesLinks)
+                            } else if (emergencyTextMessage.length <= 160
+                                && !emergencySetup.activeGPS) {
+                                textMessages =
+                                    listOf(emergencyTextMessage, coordinatesLinks)
                             } else {
                                 textMessages =
                                     listOf(emergencyTextMessage, coordinatesLinks, coordinatesDate)
