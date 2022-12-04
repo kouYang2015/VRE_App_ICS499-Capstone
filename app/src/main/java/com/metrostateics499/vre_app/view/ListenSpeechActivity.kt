@@ -128,7 +128,7 @@ class ListenSpeechActivity : AppCompatActivity() {
                                 }
                             val emergencyTextMessage =
                                 "VOICE RECOGNITION EMERGENCY: " +
-                                    emergencySetup.customTextMessage.toString()
+                                    emergencySetup.getCustomTextListString()
                             smsManager.sendTextMessage(
                                 contact.phoneNumber, null,
                                 emergencyTextMessage, null, null
