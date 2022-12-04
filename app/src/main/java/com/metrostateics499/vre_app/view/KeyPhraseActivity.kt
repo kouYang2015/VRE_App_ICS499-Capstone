@@ -244,6 +244,11 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
                     textViewSelected,
                 Toast.LENGTH_SHORT
             ).show()
+            for (item in Passing.emergencyMessageSetupList) {
+                Passing.selectedKeyPhraseObject.let {
+                    item.selectedKeyPhraseList.remove(it)
+                }
+            }
             refreshList()
         }
     }
@@ -302,7 +307,9 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
                 testKeyPhraseTextView.text = ""
             }
 
-            override fun onError(p0: Int) {}
+            override fun onError(p0: Int) {
+                testKeyPhraseTextView.text = ""
+            }
 
             override fun onResults(bundle: Bundle?) {
                 val data = bundle?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
