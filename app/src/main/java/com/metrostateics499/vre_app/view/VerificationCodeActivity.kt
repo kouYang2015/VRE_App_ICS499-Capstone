@@ -17,7 +17,7 @@ class VerificationCodeActivity : AppCompatActivity() {
     private lateinit var invalidCode: TextView
     private var adminCode: String = "123455"
     private var codeHint: String = ""
-    private var username: String = ""
+    private var emailUsername: String = ""
 
     /**
      * This overrides the onCreate of this activity
@@ -38,11 +38,12 @@ class VerificationCodeActivity : AppCompatActivity() {
         // Get the generate number from previous activity and stores it to this value
         codeHint = intent.getStringExtra("genNum").toString()
         // Get the username from previous activity and stores it to this value
-        username = intent.getStringExtra("email/username").toString() // Use to display username
+        emailUsername =
+            intent.getStringExtra("email/username").toString() // Use to display username
 
         // A message to display on the screen about the user and the generate code
         textEmailUsernameHint.text =
-            username.plus(" ").plus(codeHint) // Change later to send to email
+            emailUsername.plus(" ").plus(codeHint) // Change later to send to email
 
         // The verify button located on screen
         enterCodeButton.setOnClickListener {
@@ -50,7 +51,7 @@ class VerificationCodeActivity : AppCompatActivity() {
         }
     }
 
-/**
+    /**
      * A function to Verify code
      */
     private fun verifyCode() {
@@ -66,7 +67,7 @@ class VerificationCodeActivity : AppCompatActivity() {
 
                     val intent =
                         Intent(this, SetNewPasswordActivity::class.java)
-                            .putExtra("email/username", username)
+                            .putExtra("email/username", emailUsername)
                     startActivity(intent)
 
                     invalidCode.text = ""

@@ -29,9 +29,9 @@
     <string name="coming_soon_text">Coming Soon</string>
     <string name="onSpeech">Turn On</string>
     <string name="offSpeech">Turn Off</string>
-    <string name="verify_email_username_text">Username</string>
+    <string name="verify_email_username_text">Email or Username</string>
     <string name="verify_email_username_button">Verify</string>
-    <string name="forgot_password_info">Enter your Username. An verification code will be sent to your email.</string>
+    <string name="forgot_password_info">Enter your Email or Username. A text with a verification code will be sent to you.</string>
     <string name="verify_account_text">Verify your account</string>
     <string name="title_activity_verification_code">VerificationCode</string>
 
@@ -47,11 +47,12 @@
     <string name="emergencyMessageSetup">Emergency Message Setup</string>
     <string name="emergencyMessages">Emergency Messages</string>
     <string name="contacts">Contacts</string>
-    <string name="display_email_username">Username display</string>
+    <string name="display_email_username">Email/Username display</string>
     <string name="noKeyPhrase">No keyPhrases set</string>
     <string name="error_info_display"> </string>
     <string name="error_code_display">" "</string>
     <string name="error_account_display">" "</string>
     <string name="error_new_password_display">" "</string>
+    <string name="forgot_email_username_text">Forgot Email/Username</string>
     <string name="select_contacts">"Select Contact(s)"</string>
 </resources>
