@@ -167,8 +167,10 @@ class ListenSpeechActivity : AppCompatActivity() {
 
     private fun findEmergencyMessageSetupMatch(keyPhraseMatch: String?): EmergencyMessageSetup? {
         for (emergencySetup in Passing.emergencyMessageSetupList) {
-            if (keyPhraseMatch?.contains(emergencySetup.keyPhrase.phrase, true) == true) {
-                return emergencySetup
+            for (phrase in emergencySetup.selectedKeyPhraseList) {
+                if (keyPhraseMatch?.contains(phrase.toString(), true) == true) {
+                    return emergencySetup
+                }
             }
         }
         return null
@@ -181,14 +183,18 @@ class ListenSpeechActivity : AppCompatActivity() {
      * @return KeyPhrase if there is a KeyPhrase object that matches User's speech.
      */
     private fun findKeyPhraseMatch(incomingSpeech: String?): KeyPhrase? {
-        for (keyPhraseElement in Passing.keyPhraseList) {
-            if (incomingSpeech?.contains(keyPhraseElement.phrase, true) == true) {
-                return keyPhraseElement
-            }
-        }
+//        for (keyPhraseElement in Passing.keyPhraseList) {
+//            if (incomingSpeech?.contains(keyPhraseElement.phrase, true) == true) {
+//                return keyPhraseElement
+//            }
+//        }
         for (emergencySetup in Passing.emergencyMessageSetupList) {
-            if (incomingSpeech?.contains(emergencySetup.keyPhrase.phrase, true) == true) {
-                return emergencySetup.keyPhrase
+            for (phrase in emergencySetup.selectedKeyPhraseList) {
+                if (Passing.selectedEmergencyMessageSetup.activeEMS) {
+                    if (incomingSpeech?.contains(phrase.toString(), true) == true) {
+                        return phrase
+                    }
+                }
             }
         }
         return null

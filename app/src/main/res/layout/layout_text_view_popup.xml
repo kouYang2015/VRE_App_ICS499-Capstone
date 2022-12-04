@@ -4,17 +4,10 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <EditText
-        android:id="@+id/edit_text"
+    <TextView
+        android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=""/>
-
-    <EditText
-        android:id="@+id/edit_text3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:layout_below="@id/edit_text"/>
 
 </RelativeLayout>

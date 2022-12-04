@@ -8,7 +8,7 @@
     android:fillViewport="true"
     app:layout_constraintBottom_toBottomOf="parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#185CA3"
@@ -68,12 +68,21 @@
             app:layout_constraintVertical_bias="0.006">
 
             <TextView
+                android:id="@+id/text_view_keyphrase_required"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="#DF0000"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
                 android:id="@+id/text_view_keyphrase_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:text="Key Phrase"
+                android:text="Selected Key Phrase(s)"
                 android:textColor="@color/black"
                 android:textSize="22sp"
                 android:textStyle="bold" />
@@ -158,6 +167,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/relativeLayout3"
             app:layout_constraintVertical_bias="0.0">
+            <TextView
+                android:id="@+id/text_view_contact_required"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="#DF0000"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/text_contact_list_title"
@@ -253,7 +270,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:text="Activate Voice Recognition"
+                android:text="Voice Recognition"
                 android:textColor="@color/black"
                 android:textSize="22sp"
                 android:textStyle="bold" />
@@ -265,7 +282,7 @@
                 android:layout_below="@id/text_vre_switch_title"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:text="Switch makes this emergency message active"
+                android:text="Switch turns off and on voice recognition service"
                 android:textColor="@color/lightGray"
                 android:textSize="14sp" />
 
@@ -280,6 +297,17 @@
                 android:layout_marginEnd="1dp"
                 android:layout_marginBottom="0dp"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+            <TextView
+                android:id="@+id/textViewActive"
+                android:layout_width="71dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="13dp"
+                android:layout_marginBottom="31dp"
+                android:layout_toEndOf="@+id/text_vre_switch_title"
+                android:text=""
+                android:textColor="#B50909" />
 
         </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

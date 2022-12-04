@@ -31,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/title"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="23dp"
             android:layout_marginRight="10dp"
             android:text="@+String/description"
             android:textColor="@color/lightGray"
@@ -38,21 +39,25 @@
 
         <Switch
             android:id="@+id/switch2"
-            android:layout_width="wrap_content"
-            android:layout_height="55dp"
+            android:layout_width="79dp"
+            android:layout_height="43dp"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="0dp"
+            android:layout_marginStart="132dp"
+            android:layout_marginEnd="11dp"
+            android:layout_toEndOf="@+id/title"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-        <TextView
-            android:id="@+id/activeSwitchTextView"
-            android:layout_width="51dp"
+        <Button
+            android:id="@+id/test_button"
+            android:layout_width="87dp"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/switch2"
+            android:layout_below="@+id/switch2"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="-19dp"
-            android:text="" />
+            android:layout_marginStart="99dp"
+            android:layout_marginTop="-1dp"
+            android:layout_marginEnd="6dp"
+            android:layout_toEndOf="@+id/description"
+            android:text="Test" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
