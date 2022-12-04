@@ -14,10 +14,10 @@ import com.google.android.gms.location.LocationResult
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
 import com.metrostateics499.vre_app.utility.LocationGPS
-import kotlinx.android.synthetic.main.activity_edit_emergency_message.*
-import kotlinx.android.synthetic.main.activity_menu.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlinx.android.synthetic.main.activity_edit_emergency_message.*
+import kotlinx.android.synthetic.main.activity_menu.*
 
 class MenuActivity : AppCompatActivity() {
 

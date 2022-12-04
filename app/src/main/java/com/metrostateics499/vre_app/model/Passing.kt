@@ -4,7 +4,6 @@ import com.metrostateics499.vre_app.model.data.Contact
 import com.metrostateics499.vre_app.model.data.CustomTextMessage
 import com.metrostateics499.vre_app.model.data.EmergencyMessageSetup
 import com.metrostateics499.vre_app.model.data.KeyPhrase
-import com.metrostateics499.vre_app.utility.LocationGPS
 
 /**
  * Singleton object that is used to store user data.
