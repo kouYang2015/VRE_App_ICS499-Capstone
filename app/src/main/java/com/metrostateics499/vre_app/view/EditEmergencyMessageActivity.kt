@@ -1,12 +1,17 @@
 package com.metrostateics499.vre_app.view
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
+import android.location.LocationManager
 import android.os.Bundle
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
 import com.metrostateics499.vre_app.utility.EditEmergencyMessagePopUps
@@ -14,6 +19,9 @@ import kotlinx.android.synthetic.main.activity_edit_emergency_message.*
 import kotlinx.android.synthetic.main.activity_edit_emergency_message.view.*
 
 class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePopUps.Listener {
+    private lateinit var locationManager: LocationManager
+    private lateinit var tvGpsLocation: TextView
+    private val locationPermissionCode = 2
 
     private var textViewSelected: String = ""
 //    private var emergencyMessageSelected = Passing.selectedEmergencyMessageSetup
@@ -26,7 +34,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         refreshRelativeLayout2()
         refreshRelativeLayout3()
         refreshRelativeLayout4()
-//        refreshRelativeLayout5GPS() TODO()
+        refreshRelativeLayout5GPS()
         refreshRelativeLayout6()
 
         val relativeLayout: RelativeLayout = findViewById(R.id.relativeLayout)
@@ -58,7 +66,27 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         }
 
         relativeLayout5GPS.switchGPS.setOnClickListener {
-            TODO()
+            if (requestGPSPermission()) {
+                if (switchGPS.isChecked) {
+                    switchGPS.isChecked = true
+                    Passing.selectedEmergencyMessageSetup.activeGPS = true
+                    Toast.makeText(
+                        this@EditEmergencyMessageActivity,
+                        "You have activated GPS location for this EMS",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    switchGPS.isChecked = false
+                    Passing.selectedEmergencyMessageSetup.activeGPS = false
+                    Toast.makeText(
+                        this@EditEmergencyMessageActivity,
+                        "You have deactivated GPS location for this EMS",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            } else {
+                switchGPS.isChecked = false
+            }
         }
 
         relativeLayout6.switch5.setOnClickListener {
@@ -115,6 +143,50 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
                 ).show()
             }
         }
+    }
+
+//    private fun getLocation() {
+//        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+//        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+//            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), locationPermissionCode)
+//        }
+//        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5f, this)
+//    }
+//    override fun onLocationChanged(location: Location) {
+//        tvGpsLocation = findViewById(R.id.textView)
+//        tvGpsLocation.text = "Latitude: " + location.latitude + " , Longitude: " + location.longitude
+//    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == locationPermissionCode) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                switchGPS.isChecked = true
+                Passing.selectedEmergencyMessageSetup.activeGPS = true
+                Toast.makeText(
+                    this@EditEmergencyMessageActivity,
+                    "Permission Granted.\nYou have activated GPS location for this EMS",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun requestGPSPermission(): Boolean {
+        val permission = android.Manifest.permission.ACCESS_FINE_LOCATION
+        val grant = ContextCompat.checkSelfPermission(this, permission)
+        if (grant != PackageManager.PERMISSION_GRANTED) {
+            val permissionList = arrayOfNulls<String>(1)
+            permissionList[0] = permission
+            ActivityCompat.requestPermissions(this, permissionList, locationPermissionCode)
+        }
+        return grant == PackageManager.PERMISSION_GRANTED
     }
 
     private fun goToKeyPhraseMenu() {
@@ -176,9 +248,9 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         }
     }
 
-//    private fun refreshRelativeLayout5GPS() {
-//        TODO()
-//    }
+    private fun refreshRelativeLayout5GPS() {
+        switchGPS.isChecked = Passing.selectedEmergencyMessageSetup.activeGPS
+    }
 
     private fun refreshRelativeLayout6() {
         if (Passing.selectedEmergencyMessageSetup.activeEMS &&
@@ -315,6 +387,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         }
         return true
     }
+
 //    private fun checkKeyPhraseUniqueness(phrase: String): Boolean {
 //        for (item in Passing.emergencyMessageSetupList) {
 //            if (item.keyPhrase.phrase.equals(phrase, true)) {

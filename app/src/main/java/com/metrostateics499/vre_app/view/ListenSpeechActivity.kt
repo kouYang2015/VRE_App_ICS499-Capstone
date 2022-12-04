@@ -128,7 +128,10 @@ class ListenSpeechActivity : AppCompatActivity() {
                                 }
                             val emergencyTextMessage =
                                 "VOICE RECOGNITION EMERGENCY: " +
-                                    emergencySetup.customTextMessage.toString()
+                                    emergencySetup.customTextMessage.toString() +
+                                    "\nLast Known Location:\nLatitude: " +
+                                    Passing.latitude + "\nLongitude: " + Passing.longitude
+
                             smsManager.sendTextMessage(
                                 contact.phoneNumber, null,
                                 emergencyTextMessage, null, null

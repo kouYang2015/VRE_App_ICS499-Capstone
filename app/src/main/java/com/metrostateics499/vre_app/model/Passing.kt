@@ -4,6 +4,7 @@ import com.metrostateics499.vre_app.model.data.Contact
 import com.metrostateics499.vre_app.model.data.CustomTextMessage
 import com.metrostateics499.vre_app.model.data.EmergencyMessageSetup
 import com.metrostateics499.vre_app.model.data.KeyPhrase
+import com.metrostateics499.vre_app.utility.LocationGPS
 
 /**
  * Singleton object that is used to store user data.
@@ -23,6 +24,11 @@ object Passing {
     lateinit var selectedEmergencyMessageSetup: EmergencyMessageSetup
     lateinit var selectedContactObject: Contact
     lateinit var selectedKeyPhraseObject: KeyPhrase
+
+    lateinit var locationManager: LocationGPS
+    var locationTrackingRequested = false
+    var latitude: String = ""
+    var longitude: String = ""
 
     @JvmName("setUsername1")
     fun setUsername(username: String) {

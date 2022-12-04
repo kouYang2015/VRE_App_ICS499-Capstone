@@ -110,5 +110,47 @@
         app:layout_constraintTop_toBottomOf="@id/profile"
         app:layout_constraintVertical_bias="0.104" />
 
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchMenuGPS"
+        android:layout_width="306dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/gpsTrackingActivation"
+        android:textColor="@color/white"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintLeft_toLeftOf="@id/profile"
+        app:layout_constraintRight_toRightOf="@id/profile"
+        app:layout_constraintTop_toBottomOf="@+id/switch1"
+        app:layout_constraintVertical_bias="0.037" />
+
+    <TextView
+        android:id="@+id/latitudeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="19dp"
+        android:text="TextView"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switchMenuGPS"
+        app:layout_constraintVertical_bias="0.005" />
+
+    <TextView
+        android:id="@+id/longitudeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="15dp"
+        android:text="TextView"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/latitudeTextView"
+        app:layout_constraintVertical_bias="0.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
