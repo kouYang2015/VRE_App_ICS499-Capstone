@@ -19,7 +19,7 @@ class SetNewPasswordActivity : AppCompatActivity() {
     private lateinit var newPasswordContButton: Button
     private lateinit var invalidNewPassword: TextView
     private var adminUsername: String = "username"
-    private var username: String = ""
+    private var emailUsername: String = ""
 
     /**
      * This overrides the onCreate of this activity
@@ -39,10 +39,10 @@ class SetNewPasswordActivity : AppCompatActivity() {
         invalidNewPassword = findViewById(R.id.invalid_new_password)
 
         // Get the Email/Username from ForgotPasswordActivity
-        username = intent.getStringExtra("email/username").toString()
+        emailUsername = intent.getStringExtra("email/username").toString()
 
         // Display username on user interface xml
-        textEmailUsernameHint.text = username
+        textEmailUsernameHint.text = emailUsername
 
         // The continue button on user interface
         newPasswordContButton.setOnClickListener {
@@ -65,16 +65,21 @@ class SetNewPasswordActivity : AppCompatActivity() {
          * or does not match
          */
         if (newPassword.text.toString().isNotEmpty() && confirmNewPassword.text.toString()
-            .isNotEmpty()
+                .isNotEmpty()
         ) {
             if (newPassword.length() in 8..36 && confirmNewPassword.length() in 8..36) {
-                if ((inputNewPassword == inputConfirmNewPassword && username == Passing.username) ||
-                    (inputNewPassword == inputConfirmNewPassword && username == adminUsername)
+                if ((inputNewPassword == inputConfirmNewPassword &&
+                            (emailUsername == Passing.username || emailUsername == Passing.email))
+                    || (inputNewPassword == inputConfirmNewPassword
+                            && emailUsername == adminUsername)
                 ) {
                     replacingPassword()
                     saveData()
 
-                    Toast.makeText(this, "Successfully Changed Password", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this, "Successfully Changed Password",
+                        Toast.LENGTH_LONG
+                    ).show()
 
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
@@ -102,12 +107,12 @@ class SetNewPasswordActivity : AppCompatActivity() {
      * The function to replace old password with new password
      */
     private fun replacingPassword() {
-        if (username == Passing.username) {
+        if (emailUsername == Passing.username) {
             Passing.password = newPassword.toString()
         } else {
             Passing.setPassword(confirmNewPassword.text.toString())
         }
-        Passing.setUsername(username)
+        Passing.setUsername(emailUsername)
         Passing.setPassword(confirmNewPassword.text.toString())
     }
 
@@ -121,11 +126,11 @@ class SetNewPasswordActivity : AppCompatActivity() {
         val edit = sharedPref.edit()
 
         // Save their username and password
-        edit.putString("User Name", username)
+        edit.putString("User Name", emailUsername)
         edit.putString("Password", confirmNewPassword.text.toString())
         edit.apply()
 
-        Toast.makeText(this, username.plus(" your password has been saved"), Toast.LENGTH_LONG)
+        Toast.makeText(this, emailUsername.plus(" your password has been saved"), Toast.LENGTH_LONG)
             .show()
     }
 }

@@ -16,6 +16,7 @@
         android:text="@string/app_logo_name"
         android:textColor="@color/white"
         android:textSize="90sp"
+        app:layout_constraintVertical_bias="0"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -28,19 +29,21 @@
         android:text="@string/app_title_name"
         android:textColor="@color/white"
         android:textSize="20sp"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/app_logo"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/invalid_credentials"
-        android:layout_width="wrap_content"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:text="@string/error_info_display"
         android:textColor="#FA8072"
-        android:textSize="16sp"
-        android:textAlignment="textStart"
+        android:textSize="14sp"
+        android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@id/username_text"
         app:layout_constraintLeft_toLeftOf="@id/username"
         app:layout_constraintRight_toRightOf="@id/username" />
@@ -66,12 +69,22 @@
         android:background="@drawable/round_style"
         android:backgroundTint="@color/white"
         android:importantForAutofill="no"
-        android:inputType="textVisiblePassword|textNoSuggestions"
+        android:inputType="textEmailAddress|textNoSuggestions"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/username_text"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/forgot_email_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/forgot_email_username_text"
+        android:textColor="#ADD8E6"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/username"
+        app:layout_constraintLeft_toLeftOf="@id/username" />
 
     <TextView
         android:id="@+id/password_text"
@@ -81,7 +94,7 @@
         android:labelFor="@id/password"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/username"
+        app:layout_constraintTop_toBottomOf="@id/forgot_email_username"
         app:layout_constraintLeft_toLeftOf="@id/password" />
 
     <EditText
@@ -132,8 +145,10 @@
         android:textAllCaps="false"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintVertical_bias="0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/maverick_image"
         app:layout_constraintTop_toBottomOf="@id/login_button" />
 
     <ImageView
