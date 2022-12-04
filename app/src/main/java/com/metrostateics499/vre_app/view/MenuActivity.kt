@@ -89,24 +89,6 @@ class MenuActivity : AppCompatActivity() {
         }
     }
 
-//    override fun onPostResume() {
-//        super.onPostResume()
-// //        Passing.selectedEmergencyMessageSetup = null
-//    }
-
-//    override fun onPause() {
-//        super.onPause()
-//        locationManager.stopLocationTracking()
-// //        statusTextView.text = “Stopped”
-//    }
-//    override fun onResume() {
-//        super.onResume()
-//        if (locationTrackingRequested) {
-//            locationManager.startLocationTracking(locationCallback)
-// //            statusTextView.text = “Started”
-//        }
-//    }
-
     private fun requestGPSPermission(): Boolean {
         val permission = android.Manifest.permission.ACCESS_FINE_LOCATION
         val grant = ContextCompat.checkSelfPermission(this, permission)
@@ -118,23 +100,6 @@ class MenuActivity : AppCompatActivity() {
         return grant == PackageManager.PERMISSION_GRANTED
     }
 
-    // Handle Allow or Deny response from the permission dialog
-//    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        if (requestCode == locationPermissionCode) {
-//            if (grantResults.size == 2 &&
-//                grantResults[0] == PackageManager.PERMISSION_GRANTED &&
-//                grantResults[1] == PackageManager.PERMISSION_GRANTED){
-//                // Permission was granted
-//
-// //                statusTextView.text = "Started"
-//            }
-//            else{
-//                // Permission was denied
-// //                showAlert("Location permission was denied. Unable to track location.")
-//            }
-//        }
-//    }
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -148,7 +113,7 @@ class MenuActivity : AppCompatActivity() {
                 Toast.makeText(
                     this@MenuActivity,
                     "Permission Granted.\nYou have activated GPS " +
-                            "Tracking for all activated Emergency Messages",
+                        "Tracking for all activated Emergency Messages",
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
