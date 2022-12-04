@@ -151,12 +151,14 @@ class ListenSpeechActivity : AppCompatActivity() {
                             if (emergencyTextMessage.length > 160 && emergencySetup.activeGPS) {
                                 textMessages = splitEmergencyTextMessage(emergencyTextMessage)
                                 textMessages = (textMessages + coordinatesLinks + coordinatesDate)
-                            } else if (emergencyTextMessage.length > 160
-                                && !emergencySetup.activeGPS) {
+                            } else if (emergencyTextMessage.length > 160 &&
+                                !emergencySetup.activeGPS
+                            ) {
                                 textMessages = splitEmergencyTextMessage(emergencyTextMessage)
                                 textMessages = (textMessages + coordinatesLinks)
-                            } else if (emergencyTextMessage.length <= 160
-                                && !emergencySetup.activeGPS) {
+                            } else if (emergencyTextMessage.length <= 160 &&
+                                !emergencySetup.activeGPS
+                            ) {
                                 textMessages =
                                     listOf(emergencyTextMessage, coordinatesLinks)
                             } else {
