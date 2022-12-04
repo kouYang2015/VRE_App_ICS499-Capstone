@@ -13,28 +13,31 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
-import com.metrostateics499.vre_app.model.Passing.locationManager
-import com.metrostateics499.vre_app.model.Passing.locationTrackingRequested
 import com.metrostateics499.vre_app.utility.LocationGPS
 import kotlinx.android.synthetic.main.activity_edit_emergency_message.*
 import kotlinx.android.synthetic.main.activity_menu.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MenuActivity : AppCompatActivity() {
 
     private lateinit var speechButton: Button
-    private lateinit var latitudeTextView: TextView
-    private lateinit var longitudeTextView: TextView
+    private lateinit var latitudeValueTextView: TextView
+    private lateinit var longitudeValueTextView: TextView
+    private lateinit var coordinatesDateTimeTextView: TextView
     private var locationPermissionCode = 2
+    lateinit var locationManager: LocationGPS
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // This is to hide the action bar
         supportActionBar?.hide()
         setContentView(R.layout.activity_menu)
-        Passing.locationManager = LocationGPS(this as Context)
 
-        latitudeTextView = findViewById(R.id.latitudeTextView)
-        longitudeTextView = findViewById(R.id.longitudeTextView)
+        locationManager = LocationGPS(this as Context)
+        latitudeValueTextView = findViewById(R.id.latitudeValueTextView)
+        longitudeValueTextView = findViewById(R.id.longitudeValueTextView)
+        coordinatesDateTimeTextView = findViewById(R.id.coordinatesDateTimeTextView)
         val switchMenuGPS: SwitchCompat = findViewById(R.id.switchMenuGPS)
 
         // Register button click listeners
@@ -76,17 +79,32 @@ class MenuActivity : AppCompatActivity() {
             }
         }
     }
+
     private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
 //            locationResult
             for (location in locationResult.locations) {
                 // Update UI
-                latitudeTextView.text = location.latitude.toString()
-                longitudeTextView.text = location.longitude.toString()
+                val date = getCurrentDateTime()
+                val dateString = date.toString("yyyy/MM/dd HH:mm")
+                latitudeValueTextView.text = location.latitude.toString()
+                longitudeValueTextView.text = location.longitude.toString()
+                coordinatesDateTimeTextView.text = dateString
                 Passing.latitude = location.latitude.toString()
                 Passing.longitude = location.longitude.toString()
+
+                Passing.dateTimeGPS = dateString
             }
         }
+    }
+
+    fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
+        val formatter = SimpleDateFormat(format, locale)
+        return formatter.format(this)
+    }
+
+    fun getCurrentDateTime(): Date {
+        return Calendar.getInstance().time
     }
 
     private fun requestGPSPermission(): Boolean {

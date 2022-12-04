@@ -58,23 +58,23 @@ class EditEmergencyMessagePopUps(
 //                editText = view.findViewById(R.id.edit_text)
 //            }
 
-            "customTextMessage" -> {
-                val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
-                val textView: TextView = view.findViewById(R.id.edit_text)
-                val customTextMessage = Passing.selectedEmergencyMessageSetup.customTextMessage
-                    .toString()
-                textView.text = customTextMessage
-
-                textView.hint = "Custom Text Message"
-                builder.setView(view)
-                    .setTitle("Edit Custom Text Message")
-                    .setNegativeButton("cancel") { dialogInterface, i -> }
-                    .setPositiveButton("save") { dialogInterface, i ->
-                        val inputText = editText!!.text.toString().trim()
-                        listener!!.editEmergencyMessageSetupCustomTextMessage(inputText)
-                    }
-                editText = view.findViewById(R.id.edit_text)
-            }
+//            "customTextMessage" -> {
+//                val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
+//                val textView: TextView = view.findViewById(R.id.edit_text)
+//                val customTextMessage = Passing.selectedEmergencyMessageSetup.customTextMessage
+//                    .toString()
+//                textView.text = customTextMessage
+//
+//                textView.hint = "Custom Text Message"
+//                builder.setView(view)
+//                    .setTitle("Edit Custom Text Message")
+//                    .setNegativeButton("cancel") { dialogInterface, i -> }
+//                    .setPositiveButton("save") { dialogInterface, i ->
+//                        val inputText = editText!!.text.toString().trim()
+//                        listener!!.editEmergencyMessageSetupCustomTextMessage(inputText)
+//                    }
+//                editText = view.findViewById(R.id.edit_text)
+//            }
         }
         return builder.create()
     }
@@ -94,6 +94,6 @@ class EditEmergencyMessagePopUps(
     interface Listener {
         fun editEmergencyMessageSetupTitle(inputTitle: String)
 //        fun editEmergencyMessageSetupKeyPhrase(inputPhrase: String)
-        fun editEmergencyMessageSetupCustomTextMessage(inputText: String)
+//        fun editEmergencyMessageSetupCustomTextMessage(inputText: String)
     }
 }

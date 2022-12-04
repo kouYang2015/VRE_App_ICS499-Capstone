@@ -3,7 +3,7 @@ package com.metrostateics499.vre_app.model.data
 data class EmergencyMessageSetup(
     var title: String,
     var selectedKeyPhraseList: MutableList<KeyPhrase>,
-    var customTextMessage: CustomTextMessage,
+    var selectedCustomTextMessages: MutableList<CustomTextMessage>,
     var selectedContactList: MutableList<Contact>,
     var activeEMS: Boolean = false,
     var activeGPS: Boolean = false
@@ -28,6 +28,14 @@ data class EmergencyMessageSetup(
         var nameString = ""
         for (item in selectedKeyPhraseList)
             nameString += (item.phrase + ", ")
+
+        return nameString
+    }
+
+    fun getCustomTextListString(): String {
+        var nameString = ""
+        for (item in selectedCustomTextMessages)
+            nameString += (item.title + ": " + item.textMessage + "; ")
 
         return nameString
     }

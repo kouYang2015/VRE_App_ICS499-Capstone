@@ -11,8 +11,8 @@
         android:id="@+id/app_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="68dp"
         android:fontFamily="@font/blinker_bold"
         android:text="@string/app_logo_name"
         android:textColor="@color/white"
@@ -31,38 +31,26 @@
         android:textAllCaps="false"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="@id/app_logo"
         app:layout_constraintBottom_toBottomOf="@id/app_logo"
         app:layout_constraintLeft_toRightOf="@id/app_logo"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/app_logo" />
+
 
     <Button
         android:id="@+id/speechRecognition"
         android:layout_width="370dp"
         android:layout_height="60dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="32dp"
         android:backgroundTint="#1F2B6C"
         android:text="@string/speechRecognition"
         android:textAllCaps="false"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/app_logo"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <Button
-        android:id="@+id/customTextMessageContent"
-        android:layout_width="370dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="5dp"
-        android:backgroundTint="#1F2B6C"
-        android:text="@string/customTextMessageContent"
-        android:textAllCaps="false"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/speechRecognition"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_logo" />
 
     <Button
         android:id="@+id/emergencyMessageSetup"
@@ -75,9 +63,9 @@
         android:textAllCaps="false"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/customTextMessageContent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/speechRecognition" />
 
     <Button
         android:id="@+id/profile"
@@ -90,9 +78,9 @@
         android:textAllCaps="false"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/emergencyMessageSetup"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emergencyMessageSetup" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch1"
@@ -132,12 +120,48 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
         android:layout_marginTop="19dp"
-        android:text="TextView"
+        android:text="Latitude:"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/coordinatesTitle"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/latitudeValueTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="19dp"
+        android:text="Unknown"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/coordinatesTitle"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/coordinatesTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="19dp"
+        android:text="Coordinates Date/Time:"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switchMenuGPS"
-        app:layout_constraintVertical_bias="0.005" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/coordinatesDateTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:text="Unknown"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toEndOf="@+id/coordinatesTitle"
+        app:layout_constraintTop_toBottomOf="@+id/switchMenuGPS" />
 
     <TextView
         android:id="@+id/longitudeTextView"
@@ -145,7 +169,20 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
         android:layout_marginTop="15dp"
-        android:text="TextView"
+        android:text="Longitude:"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/latitudeTextView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/longitudeValueTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="15dp"
+        android:text="Unknown"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

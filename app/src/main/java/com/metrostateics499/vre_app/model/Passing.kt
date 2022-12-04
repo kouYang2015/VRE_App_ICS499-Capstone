@@ -24,11 +24,11 @@ object Passing {
     lateinit var selectedEmergencyMessageSetup: EmergencyMessageSetup
     lateinit var selectedContactObject: Contact
     lateinit var selectedKeyPhraseObject: KeyPhrase
-
-    lateinit var locationManager: LocationGPS
+    lateinit var selectedCustomTextObject: CustomTextMessage
     var locationTrackingRequested = false
-    var latitude: String = ""
-    var longitude: String = ""
+    var latitude: String = "Unknown"
+    var longitude: String = "Unknown"
+    var dateTimeGPS: String = "Unknown"
 
     @JvmName("setUsername1")
     fun setUsername(username: String) {
@@ -51,5 +51,9 @@ object Passing {
 
     fun checkInitializationSelectedKeyPhrase(): Boolean {
         return ::selectedKeyPhraseObject.isInitialized
+    }
+
+    fun checkInitializationSelectedCustomTextMessage(): Boolean {
+        return ::selectedCustomTextObject.isInitialized
     }
 }

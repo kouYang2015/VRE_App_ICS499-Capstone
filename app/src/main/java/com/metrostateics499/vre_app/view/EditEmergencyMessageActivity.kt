@@ -56,12 +56,18 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         }
 
         relativeLayout3.setOnClickListener {
-            textViewSelected = Passing.selectedEmergencyMessageSetup.customTextMessage.toString()
-            openPopUp("customTextMessage")
+//            textViewSelected = Passing.selectedEmergencyMessageSetup.keyPhrase.phrase
+//            openPopUp("keyphrase")
+            goToCustomTextMenu()
         }
 
+//        relativeLayout3.setOnClickListener {
+//            textViewSelected = Passing.selectedEmergencyMessageSetup.customTextMessage.toString()
+//            openPopUp("customTextMessage")
+//        }
+
         relativeLayout4.setOnClickListener {
-            textViewSelected = Passing.selectedEmergencyMessageSetup.customTextMessage.toString()
+//            textViewSelected = Passing.selectedEmergencyMessageSetup.customTextMessage.toString()
             goToContactsMenu()
         }
 
@@ -197,6 +203,10 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         startActivity(Intent(this, ContactActivity::class.java))
     }
 
+    private fun goToCustomTextMenu() {
+        startActivity(Intent(this, CustomTextActivity::class.java))
+    }
+
     private fun refreshRelativeLayout() {
         val textView: TextView = findViewById(R.id.text_view_em)
         textView.text = (Passing.selectedEmergencyMessageSetup.title)
@@ -224,14 +234,17 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
     }
 
     private fun refreshRelativeLayout3() {
-        if (Passing.selectedEmergencyMessageSetup.customTextMessage.textMessage
+        if (Passing.selectedEmergencyMessageSetup.selectedCustomTextMessages
             .isNotEmpty()
         ) {
             val textView3: TextView = findViewById(R.id.text_custom_text)
             textView3.text =
                 (
-                    Passing.selectedEmergencyMessageSetup.customTextMessage.textMessage
+                    Passing.selectedEmergencyMessageSetup.getCustomTextListString()
                     )
+        } else if (Passing.selectedEmergencyMessageSetup.selectedCustomTextMessages.isEmpty()) {
+            val textView3: TextView = findViewById(R.id.text_custom_text)
+            textView3.text = "Choose or Create Custom Text Messages"
         }
     }
 
@@ -341,40 +354,41 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
 //        }
 //    }
 
-    override fun editEmergencyMessageSetupCustomTextMessage(inputText: String) {
-        if (inputText.isEmpty()) {
-            Toast.makeText(
-                this@EditEmergencyMessageActivity,
-                "Custom text message can't be empty",
-                Toast.LENGTH_SHORT
-            ).show()
-            openPopUp("customTextMessage")
-        } else if (inputText == textViewSelected) {
-            Toast.makeText(
-                this@EditEmergencyMessageActivity, "Make a change or click cancel",
-                Toast.LENGTH_SHORT
-            ).show()
-            openPopUp("customTextMessage")
-        } else if (inputText.isNotEmpty()) {
-            Passing.selectedEmergencyMessageSetup.customTextMessage.textMessage = inputText
-            Toast.makeText(
-                this@EditEmergencyMessageActivity, "Successfully Edited",
-                Toast.LENGTH_SHORT
-            ).show()
-            refreshRelativeLayout3()
-        } else {
-            Toast.makeText(
-                this@EditEmergencyMessageActivity,
-                "That custom text message already exists. " +
-                    "Try something else or click cancel.",
-                Toast.LENGTH_SHORT
-            ).show()
-            openPopUp("customTextMessage")
-        }
-    }
+//    override fun editEmergencyMessageSetupCustomTextMessage(inputText: String) {
+//        if (inputText.isEmpty()) {
+//            Toast.makeText(
+//                this@EditEmergencyMessageActivity,
+//                "Custom text message can't be empty",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//            openPopUp("customTextMessage")
+//        } else if (inputText == textViewSelected) {
+//            Toast.makeText(
+//                this@EditEmergencyMessageActivity, "Make a change or click cancel",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//            openPopUp("customTextMessage")
+//        } else if (inputText.isNotEmpty()) {
+//            Passing.selectedEmergencyMessageSetup.customTextMessage.textMessage = inputText
+//            Toast.makeText(
+//                this@EditEmergencyMessageActivity, "Successfully Edited",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//            refreshRelativeLayout3()
+//        } else {
+//            Toast.makeText(
+//                this@EditEmergencyMessageActivity,
+//                "That custom text message already exists. " +
+//                    "Try something else or click cancel.",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//            openPopUp("customTextMessage")
+//        }
+//    }
     override fun onPostResume() {
         super.onPostResume()
         refreshRelativeLayout2()
+        refreshRelativeLayout3()
         refreshRelativeLayout4()
         refreshRelativeLayout6()
     }
