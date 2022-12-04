@@ -24,6 +24,7 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
         setContentView(R.layout.activity_contacts)
 
         buttonAdd = findViewById<View>(R.id.buttonAdd) as Button
@@ -120,8 +121,6 @@ class ContactActivity : AppCompatActivity(), ContactPopUps.Listener {
                     "Added",
                 Toast.LENGTH_SHORT
             ).show()
-//            Passing.selectedContactObject =
-//                Passing.contactList.findContact(contactName)
             refreshList()
         } else {
             Toast.makeText(

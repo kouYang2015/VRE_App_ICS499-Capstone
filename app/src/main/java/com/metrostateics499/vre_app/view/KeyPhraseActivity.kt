@@ -16,7 +16,6 @@ import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
 import com.metrostateics499.vre_app.model.data.KeyPhrase
 import com.metrostateics499.vre_app.utility.KeyPhrasePopUps
-import com.metrostateics499.vre_app.utility.TestListenKeyPhrasePopUp
 import com.metrostateics499.vre_app.view.adapters.KeyPhraseAdapter
 import java.util.*
 import kotlinx.android.synthetic.main.activity_key_phrases_menu.*
@@ -43,6 +42,7 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
         setContentView(R.layout.activity_key_phrases_menu)
 
         initializeComponents()
@@ -55,55 +55,9 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
         buttonEdit = findViewById<View>(R.id.buttonEditKeyPhrase) as Button
         buttonDelete = findViewById<View>(R.id.buttonDeleteKeyPhrase) as Button
         buttonTest = findViewById<View>(R.id.buttonTest) as Button
-//        recordAudioPermissionRequest =
-//            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
-//            }
-//        speechOnButton = findViewById(R.id.activateSpeech)
-//        speechOffButton = findViewById(R.id.disableSpeech)
-//        txtResult = findViewById(R.id.speechToTextBox)
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
-//        requestSmsPermission()
         requestRecordAudioPermission()
     }
-
-//    private fun refreshList() {
-//        textViewSelectedBoolean = false
-//        textViewSelected = ""
-//
-//        val listview: ListView = findViewById(R.id.listViewPhrases)
-//        val arrayAdapter = ArrayAdapter(
-//            this, android.R.layout.simple_list_item_1, Passing.keyPhraseList
-//        )
-//        listview.adapter = arrayAdapter
-//        listview.setOnItemClickListener { parent, view, position, _ ->
-//            viewSelected?.setBackgroundResource(
-//                androidx.appcompat.R.drawable
-//                    .abc_item_background_holo_light
-//            )
-//            Toast.makeText(
-//                this@KeyPhraseActivity,
-//                "You have selected " +
-//                    parent.getItemAtPosition(position),
-//                Toast.LENGTH_SHORT
-//            ).show()
-//            textViewSelected = parent.getItemAtPosition(position).toString()
-//            objectSelected = parent.getItemAtPosition(position) as KeyPhrase
-//            viewSelected = view
-//            textViewSelectedBoolean = true
-//            view.setBackgroundResource(androidx.appcompat.R.drawable.abc_list_pressed_holo_dark)
-//        }
-//    }
-
-//    private fun checkSelectForDeleteKeyPhrasePopUp() {
-//        if (textViewSelectedBoolean) {
-//            openPopUp(textViewSelected, "delete")
-//        } else {
-//            Toast.makeText(
-//                this@KeyPhraseActivity, "You must select a key phrase first",
-//                Toast.LENGTH_SHORT
-//            ).show()
-//        }
-//    }
 
     private fun openPopUp(textViewSelected: String, buttonType: String) {
         val keyPhrasePopUp = KeyPhrasePopUps(textViewSelected, buttonType)
@@ -155,21 +109,7 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
             viewSelected = keyPhraseAdapter.viewSelected
             checkSelectForDelete(viewSelectedBoolean, textViewSelected)
         }
-//        buttonTest!!.setOnClickListener {
-//            textViewSelected = keyPhraseAdapter.titleSelectedString
-//        }
     }
-//
-//    private fun checkSelectForEditKeyPhrasePopUp() {
-//        if (textViewSelectedBoolean) {
-//            openPopUp(textViewSelected, "edit")
-//        } else {
-//            Toast.makeText(
-//                this@KeyPhraseActivity, "You must select a key phrase first",
-//                Toast.LENGTH_SHORT
-//            ).show()
-//        }
-//    }
 
     override fun addKeyPhrase(keyphraseString: String) {
         if (keyphraseString.isEmpty()) {
@@ -208,12 +148,12 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp(textViewSelected, "edit")
-//        } else if (keyphraseString == textViewSelected) {
-//            Toast.makeText(
-//                this@KeyPhraseActivity, "Make a change or click cancel",
-//                Toast.LENGTH_SHORT
-//            ).show()
-//            openPopUp(textViewSelected, "edit")
+        } else if (keyphraseString == textViewSelected) {
+            Toast.makeText(
+                this@KeyPhraseActivity, "Make a change or click cancel",
+                Toast.LENGTH_SHORT
+            ).show()
+            openPopUp(textViewSelected, "edit")
         } else if (keyphraseString.trim().isNotEmpty() &&
             !Passing.selectedKeyPhraseObject.phrase.equals(keyphraseString.trim(), true) &&
             checkUniqueness(keyphraseString.trim())
@@ -302,7 +242,9 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
                 testKeyPhraseTextView.text = ""
             }
 
-            override fun onError(p0: Int) {}
+            override fun onError(p0: Int) {
+                testKeyPhraseTextView.text = ""
+            }
 
             override fun onResults(bundle: Bundle?) {
                 val data = bundle?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
@@ -341,10 +283,10 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
             ).show()
         } else if (findKeyPhraseMatch(incomingSpeech) != null) {
             findKeyPhraseMatch(incomingSpeech)?.phrase
-                ?.let { TestListenKeyPhrasePopUp(it, "success") }
+                ?.let { KeyPhrasePopUps(it, "success") }
                 ?.show(supportFragmentManager, "example dialog")
         } else {
-            val testListenKeyPhrasePopUp = TestListenKeyPhrasePopUp(
+            val testListenKeyPhrasePopUp = KeyPhrasePopUps(
                 textViewSelected, "unrecognized"
             )
             testListenKeyPhrasePopUp.show(supportFragmentManager, "example dialog")

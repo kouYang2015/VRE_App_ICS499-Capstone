@@ -27,7 +27,6 @@ class LocationGPS(context: Context) {
     }
     fun startLocationTracking(locationCallback: LocationCallback) {
         if (!startedLocationTracking) {
-            //noinspection MissingPermission
             fusedLocationClient.requestLocationUpdates(
                 locationRequest,
                 locationCallback,

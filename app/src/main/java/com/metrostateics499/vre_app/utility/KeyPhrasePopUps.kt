@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.TextView
@@ -32,7 +33,7 @@ class KeyPhrasePopUps(
                     .setTitle("Edit Key Phrase")
                     .setNegativeButton("cancel") { dialogInterface, i -> }
                     .setPositiveButton("ok") { dialogInterface, i ->
-                        val keyphraseString = editTextKeyphrase!!.text.toString()
+                        val keyphraseString = editTextKeyphrase!!.text.toString().trim()
                         listener!!.editKeyPhrase(keyphraseString)
                     }
                 editTextKeyphrase = view.findViewById(R.id.edit_text)
@@ -45,7 +46,7 @@ class KeyPhrasePopUps(
                     .setTitle("New Key Phrase")
                     .setNegativeButton("cancel") { dialogInterface, i -> }
                     .setPositiveButton("ok") { dialogInterface, i ->
-                        val keyphraseString = editTextKeyphrase!!.text.toString()
+                        val keyphraseString = editTextKeyphrase!!.text.toString().trim()
                         listener!!.addKeyPhrase(keyphraseString)
                     }
                 editTextKeyphrase = view.findViewById(R.id.edit_text)
@@ -60,6 +61,23 @@ class KeyPhrasePopUps(
                     .setPositiveButton("ok") { dialogInterface, i ->
                         listener!!.deleteKeyPhrase()
                     }
+            }
+            "success" -> {
+                val view = inflater.inflate(R.layout.layout_text_view_popup, null)
+                val textView: TextView = view.findViewById(R.id.text)
+                textView.text = textViewSelected
+                textView.setTextColor(Color.parseColor("#A81B1B"))
+                builder.setView(view)
+                    .setTitle("Success! Recognized Speech: \n")
+                    .setNegativeButton("done") { dialogInterface, i -> }
+            }
+            "unrecognized" -> {
+                val view = inflater.inflate(R.layout.layout_text_view_popup, null)
+                val textView: TextView = view.findViewById(R.id.text)
+                textView.text = "Try again, or try something else"
+                builder.setView(view)
+                    .setTitle("Could not recognize speech with that key phrase \n")
+                    .setNegativeButton("Done") { dialogInterface, i -> }
             }
         }
         return builder.create()

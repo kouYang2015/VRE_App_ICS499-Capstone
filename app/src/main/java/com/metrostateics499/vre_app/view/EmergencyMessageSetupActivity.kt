@@ -28,6 +28,7 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
         setContentView(R.layout.activity_emergency_message_setup_menu)
 
         buttonAdd = findViewById<View>(R.id.buttonAdd) as Button
@@ -78,9 +79,6 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
 
     private fun checkSelectForEdit(viewSelectedBoolean: Boolean) {
         if (viewSelectedBoolean) {
-//            Passing.selectedEmergencyMessageSetup =
-//                Passing.emergencyMessageSetupList.findEmergencyMessageSetup(titleSelectedString)
-//            openPopUp(titleSelectedString,"edit")
             goToEditPage()
         } else {
             Toast.makeText(
@@ -108,8 +106,6 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
 
     override fun addEmergencyMessageSetup(
         inputTitle: String,
-//        inputPhrase: String,
-//        inputText: String
     ) {
         val newContactList: MutableList<Contact> = mutableListOf()
         val newKeyPhraseList: MutableList<KeyPhrase> = mutableListOf()
@@ -130,31 +126,7 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
             ).show()
             openPopUp(titleSelectedString, "add")
         }
-//        else if (!checkTitleUniqueness(inputTitle) && !checkKeyPhraseUniqueness(inputPhrase)) {
-//            Toast.makeText(
-//                this@EmergencyMessageSetupActivity,
-//                "That Title and Key Phrase Already Exists. Try again.",
-//                Toast.LENGTH_SHORT
-//            ).show()
-//            openPopUp(titleSelectedString, "add")
-//        }
-//        else if (!checkKeyPhraseUniqueness(inputPhrase)) {
-//            Toast.makeText(
-//                this@EmergencyMessageSetupActivity,
-//                "That Key Phrase Already Exists. Try again.",
-//                Toast.LENGTH_SHORT
-//            ).show()
-//            openPopUp(titleSelectedString, "add")
-//        }
 
-//        else if (checkTitleUniqueness(inputTitle) && checkKeyPhraseUniqueness(inputPhrase)) {
-//            val newEmergencyMessageSetup = EmergencyMessageSetup(
-//                inputTitle,
-//                KeyPhrase(inputPhrase),
-//                CustomTextMessage(inputText),
-//                newContactList
-//            )
-//        }
         else if (checkTitleUniqueness(inputTitle)) {
             val newEmergencyMessageSetup = EmergencyMessageSetup(
                 inputTitle,
@@ -190,15 +162,6 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
         super.onPostResume()
         refreshList()
     }
-
-//    private fun checkKeyPhraseUniqueness(keyPhrase: String,): Boolean {
-//        for (item in Passing.emergencyMessageSetupList) {
-//            if (item.keyPhrase.phrase.equals(keyPhrase, true)) {
-//                return false
-//            }
-//        }
-//        return true
-//    }
 
     private fun checkTitleUniqueness(title: String): Boolean {
         for (item in Passing.emergencyMessageSetupList) {
