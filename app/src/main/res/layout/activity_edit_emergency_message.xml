@@ -201,7 +201,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/relativeLayout5"
+            android:id="@+id/relativeLayout5GPS"
             android:layout_width="398dp"
             android:layout_height="89dp"
             android:layout_marginTop="7dp"
@@ -237,7 +237,7 @@
                 android:textSize="14sp" />
 
             <Switch
-                android:id="@+id/switch4"
+                android:id="@+id/switchGPS"
                 android:layout_width="64dp"
                 android:layout_height="73dp"
                 android:layout_alignParentTop="true"
@@ -254,14 +254,14 @@
             android:id="@+id/relativeLayout6"
             android:layout_width="398dp"
             android:layout_height="89dp"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="8dp"
             android:background="#FEFEFE"
             android:padding="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.538"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relativeLayout5"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout5GPS"
             app:layout_constraintVertical_bias="0.0">
 
             <TextView

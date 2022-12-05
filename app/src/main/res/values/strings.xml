@@ -26,6 +26,7 @@
     <string name="contactList">Contact List</string>
     <string name="profile">Profile</string>
     <string name="vreServiceActivation">VRE Service Activation</string>
+    <string name="gpsTrackingActivation">GPS Tracking Activation</string>
     <string name="coming_soon_text">Coming Soon</string>
     <string name="onSpeech">Turn On</string>
     <string name="offSpeech">Turn Off</string>

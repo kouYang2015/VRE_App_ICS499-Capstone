@@ -41,6 +41,7 @@ class ListenSpeechActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
         setContentView(R.layout.activity_listen_speech)
         initializeComponents()
         setListeners()
@@ -114,8 +115,24 @@ class ListenSpeechActivity : AppCompatActivity() {
             if (findKeyPhraseMatch(incomingSpeech) != null) {
                 val emergencySetup =
                     (findEmergencyMessageSetupMatch(findKeyPhraseMatch(incomingSpeech)?.phrase))
+                val coordinatesLinks: String
+                val coordinatesDate: String
 
                 if (emergencySetup != null) {
+                    if (emergencySetup.activeGPS) {
+                        coordinatesLinks =
+                            "My last known location: www.google.com/maps/place/" +
+                            Passing.latitude + "," + Passing.longitude +
+                            " or http://maps.apple.com/?daddr=" +
+                            Passing.latitude + "," + Passing.longitude
+                        coordinatesDate =
+                            "Last known coordinates were taken on date: \n" + Passing.dateTimeGPS +
+                            "\nLatitude: " + Passing.latitude +
+                            "\nLongitude: " + Passing.longitude
+                    } else {
+                        coordinatesLinks = "Last Known Location: Unavailable or Deactivated "
+                        coordinatesDate = ""
+                    }
                     for (contact in emergencySetup.selectedContactList) {
                         try {
                             val smsManager: SmsManager =
@@ -129,11 +146,32 @@ class ListenSpeechActivity : AppCompatActivity() {
                             val emergencyTextMessage =
                                 "VOICE RECOGNITION EMERGENCY: " +
                                     emergencySetup.getCustomTextListString()
-                            smsManager.sendTextMessage(
-                                contact.phoneNumber, null,
-                                emergencyTextMessage, null, null
-                            )
+                            var textMessages: List<String>
 
+                            if (emergencyTextMessage.length > 160 && emergencySetup.activeGPS) {
+                                textMessages = splitEmergencyTextMessage(emergencyTextMessage)
+                                textMessages = (textMessages + coordinatesLinks + coordinatesDate)
+                            } else if (emergencyTextMessage.length > 160 &&
+                                !emergencySetup.activeGPS
+                            ) {
+                                textMessages = splitEmergencyTextMessage(emergencyTextMessage)
+                                textMessages = (textMessages + coordinatesLinks)
+                            } else if (emergencyTextMessage.length <= 160 &&
+                                !emergencySetup.activeGPS
+                            ) {
+                                textMessages =
+                                    listOf(emergencyTextMessage, coordinatesLinks)
+                            } else {
+                                textMessages =
+                                    listOf(emergencyTextMessage, coordinatesLinks, coordinatesDate)
+                            }
+                            for (textItem in textMessages) {
+                                smsManager.sendTextMessage(
+                                    contact.phoneNumber, null,
+                                    textItem, null, null
+                                )
+                                Thread.sleep(1_500)
+                            }
                             Toast.makeText(
                                 applicationContext, "Message Sent",
                                 Toast.LENGTH_LONG
@@ -163,6 +201,11 @@ class ListenSpeechActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun splitEmergencyTextMessage(textMessage: String): List<String> {
+        val size = 160
+        return textMessage.split("(?<=\\G.{$size})".toRegex())
     }
 
     private fun findEmergencyMessageSetupMatch(keyPhraseMatch: String?): EmergencyMessageSetup? {

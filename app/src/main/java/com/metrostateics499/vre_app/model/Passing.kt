@@ -24,6 +24,10 @@ object Passing {
     lateinit var selectedContactObject: Contact
     lateinit var selectedKeyPhraseObject: KeyPhrase
     lateinit var selectedCustomTextObject: CustomTextMessage
+    var locationTrackingRequested = false
+    var latitude: String = "Unknown"
+    var longitude: String = "Unknown"
+    var dateTimeGPS: String = "Unknown"
 
     @JvmName("setUsername1")
     fun setUsername(username: String) {

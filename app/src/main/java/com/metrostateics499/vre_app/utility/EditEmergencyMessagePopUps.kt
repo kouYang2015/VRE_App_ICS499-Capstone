@@ -12,7 +12,6 @@ import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
 
 class EditEmergencyMessagePopUps(
-//    private val textViewSelected: String,
     private val buttonType: String
 ) : AppCompatDialogFragment() {
 
@@ -40,41 +39,18 @@ class EditEmergencyMessagePopUps(
                     }
                 editText = view.findViewById(R.id.edit_text)
             }
+            "menuGPSTrackingInactive" -> {
+                val view = inflater.inflate(R.layout.layout_text_view_popup, null)
+                val textView: TextView = view.findViewById(R.id.text)
+                textView.text = "You must also activate GPS tracking in " +
+                    "the Main Menu in order for your gps coordinates to be " +
+                    "sent with your emergency messages"
 
-//            "keyphrase" -> {
-//                val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
-//                val textView: TextView = view.findViewById(R.id.edit_text)
-//                val keyPhrase = Passing.selectedEmergencyMessageSetup.keyPhrase.phrase
-//                textView.text = keyPhrase
-//
-//                textView.hint = "Key Phrase"
-//                builder.setView(view)
-//                    .setTitle("Edit Key Phrase")
-//                    .setNegativeButton("cancel") { dialogInterface, i -> }
-//                    .setPositiveButton("save") { dialogInterface, i ->
-//                        val inputPhrase = editText!!.text.toString().trim()
-//                        listener!!.editEmergencyMessageSetupKeyPhrase(inputPhrase)
-//                    }
-//                editText = view.findViewById(R.id.edit_text)
-//            }
-
-//            "customTextMessage" -> {
-//                val view = inflater.inflate(R.layout.layout_edit_text_popup, null)
-//                val textView: TextView = view.findViewById(R.id.edit_text)
-//                val customTextMessage = Passing.selectedEmergencyMessageSetup.customTextMessage
-//                    .toString()
-//                textView.text = customTextMessage
-//
-//                textView.hint = "Custom Text Message"
-//                builder.setView(view)
-//                    .setTitle("Edit Custom Text Message")
-//                    .setNegativeButton("cancel") { dialogInterface, i -> }
-//                    .setPositiveButton("save") { dialogInterface, i ->
-//                        val inputText = editText!!.text.toString().trim()
-//                        listener!!.editEmergencyMessageSetupCustomTextMessage(inputText)
-//                    }
-//                editText = view.findViewById(R.id.edit_text)
-//            }
+                builder.setView(view)
+                    .setTitle("Alert")
+                    .setPositiveButton("ok") { dialogInterface, i ->
+                    }
+            }
         }
         return builder.create()
     }
@@ -93,7 +69,5 @@ class EditEmergencyMessagePopUps(
 
     interface Listener {
         fun editEmergencyMessageSetupTitle(inputTitle: String)
-//        fun editEmergencyMessageSetupKeyPhrase(inputPhrase: String)
-//        fun editEmergencyMessageSetupCustomTextMessage(inputText: String)
     }
 }

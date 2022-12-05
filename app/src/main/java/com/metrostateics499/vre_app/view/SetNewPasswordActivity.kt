@@ -65,13 +65,17 @@ class SetNewPasswordActivity : AppCompatActivity() {
          * or does not match
          */
         if (newPassword.text.toString().isNotEmpty() && confirmNewPassword.text.toString()
-                .isNotEmpty()
+            .isNotEmpty()
         ) {
             if (newPassword.length() in 8..36 && confirmNewPassword.length() in 8..36) {
-                if ((inputNewPassword == inputConfirmNewPassword &&
-                            (emailUsername == Passing.username || emailUsername == Passing.email))
-                    || (inputNewPassword == inputConfirmNewPassword
-                            && emailUsername == adminUsername)
+                if ((
+                    inputNewPassword == inputConfirmNewPassword &&
+                        (emailUsername == Passing.username || emailUsername == Passing.email)
+                    ) ||
+                    (
+                        inputNewPassword == inputConfirmNewPassword &&
+                            emailUsername == adminUsername
+                        )
                 ) {
                     replacingPassword()
                     saveData()
