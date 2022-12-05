@@ -4,9 +4,12 @@ data class EmergencyMessageSetup(
     var title: String,
     var selectedKeyPhraseList: MutableList<KeyPhrase>,
     var selectedCustomTextMessages: MutableList<CustomTextMessage>,
+    var selectedCallMessages: MutableList<CallMessage>,
     var selectedContactList: MutableList<Contact>,
     var activeEMS: Boolean = false,
-    var activeGPS: Boolean = false
+    var activeGPS: Boolean = false,
+    var activeSendText: Boolean = false,
+    var activeCall: Boolean = false
 ) {
     fun addContact(contact: Contact) {
         selectedContactList.add(contact)
@@ -36,6 +39,14 @@ data class EmergencyMessageSetup(
         var nameString = ""
         for (item in selectedCustomTextMessages)
             nameString += (item.title + ": " + item.textMessage + "; ")
+
+        return nameString
+    }
+
+    fun getCallMessageListString(): String {
+        var nameString = ""
+        for (item in selectedCallMessages)
+            nameString += (item.title + ": " + item.callMessage + "; ")
 
         return nameString
     }

@@ -26,7 +26,7 @@ class MenuActivity : AppCompatActivity() {
     private lateinit var longitudeValueTextView: TextView
     private lateinit var coordinatesDateTimeTextView: TextView
     private var locationPermissionCode = 2
-    lateinit var locationManager: LocationGPS
+    private lateinit var locationManager: LocationGPS
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

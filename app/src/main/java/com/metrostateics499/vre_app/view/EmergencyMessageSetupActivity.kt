@@ -9,10 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
-import com.metrostateics499.vre_app.model.data.Contact
-import com.metrostateics499.vre_app.model.data.CustomTextMessage
-import com.metrostateics499.vre_app.model.data.EmergencyMessageSetup
-import com.metrostateics499.vre_app.model.data.KeyPhrase
+import com.metrostateics499.vre_app.model.data.*
 import com.metrostateics499.vre_app.utility.EmergencyMessagePopUps
 import com.metrostateics499.vre_app.view.adapters.EmergencyMessageSetupAdapter
 import kotlinx.android.synthetic.main.activity_emergency_message_setup_menu.*
@@ -110,7 +107,7 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
         val newContactList: MutableList<Contact> = mutableListOf()
         val newKeyPhraseList: MutableList<KeyPhrase> = mutableListOf()
         val newCustomTextMessageList: MutableList<CustomTextMessage> = mutableListOf()
-
+        val newCallMessageList: MutableList<CallMessage> = mutableListOf()
         if (inputTitle.isEmpty()) {
             Toast.makeText(
                 this@EmergencyMessageSetupActivity,
@@ -130,6 +127,7 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
                 inputTitle,
                 newKeyPhraseList,
                 newCustomTextMessageList,
+                newCallMessageList,
                 newContactList
             )
             Passing.emergencyMessageSetupList.add(newEmergencyMessageSetup)

@@ -1,15 +1,22 @@
 package com.metrostateics499.vre_app.view
 
 import android.Manifest
+import android.Manifest.permission.READ_PHONE_STATE
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.AudioManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
+import android.speech.tts.TextToSpeech
+import android.telephony.PhoneStateListener
 import android.telephony.SmsManager
+import android.telephony.TelephonyManager
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -30,7 +37,7 @@ import java.util.*
  *
  * @constructor Create empty Listen speech activity
  */
-class ListenSpeechActivity : AppCompatActivity() {
+class ListenSpeechActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private lateinit var speechOnButton: Button
     private lateinit var speechOffButton: Button
@@ -38,6 +45,11 @@ class ListenSpeechActivity : AppCompatActivity() {
     private lateinit var speechRecognizer: SpeechRecognizer
     private val REQRECORDAUDIOCODE = 10001
     private lateinit var recordAudioPermissionRequest: ActivityResultLauncher<Array<String>>
+    private val requestCall = 1
+    private var textToSpeech: TextToSpeech? = null
+
+    private var callMessageTTS: String? = null
+    private lateinit var telephonyManager: TelephonyManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +62,10 @@ class ListenSpeechActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         speechRecognizer.destroy()
+        if (textToSpeech != null) {
+            textToSpeech!!.stop()
+            textToSpeech!!.shutdown()
+        }
     }
 
     /**
@@ -119,71 +135,92 @@ class ListenSpeechActivity : AppCompatActivity() {
                 val coordinatesDate: String
 
                 if (emergencySetup != null) {
-                    if (emergencySetup.activeGPS) {
-                        coordinatesLinks =
-                            "My last known location: www.google.com/maps/place/" +
-                            Passing.latitude + "," + Passing.longitude +
-                            " or http://maps.apple.com/?daddr=" +
-                            Passing.latitude + "," + Passing.longitude
-                        coordinatesDate =
-                            "Last known coordinates were taken on date: \n" + Passing.dateTimeGPS +
-                            "\nLatitude: " + Passing.latitude +
-                            "\nLongitude: " + Passing.longitude
-                    } else {
-                        coordinatesLinks = "Last Known Location: Unavailable or Deactivated "
-                        coordinatesDate = ""
-                    }
-                    for (contact in emergencySetup.selectedContactList) {
-                        try {
-                            val smsManager: SmsManager =
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                                    applicationContext.getSystemService<SmsManager>(
-                                        SmsManager::class.java
-                                    )
-                                } else {
-                                    SmsManager.getDefault()
-                                }
-                            val emergencyTextMessage =
-                                "VOICE RECOGNITION EMERGENCY: " +
-                                    emergencySetup.getCustomTextListString()
-                            var textMessages: List<String>
+                    if (emergencySetup.activeSendText) {
+                        if (emergencySetup.activeGPS) {
+                            coordinatesLinks =
+                                "My last known location: www.google.com/maps/place/" +
+                                Passing.latitude + "," + Passing.longitude +
+                                " or http://maps.apple.com/?daddr=" +
+                                Passing.latitude + "," + Passing.longitude
+                            coordinatesDate =
+                                "Last known coordinates were taken on date: \n" +
+                                Passing.dateTimeGPS +
+                                "\nLatitude: " + Passing.latitude +
+                                "\nLongitude: " + Passing.longitude
+                        } else {
+                            coordinatesLinks = "Last Known Location: Unavailable or Deactivated "
+                            coordinatesDate = ""
+                        }
+                        for (contact in emergencySetup.selectedContactList) {
+                            try {
+                                val smsManager: SmsManager =
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                                        applicationContext.getSystemService(
+                                            SmsManager::class.java
+                                        )
+                                    } else {
+                                        SmsManager.getDefault()
+                                    }
+                                val emergencyTextMessage =
+                                    "VOICE RECOGNITION EMERGENCY: " +
+                                        emergencySetup.getCustomTextListString()
+                                var textMessages: List<String>
 
-                            if (emergencyTextMessage.length > 160 && emergencySetup.activeGPS) {
-                                textMessages = splitEmergencyTextMessage(emergencyTextMessage)
-                                textMessages = (textMessages + coordinatesLinks + coordinatesDate)
-                            } else if (emergencyTextMessage.length > 160 &&
-                                !emergencySetup.activeGPS
-                            ) {
-                                textMessages = splitEmergencyTextMessage(emergencyTextMessage)
-                                textMessages = (textMessages + coordinatesLinks)
-                            } else if (emergencyTextMessage.length <= 160 &&
-                                !emergencySetup.activeGPS
-                            ) {
-                                textMessages =
-                                    listOf(emergencyTextMessage, coordinatesLinks)
-                            } else {
-                                textMessages =
-                                    listOf(emergencyTextMessage, coordinatesLinks, coordinatesDate)
-                            }
-                            for (textItem in textMessages) {
-                                smsManager.sendTextMessage(
-                                    contact.phoneNumber, null,
-                                    textItem, null, null
+                                if (emergencyTextMessage.length > 160 && emergencySetup.activeGPS) {
+                                    textMessages = splitEmergencyTextMessage(emergencyTextMessage)
+                                    textMessages = (
+                                        textMessages +
+                                            coordinatesLinks +
+                                            coordinatesDate
+                                        )
+                                } else if (emergencyTextMessage.length > 160 &&
+                                    !emergencySetup.activeGPS
+                                ) {
+                                    textMessages = splitEmergencyTextMessage(emergencyTextMessage)
+                                    textMessages = (textMessages + coordinatesLinks)
+                                } else if (emergencyTextMessage.length <= 160 &&
+                                    !emergencySetup.activeGPS
+                                ) {
+                                    textMessages =
+                                        listOf(emergencyTextMessage, coordinatesLinks)
+                                } else {
+                                    textMessages =
+                                        listOf(
+                                            emergencyTextMessage,
+                                            coordinatesLinks,
+                                            coordinatesDate
+                                        )
+                                }
+                                for (textItem in textMessages) {
+                                    smsManager.sendTextMessage(
+                                        contact.phoneNumber, null,
+                                        textItem, null, null
+                                    )
+                                    Thread.sleep(1_500)
+                                }
+                                Toast.makeText(
+                                    applicationContext, "Message Sent",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            } catch (e: Exception) {
+                                Toast.makeText(
+                                    applicationContext,
+                                    "Missing Contact Data" +
+                                        e.message.toString(),
+                                    Toast.LENGTH_LONG
                                 )
-                                Thread.sleep(1_500)
+                                    .show()
                             }
-                            Toast.makeText(
-                                applicationContext, "Message Sent",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        } catch (e: Exception) {
-                            Toast.makeText(
-                                applicationContext,
-                                "Missing Contact Data" +
-                                    e.message.toString(),
-                                Toast.LENGTH_LONG
+                        }
+                    }
+                    if (emergencySetup.activeCall) {
+                        callMessageTTS = emergencySetup.getCallMessageListString()
+//                        callMessageTTS?.let { saveToAudioFile(it) }
+                        Thread.sleep(2_000)
+                        for (contact in emergencySetup.selectedContactList) {
+                            makePhoneCall(
+                                contact.phoneNumber
                             )
-                                .show()
                         }
                     }
                 }
@@ -248,13 +285,22 @@ class ListenSpeechActivity : AppCompatActivity() {
      */
     private fun initializeComponents() {
         recordAudioPermissionRequest =
-            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+            registerForActivityResult(
+                ActivityResultContracts
+                    .RequestMultiplePermissions()
+            ) {
             }
         speechOnButton = findViewById(R.id.activateSpeech)
         speechOffButton = findViewById(R.id.disableSpeech)
         txtResult = findViewById(R.id.speechToTextBox)
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
+        textToSpeech = TextToSpeech(this, this)
+        telephonyManager = this.getSystemService(TELEPHONY_SERVICE) as TelephonyManager
+
         requestSmsPermission()
+        requestCallPermission()
+
+        telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE)
     }
 
     /**
@@ -272,6 +318,17 @@ class ListenSpeechActivity : AppCompatActivity() {
                 ActivityCompat.requestPermissions(
                     this, arrayOf(Manifest.permission.RECORD_AUDIO),
                     REQRECORDAUDIOCODE
+                )
+            }
+            if (ActivityCompat.checkSelfPermission(
+                    this, READ_PHONE_STATE
+                )
+                != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(READ_PHONE_STATE),
+                    4
                 )
             }
         } else {
@@ -340,6 +397,82 @@ class ListenSpeechActivity : AppCompatActivity() {
             val permissionList = arrayOfNulls<String>(1)
             permissionList[0] = permission
             ActivityCompat.requestPermissions(this, permissionList, 1)
+        }
+    }
+
+    private fun requestCallPermission() {
+        val permission = Manifest.permission.CALL_PHONE
+        val grant = ContextCompat.checkSelfPermission(this, permission)
+        if (grant != PackageManager.PERMISSION_GRANTED) {
+            val permissionList = arrayOfNulls<String>(1)
+            permissionList[0] = permission
+            ActivityCompat.requestPermissions(this, permissionList, requestCall)
+        }
+    }
+
+    private fun makePhoneCall(phoneNumber: String) {
+
+        if (phoneNumber.trim { it <= ' ' }.isNotEmpty()) {
+            if (ContextCompat.checkSelfPermission(
+                    this@ListenSpeechActivity,
+                    Manifest.permission.CALL_PHONE
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this@ListenSpeechActivity,
+                    arrayOf(Manifest.permission.CALL_PHONE),
+                    requestCall
+                )
+            } else {
+                val dial = "tel:$phoneNumber"
+
+                startActivity(Intent(Intent.ACTION_CALL, Uri.parse(dial)))
+            }
+        }
+    }
+
+    private var phoneStateListener = object : PhoneStateListener() {
+        override fun onCallStateChanged(state: Int, incomingNumber: String) {
+            // TODO Auto-generated method stub
+            super.onCallStateChanged(state, incomingNumber)
+            when (state) {
+                TelephonyManager.CALL_STATE_OFFHOOK -> {
+                    Toast.makeText(
+                        this@ListenSpeechActivity,
+                        "Call Answered",
+                        Toast.LENGTH_LONG
+                    ).show()
+
+                    val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
+                    val myHashAlarm: HashMap<String, String> = HashMap()
+                    myHashAlarm[TextToSpeech.Engine.KEY_PARAM_STREAM] =
+                        AudioManager.STREAM_VOICE_CALL.toString()
+                    audioManager.mode = AudioManager.MODE_IN_COMMUNICATION
+                    audioManager.isSpeakerphoneOn = true
+                    Thread.sleep(5_000)
+                    textToSpeech?.speak(callMessageTTS, TextToSpeech.QUEUE_FLUSH, myHashAlarm)
+                    textToSpeech?.speak(callMessageTTS, TextToSpeech.QUEUE_ADD, myHashAlarm)
+                }
+                TelephonyManager.CALL_STATE_IDLE -> {
+                    Toast.makeText(
+                        this@ListenSpeechActivity,
+                        "Phone IDLE",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
+    }
+
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            val result = textToSpeech!!.setLanguage(Locale.US)
+
+            if (result == TextToSpeech.LANG_MISSING_DATA ||
+                result == TextToSpeech.LANG_NOT_SUPPORTED
+            ) {
+                Log.e("TTS", "The Language not supported!")
+            }
         }
     }
 }

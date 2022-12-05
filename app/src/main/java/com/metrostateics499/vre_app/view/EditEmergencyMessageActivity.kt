@@ -19,6 +19,8 @@ import kotlinx.android.synthetic.main.activity_edit_emergency_message.view.*
 
 class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePopUps.Listener {
     private val locationPermissionCode = 2
+    private val requestSendTextPermissionCode = 3
+    private val requestCallPermissionCode = 4
 
     private var textViewSelected: String = ""
 
@@ -33,6 +35,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         refreshRelativeLayout4()
         refreshRelativeLayout5GPS()
         refreshRelativeLayout6()
+        refreshRelativeLayoutCall()
 
         val relativeLayout: RelativeLayout = findViewById(R.id.relativeLayout)
         val relativeLayout2: RelativeLayout = findViewById(R.id.relativeLayout2)
@@ -56,6 +59,54 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
 
         relativeLayout4.setOnClickListener {
             goToContactsMenu()
+        }
+
+        relativeLayout3.switchSendText.setOnClickListener {
+            if (requestSmsPermission()) {
+                if (switchSendText.isChecked) {
+                    switchSendText.isChecked = true
+                    Passing.selectedEmergencyMessageSetup.activeSendText = true
+                    Toast.makeText(
+                        this@EditEmergencyMessageActivity,
+                        "You have activated SMS for this EMS",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    switchSendText.isChecked = false
+                    Passing.selectedEmergencyMessageSetup.activeSendText = false
+                    Toast.makeText(
+                        this@EditEmergencyMessageActivity,
+                        "You have deactivated SMS for this EMS",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            } else {
+                switchSendText.isChecked = false
+            }
+        }
+
+        relativeLayoutCall.switchCall.setOnClickListener {
+            if (requestCallPermission()) {
+                if (switchCall.isChecked) {
+                    switchCall.isChecked = true
+                    Passing.selectedEmergencyMessageSetup.activeCall = true
+                    Toast.makeText(
+                        this@EditEmergencyMessageActivity,
+                        "You have activated Calling for this EMS",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    switchCall.isChecked = false
+                    Passing.selectedEmergencyMessageSetup.activeCall = false
+                    Toast.makeText(
+                        this@EditEmergencyMessageActivity,
+                        "You have deactivated calling for this EMS",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            } else {
+                switchCall.isChecked = false
+            }
         }
 
         relativeLayout5GPS.switchGPS.setOnClickListener {
@@ -139,6 +190,10 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
                 ).show()
             }
         }
+
+        relativeLayoutCall.setOnClickListener {
+            goToCallMenu()
+        }
     }
 
     override fun onRequestPermissionsResult(
@@ -162,7 +217,53 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
             } else {
                 Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
             }
+        } else if (requestCode == requestSendTextPermissionCode) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                switchSendText.isChecked = true
+                Passing.selectedEmergencyMessageSetup.activeSendText = true
+                Toast.makeText(
+                    this@EditEmergencyMessageActivity,
+                    "Permission Granted.\nYou have activated SMS for this EMS",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
+            }
+        } else if (requestCode == requestCallPermissionCode) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                switchCall.isChecked = true
+                Passing.selectedEmergencyMessageSetup.activeCall = true
+                Toast.makeText(
+                    this@EditEmergencyMessageActivity,
+                    "Permission Granted.\nYou have activated Calling for this EMS",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
+            }
         }
+    }
+
+    private fun requestSmsPermission(): Boolean {
+        val permission = Manifest.permission.SEND_SMS
+        val grant = ContextCompat.checkSelfPermission(this, permission)
+        if (grant != PackageManager.PERMISSION_GRANTED) {
+            val permissionList = arrayOfNulls<String>(1)
+            permissionList[0] = permission
+            ActivityCompat.requestPermissions(this, permissionList, requestSendTextPermissionCode)
+        }
+        return grant == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestCallPermission(): Boolean {
+        val permission = Manifest.permission.CALL_PHONE
+        val grant = ContextCompat.checkSelfPermission(this, permission)
+        if (grant != PackageManager.PERMISSION_GRANTED) {
+            val permissionList = arrayOfNulls<String>(1)
+            permissionList[0] = permission
+            ActivityCompat.requestPermissions(this, permissionList, requestCallPermissionCode)
+        }
+        return grant == PackageManager.PERMISSION_GRANTED
     }
 
     private fun requestGPSPermission(): Boolean {
@@ -186,6 +287,10 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
 
     private fun goToCustomTextMenu() {
         startActivity(Intent(this, CustomTextActivity::class.java))
+    }
+
+    private fun goToCallMenu() {
+        startActivity(Intent(this, CallOptionsActivity::class.java))
     }
 
     private fun refreshRelativeLayout() {
@@ -220,6 +325,23 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
             val textView3: TextView = findViewById(R.id.text_custom_text)
             textView3.text = "Choose or Create Custom Text Messages"
         }
+        switchSendText.isChecked = Passing.selectedEmergencyMessageSetup.activeSendText
+    }
+
+    private fun refreshRelativeLayoutCall() {
+        if (Passing.selectedEmergencyMessageSetup.selectedCallMessages
+            .isNotEmpty()
+        ) {
+            val textView3: TextView = findViewById(R.id.text_call_description)
+            textView3.text =
+                (
+                    Passing.selectedEmergencyMessageSetup.getCallMessageListString()
+                    )
+        } else if (Passing.selectedEmergencyMessageSetup.selectedCallMessages.isEmpty()) {
+            val textView3: TextView = findViewById(R.id.text_custom_text)
+            textView3.text = "Choose or Create Call Messages\nSwitch Activates The Call"
+        }
+        switchCall.isChecked = Passing.selectedEmergencyMessageSetup.activeCall
     }
 
     private fun refreshRelativeLayout4() {
@@ -302,6 +424,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         refreshRelativeLayout3()
         refreshRelativeLayout4()
         refreshRelativeLayout6()
+        refreshRelativeLayoutCall()
     }
 
     private fun checkTitleUniqueness(title: String): Boolean {
