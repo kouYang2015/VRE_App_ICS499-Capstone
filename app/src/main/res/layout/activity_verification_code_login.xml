@@ -74,14 +74,16 @@
 
     <TextView
         android:id="@+id/code_login_invalid"
-        android:layout_width="wrap_content"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:text="@string/error_new_password_display"
+        android:text="@string/error_code_login_display"
         android:textColor="#FA8072"
         android:textSize="16sp"
-        android:textAlignment="textStart"
+        android:textAlignment="center"
+        app:layout_constraintVertical_bias="0"
         app:layout_constraintBottom_toTopOf="@id/code_login_code_text"
         app:layout_constraintLeft_toLeftOf="@id/code_login_verification_code"
+        app:layout_constraintTop_toBottomOf="@id/code_login_info"
         app:layout_constraintRight_toRightOf="@id/code_login_verification_code" />
 
     <TextView
@@ -92,8 +94,8 @@
         android:labelFor="@+id/code_login_password"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintTop_toBottomOf="@id/code_login_invalid"
         app:layout_constraintLeft_toLeftOf="@id/code_login_verification_code" />
 
     <EditText

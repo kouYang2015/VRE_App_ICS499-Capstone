@@ -61,4 +61,6 @@
     <string name="code_login_info_text">Use verification code and your password to login to your account</string>
     <string name="verification_code">Verification code</string>
     <string name="search_email_username_button">Search</string>
+    <string name="error_code_login_display">" "</string>
+
 </resources>
