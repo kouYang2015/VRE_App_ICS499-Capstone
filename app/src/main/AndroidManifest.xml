@@ -29,6 +29,20 @@
         android:theme="@style/Theme.VRE_App"
         tools:targetApi="31">
         <activity
+            android:name=".view.VerificationCodeLoginActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".view.ForgotEmailUsernameActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".view.SetNewPasswordActivity"
             android:exported="false">
             <meta-data
@@ -51,7 +65,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".view.ContactActivity"
             android:exported="false">
@@ -59,7 +72,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".view.CustomTextActivity"
             android:exported="false">
@@ -82,7 +94,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".view.EditEmergencyMessageActivity"
             android:exported="false">
@@ -90,9 +101,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
-
             android:name=".view.ListenSpeechActivity"
             android:exported="false">
             <meta-data
@@ -100,7 +109,6 @@
                 android:value="" />
         </activity>
         <activity
-
             android:name=".view.ForgotPasswordActivity"
             android:exported="false">
             <meta-data
@@ -116,7 +124,6 @@
         </activity>
         <activity
             android:name=".view.LoginActivity"
-
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
