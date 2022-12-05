@@ -1,5 +1,7 @@
 package com.metrostateics499.vre_app.model
 
+import com.metrostateics499.vre_app.model.data.*
+
 /**
  * Singleton object that is used to store user data.
  *
