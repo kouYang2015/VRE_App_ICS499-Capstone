@@ -63,20 +63,22 @@ class VerificationCodeLoginActivity : AppCompatActivity() {
         val lengthNotCorrectCode = "Code must be 6 digits"
 
         if (verificationCode.text.toString().isNotEmpty() && password.text.toString()
-                .isNotEmpty()
+            .isNotEmpty()
         ) {
             if (verificationCode.length() == 6) {
                 if ((
-                            (
-                                    (userInputCode == codeHint) && (
-                                            emailUsername == Passing.username ||
-                                                    emailUsername == Passing.email
-                                            )
-                                    ) &&
-                                    userInputPassword == Passing.password
-                            ) ||
-                    ((userInputCode == codeHint || userInputCode == adminCode)
-                            && (userInputPassword == adminPassword))
+                    (
+                        (userInputCode == codeHint) && (
+                            emailUsername == Passing.username ||
+                                emailUsername == Passing.email
+                            )
+                        ) &&
+                        userInputPassword == Passing.password
+                    ) ||
+                    (
+                        (userInputCode == codeHint || userInputCode == adminCode) &&
+                            (userInputPassword == adminPassword)
+                        )
                 ) {
                     // Displays message when successfully logged in
                     Toast.makeText(
