@@ -14,6 +14,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginButton: Button
     private lateinit var createAccountButton: Button
     private lateinit var forgotPasswordTextClickable: TextView
+    private lateinit var forgotEmailUsernameClickable: TextView
     private lateinit var invalidCredentials: TextView
     private lateinit var username: EditText
     private lateinit var password: EditText
@@ -35,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
         loginButton = findViewById(R.id.login_button)
         createAccountButton = findViewById(R.id.create_account_button)
         forgotPasswordTextClickable = findViewById(R.id.forgot_password)
+        forgotEmailUsernameClickable = findViewById(R.id.forgot_email_username)
         invalidCredentials = findViewById(R.id.invalid_credentials)
         username = findViewById(R.id.username)
         password = findViewById(R.id.password)
@@ -59,6 +61,15 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, "Forgot your password? ", Toast.LENGTH_LONG).show()
 
             val intent = Intent(this, ForgotPasswordActivity::class.java)
+            startActivity(intent)
+        }
+
+        // This is the forgot email or username text that is clickable
+        forgotEmailUsernameClickable.setOnClickListener {
+            // Display message when user clicks it
+            Toast.makeText(this, "Forgot your Email/Username? ", Toast.LENGTH_LONG).show()
+
+            val intent = Intent(this, ForgotEmailUsernameActivity::class.java)
             startActivity(intent)
         }
     }

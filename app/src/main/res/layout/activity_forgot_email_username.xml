@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FF185CA5"
-    tools:context=".view.SetNewPasswordActivity">
+    tools:context=".view.ForgotEmailUsernameActivity">
 
     <TextView
         android:id="@+id/app_logo"
@@ -27,129 +27,110 @@
         android:text="@string/app_title_name"
         android:textColor="@color/white"
         android:textSize="20sp"
+        app:layout_constraintVertical_bias="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/app_logo"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/app_logo" />
 
 
     <TextView
-        android:id="@+id/set_password_email_username_display"
+        android:id="@+id/forgot_email_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/display_email_username"
+        android:text="@string/forgot_email_username_text"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:textStyle="bold"
+        app:layout_constraintVertical_bias=".01"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_front_title"
-        app:layout_constraintVertical_bias="0.056" />
+        app:layout_constraintTop_toBottomOf="@id/app_front_title" />
 
     <TextView
-        android:id="@+id/set_new_password"
+        android:id="@+id/find_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/set_new_password_text"
+        android:text="@string/find_account_text"
         android:textColor="#FFFF00"
         android:textSize="25sp"
         android:textStyle="bold"
+        app:layout_constraintVertical_bias=".05"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/set_password_email_username_display" />
+        app:layout_constraintTop_toBottomOf="@id/forgot_email_username" />
 
     <TextView
-        android:id="@+id/set_new_password_info"
-        android:layout_width="277dp"
-        android:layout_height="44dp"
-        android:text="@string/set_new_password_info"
+        android:id="@+id/forgot_email_username_text"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="@string/forgot_email_username_info"
+        android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:textAlignment="center"
-        app:layout_constraintTop_toBottomOf="@id/set_new_password" />
+        app:layout_constraintTop_toBottomOf="@id/find_account"
+        app:layout_constraintVertical_bias="0" />
 
     <TextView
-        android:id="@+id/invalid_new_password"
-        android:layout_width="wrap_content"
+        android:id="@+id/forgot_emailUsername_invalid"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:text="@string/error_new_password_display"
+        android:text="@string/error_account_display"
         android:textColor="#FA8072"
         android:textSize="16sp"
-        android:textAlignment="textStart"
-        app:layout_constraintBottom_toTopOf="@id/new_password_text"
-        app:layout_constraintLeft_toLeftOf="@id/new_password"
-        app:layout_constraintRight_toRightOf="@id/new_password" />
+        android:textStyle="bold"
+        android:textAlignment="center"
+        app:layout_constraintVertical_bias="0.02"
+        app:layout_constraintLeft_toLeftOf="@id/forgot_emailUsername_verify_email_username"
+        app:layout_constraintRight_toRightOf="@id/forgot_emailUsername_verify_email_username"
+        app:layout_constraintTop_toBottomOf="@id/forgot_email_username_text" />
 
     <TextView
-        android:id="@+id/new_password_text"
+        android:id="@+id/forgot_emailUsername_verify_email_username_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/new_password"
-        android:labelFor="@+id/new_password"
+        android:text="@string/verify_email_username_text"
+        android:labelFor="@+id/verify_email_username"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@id/new_password" />
+        app:layout_constraintTop_toBottomOf="@id/forgot_emailUsername_invalid"
+        app:layout_constraintLeft_toLeftOf="@id/forgot_emailUsername_verify_email_username" />
 
     <EditText
-        android:id="@id/new_password"
+        android:id="@+id/forgot_emailUsername_verify_email_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="70dp"
+        android:layout_marginBottom="68dp"
         android:background="@drawable/round_style"
         android:backgroundTint="@color/white"
         android:importantForAutofill="no"
-        android:inputType="textPassword|textNoSuggestions"
+        android:inputType="textEmailAddress|textNoSuggestions"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/new_password_text" />
-
-    <TextView
-        android:id="@+id/confirm_new_password_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/confirm_new_password_text"
-        android:labelFor="@+id/confirm_new_password"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toLeftOf="@id/confirm_new_password"
-        app:layout_constraintTop_toBottomOf="@id/new_password" />
-
-    <EditText
-        android:id="@id/confirm_new_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="70dp"
-        android:background="@drawable/round_style"
-        android:backgroundTint="@color/white"
-        android:importantForAutofill="no"
-        android:inputType="textPassword|textNoSuggestions"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/confirm_new_password_text"
+        app:layout_constraintTop_toBottomOf="@id/forgot_emailUsername_verify_email_username_text"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
     <Button
-        android:id="@+id/new_password_cont_button"
+        android:id="@+id/search_email_username_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:background="@drawable/round_style"
-        android:text="@string/continue_button"
+        android:text="@string/search_email_username_button"
         android:textAllCaps="false"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/confirm_new_password" />
+        app:layout_constraintTop_toBottomOf="@id/forgot_emailUsername_verify_email_username" />
 
     <ImageView
         android:id="@+id/maverick_image"
