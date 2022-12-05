@@ -185,9 +185,11 @@ class ListenSpeechActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                                         listOf(emergencyTextMessage, coordinatesLinks)
                                 } else {
                                     textMessages =
-                                        listOf(emergencyTextMessage,
+                                        listOf(
+                                            emergencyTextMessage,
                                             coordinatesLinks,
-                                            coordinatesDate)
+                                            coordinatesDate
+                                        )
                                 }
                                 for (textItem in textMessages) {
                                     smsManager.sendTextMessage(
