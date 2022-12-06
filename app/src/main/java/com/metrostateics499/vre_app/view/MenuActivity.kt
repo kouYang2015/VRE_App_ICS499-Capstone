@@ -362,7 +362,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                             Thread.sleep(1_500)
                         }
                         Toast.makeText(
-                            applicationContext, "Message Sent",
+                            applicationContext, "Emergency Message Sent",
                             Toast.LENGTH_LONG
                         ).show()
                     } catch (e: Exception) {
@@ -378,6 +378,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             }
             if (emergencySetup.activeGPS && emergencySetup.activeSendText) {
                 emergencySetup.activePingLocation = true
+                switchMenuEMSPingingLocation.isChecked = true
                 AsyncTask.execute {
                     while (emergencySetup.activePingLocation) {
                         Thread.sleep(120_000)
@@ -410,7 +411,13 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                                     contact.phoneNumber, null,
                                     coordinatesDate, null, null
                                 )
+
                             }
+                            Toast.makeText(
+                                this@MenuActivity,
+                                "Location Ping Sent",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 }
@@ -419,6 +426,11 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 playActivationWarningMessage()
             }
             if (emergencySetup.activeCall) {
+                Toast.makeText(
+                    this@MenuActivity,
+                    "Calling...",
+                    Toast.LENGTH_SHORT
+                ).show()
                 //                        callMessageTTS?.let { saveToAudioFile(it) }
                 Thread.sleep(2_000)
                 for (contact in emergencySetup.selectedContactList) {
