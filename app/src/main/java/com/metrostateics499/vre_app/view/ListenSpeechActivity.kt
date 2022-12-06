@@ -400,7 +400,7 @@ class ListenSpeechActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         if (requestCode == REQRECORDAUDIOCODE && permissionGranted(grantResults)
         ) {
             Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
-        } else if(requestCode == REQRECORDAUDIOCODE) {
+        } else if (requestCode == REQRECORDAUDIOCODE) {
             showMicPermissionRationale()
         } else {
             Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
