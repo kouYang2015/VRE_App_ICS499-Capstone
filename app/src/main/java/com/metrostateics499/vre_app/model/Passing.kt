@@ -24,6 +24,7 @@ object Passing {
     lateinit var selectedCustomTextObject: CustomTextMessage
     lateinit var selectedCallMessageObject: CallMessage
 
+    var vreServiceActive = false
     var locationTrackingRequested = false
     var latitude: String = "Unknown"
     var longitude: String = "Unknown"

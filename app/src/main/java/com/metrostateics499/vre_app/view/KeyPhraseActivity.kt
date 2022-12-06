@@ -39,6 +39,7 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
     private var viewSelectedBoolean: Boolean = false
     private var viewSelected: View? = null
 
+    private val REQRECORDAUDIOCODE = 10001
     private lateinit var speechRecognizer: SpeechRecognizer
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -209,9 +210,8 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 1) {
+        if (requestCode == REQRECORDAUDIOCODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                switchGPS.isChecked = true
                 Toast.makeText(
                     this@KeyPhraseActivity,
                     "Permission Granted.",
@@ -229,7 +229,7 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
         if (grant != PackageManager.PERMISSION_GRANTED) {
             val permissionList = arrayOfNulls<String>(1)
             permissionList[0] = permission
-            ActivityCompat.requestPermissions(this, permissionList, 1)
+            ActivityCompat.requestPermissions(this, permissionList, REQRECORDAUDIOCODE)
         }
         return grant == PackageManager.PERMISSION_GRANTED
     }

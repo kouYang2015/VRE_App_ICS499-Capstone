@@ -221,6 +221,7 @@ class ListenSpeechActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     }
                     if (emergencySetup.activeGPS && emergencySetup.activeSendText) {
                         emergencySetup.activePingLocation = true
+
                         AsyncTask.execute {
                             while (emergencySetup.activePingLocation) {
                                 Thread.sleep(120_000)
@@ -310,11 +311,6 @@ class ListenSpeechActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
      * @return KeyPhrase if there is a KeyPhrase object that matches User's speech.
      */
     private fun findKeyPhraseMatch(incomingSpeech: String?): KeyPhrase? {
-//        for (keyPhraseElement in Passing.keyPhraseList) {
-//            if (incomingSpeech?.contains(keyPhraseElement.phrase, true) == true) {
-//                return keyPhraseElement
-//            }
-//        }
         for (emergencySetup in Passing.emergencyMessageSetupList) {
             for (phrase in emergencySetup.selectedKeyPhraseList) {
                 if (Passing.selectedEmergencyMessageSetup.activeEMS) {
