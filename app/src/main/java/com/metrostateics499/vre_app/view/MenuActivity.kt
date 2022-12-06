@@ -112,31 +112,36 @@ class MenuActivity : AppCompatActivity() {
                 ).show()
             }
         }
-
     }
 
-    var dks = Dks(application, supportFragmentManager, object: DksListener {
-        override fun onDksLiveSpeechResult(liveSpeechResult: String) {
-            Log.d("DKS", "Speech result - $liveSpeechResult")
-        }
+    var dks = Dks(
+        application, supportFragmentManager,
+        object : DksListener {
+            override fun onDksLiveSpeechResult(liveSpeechResult: String) {
+                Log.d("DKS", "Speech result - $liveSpeechResult")
+            }
 
-        override fun onDksFinalSpeechResult(speechResult: String) {
-            Log.d("DKS", "Final speech result - $speechResult")
-        }
+            override fun onDksFinalSpeechResult(speechResult: String) {
+                Log.d("DKS", "Final speech result - $speechResult")
+            }
 
-        override fun onDksLiveSpeechFrequency(frequency: Float) {
-            Log.d("DKS", "frequency - $frequency")
-        }
+            override fun onDksLiveSpeechFrequency(frequency: Float) {
+                Log.d("DKS", "frequency - $frequency")
+            }
 
-        override fun onDksLanguagesAvailable(defaultLanguage: String?, supportedLanguages: ArrayList<String>?) {
-            Log.d("DKS", "defaultLanguage - $defaultLanguage")
-            Log.d("DKS", "supportedLanguages - $supportedLanguages")
-        }
+            override fun onDksLanguagesAvailable(
+                defaultLanguage: String?,
+                supportedLanguages: ArrayList<String>?
+            ) {
+                Log.d("DKS", "defaultLanguage - $defaultLanguage")
+                Log.d("DKS", "supportedLanguages - $supportedLanguages")
+            }
 
-        override fun onDksSpeechError(errMsg: String) {
-            Log.d("DKS", "errMsg - $errMsg")
+            override fun onDksSpeechError(errMsg: String) {
+                Log.d("DKS", "errMsg - $errMsg")
+            }
         }
-    })
+    )
 
     private fun checkIfPingingLocation() {
         for (emergencyMessage in Passing.emergencyMessageSetupList) {
