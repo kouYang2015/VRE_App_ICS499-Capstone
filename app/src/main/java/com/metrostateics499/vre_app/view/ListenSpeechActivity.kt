@@ -514,8 +514,10 @@ class ListenSpeechActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                         .getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL)
                     audioManager.mode = AudioManager.MODE_IN_CALL
                     audioManager.isSpeakerphoneOn = true
-                    audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL,
-                        streamMaxVolume, 0)
+                    audioManager.setStreamVolume(
+                        AudioManager.STREAM_VOICE_CALL,
+                        streamMaxVolume, 0
+                    )
 
                     Thread.sleep(5_000)
 //
