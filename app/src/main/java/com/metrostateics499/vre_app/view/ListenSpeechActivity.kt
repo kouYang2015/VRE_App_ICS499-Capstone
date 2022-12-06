@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.AudioManager
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.speech.RecognitionListener
@@ -47,6 +48,11 @@ class ListenSpeechActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var recordAudioPermissionRequest: ActivityResultLauncher<Array<String>>
     private val requestCall = 1
     private var textToSpeech: TextToSpeech? = null
+    private lateinit var audioManager: AudioManager
+    private var myHashAlarm: HashMap<String, String> = HashMap()
+    private var warningMessage: String = "Voice Recognition Emergency Services " +
+        "have been activated. Your emergency message and your location has " +
+        "been sent to all your emergency contacts."
 
     private var callMessageTTS: String? = null
     private lateinit var telephonyManager: TelephonyManager
@@ -131,8 +137,8 @@ class ListenSpeechActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             if (findKeyPhraseMatch(incomingSpeech) != null) {
                 val emergencySetup =
                     (findEmergencyMessageSetupMatch(findKeyPhraseMatch(incomingSpeech)?.phrase))
-                val coordinatesLinks: String
-                val coordinatesDate: String
+                var coordinatesLinks: String
+                var coordinatesDate: String
 
                 if (emergencySetup != null) {
                     if (emergencySetup.activeSendText) {
@@ -213,8 +219,49 @@ class ListenSpeechActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                             }
                         }
                     }
+                    if (emergencySetup.activeGPS && emergencySetup.activeSendText) {
+                        emergencySetup.activePingLocation = true
+                        AsyncTask.execute {
+                            while (emergencySetup.activePingLocation) {
+                                Thread.sleep(120_000)
+                                if (emergencySetup.activePingLocation) {
+                                    val smsManager: SmsManager =
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                                            applicationContext.getSystemService(
+                                                SmsManager::class.java
+                                            )
+                                        } else {
+                                            SmsManager.getDefault()
+                                        }
+                                    coordinatesLinks =
+                                        "New Location Ping: www.google.com/maps/place/" +
+                                        Passing.latitude + "," + Passing.longitude +
+                                        " or http://maps.apple.com/?daddr=" +
+                                        Passing.latitude + "," + Passing.longitude
+                                    coordinatesDate =
+                                        "Coordinates Timestamp: \n" +
+                                        Passing.dateTimeGPS +
+                                        "\nLatitude: " + Passing.latitude +
+                                        "\nLongitude: " + Passing.longitude
+                                    for (contact in emergencySetup.selectedContactList) {
+                                        smsManager.sendTextMessage(
+                                            contact.phoneNumber, null,
+                                            coordinatesLinks, null, null
+                                        )
+                                        Thread.sleep(1_500)
+                                        smsManager.sendTextMessage(
+                                            contact.phoneNumber, null,
+                                            coordinatesDate, null, null
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (emergencySetup.activeAudioWarningMessage) {
+                        playActivationWarningMessage()
+                    }
                     if (emergencySetup.activeCall) {
-                        callMessageTTS = emergencySetup.getCallMessageListString()
 //                        callMessageTTS?.let { saveToAudioFile(it) }
                         Thread.sleep(2_000)
                         for (contact in emergencySetup.selectedContactList) {
@@ -296,6 +343,10 @@ class ListenSpeechActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
         textToSpeech = TextToSpeech(this, this)
         telephonyManager = this.getSystemService(TELEPHONY_SERVICE) as TelephonyManager
+        audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
+
+        myHashAlarm[TextToSpeech.Engine.KEY_PARAM_STREAM] =
+            AudioManager.STREAM_VOICE_CALL.toString()
 
         requestSmsPermission()
         requestCallPermission()
@@ -431,27 +482,47 @@ class ListenSpeechActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
     }
 
+    private fun playActivationWarningMessage() {
+        val streamMaxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
+        audioManager.mode = AudioManager.MODE_NORMAL
+        audioManager.isSpeakerphoneOn = true
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, streamMaxVolume, 0)
+        textToSpeech?.speak(warningMessage, TextToSpeech.QUEUE_FLUSH, myHashAlarm)
+        textToSpeech?.speak(warningMessage, TextToSpeech.QUEUE_ADD, myHashAlarm)
+    }
+
     private var phoneStateListener = object : PhoneStateListener() {
         override fun onCallStateChanged(state: Int, incomingNumber: String) {
             // TODO Auto-generated method stub
             super.onCallStateChanged(state, incomingNumber)
             when (state) {
+                TelephonyManager.CALL_STATE_RINGING -> {
+                    Toast.makeText(
+                        this@ListenSpeechActivity,
+                        "Phone RINGING",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
                 TelephonyManager.CALL_STATE_OFFHOOK -> {
                     Toast.makeText(
                         this@ListenSpeechActivity,
-                        "Call Answered",
+                        "Phone Offhook",
                         Toast.LENGTH_LONG
                     ).show()
-
-                    val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
-                    val myHashAlarm: HashMap<String, String> = HashMap()
-                    myHashAlarm[TextToSpeech.Engine.KEY_PARAM_STREAM] =
-                        AudioManager.STREAM_VOICE_CALL.toString()
-                    audioManager.mode = AudioManager.MODE_IN_COMMUNICATION
+                    Thread.sleep(1_000)
+                    val streamMaxVolume = audioManager
+                        .getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL)
+                    audioManager.mode = AudioManager.MODE_IN_CALL
                     audioManager.isSpeakerphoneOn = true
+                    audioManager.setStreamVolume(
+                        AudioManager.STREAM_VOICE_CALL,
+                        streamMaxVolume, 0
+                    )
+
                     Thread.sleep(5_000)
-                    textToSpeech?.speak(callMessageTTS, TextToSpeech.QUEUE_FLUSH, myHashAlarm)
-                    textToSpeech?.speak(callMessageTTS, TextToSpeech.QUEUE_ADD, myHashAlarm)
+//
+//                    textToSpeech?.speak(callMessageTTS, TextToSpeech.QUEUE_FLUSH, myHashAlarm)
+//                    textToSpeech?.speak(callMessageTTS, TextToSpeech.QUEUE_ADD, myHashAlarm)
                 }
                 TelephonyManager.CALL_STATE_IDLE -> {
                     Toast.makeText(
@@ -459,6 +530,7 @@ class ListenSpeechActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                         "Phone IDLE",
                         Toast.LENGTH_LONG
                     ).show()
+                    audioManager.isSpeakerphoneOn = false
                 }
             }
         }

@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
 import com.metrostateics499.vre_app.model.data.EmergencyMessageSetup
-import kotlinx.android.synthetic.main.activity_edit_emergency_message.*
 import kotlinx.android.synthetic.main.row.view.*
 
 class EmergencyMessageSetupAdapter(
@@ -122,6 +121,7 @@ class EmergencyMessageSetupAdapter(
                     .setTextColor(Color.parseColor("#B50909"))
                 holder.itemView.activeSwitchTextView.text = "Inactive"
                 Passing.selectedEmergencyMessageSetup.activeEMS = false
+                Passing.selectedEmergencyMessageSetup.activePingLocation = false
                 Toast.makeText(
                     context,
                     "You have deactivated VRE service for EMS " + mutableList[position].title,

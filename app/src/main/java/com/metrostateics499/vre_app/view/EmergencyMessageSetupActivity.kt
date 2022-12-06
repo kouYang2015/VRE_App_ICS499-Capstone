@@ -91,14 +91,24 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
     }
 
     override fun deleteEmergencyMessageSetup(customTextString: String) {
-        Passing.emergencyMessageSetupList.remove(Passing.selectedEmergencyMessageSetup)
-        Toast.makeText(
-            this@EmergencyMessageSetupActivity,
-            "You have deleted: " +
-                customTextString,
-            Toast.LENGTH_SHORT
-        ).show()
-        refreshList()
+        if (Passing.selectedEmergencyMessageSetup.activePingLocation) {
+            Toast.makeText(
+                this@EmergencyMessageSetupActivity,
+                "This Emergency Message is still pinging your location. " +
+                    "Deactivate EMS Pinging Location First before deleting" +
+                    customTextString,
+                Toast.LENGTH_LONG
+            ).show()
+        } else {
+            Passing.emergencyMessageSetupList.remove(Passing.selectedEmergencyMessageSetup)
+            Toast.makeText(
+                this@EmergencyMessageSetupActivity,
+                "You have deleted: " +
+                    customTextString,
+                Toast.LENGTH_SHORT
+            ).show()
+            refreshList()
+        }
     }
 
     override fun addEmergencyMessageSetup(
@@ -133,8 +143,7 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
             Passing.emergencyMessageSetupList.add(newEmergencyMessageSetup)
             Toast.makeText(
                 this@EmergencyMessageSetupActivity,
-                "New Emergency Message Successfully " +
-                    "Added",
+                "New Emergency Message Successfully Created",
                 Toast.LENGTH_SHORT
             ).show()
             Passing.selectedEmergencyMessageSetup = newEmergencyMessageSetup

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Bundle
-import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -36,13 +35,15 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         refreshRelativeLayout5GPS()
         refreshRelativeLayout6()
         refreshRelativeLayoutCall()
+        refreshRelativeLayoutAudioWarningMessage()
 
-        val relativeLayout: RelativeLayout = findViewById(R.id.relativeLayout)
-        val relativeLayout2: RelativeLayout = findViewById(R.id.relativeLayout2)
-        val relativeLayout3: RelativeLayout = findViewById(R.id.relativeLayout3)
-        val relativeLayout4: RelativeLayout = findViewById(R.id.relativeLayout4)
-        val relativeLayout5GPS: RelativeLayout = findViewById(R.id.relativeLayout5GPS)
-        val relativeLayout6: RelativeLayout = findViewById(R.id.relativeLayout6)
+//        val relativeLayout: RelativeLayout = findViewById(R.id.relativeLayout)
+//        val relativeLayout2: RelativeLayout = findViewById(R.id.relativeLayout2)
+//        val relativeLayout3: RelativeLayout = findViewById(R.id.relativeLayout3)
+//        val relativeLayout4: RelativeLayout = findViewById(R.id.relativeLayout4)
+//        val relativeLayout5GPS: RelativeLayout = findViewById(R.id.relativeLayout5GPS)
+//        val relativeLayout6: RelativeLayout = findViewById(R.id.relativeLayout6)
+//        val relativeLayoutCall: RelativeLayout = findViewById(R.id.relativeLayoutCall)
 
         relativeLayout.setOnClickListener {
             textViewSelected = Passing.selectedEmergencyMessageSetup.title
@@ -111,7 +112,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
 
         relativeLayout5GPS.switchGPS.setOnClickListener {
             if (requestGPSPermission()) {
-                if (switchGPS.isChecked) {
+                if (switchGPS.isChecked && switchSendText.isChecked) {
                     switchGPS.isChecked = true
                     Passing.selectedEmergencyMessageSetup.activeGPS = true
                     Toast.makeText(
@@ -122,6 +123,15 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
                     if (!Passing.locationTrackingRequested) {
                         openPopUp("menuGPSTrackingInactive")
                     }
+                } else if (switchGPS.isChecked && !switchSendText.isChecked) {
+                    switchGPS.isChecked = false
+                    Passing.selectedEmergencyMessageSetup.activeGPS = false
+                    Toast.makeText(
+                        this@EditEmergencyMessageActivity,
+                        "You must have Custom Texting Activated in " +
+                            "order to send GPS Coordinates",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
                     switchGPS.isChecked = false
                     Passing.selectedEmergencyMessageSetup.activeGPS = false
@@ -146,8 +156,9 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
                 Passing.selectedEmergencyMessageSetup.activeEMS = true
                 Toast.makeText(
                     this@EditEmergencyMessageActivity,
-                    "You have activated VRE service for this EMS",
-                    Toast.LENGTH_SHORT
+                    "Speaking your keyphrase(s) will now activate " +
+                        "your Emergency Message",
+                    Toast.LENGTH_LONG
                 ).show()
             } else if (switch5.isChecked &&
                 Passing.selectedEmergencyMessageSetup.selectedContactList.isEmpty() &&
@@ -185,7 +196,8 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
                 Passing.selectedEmergencyMessageSetup.activeEMS = false
                 Toast.makeText(
                     this@EditEmergencyMessageActivity,
-                    "You have deactivated VRE service for this EMS",
+                    "You have deactivated VRE service " +
+                        "for this Emergency Message",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -193,6 +205,28 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
 
         relativeLayoutCall.setOnClickListener {
             goToCallMenu()
+        }
+
+        relativeLayoutAudioWarningMessage.switchAudioWarningMessage.setOnClickListener {
+            if (switchAudioWarningMessage.isChecked) {
+                switchAudioWarningMessage.isChecked = true
+                Passing.selectedEmergencyMessageSetup.activeAudioWarningMessage = true
+                Toast.makeText(
+                    this@EditEmergencyMessageActivity,
+                    "You have activated Audio Distress Warning " +
+                        "for this Emergency Message",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                switchAudioWarningMessage.isChecked = false
+                Passing.selectedEmergencyMessageSetup.activeAudioWarningMessage = false
+                Toast.makeText(
+                    this@EditEmergencyMessageActivity,
+                    "You have deactivated Audio Distress Warning " +
+                        "for this Emergency Message",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 
@@ -208,7 +242,8 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
                 Passing.selectedEmergencyMessageSetup.activeGPS = true
                 Toast.makeText(
                     this@EditEmergencyMessageActivity,
-                    "Permission Granted.\nYou have activated GPS location for this EMS",
+                    "Permission Granted.\nYou have activated GPS location " +
+                        "for this Emergency Message",
                     Toast.LENGTH_SHORT
                 ).show()
                 if (!Passing.locationTrackingRequested) {
@@ -223,7 +258,8 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
                 Passing.selectedEmergencyMessageSetup.activeSendText = true
                 Toast.makeText(
                     this@EditEmergencyMessageActivity,
-                    "Permission Granted.\nYou have activated SMS for this EMS",
+                    "Permission Granted.\nYou have activated texting " +
+                        "for this Emergency Message",
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
@@ -235,7 +271,8 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
                 Passing.selectedEmergencyMessageSetup.activeCall = true
                 Toast.makeText(
                     this@EditEmergencyMessageActivity,
-                    "Permission Granted.\nYou have activated Calling for this EMS",
+                    "Permission Granted.\nYou have activated Calling " +
+                        "for this Emergency Message",
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
@@ -267,7 +304,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
     }
 
     private fun requestGPSPermission(): Boolean {
-        val permission = android.Manifest.permission.ACCESS_FINE_LOCATION
+        val permission = Manifest.permission.ACCESS_FINE_LOCATION
         val grant = ContextCompat.checkSelfPermission(this, permission)
         if (grant != PackageManager.PERMISSION_GRANTED) {
             val permissionList = arrayOfNulls<String>(1)
@@ -301,14 +338,17 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         if (Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isNotEmpty()) {
             text_view_keyphrase_required.text = ""
             val textView2: TextView = findViewById(R.id.text_view_keyphrase)
+//            textView2.setTextColor(Color.parseColor("#1BB100"))
             textView2.text =
                 (
-                    Passing.selectedEmergencyMessageSetup.getKeyPhraseListString()
+                    "Selected Keyphrase(s): " +
+                        Passing.selectedEmergencyMessageSetup.getKeyPhraseListString()
                     )
         } else if (Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isEmpty()) {
             text_view_keyphrase_required.text = "*"
             val textView2: TextView = findViewById(R.id.text_view_keyphrase)
-            textView2.text = "Choose or Create Key Phrase(s)"
+            textView2.text = "Choose or Create Key Phrase(s) - Voice Recognition " +
+                "listens for these to activate the Emergency Message"
         }
     }
 
@@ -317,30 +357,33 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
             .isNotEmpty()
         ) {
             val textView3: TextView = findViewById(R.id.text_custom_text)
+//            textView3.setTextColor(Color.parseColor("#1BB100"))
             textView3.text =
                 (
-                    Passing.selectedEmergencyMessageSetup.getCustomTextListString()
+                    "Selected Custom Text(s): " +
+                        Passing.selectedEmergencyMessageSetup.getCustomTextListString()
                     )
         } else if (Passing.selectedEmergencyMessageSetup.selectedCustomTextMessages.isEmpty()) {
             val textView3: TextView = findViewById(R.id.text_custom_text)
-            textView3.text = "Choose or Create Custom Text Messages"
+            textView3.text = "Choose or Create Custom Text Messages.\n" +
+                "Switch Activates Emergency Texting."
         }
         switchSendText.isChecked = Passing.selectedEmergencyMessageSetup.activeSendText
     }
 
     private fun refreshRelativeLayoutCall() {
-        if (Passing.selectedEmergencyMessageSetup.selectedCallMessages
-            .isNotEmpty()
-        ) {
-            val textView3: TextView = findViewById(R.id.text_call_description)
-            textView3.text =
-                (
-                    Passing.selectedEmergencyMessageSetup.getCallMessageListString()
-                    )
-        } else if (Passing.selectedEmergencyMessageSetup.selectedCallMessages.isEmpty()) {
-            val textView3: TextView = findViewById(R.id.text_custom_text)
-            textView3.text = "Choose or Create Call Messages\nSwitch Activates The Call"
-        }
+//        if (Passing.selectedEmergencyMessageSetup.selectedCallMessages
+//            .isNotEmpty()
+//        ) {
+//            val textView3: TextView = findViewById(R.id.text_call_description)
+//            textView3.text =
+//                (
+//                    Passing.selectedEmergencyMessageSetup.getCallMessageListString()
+//                    )
+//        } else if (Passing.selectedEmergencyMessageSetup.selectedCallMessages.isEmpty()) {
+//            val textView3: TextView = findViewById(R.id.text_call_description)
+//            textView3.text = "Choose or Create Call Messages\nSwitch Activates Emergency Calling"
+//        }
         switchCall.isChecked = Passing.selectedEmergencyMessageSetup.activeCall
     }
 
@@ -348,14 +391,17 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         if (Passing.selectedEmergencyMessageSetup.selectedContactList.isNotEmpty()) {
             text_view_contact_required.text = ""
             val textView4: TextView = findViewById(R.id.text_contact_list)
+//            textView4.setTextColor(Color.parseColor("#1BB100"))
             textView4.text =
                 (
-                    Passing.selectedEmergencyMessageSetup.getContactListNames()
+                    "Selected Contacts: " +
+                        Passing.selectedEmergencyMessageSetup.getContactListNames()
                     )
         } else if (Passing.selectedEmergencyMessageSetup.selectedContactList.isEmpty()) {
             text_view_contact_required.text = "*"
             val textView4: TextView = findViewById(R.id.text_contact_list)
-            textView4.text = "Choose or Create Contacts"
+            textView4.text = "Choose or Create Contacts. This Emergency Message " +
+                "will try to reach these contacts"
         }
     }
 
@@ -379,6 +425,11 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         }
     }
 
+    private fun refreshRelativeLayoutAudioWarningMessage() {
+        switchAudioWarningMessage.isChecked =
+            Passing.selectedEmergencyMessageSetup.activeAudioWarningMessage
+    }
+
     private fun openPopUp(buttonType: String) {
         val editEmergencyMessagePopUps = EditEmergencyMessagePopUps(buttonType)
         editEmergencyMessagePopUps.show(supportFragmentManager, "example dialog")
@@ -388,7 +439,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         if (inputTitle.isEmpty()) {
             Toast.makeText(
                 this@EditEmergencyMessageActivity,
-                "Key phrase can't be empty",
+                "Title can't be empty",
                 Toast.LENGTH_SHORT
             ).show()
             openPopUp("title")
@@ -410,7 +461,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         } else {
             Toast.makeText(
                 this@EditEmergencyMessageActivity,
-                "That Key Phrase already exists. " +
+                "That Emergency Message Title already exists. " +
                     "Try something else or click cancel.",
                 Toast.LENGTH_SHORT
             ).show()
