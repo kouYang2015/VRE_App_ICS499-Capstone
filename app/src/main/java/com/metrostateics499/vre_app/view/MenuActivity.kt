@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
@@ -14,6 +15,8 @@ import com.google.android.gms.location.LocationResult
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
 import com.metrostateics499.vre_app.utility.LocationGPS
+import github.com.vikramezhil.dks.speech.Dks
+import github.com.vikramezhil.dks.speech.DksListener
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlinx.android.synthetic.main.activity_menu.*
@@ -109,7 +112,32 @@ class MenuActivity : AppCompatActivity() {
                 ).show()
             }
         }
+
     }
+
+    var dks = Dks(application, supportFragmentManager, object: DksListener {
+        override fun onDksLiveSpeechResult(liveSpeechResult: String) {
+            Log.d("DKS", "Speech result - $liveSpeechResult")
+        }
+
+        override fun onDksFinalSpeechResult(speechResult: String) {
+            Log.d("DKS", "Final speech result - $speechResult")
+        }
+
+        override fun onDksLiveSpeechFrequency(frequency: Float) {
+            Log.d("DKS", "frequency - $frequency")
+        }
+
+        override fun onDksLanguagesAvailable(defaultLanguage: String?, supportedLanguages: ArrayList<String>?) {
+            Log.d("DKS", "defaultLanguage - $defaultLanguage")
+            Log.d("DKS", "supportedLanguages - $supportedLanguages")
+        }
+
+        override fun onDksSpeechError(errMsg: String) {
+            Log.d("DKS", "errMsg - $errMsg")
+        }
+    })
+
     private fun checkIfPingingLocation() {
         for (emergencyMessage in Passing.emergencyMessageSetupList) {
             if (emergencyMessage.activePingLocation) {
