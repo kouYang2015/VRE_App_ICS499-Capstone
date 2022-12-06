@@ -63,5 +63,6 @@
     <string name="verification_code">Verification code</string>
     <string name="search_email_username_button">Search</string>
     <string name="error_code_login_display">" "</string>
+    <string name="phone_number">Phone Number</string>
 
 </resources>

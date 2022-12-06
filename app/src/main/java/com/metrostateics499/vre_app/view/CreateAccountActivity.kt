@@ -17,6 +17,7 @@ class CreateAccountActivity : AppCompatActivity() {
     private lateinit var fullName: EditText
     private lateinit var email: EditText
     private lateinit var password: EditText
+    private lateinit var phoneNumber: EditText
     private lateinit var confirmPassword: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +27,7 @@ class CreateAccountActivity : AppCompatActivity() {
         btnCreateAccount = findViewById(R.id.buttonCreateAccount)
         email = findViewById(R.id.editTextEmailAddress)
         confirmPassword = findViewById(R.id.editConfirmPassword)
+        phoneNumber = findViewById(R.id.editTextPhone)
         password = findViewById(R.id.editPassword)
         userName = findViewById(R.id.editTextUserName)
         fullName = findViewById(R.id.editTextPersonName)
@@ -39,7 +41,7 @@ class CreateAccountActivity : AppCompatActivity() {
     private fun validateEmptyForm() {
         if (fullName.text.toString().isNotEmpty() && userName.text.toString()
             .isNotEmpty() && email.text.toString().isNotEmpty() && password.text.toString()
-                .isNotEmpty() && confirmPassword.text.toString().isNotEmpty()
+                .isNotEmpty() && confirmPassword.text.toString().isNotEmpty() && phoneNumber.text.toString().isNotEmpty()
         ) {
             // Need a valid Email to work (ex. abc123@gmail.net)
             if (email.length() in 6..319 && email.text.toString()
@@ -47,7 +49,7 @@ class CreateAccountActivity : AppCompatActivity() {
             ) {
                 // Maximum length for the full name, username, password, email and confirm password
                 if (fullName.length() in 6..36 && userName.length() in 4..36 &&
-                    password.length() in 8..36 && confirmPassword.length() in 8..36
+                    password.length() in 8..36 && confirmPassword.length() in 8..36 && phoneNumber.length() in 3..10
                 ) {
                     if (password.text.toString() == confirmPassword.text.toString()) {
                         Toast.makeText(
@@ -73,6 +75,7 @@ class CreateAccountActivity : AppCompatActivity() {
                         fullName.text.clear()
                         userName.text.clear()
                         email.text.clear()
+                        phoneNumber.text.clear()
                         password.text.clear()
                         confirmPassword.text.clear()
 
@@ -85,10 +88,9 @@ class CreateAccountActivity : AppCompatActivity() {
                 } else {
                     fullName.setError("Full Name must be between 6 to 36 character long")
                     userName.setError("User Name must be between 4 to 36 character long")
+                    phoneNumber.setError("Phone number must be between 3 to 10 numbers long")
                     password.setError("Password must be between 8 to 36 character long")
-                    confirmPassword.setError(
-                        "Confirm Password must be between 8 to 36 character character long"
-                    )
+                    confirmPassword.setError("Confirm Password must be between 8 to 36 character character long")
                 }
                 // Create an error message if e-mail the user didn't input '@'
             } else {
@@ -109,6 +111,7 @@ class CreateAccountActivity : AppCompatActivity() {
         edit.putString("Name", fullName.text.toString())
         edit.putString("User Name", userName.text.toString())
         edit.putString("Email", email.text.toString())
+        edit.putString("Phone", phoneNumber.text.toString())
         edit.putString("Password", password.text.toString())
         edit.apply()
 
