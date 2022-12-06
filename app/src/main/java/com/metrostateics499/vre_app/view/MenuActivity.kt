@@ -16,7 +16,6 @@ import com.metrostateics499.vre_app.model.Passing
 import com.metrostateics499.vre_app.utility.LocationGPS
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlinx.android.synthetic.main.activity_edit_emergency_message.*
 import kotlinx.android.synthetic.main.activity_menu.*
 
 class MenuActivity : AppCompatActivity() {
@@ -50,7 +49,17 @@ class MenuActivity : AppCompatActivity() {
         goToEmergencyMessageSetup.setOnClickListener {
             startActivity(Intent(this, EmergencyMessageSetupActivity::class.java))
         }
+        checkIfPingingLocation()
+        checkIfGPSSwitchOn()
+        setListeners()
+    }
 
+    override fun onPostResume() {
+        super.onPostResume()
+        checkIfPingingLocation()
+    }
+
+    private fun setListeners() {
         switchMenuGPS.setOnClickListener {
             if (requestGPSPermission()) {
                 if (switchMenuGPS.isChecked) {
@@ -77,6 +86,40 @@ class MenuActivity : AppCompatActivity() {
                 switchMenuGPS.isChecked = false
                 onPause()
             }
+        }
+        switchMenuEMSPingingLocation.setOnClickListener {
+            if (switchMenuEMSPingingLocation.isChecked) {
+                switchMenuEMSPingingLocation.isChecked = false
+                Toast.makeText(
+                    this@MenuActivity,
+                    "EMS Pinging only activates when an EMS is activated with a keyphrase. " +
+                        "You can only deactivate it here.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                switchMenuEMSPingingLocation.isChecked = false
+                for (emergencyMessage in Passing.emergencyMessageSetupList) {
+                    emergencyMessage.activePingLocation = false
+                }
+
+                Toast.makeText(
+                    this@MenuActivity,
+                    "Stopped Pinging Location to Active Emergency Messages",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+    private fun checkIfPingingLocation() {
+        for (emergencyMessage in Passing.emergencyMessageSetupList) {
+            if (emergencyMessage.activePingLocation) {
+                switchMenuEMSPingingLocation.isChecked = true
+            }
+        }
+    }
+    private fun checkIfGPSSwitchOn() {
+        if (Passing.locationTrackingRequested) {
+            switchMenuGPS.isChecked = true
         }
     }
 

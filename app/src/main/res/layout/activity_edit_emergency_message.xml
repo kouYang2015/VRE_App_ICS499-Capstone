@@ -21,13 +21,11 @@
             android:layout_height="89dp"
             android:layout_marginTop="6dp"
             android:background="#FEFEFE"
-            android:padding="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:padding="13dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.461"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relativeLayout2"
-            app:layout_constraintVertical_bias="0.002">
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout2">
 
             <TextView
                 android:id="@+id/text_view_contact_required"
@@ -44,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:text="Selected Contacts"
+                android:text="Select Contact(s)"
                 android:textColor="@color/black"
                 android:textSize="22sp"
                 android:textStyle="bold" />
@@ -58,22 +56,79 @@
                 android:layout_marginRight="10dp"
                 android:text="Select Contact(s)"
                 android:textColor="@color/lightGray"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout6"
+            android:layout_width="398dp"
+            android:layout_height="95dp"
+            android:layout_marginTop="6dp"
+            android:background="#FEFEFE"
+            android:padding="13dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.461"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
+
+            <TextView
+                android:id="@+id/text_vre_switch_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="Activate Voice Recognition"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_vre_switch"
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_vre_switch_title"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="Turns on and off voice recognition
+                service for this emergency message"
+                android:textColor="@color/lightGray"
+                android:textSize="14sp" />
+
+            <Switch
+                android:id="@+id/switch5"
+                android:layout_width="64dp"
+                android:layout_height="73dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+            <TextView
+                android:id="@+id/textViewActive"
+                android:layout_width="71dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/switch5"
+                android:layout_marginEnd="-71dp"
+                android:layout_marginBottom="44dp"
+                android:layout_toStartOf="@+id/switch5"
+                android:text=""
+                android:textColor="#B50909" />
 
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/relativeLayout"
             android:layout_width="398dp"
-            android:layout_height="85dp"
+            android:layout_height="95dp"
+            android:layout_marginTop="6dp"
             android:background="#FEFEFE"
-            android:padding="16dp"
+            android:padding="13dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.461"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.125">
+            app:layout_constraintVertical_bias="0.114">
 
             <TextView
                 android:id="@+id/text_view_title"
@@ -102,16 +157,14 @@
         <RelativeLayout
             android:id="@+id/relativeLayout2"
             android:layout_width="398dp"
-            android:layout_height="86dp"
+            android:layout_height="95dp"
             android:layout_marginTop="6dp"
-            android:background="#FEFEFE"
-            android:padding="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="#FFFFFF"
+            android:padding="13dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.461"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
-            app:layout_constraintVertical_bias="0.002">
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout6">
 
             <TextView
                 android:id="@+id/text_view_keyphrase_required"
@@ -128,7 +181,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:text="Selected Key Phrase(s)"
+                android:text="Select Keyphrase(s)"
                 android:textColor="@color/black"
                 android:textSize="22sp"
                 android:textStyle="bold" />
@@ -143,23 +196,21 @@
                 android:layout_marginRight="10dp"
                 android:text="Select or Create a Key Phrase"
                 android:textColor="@color/lightGray"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/relativeLayout5GPS"
             android:layout_width="398dp"
-            android:layout_height="89dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="95dp"
+            android:layout_marginTop="6dp"
             android:background="#FEFEFE"
-            android:padding="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:padding="13dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.461"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relativeLayoutCall"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayoutCall">
 
             <TextView
                 android:id="@+id/text_gps_title"
@@ -174,12 +225,12 @@
 
             <TextView
                 android:id="@+id/text_gps"
-                android:layout_width="wrap_content"
+                android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_gps_title"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:text="Send your location with your message"
+                android:text="Send your location with your message and every two minutes after"
                 android:textColor="@color/lightGray"
                 android:textSize="14sp" />
 
@@ -197,80 +248,19 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/relativeLayout6"
-            android:layout_width="398dp"
-            android:layout_height="89dp"
-            android:layout_marginTop="8dp"
-            android:background="#FEFEFE"
-            android:padding="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.461"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relativeLayout5GPS"
-            app:layout_constraintVertical_bias="0.447">
 
-            <TextView
-                android:id="@+id/text_vre_switch_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:text="Voice Recognition"
-                android:textColor="@color/black"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/text_vre_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/text_vre_switch_title"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:text="Switch turns off and on voice recognition service"
-                android:textColor="@color/lightGray"
-                android:textSize="14sp" />
-
-            <Switch
-                android:id="@+id/switch5"
-                android:layout_width="64dp"
-                android:layout_height="73dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="1dp"
-                android:layout_marginBottom="0dp"
-                tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-            <TextView
-                android:id="@+id/textViewActive"
-                android:layout_width="71dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="13dp"
-                android:layout_marginBottom="31dp"
-                android:layout_toEndOf="@+id/text_vre_switch_title"
-                android:text=""
-                android:textColor="#B50909" />
-
-        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/relativeLayout3"
             android:layout_width="398dp"
-            android:layout_height="89dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="95dp"
+            android:layout_marginTop="6dp"
             android:background="#FEFEFE"
-            android:padding="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:padding="13dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.461"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relativeLayout4"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout4">
 
             <TextView
                 android:id="@+id/text_custom_text_title"
@@ -278,21 +268,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:text="Custom Text Message"
+                android:text="Configure Text Message"
                 android:textColor="@color/black"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/text_custom_text"
-                android:layout_width="wrap_content"
+                android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_custom_text_title"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:text="Select or Create a Custom Text Message"
                 android:textColor="@color/lightGray"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
+
             <Switch
                 android:id="@+id/switchSendText"
                 android:layout_width="64dp"
@@ -310,16 +301,14 @@
         <RelativeLayout
             android:id="@+id/relativeLayoutCall"
             android:layout_width="398dp"
-            android:layout_height="89dp"
-            android:layout_marginTop="1dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="6dp"
             android:background="#FEFEFE"
-            android:padding="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:padding="13dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.461"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relativeLayout3"
-            app:layout_constraintVertical_bias="0.034">
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout3">
 
             <TextView
                 android:id="@+id/text_call_title"
@@ -327,23 +316,72 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:text="Call Message and Activation"
+                android:text="Activate Speakerphone Calling"
                 android:textColor="@color/black"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/text_call_description"
-                android:layout_width="wrap_content"
+                android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_call_title"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:text="Activate calling and voice message"
+                android:text="Automatically dial selected contacts and be placed in speakerphone"
                 android:textColor="@color/lightGray"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
+
             <Switch
                 android:id="@+id/switchCall"
+                android:layout_width="61dp"
+                android:layout_height="65dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="22dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="0dp"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutAudioWarningMessage"
+            android:layout_width="398dp"
+            android:layout_height="95dp"
+            android:layout_marginTop="6dp"
+            android:background="#FEFEFE"
+            android:padding="13dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.461"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout5GPS">
+
+            <TextView
+                android:id="@+id/text_audio_warning_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="Audio Distress Warning"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_audio_warning_description"
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_audio_warning_title"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="Activate to play a distress audio message on your phone when this EM is activated"
+                android:textColor="@color/lightGray"
+                android:textSize="14sp" />
+
+            <Switch
+                android:id="@+id/switchAudioWarningMessage"
                 android:layout_width="64dp"
                 android:layout_height="73dp"
                 android:layout_alignParentTop="true"
@@ -360,7 +398,7 @@
             android:id="@+id/textViewEditEmergencyMessage"
             android:layout_width="390dp"
             android:layout_height="53dp"
-            android:layout_marginBottom="11dp"
+            android:layout_marginBottom="22dp"
             android:text="Edit Emergency Message"
             android:textColor="#FFFFFF"
             android:textSize="34sp"
