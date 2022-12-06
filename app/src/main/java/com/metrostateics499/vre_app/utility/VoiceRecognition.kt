@@ -1,8 +1,9 @@
-package com.metrostateics499.vre_app.view
+package com.metrostateics499.vre_app.utility
 
 import android.Manifest
 import android.Manifest.permission.READ_PHONE_STATE
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.AudioManager
@@ -38,7 +39,7 @@ import java.util.*
  *
  * @constructor Create empty Listen speech activity
  */
-class ListenSpeechActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
+class VoiceRecognition(context: Context) : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private lateinit var speechOnButton: Button
     private lateinit var speechOffButton: Button
@@ -77,7 +78,7 @@ class ListenSpeechActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     /**
      * Sets listener for button components and SpeechRecognizer
      */
-    private fun setListeners() {
+    fun setListeners() {
         val speechRecognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         speechRecognizerIntent.putExtra(
             RecognizerIntent.EXTRA_LANGUAGE_MODEL,
@@ -113,14 +114,14 @@ class ListenSpeechActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
             override fun onEvent(p0: Int, p1: Bundle?) {}
         })
-        speechOnButton.setOnClickListener {
-            checkAndRequestPermissions()
-            speechRecognizer.startListening(speechRecognizerIntent)
-            txtResult.text = null
-        }
-        speechOffButton.setOnClickListener {
-            speechRecognizer.stopListening()
-        }
+//            speechOnButton.setOnClickListener {
+        checkAndRequestPermissions()
+        speechRecognizer.startListening(speechRecognizerIntent)
+        txtResult.text = null
+//            }
+//            speechOffButton.setOnClickListener {
+//                speechRecognizer.stopListening()
+//            }
     }
 
     /**
@@ -130,6 +131,7 @@ class ListenSpeechActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
      * @param incomingSpeech
      */
     private fun recognizeKeyPhrase(incomingSpeech: String?) {
+
         if (Passing.keyPhraseList.isEmpty() && Passing.emergencyMessageSetupList.isEmpty()
         ) {
             txtResult.text = buildString { append("No KeyPhrase(s) set") }
@@ -221,7 +223,6 @@ class ListenSpeechActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     }
                     if (emergencySetup.activeGPS && emergencySetup.activeSendText) {
                         emergencySetup.activePingLocation = true
-
                         AsyncTask.execute {
                             while (emergencySetup.activePingLocation) {
                                 Thread.sleep(120_000)
@@ -311,6 +312,11 @@ class ListenSpeechActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
      * @return KeyPhrase if there is a KeyPhrase object that matches User's speech.
      */
     private fun findKeyPhraseMatch(incomingSpeech: String?): KeyPhrase? {
+//        for (keyPhraseElement in Passing.keyPhraseList) {
+//            if (incomingSpeech?.contains(keyPhraseElement.phrase, true) == true) {
+//                return keyPhraseElement
+//            }
+//        }
         for (emergencySetup in Passing.emergencyMessageSetupList) {
             for (phrase in emergencySetup.selectedKeyPhraseList) {
                 if (Passing.selectedEmergencyMessageSetup.activeEMS) {
@@ -326,15 +332,13 @@ class ListenSpeechActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     /**
      * Initializes variables to handle components.
      */
-    private fun initializeComponents() {
+    fun initializeComponents() {
         recordAudioPermissionRequest =
             registerForActivityResult(
                 ActivityResultContracts
                     .RequestMultiplePermissions()
             ) {
             }
-        speechOnButton = findViewById(R.id.activateSpeech)
-        speechOffButton = findViewById(R.id.disableSpeech)
         txtResult = findViewById(R.id.speechToTextBox)
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
         textToSpeech = TextToSpeech(this, this)
@@ -402,8 +406,6 @@ class ListenSpeechActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
         } else if (requestCode == REQRECORDAUDIOCODE) {
             showMicPermissionRationale()
-        } else {
-            Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -463,12 +465,12 @@ class ListenSpeechActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         if (phoneNumber.trim { it <= ' ' }.isNotEmpty()) {
             if (ContextCompat.checkSelfPermission(
-                    this@ListenSpeechActivity,
+                    this,
                     Manifest.permission.CALL_PHONE
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
                 ActivityCompat.requestPermissions(
-                    this@ListenSpeechActivity,
+                    this,
                     arrayOf(Manifest.permission.CALL_PHONE),
                     requestCall
                 )
@@ -496,14 +498,14 @@ class ListenSpeechActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             when (state) {
                 TelephonyManager.CALL_STATE_RINGING -> {
                     Toast.makeText(
-                        this@ListenSpeechActivity,
+                        context,
                         "Phone RINGING",
                         Toast.LENGTH_LONG
                     ).show()
                 }
                 TelephonyManager.CALL_STATE_OFFHOOK -> {
                     Toast.makeText(
-                        this@ListenSpeechActivity,
+                        context,
                         "Phone Offhook",
                         Toast.LENGTH_LONG
                     ).show()
@@ -524,7 +526,7 @@ class ListenSpeechActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 }
                 TelephonyManager.CALL_STATE_IDLE -> {
                     Toast.makeText(
-                        this@ListenSpeechActivity,
+                        context,
                         "Phone IDLE",
                         Toast.LENGTH_LONG
                     ).show()
