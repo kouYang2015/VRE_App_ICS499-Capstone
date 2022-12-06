@@ -226,7 +226,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                         }
                     } else {
                         vreServiceActiveText.text = "VRE Service is ON - Not Recognized" +
-                                " - Still listening..."
+                            " - Still listening..."
                     }
                 }
 
@@ -251,7 +251,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                         }
                     } else {
                         vreServiceActiveText.text = "VRE Service is ON - Not Recognized" +
-                                " - Still listening..."
+                            " - Still listening..."
                         vreServiceActiveTextTimer.start()
                     }
                 }
