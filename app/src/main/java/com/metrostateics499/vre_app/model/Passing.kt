@@ -11,6 +11,7 @@ object Passing {
     var username: String = ""
     var password: String = ""
     var email: String = ""
+    var phoneNumber: String = ""
 
     var keyPhraseList: MutableList<KeyPhrase> = mutableListOf()
     var customTextMessageList: MutableList<CustomTextMessage> = mutableListOf()
@@ -43,6 +44,10 @@ object Passing {
     @JvmName("setPassword1")
     fun setPassword(password: String) {
         password.also { Passing.password = it }
+    }
+    @JvmName("setPhoneNumber1")
+    fun setPhoneNumber(phone: String) {
+        phone.also { Passing.phoneNumber = it }
     }
 
     fun checkInitializationSelectedEmergencyMessageSetup(): Boolean {
