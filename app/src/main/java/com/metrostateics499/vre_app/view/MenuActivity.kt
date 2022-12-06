@@ -411,7 +411,6 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                                     contact.phoneNumber, null,
                                     coordinatesDate, null, null
                                 )
-
                             }
                             Toast.makeText(
                                 this@MenuActivity,
