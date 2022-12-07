@@ -3,12 +3,10 @@ package com.metrostateics499.vre_app.utility
 import android.app.Service
 import android.content.Intent
 import android.media.AudioManager
-import android.net.Uri
 import android.os.AsyncTask
 import android.os.Build
 import android.os.IBinder
 import android.speech.tts.TextToSpeech
-import android.telephony.PhoneStateListener
 import android.telephony.SmsManager
 import android.telephony.TelephonyManager
 import android.util.Log
@@ -23,13 +21,12 @@ class ProcessEmergencyMessageService : Service(), TextToSpeech.OnInitListener {
     private lateinit var audioManager: AudioManager
     private var myHashAlarm: HashMap<String, String> = HashMap()
     private var warningMessage: String = "Voice Recognition Emergency Services " +
-            "have been activated. Your emergency message and your location has " +
-            "been sent to all your emergency contacts."
+        "have been activated. Your emergency message and your location has " +
+        "been sent to all your emergency contacts."
     private lateinit var coordinatesLinks: String
     private lateinit var coordinatesDate: String
     private lateinit var telephonyManager: TelephonyManager
     private lateinit var emergencySetup: EmergencyMessageSetup
-
 
     override fun onCreate() {
 
@@ -64,14 +61,14 @@ class ProcessEmergencyMessageService : Service(), TextToSpeech.OnInitListener {
                 if (emergencySetup.activeGPS) {
                     coordinatesLinks =
                         "My last known location: www.google.com/maps/place/" +
-                                Passing.latitude + "," + Passing.longitude +
-                                " or http://maps.apple.com/?daddr=" +
-                                Passing.latitude + "," + Passing.longitude
+                        Passing.latitude + "," + Passing.longitude +
+                        " or http://maps.apple.com/?daddr=" +
+                        Passing.latitude + "," + Passing.longitude
                     coordinatesDate =
                         "Last known coordinates were taken on date: \n" +
-                                Passing.dateTimeGPS +
-                                "\nLatitude: " + Passing.latitude +
-                                "\nLongitude: " + Passing.longitude
+                        Passing.dateTimeGPS +
+                        "\nLatitude: " + Passing.latitude +
+                        "\nLongitude: " + Passing.longitude
                 } else {
                     coordinatesLinks = "Last Known Location: Unavailable or Deactivated "
                     coordinatesDate = ""
@@ -88,16 +85,16 @@ class ProcessEmergencyMessageService : Service(), TextToSpeech.OnInitListener {
                             }
                         val emergencyTextMessage =
                             "VOICE RECOGNITION EMERGENCY: " +
-                                    emergencySetup.getCustomTextListString()
+                                emergencySetup.getCustomTextListString()
                         var textMessages: List<String>
 
                         if (emergencyTextMessage.length > 160 && emergencySetup.activeGPS) {
                             textMessages = splitEmergencyTextMessage(emergencyTextMessage)
                             textMessages = (
-                                    textMessages +
-                                            coordinatesLinks +
-                                            coordinatesDate
-                                    )
+                                textMessages +
+                                    coordinatesLinks +
+                                    coordinatesDate
+                                )
                         } else if (emergencyTextMessage.length > 160 &&
                             !emergencySetup.activeGPS
                         ) {
@@ -131,7 +128,7 @@ class ProcessEmergencyMessageService : Service(), TextToSpeech.OnInitListener {
                         Toast.makeText(
                             applicationContext,
                             "Missing Contact Data" +
-                                    e.message.toString(),
+                                e.message.toString(),
                             Toast.LENGTH_LONG
                         )
                             .show()
@@ -142,12 +139,10 @@ class ProcessEmergencyMessageService : Service(), TextToSpeech.OnInitListener {
                 emergencySetup.activePingLocation = true
                 sendUpdateCoordinatesLoop(emergencySetup)
             }
-
-
         }
     }
 
-    private fun sendUpdateCoordinatesLoop(emergencySetup : EmergencyMessageSetup) {
+    private fun sendUpdateCoordinatesLoop(emergencySetup: EmergencyMessageSetup) {
         AsyncTask.execute {
 
             while (emergencySetup.activePingLocation) {
@@ -163,14 +158,14 @@ class ProcessEmergencyMessageService : Service(), TextToSpeech.OnInitListener {
                         }
                     coordinatesLinks =
                         "New Location Ping: www.google.com/maps/place/" +
-                                Passing.latitude + "," + Passing.longitude +
-                                " or http://maps.apple.com/?daddr=" +
-                                Passing.latitude + "," + Passing.longitude
+                        Passing.latitude + "," + Passing.longitude +
+                        " or http://maps.apple.com/?daddr=" +
+                        Passing.latitude + "," + Passing.longitude
                     coordinatesDate =
                         "Coordinates Timestamp: \n" +
-                                Passing.dateTimeGPS +
-                                "\nLatitude: " + Passing.latitude +
-                                "\nLongitude: " + Passing.longitude
+                        Passing.dateTimeGPS +
+                        "\nLatitude: " + Passing.latitude +
+                        "\nLongitude: " + Passing.longitude
                     for (contact in emergencySetup.selectedContactList) {
                         smsManager.sendTextMessage(
                             contact.phoneNumber, null,
@@ -198,7 +193,6 @@ class ProcessEmergencyMessageService : Service(), TextToSpeech.OnInitListener {
             }
         }
     }
-
 
     private fun splitEmergencyTextMessage(textMessage: String): List<String> {
         val size = 160

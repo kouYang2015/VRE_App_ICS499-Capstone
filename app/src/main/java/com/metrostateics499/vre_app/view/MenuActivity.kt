@@ -9,7 +9,6 @@ import android.media.AudioManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
 import android.telephony.PhoneStateListener
 import android.telephony.TelephonyManager
@@ -18,22 +17,20 @@ import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SwitchCompat
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
-import com.metrostateics499.vre_app.model.data.EmergencyMessageSetup
 import com.metrostateics499.vre_app.model.data.KeyPhrase
 import com.metrostateics499.vre_app.utility.LocationGPS
 import com.metrostateics499.vre_app.utility.ProcessEmergencyMessageService
 import github.com.vikramezhil.dks.speech.Dks
 import github.com.vikramezhil.dks.speech.DksListener
-import kotlinx.android.synthetic.main.activity_menu.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlinx.android.synthetic.main.activity_menu.*
 
 class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
@@ -58,7 +55,6 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var app: Application
     private lateinit var dks: Dks
     private var callState: String = "idle"
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -164,17 +160,17 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         menuVreServiceSwitch.setOnClickListener {
             if (menuVreServiceSwitch.isChecked) {
                 val activeEMS = checkActiveEMS()
-                if(activeEMS){
+                if (activeEMS) {
                     if (requestRecordAudioPermission()) {
                         menuVreServiceSwitch.isChecked = true
                         Passing.vreServiceActive = true
                         dks.startSpeechRecognition()
                         vreServiceActiveText.text = "VRE Service is ON - " +
-                                "Listening for keyphrases..."
+                            "Listening for keyphrases..."
                         Toast.makeText(
                             this@MenuActivity,
                             "You have activated VRE service for all " +
-                                    "activated Emergency Messages",
+                                "activated Emergency Messages",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -185,21 +181,21 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     Toast.makeText(
                         this@MenuActivity,
                         "VRE Service can only be activated when you've " +
-                                "setup and activated an emergency message",
+                            "setup and activated an emergency message",
                         Toast.LENGTH_LONG
                     ).show()
                 }
             } else {
-                    menuVreServiceSwitch.isChecked = false
-                    onPause()
-                    Passing.vreServiceActive = false
-                    dks.closeSpeechOperations()
-                    vreServiceActiveText.text = "VRE Service is OFF"
-                    Toast.makeText(
-                        this@MenuActivity,
-                        "You have deactivated VRE service",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                menuVreServiceSwitch.isChecked = false
+                onPause()
+                Passing.vreServiceActive = false
+                dks.closeSpeechOperations()
+                vreServiceActiveText.text = "VRE Service is OFF"
+                Toast.makeText(
+                    this@MenuActivity,
+                    "You have deactivated VRE service",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
@@ -210,41 +206,43 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     Log.d("DKS", "Speech result - $liveSpeechResult")
                     if (findKeyPhraseMatch(liveSpeechResult) != null) {
                         vreServiceActiveText.text = buildString {
-                                append(
-                                    "KeyPhrase Recognized! - Processing Emergency Message...\n",
-                                    liveSpeechResult
-                                )
-                            }
+                            append(
+                                "KeyPhrase Recognized! - Processing Emergency Message...\n",
+                                liveSpeechResult
+                            )
+                        }
                         checkIfPingingLocation()
                         vreServiceActiveTextTimer.start()
-                        startService(Intent(
-                            this@MenuActivity,
-                            ProcessEmergencyMessageService::class.java))
+                        startService(
+                            Intent(
+                                this@MenuActivity,
+                                ProcessEmergencyMessageService::class.java
+                            )
+                        )
                         Thread.sleep(2_000)
                         if (Passing.vreActivatedEMS.activeAudioWarningMessage) {
                             playActivationWarningMessage()
                         }
                         Thread.sleep(2_000)
-                        if(Passing.vreActivatedEMS.activeCall){
+                        if (Passing.vreActivatedEMS.activeCall) {
                             Passing.callingInProcess = true
                             phoneCallLoop()
                         }
-                        }
+                    }
 
-                    if(Passing.callingInProcess ) {
+                    if (Passing.callingInProcess) {
                         if ((liveSpeechResult.contains(Passing.deactivateCallingPhrase, true))) {
                             Passing.callingInProcess = false
                             vreServiceActiveText.text =
                                 "VRE Service is ON - Recognized Stop Calls" +
-                                        " - Still listening..."
+                                " - Still listening..."
                             Passing.callingInProcess = false
                             vreServiceActiveTextTimer.start()
                         }
-                    }
-                    else{
-                            vreServiceActiveText.text = "VRE Service is ON - Not Recognized" +
-                                " - Still listening..."
-                            vreServiceActiveTextTimer.start()
+                    } else {
+                        vreServiceActiveText.text = "VRE Service is ON - Not Recognized" +
+                            " - Still listening..."
+                        vreServiceActiveTextTimer.start()
                     }
                 }
 
@@ -292,8 +290,10 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             while (Passing.vreActivatedEMS.activeCall) {
                 if (!Passing.callingInProcess) {
                     textToSpeech?.speak(
-                        "Calling Stopped", TextToSpeech
-                            .QUEUE_FLUSH, myHashAlarm
+                        "Calling Stopped",
+                        TextToSpeech
+                            .QUEUE_FLUSH,
+                        myHashAlarm
                     )
                     break
                 }
@@ -301,15 +301,19 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     for (contact in Passing.vreActivatedEMS.selectedContactList) {
                         if (!Passing.callingInProcess) {
                             textToSpeech?.speak(
-                                "Calling Stopped", TextToSpeech
-                                    .QUEUE_FLUSH, myHashAlarm
+                                "Calling Stopped",
+                                TextToSpeech
+                                    .QUEUE_FLUSH,
+                                myHashAlarm
                             )
                             break
                         }
                         if (callState == "idle") {
                             textToSpeech?.speak(
-                                "Calling " + contact.name, TextToSpeech
-                                    .QUEUE_FLUSH, myHashAlarm
+                                "Calling " + contact.name,
+                                TextToSpeech
+                                    .QUEUE_FLUSH,
+                                myHashAlarm
                             )
                             makePhoneCall(contact.phoneNumber)
                             Thread.sleep(30_000)
@@ -317,8 +321,10 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                             Thread.sleep(30_000)
                             if (!Passing.callingInProcess) {
                                 textToSpeech?.speak(
-                                    "Calling Stopped", TextToSpeech
-                                        .QUEUE_FLUSH, myHashAlarm
+                                    "Calling Stopped",
+                                    TextToSpeech
+                                        .QUEUE_FLUSH,
+                                    myHashAlarm
                                 )
                                 Thread.sleep(4_000)
                                 break
@@ -329,7 +335,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     Toast.makeText(
                         applicationContext,
                         "Something Went Wrong" +
-                                e.message.toString(),
+                            e.message.toString(),
                         Toast.LENGTH_LONG
                     ).show()
                 }
@@ -402,8 +408,8 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun checkActiveEMS(): Boolean {
-        for(item in Passing.emergencyMessageSetupList){
-            if (item.activeEMS){
+        for (item in Passing.emergencyMessageSetupList) {
+            if (item.activeEMS) {
                 return true
             }
         }
@@ -412,7 +418,8 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     val vreServiceActiveTextTimer = object : CountDownTimer(
         7_000,
-        1000) {
+        1000
+    ) {
         override fun onTick(millisUntilFinished: Long) {
         }
         override fun onFinish() {
@@ -422,7 +429,8 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     val vreServiceSendingTextTimer = object : CountDownTimer(
         5_000,
-        1000) {
+        1000
+    ) {
         override fun onTick(millisUntilFinished: Long) {
         }
         override fun onFinish() {
@@ -441,7 +449,6 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             }
         }
     }
-
 
     private fun findKeyPhraseMatch(incomingSpeech: String?): KeyPhrase? {
         for (emergencySetup in Passing.emergencyMessageSetupList) {
@@ -517,7 +524,6 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
         return grant == PackageManager.PERMISSION_GRANTED
     }
-
 
     /**
      * Shows an AlertDialog window that informs users why the mic permission is required.

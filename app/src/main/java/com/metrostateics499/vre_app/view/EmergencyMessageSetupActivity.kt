@@ -62,8 +62,7 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
 //                    Toast.LENGTH_SHORT
 //                ).show()
 //            }else {
-                checkSelectForEdit(viewSelectedBoolean)
-
+            checkSelectForEdit(viewSelectedBoolean)
         }
         buttonDelete!!.setOnClickListener {
             titleSelectedString = emergencyMessageSetupAdapter.titleSelectedString
@@ -73,11 +72,11 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
         }
     }
 
-    private fun checkIfActivePingLocation(titleSelectedString: String): Boolean{
-        if(Passing.emergencyMessageSetupList.isNotEmpty()) {
+    private fun checkIfActivePingLocation(titleSelectedString: String): Boolean {
+        if (Passing.emergencyMessageSetupList.isNotEmpty()) {
             for (item in Passing.emergencyMessageSetupList) {
-                if(item.title == titleSelectedString){
-                    if(item.activePingLocation){
+                if (item.title == titleSelectedString) {
+                    if (item.activePingLocation) {
                         return true
                     }
                 }
