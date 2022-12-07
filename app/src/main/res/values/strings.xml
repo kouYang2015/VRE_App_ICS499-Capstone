@@ -65,6 +65,15 @@
     <string name="error_code_login_display">" "</string>
     <string name="emsPingingLocation">EMS Pinging Location</string>
     <string name="phone_number">Phone Number</string>
+    <string name="profile_info">Profile Information</string>
+    <string name="display_full_name">Display Full Name</string>
+    <string name="display_username">Display Username</string>
+    <string name="display_email">Display Email</string>
+    <string name="display_phone">Display Phone Number</string>
+    <string name="edit_profile_button">Edit Profile</string>
+    <string name="update_profile_button">Update</string>
+    <string name="edit_profile_back_button">Back to Menu</string>
+    <string name="cancel_button">Cancel</string>
 
 
 </resources>

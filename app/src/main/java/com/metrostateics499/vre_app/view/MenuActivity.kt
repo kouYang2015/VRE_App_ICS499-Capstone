@@ -54,6 +54,8 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var locationManager: LocationGPS
     private lateinit var app: Application
     private lateinit var dks: Dks
+    private lateinit var profileButton: Button
+    private lateinit var logoutButton: Button
     private var callState: String = "idle"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,11 +65,25 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         // This is to hide the action bar
         supportActionBar?.hide()
         setContentView(R.layout.activity_menu)
+        logoutButton = findViewById(R.id.logout_button)
 
         locationManager = LocationGPS(this as Context)
         latitudeValueTextView = findViewById(R.id.latitudeValueTextView)
         longitudeValueTextView = findViewById(R.id.longitudeValueTextView)
         coordinatesDateTimeTextView = findViewById(R.id.coordinatesDateTimeTextView)
+
+        // Profile button click listeners
+        profileButton = findViewById(R.id.profile)
+        profileButton.setOnClickListener {
+            val intent = Intent(this, ProfileInformationActivity::class.java)
+            startActivity(intent)
+        }
+
+        logoutButton.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finishAffinity()
+        }
 
         // Register button click listeners
         speechButton = findViewById(R.id.speechRecognition)
@@ -285,6 +301,46 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         )
     }
 
+    val vreServiceActiveTextTimer = object : CountDownTimer(5_000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
+        }
+
+        override fun onFinish() {
+            vreServiceActiveText.text = "VRE Service is ON - Listening for keyphrases..."
+        }
+    }
+
+    val vreServiceSendingTextTimer = object : CountDownTimer(5_000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
+        }
+
+        override fun onFinish() {
+            vreServiceActiveText.text = "Performing Emergency Message..."
+        }
+    }
+
+    private fun performEmergencyMessage(emergencySetup: EmergencyMessageSetup) {
+
+        var coordinatesLinks: String
+        var coordinatesDate: String
+
+        if (emergencySetup != null) {
+            if (emergencySetup.activeSendText) {
+                if (emergencySetup.activeGPS) {
+                    coordinatesLinks =
+                        "My last known location: www.google.com/maps/place/" +
+                        Passing.latitude + "," + Passing.longitude +
+                        " or http://maps.apple.com/?daddr=" +
+                        Passing.latitude + "," + Passing.longitude
+                    coordinatesDate =
+                        "Last known coordinates were taken on date: \n" +
+                        Passing.dateTimeGPS +
+                        "\nLatitude: " + Passing.latitude +
+                        "\nLongitude: " + Passing.longitude
+                } else {
+                    coordinatesLinks = "Last Known Location: Unavailable or Deactivated "
+                    coordinatesDate = ""
+                    
     private fun phoneCallLoop() {
         Thread {
             while (Passing.vreActivatedEMS.activeCall) {
@@ -471,6 +527,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             }
         }
     }
+
     private fun checkIfGPSSwitchOn() {
         if (Passing.locationTrackingRequested) {
             switchMenuGPS.isChecked = true

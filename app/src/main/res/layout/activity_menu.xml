@@ -25,9 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#1F2B6C"
-
         android:text="@string/logout"
-
         android:textAllCaps="false"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -35,8 +33,7 @@
         app:layout_constraintLeft_toRightOf="@id/app_logo"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@id/app_logo" />
-
-
+    
     <Button
         android:id="@+id/speechRecognition"
         android:layout_width="370dp"
@@ -75,7 +72,6 @@
         android:layout_height="60dp"
         android:layout_marginTop="5dp"
         android:backgroundTint="#1F2B6C"
-
         android:text="@string/profile"
         android:textAllCaps="false"
         android:textSize="20sp"

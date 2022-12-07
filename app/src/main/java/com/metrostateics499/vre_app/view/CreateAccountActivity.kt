@@ -41,7 +41,8 @@ class CreateAccountActivity : AppCompatActivity() {
     private fun validateEmptyForm() {
         if (fullName.text.toString().isNotEmpty() && userName.text.toString()
             .isNotEmpty() && email.text.toString().isNotEmpty() && password.text.toString()
-                .isNotEmpty() && confirmPassword.text.toString().isNotEmpty() && phoneNumber.text.toString().isNotEmpty()
+                .isNotEmpty() && confirmPassword.text.toString()
+                .isNotEmpty() && phoneNumber.text.toString().isNotEmpty()
         ) {
             // Need a valid Email to work (ex. abc123@gmail.net)
             if (email.length() in 6..319 && email.text.toString()
@@ -63,6 +64,10 @@ class CreateAccountActivity : AppCompatActivity() {
                         Passing.setUsername(userName.text.toString())
                         Passing.setPassword(password.text.toString())
                         Passing.setEmail(email.text.toString())
+
+                        // TEST BY JACK, ADD OTHER INFO
+                        Passing.setFullName(fullName.text.toString())
+                        Passing.setPhoneNumber(phoneNumber.text.toString())
 
                         // Calls this method to save info from user
                         saveData()

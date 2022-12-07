@@ -96,7 +96,7 @@
     <TextView
         android:id="@+id/textRegister"
         android:layout_width="239dp"
-        android:layout_height="58dp"
+        android:layout_height="wrap_content"
         android:text="Register"
         android:textAlignment="center"
         android:textColor="@color/white"
