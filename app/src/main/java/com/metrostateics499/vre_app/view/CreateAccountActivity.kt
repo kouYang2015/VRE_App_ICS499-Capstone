@@ -40,12 +40,13 @@ class CreateAccountActivity : AppCompatActivity() {
 
     private fun validateEmptyForm() {
         if (fullName.text.toString().isNotEmpty() && userName.text.toString()
-            .isNotEmpty() && email.text.toString().isNotEmpty() && password.text.toString()
-                .isNotEmpty() && confirmPassword.text.toString().isNotEmpty() && phoneNumber.text.toString().isNotEmpty()
+                .isNotEmpty() && email.text.toString().isNotEmpty() && password.text.toString()
+                .isNotEmpty() && confirmPassword.text.toString()
+                .isNotEmpty() && phoneNumber.text.toString().isNotEmpty()
         ) {
             // Need a valid Email to work (ex. abc123@gmail.net)
             if (email.length() in 6..319 && email.text.toString()
-                .matches(Regex("[a-zA-Z0-9._]+@[a-z].+[a-z]"))
+                    .matches(Regex("[a-zA-Z0-9._]+@[a-z].+[a-z]"))
             ) {
                 // Maximum length for the full name, username, password, email and confirm password
                 if (fullName.length() in 6..36 && userName.length() in 4..36 &&
@@ -63,6 +64,10 @@ class CreateAccountActivity : AppCompatActivity() {
                         Passing.setUsername(userName.text.toString())
                         Passing.setPassword(password.text.toString())
                         Passing.setEmail(email.text.toString())
+
+                        //TEST BY JACK, ADD OTHER INFO
+                        Passing.setFullName(fullName.text.toString())
+                        Passing.setPhoneNumber(phoneNumber.text.toString())
 
                         // Calls this method to save info from user
                         saveData()

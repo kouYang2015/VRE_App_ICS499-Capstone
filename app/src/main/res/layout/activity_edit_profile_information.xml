@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#3433FA"
-    tools:context=".view.ProfileInformationActivity">
+    tools:context=".view.EditProfileInformationActivity">
 
     <TextView
         android:id="@+id/app_logo"
@@ -60,14 +60,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profile_info_title" />
 
-    <TextView
-        android:id="@+id/full_name_display"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/edit_full_name"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:text="@string/display_full_name"
-        android:textColor="@color/white"
-        android:textAlignment="viewStart"
+        android:background="@drawable/round_style"
+        android:backgroundTint="@color/white"
+        android:importantForAutofill="yes"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="@id/full_name_text"
@@ -87,14 +87,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/full_name_text" />
 
-    <TextView
-        android:id="@+id/username_display"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/edit_username"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:text="@string/display_username"
-        android:textColor="@color/white"
-        android:textAlignment="viewStart"
+        android:background="@drawable/round_style"
+        android:backgroundTint="@color/white"
+        android:importantForAutofill="yes"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="@id/username_text"
@@ -114,14 +114,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/username_text" />
 
-    <TextView
-        android:id="@+id/email_display"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/edit_email"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:text="@string/display_email"
-        android:textColor="@color/white"
-        android:textAlignment="viewStart"
+        android:background="@drawable/round_style"
+        android:backgroundTint="@color/white"
+        android:importantForAutofill="yes"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="@id/email_text"
@@ -141,14 +141,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/email_text" />
 
-    <TextView
-        android:id="@+id/phone_number_display"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/edit_phone_number"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:text="@string/display_phone"
-        android:textColor="@color/white"
-        android:textAlignment="viewStart"
+        android:background="@drawable/round_style"
+        android:backgroundTint="@color/white"
+        android:importantForAutofill="yes"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="@id/phone_number_text"
@@ -156,10 +156,10 @@
         app:layout_constraintStart_toEndOf="@id/phone_number_text" />
 
     <Button
-        android:id="@+id/edit_profile_button"
+        android:id="@+id/update_profile_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/edit_profile_button"
+        android:text="@string/update_profile_button"
         android:textAllCaps="false"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -171,11 +171,11 @@
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <Button
-        android:id="@+id/edit_profile_back_button"
+        android:id="@+id/cancel_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:text="@string/edit_profile_back_button"
+        android:text="@string/cancel_button"
         android:textAllCaps="false"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -195,4 +195,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintVertical_bias="1" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

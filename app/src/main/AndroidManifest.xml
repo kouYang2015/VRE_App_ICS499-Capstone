@@ -29,6 +29,13 @@
         android:theme="@style/Theme.VRE_App"
         tools:targetApi="31">
         <activity
+            android:name=".view.EditProfileInformationActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".view.ProfileInformationActivity"
             android:exported="false">
             <meta-data

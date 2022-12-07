@@ -70,7 +70,10 @@
     <string name="display_username">Display Username</string>
     <string name="display_email">Display Email</string>
     <string name="display_phone">Display Phone Number</string>
-    <string name="edit_profile_button">Edit profile</string>
+    <string name="edit_profile_button">Edit Profile</string>
+    <string name="update_profile_button">Update</string>
+    <string name="edit_profile_back_button">Back to Menu</string>
+    <string name="cancel_button">Cancel</string>
 
 
 </resources>
