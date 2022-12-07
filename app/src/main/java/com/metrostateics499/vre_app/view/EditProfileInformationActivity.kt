@@ -2,11 +2,11 @@ package com.metrostateics499.vre_app.view
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.metrostateics499.vre_app.R
 import com.metrostateics499.vre_app.model.Passing
 
