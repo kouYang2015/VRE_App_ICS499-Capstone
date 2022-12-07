@@ -50,8 +50,8 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var audioManager: AudioManager
     private var myHashAlarm: HashMap<String, String> = HashMap()
     private var warningMessage: String = "Voice Recognition Emergency Services " +
-            "have been activated. Your emergency message and your location has " +
-            "been sent to all your emergency contacts."
+        "have been activated. Your emergency message and your location has " +
+        "been sent to all your emergency contacts."
 
     private var callMessageTTS: String? = null
     private lateinit var telephonyManager: TelephonyManager
@@ -163,7 +163,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 Toast.makeText(
                     this@MenuActivity,
                     "EMS Pinging only activates when an EMS is activated with a keyphrase. " +
-                            "You can only deactivate it here.",
+                        "You can only deactivate it here.",
                     Toast.LENGTH_LONG
                 ).show()
             } else {
@@ -233,7 +233,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                         }
                     } else {
                         vreServiceActiveText.text = "VRE Service is ON - Not Recognized" +
-                                " - Still listening..."
+                            " - Still listening..."
                     }
                 }
 
@@ -258,7 +258,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                         }
                     } else {
                         vreServiceActiveText.text = "VRE Service is ON - Not Recognized" +
-                                " - Still listening..."
+                            " - Still listening..."
                         vreServiceActiveTextTimer.start()
                     }
                 }
@@ -311,14 +311,14 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 if (emergencySetup.activeGPS) {
                     coordinatesLinks =
                         "My last known location: www.google.com/maps/place/" +
-                                Passing.latitude + "," + Passing.longitude +
-                                " or http://maps.apple.com/?daddr=" +
-                                Passing.latitude + "," + Passing.longitude
+                        Passing.latitude + "," + Passing.longitude +
+                        " or http://maps.apple.com/?daddr=" +
+                        Passing.latitude + "," + Passing.longitude
                     coordinatesDate =
                         "Last known coordinates were taken on date: \n" +
-                                Passing.dateTimeGPS +
-                                "\nLatitude: " + Passing.latitude +
-                                "\nLongitude: " + Passing.longitude
+                        Passing.dateTimeGPS +
+                        "\nLatitude: " + Passing.latitude +
+                        "\nLongitude: " + Passing.longitude
                 } else {
                     coordinatesLinks = "Last Known Location: Unavailable or Deactivated "
                     coordinatesDate = ""
@@ -335,16 +335,16 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                             }
                         val emergencyTextMessage =
                             "VOICE RECOGNITION EMERGENCY: " +
-                                    emergencySetup.getCustomTextListString()
+                                emergencySetup.getCustomTextListString()
                         var textMessages: List<String>
 
                         if (emergencyTextMessage.length > 160 && emergencySetup.activeGPS) {
                             textMessages = splitEmergencyTextMessage(emergencyTextMessage)
                             textMessages = (
-                                    textMessages +
-                                            coordinatesLinks +
-                                            coordinatesDate
-                                    )
+                                textMessages +
+                                    coordinatesLinks +
+                                    coordinatesDate
+                                )
                         } else if (emergencyTextMessage.length > 160 &&
                             !emergencySetup.activeGPS
                         ) {
@@ -378,7 +378,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                         Toast.makeText(
                             applicationContext,
                             "Missing Contact Data" +
-                                    e.message.toString(),
+                                e.message.toString(),
                             Toast.LENGTH_LONG
                         )
                             .show()
@@ -402,14 +402,14 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                                 }
                             coordinatesLinks =
                                 "New Location Ping: www.google.com/maps/place/" +
-                                        Passing.latitude + "," + Passing.longitude +
-                                        " or http://maps.apple.com/?daddr=" +
-                                        Passing.latitude + "," + Passing.longitude
+                                Passing.latitude + "," + Passing.longitude +
+                                " or http://maps.apple.com/?daddr=" +
+                                Passing.latitude + "," + Passing.longitude
                             coordinatesDate =
                                 "Coordinates Timestamp: \n" +
-                                        Passing.dateTimeGPS +
-                                        "\nLatitude: " + Passing.latitude +
-                                        "\nLongitude: " + Passing.longitude
+                                Passing.dateTimeGPS +
+                                "\nLatitude: " + Passing.latitude +
+                                "\nLongitude: " + Passing.longitude
                             for (contact in emergencySetup.selectedContactList) {
                                 smsManager.sendTextMessage(
                                     contact.phoneNumber, null,
@@ -489,10 +489,10 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private fun checkAndRequestPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission
-                    (
-                    this,
-                    Manifest.permission.RECORD_AUDIO
-                ) != PackageManager.PERMISSION_GRANTED
+                (
+                        this,
+                        Manifest.permission.RECORD_AUDIO
+                    ) != PackageManager.PERMISSION_GRANTED
             ) {
                 ActivityCompat.requestPermissions(
                     this, arrayOf(Manifest.permission.RECORD_AUDIO),
@@ -701,7 +701,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 Toast.makeText(
                     this@MenuActivity,
                     "Permission Granted.\nYou have activated GPS " +
-                            "Tracking for all activated Emergency Messages",
+                        "Tracking for all activated Emergency Messages",
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
