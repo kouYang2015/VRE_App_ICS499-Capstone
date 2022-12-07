@@ -41,8 +41,8 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var audioManager: AudioManager
     private var myHashAlarm: HashMap<String, String> = HashMap()
     private var warningMessage: String = "Voice Recognition Emergency Services " +
-            "have been activated. Your emergency message and your location has " +
-            "been sent to all your emergency contacts."
+        "have been activated. Your emergency message and your location has " +
+        "been sent to all your emergency contacts."
 
     private lateinit var telephonyManager: TelephonyManager
 
@@ -154,7 +154,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 Toast.makeText(
                     this@MenuActivity,
                     "EMS Pinging only activates when an EMS is activated with a keyphrase. " +
-                            "You can only deactivate it here.",
+                        "You can only deactivate it here.",
                     Toast.LENGTH_LONG
                 ).show()
             } else {
@@ -180,11 +180,11 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                         Passing.vreServiceActive = true
                         dks.startSpeechRecognition()
                         vreServiceActiveText.text = "VRE Service is ON - " +
-                                "Listening for keyphrases..."
+                            "Listening for keyphrases..."
                         Toast.makeText(
                             this@MenuActivity,
                             "You have activated VRE service for all " +
-                                    "activated Emergency Messages",
+                                "activated Emergency Messages",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -195,7 +195,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     Toast.makeText(
                         this@MenuActivity,
                         "VRE Service can only be activated when you've " +
-                                "setup and activated an emergency message",
+                            "setup and activated an emergency message",
                         Toast.LENGTH_LONG
                     ).show()
                 }
@@ -249,13 +249,13 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                             Passing.callingInProcess = false
                             vreServiceActiveText.text =
                                 "VRE Service is ON - Recognized Stop Calls" +
-                                        " - Still listening..."
+                                " - Still listening..."
                             Passing.callingInProcess = false
                             vreServiceActiveTextTimer.start()
                         }
                     } else {
                         vreServiceActiveText.text = "VRE Service is ON - Not Recognized" +
-                                " - Still listening..."
+                            " - Still listening..."
                         vreServiceActiveTextTimer.start()
                     }
                 }
@@ -349,7 +349,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     Toast.makeText(
                         applicationContext,
                         "Something Went Wrong" +
-                                e.message.toString(),
+                            e.message.toString(),
                         Toast.LENGTH_LONG
                     ).show()
                 }
@@ -557,7 +557,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 Toast.makeText(
                     this@MenuActivity,
                     "Permission Granted.\nYou have activated GPS " +
-                            "Tracking for all activated Emergency Messages",
+                        "Tracking for all activated Emergency Messages",
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
