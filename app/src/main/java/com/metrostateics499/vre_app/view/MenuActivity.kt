@@ -41,8 +41,8 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var audioManager: AudioManager
     private var myHashAlarm: HashMap<String, String> = HashMap()
     private var warningMessage: String = "Voice Recognition Emergency Services " +
-        "have been activated. Your emergency message and your location has " +
-        "been sent to all your emergency contacts."
+            "have been activated. Your emergency message and your location has " +
+            "been sent to all your emergency contacts."
 
     private lateinit var telephonyManager: TelephonyManager
 
@@ -54,9 +54,9 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var locationManager: LocationGPS
     private lateinit var app: Application
     private lateinit var dks: Dks
+    private var callState: String = "idle"
     private lateinit var profileButton: Button
     private lateinit var logoutButton: Button
-    private var callState: String = "idle"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,6 +72,11 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         longitudeValueTextView = findViewById(R.id.longitudeValueTextView)
         coordinatesDateTimeTextView = findViewById(R.id.coordinatesDateTimeTextView)
 
+        // Register button click listeners
+        speechButton = findViewById(R.id.speechRecognition)
+        speechButton.setOnClickListener() {
+            startActivity(Intent(this, ListenSpeechActivity::class.java))
+        }
         // Profile button click listeners
         profileButton = findViewById(R.id.profile)
         profileButton.setOnClickListener {
@@ -84,13 +89,6 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             startActivity(intent)
             finishAffinity()
         }
-
-        // Register button click listeners
-        speechButton = findViewById(R.id.speechRecognition)
-        speechButton.setOnClickListener() {
-            startActivity(Intent(this, ListenSpeechActivity::class.java))
-        }
-
         val goToEmergencyMessageSetup = findViewById<Button>(R.id.emergencyMessageSetup)
         goToEmergencyMessageSetup.setOnClickListener {
             startActivity(Intent(this, EmergencyMessageSetupActivity::class.java))
@@ -156,7 +154,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 Toast.makeText(
                     this@MenuActivity,
                     "EMS Pinging only activates when an EMS is activated with a keyphrase. " +
-                        "You can only deactivate it here.",
+                            "You can only deactivate it here.",
                     Toast.LENGTH_LONG
                 ).show()
             } else {
@@ -182,11 +180,11 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                         Passing.vreServiceActive = true
                         dks.startSpeechRecognition()
                         vreServiceActiveText.text = "VRE Service is ON - " +
-                            "Listening for keyphrases..."
+                                "Listening for keyphrases..."
                         Toast.makeText(
                             this@MenuActivity,
                             "You have activated VRE service for all " +
-                                "activated Emergency Messages",
+                                    "activated Emergency Messages",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -197,7 +195,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     Toast.makeText(
                         this@MenuActivity,
                         "VRE Service can only be activated when you've " +
-                            "setup and activated an emergency message",
+                                "setup and activated an emergency message",
                         Toast.LENGTH_LONG
                     ).show()
                 }
@@ -251,13 +249,13 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                             Passing.callingInProcess = false
                             vreServiceActiveText.text =
                                 "VRE Service is ON - Recognized Stop Calls" +
-                                " - Still listening..."
+                                        " - Still listening..."
                             Passing.callingInProcess = false
                             vreServiceActiveTextTimer.start()
                         }
                     } else {
                         vreServiceActiveText.text = "VRE Service is ON - Not Recognized" +
-                            " - Still listening..."
+                                " - Still listening..."
                         vreServiceActiveTextTimer.start()
                     }
                 }
@@ -301,46 +299,6 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         )
     }
 
-    val vreServiceActiveTextTimer = object : CountDownTimer(5_000, 1000) {
-        override fun onTick(millisUntilFinished: Long) {
-        }
-
-        override fun onFinish() {
-            vreServiceActiveText.text = "VRE Service is ON - Listening for keyphrases..."
-        }
-    }
-
-    val vreServiceSendingTextTimer = object : CountDownTimer(5_000, 1000) {
-        override fun onTick(millisUntilFinished: Long) {
-        }
-
-        override fun onFinish() {
-            vreServiceActiveText.text = "Performing Emergency Message..."
-        }
-    }
-
-    private fun performEmergencyMessage(emergencySetup: EmergencyMessageSetup) {
-
-        var coordinatesLinks: String
-        var coordinatesDate: String
-
-        if (emergencySetup != null) {
-            if (emergencySetup.activeSendText) {
-                if (emergencySetup.activeGPS) {
-                    coordinatesLinks =
-                        "My last known location: www.google.com/maps/place/" +
-                        Passing.latitude + "," + Passing.longitude +
-                        " or http://maps.apple.com/?daddr=" +
-                        Passing.latitude + "," + Passing.longitude
-                    coordinatesDate =
-                        "Last known coordinates were taken on date: \n" +
-                        Passing.dateTimeGPS +
-                        "\nLatitude: " + Passing.latitude +
-                        "\nLongitude: " + Passing.longitude
-                } else {
-                    coordinatesLinks = "Last Known Location: Unavailable or Deactivated "
-                    coordinatesDate = ""
-                    
     private fun phoneCallLoop() {
         Thread {
             while (Passing.vreActivatedEMS.activeCall) {
@@ -391,7 +349,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     Toast.makeText(
                         applicationContext,
                         "Something Went Wrong" +
-                            e.message.toString(),
+                                e.message.toString(),
                         Toast.LENGTH_LONG
                     ).show()
                 }
@@ -527,7 +485,6 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             }
         }
     }
-
     private fun checkIfGPSSwitchOn() {
         if (Passing.locationTrackingRequested) {
             switchMenuGPS.isChecked = true
@@ -600,7 +557,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 Toast.makeText(
                     this@MenuActivity,
                     "Permission Granted.\nYou have activated GPS " +
-                        "Tracking for all activated Emergency Messages",
+                            "Tracking for all activated Emergency Messages",
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
