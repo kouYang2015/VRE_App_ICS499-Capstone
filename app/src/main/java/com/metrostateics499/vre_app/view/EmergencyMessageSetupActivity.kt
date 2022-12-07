@@ -53,7 +53,17 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
             titleSelectedString = emergencyMessageSetupAdapter.titleSelectedString
             viewSelectedBoolean = emergencyMessageSetupAdapter.viewSelectedBoolean
             viewSelected = emergencyMessageSetupAdapter.viewSelected
-            checkSelectForEdit(viewSelectedBoolean)
+//            if(checkIfActivePingLocation(titleSelectedString)){
+//                Toast.makeText(
+//                    this@EmergencyMessageSetupActivity,
+//                    "This EMS is pinging it's location. " +
+//                            "Disable EMS Location Pinging in Main " +
+//                            "Menu before editing",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            }else {
+                checkSelectForEdit(viewSelectedBoolean)
+
         }
         buttonDelete!!.setOnClickListener {
             titleSelectedString = emergencyMessageSetupAdapter.titleSelectedString
@@ -61,6 +71,19 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
             viewSelected = emergencyMessageSetupAdapter.viewSelected
             checkSelectForDelete(viewSelectedBoolean, titleSelectedString)
         }
+    }
+
+    private fun checkIfActivePingLocation(titleSelectedString: String): Boolean{
+        if(Passing.emergencyMessageSetupList.isNotEmpty()) {
+            for (item in Passing.emergencyMessageSetupList) {
+                if(item.title == titleSelectedString){
+                    if(item.activePingLocation){
+                        return true
+                    }
+                }
+            }
+        }
+        return false
     }
 
     private fun checkSelectForDelete(viewSelectedBoolean: Boolean, titleSelectedString: String) {

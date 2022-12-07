@@ -28,6 +28,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VRE_App"
         tools:targetApi="31">
+        <service
+            android:name=".utility.ProcessEmergencyMessageService"
+            android:label="@string/app_name"
+            android:exported="false">
+
+            <intent-filter>
+                <action android:name="your.app.domain.ProcessEmergencyMessage" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
         <activity
             android:name=".view.VerificationCodeLoginActivity"
             android:exported="false">
