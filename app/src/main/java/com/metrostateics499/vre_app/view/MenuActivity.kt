@@ -3,10 +3,8 @@ package com.metrostateics499.vre_app.view
 import android.Manifest
 import android.app.AlertDialog
 import android.app.Application
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.media.AudioManager
 import android.net.Uri
@@ -27,7 +25,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
 import com.metrostateics499.vre_app.R
@@ -37,10 +34,9 @@ import com.metrostateics499.vre_app.model.data.KeyPhrase
 import com.metrostateics499.vre_app.utility.LocationGPS
 import github.com.vikramezhil.dks.speech.Dks
 import github.com.vikramezhil.dks.speech.DksListener
-import kotlinx.android.synthetic.main.activity_menu.*
 import java.text.SimpleDateFormat
 import java.util.*
-
+import kotlinx.android.synthetic.main.activity_menu.*
 
 class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 

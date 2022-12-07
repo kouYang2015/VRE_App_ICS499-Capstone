@@ -7,19 +7,16 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
 import android.os.Handler
-
 import android.os.IBinder
 import android.util.Log
-import android.view.View
 import com.metrostateics499.vre_app.R
 import java.util.*
-
 
 class NotificationService : Service() {
     private var timer: Timer? = null
     private var timerTask: TimerTask? = null
     private var tag = "Timers"
-    private var seconds : Long = 5
+    private var seconds: Long = 5
     override fun onBind(arg0: Intent?): IBinder? {
         return null
     }
@@ -41,22 +38,22 @@ class NotificationService : Service() {
         super.onDestroy()
     }
 
-    //we are going to use a handler to be able to run in our TimerTask
+    // we are going to use a handler to be able to run in our TimerTask
     val handler: Handler = Handler()
     private fun startTimer() {
-        //set a new Timer
+        // set a new Timer
         timer = Timer()
 
-        //initialize the TimerTask's job
+        // initialize the TimerTask's job
         initializeTimerTask()
 
-        //schedule the timer, after the first 5000ms the TimerTask will run every 10000ms
+        // schedule the timer, after the first 5000ms the TimerTask will run every 10000ms
         timer!!.schedule(timerTask, 5000, seconds * 1000) //
-        //timer.schedule(timerTask, 5000,1000); //
+        // timer.schedule(timerTask, 5000,1000); //
     }
 
     private fun stopTimerTask() {
-        //stop the timer, if it's not already null
+        // stop the timer, if it's not already null
         if (timer != null) {
             timer!!.cancel()
             timer = null
@@ -67,8 +64,8 @@ class NotificationService : Service() {
         timerTask = object : TimerTask() {
             override fun run() {
 
-                //use a handler to run a toast that shows the current timestamp
-                handler.post { //TODO CALL NOTIFICATION FUNC
+                // use a handler to run a toast that shows the current timestamp
+                handler.post { // TODO CALL NOTIFICATION FUNC
                     notification()
                 }
             }
@@ -80,20 +77,25 @@ class NotificationService : Service() {
         val channelId = "12345"
         val description = "Test Notification"
         val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as
-                NotificationManager
+            NotificationManager
         val intent = Intent(this, LauncherActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationChannel = NotificationChannel(channelId, description, NotificationManager .IMPORTANCE_HIGH)
+            notificationChannel = NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_HIGH)
             notificationChannel.lightColor = Color.BLUE
             notificationChannel.enableVibration(true)
             notificationManager.createNotificationChannel(notificationChannel)
-            builder = Notification.Builder(this, channelId).setContentTitle("NOTIFICATION USING " +
-                    "KOTLIN").setContentText("Test Notification").setSmallIcon(androidx.core.R.drawable.notification_action_background).setLargeIcon(
-                BitmapFactory.decodeResource(this.resources, R.drawable
-                .ic_launcher_background)).setContentIntent(pendingIntent)
+            builder = Notification.Builder(this, channelId).setContentTitle(
+                "NOTIFICATION USING " +
+                    "KOTLIN"
+            ).setContentText("Test Notification").setSmallIcon(androidx.core.R.drawable.notification_action_background).setLargeIcon(
+                BitmapFactory.decodeResource(
+                    this.resources,
+                    R.drawable
+                        .ic_launcher_background
+                )
+            ).setContentIntent(pendingIntent)
         }
         notificationManager.notify(12345, builder.build())
-
     }
 }

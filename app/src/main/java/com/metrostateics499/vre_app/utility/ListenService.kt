@@ -1,39 +1,39 @@
-//package com.metrostateics499.vre_app.utility
+// package com.metrostateics499.vre_app.utility
 //
-//import android.app.Application
-//import android.app.Service
-//import android.content.Intent
-//import android.location.Location
-//import android.media.AudioManager
-//import android.net.Uri
-//import android.os.AsyncTask
-//import android.os.Build
-//import android.os.CountDownTimer
-//import android.os.IBinder
-//import android.speech.SpeechRecognizer
-//import android.speech.tts.TextToSpeech
-//import android.telephony.PhoneStateListener
-//import android.telephony.SmsManager
-//import android.telephony.TelephonyManager
-//import android.util.Log
-//import android.widget.Button
-//import android.widget.TextView
-//import android.widget.Toast
-//import androidx.activity.result.ActivityResultLauncher
-//import androidx.localbroadcastmanager.content.LocalBroadcastManager
-//import com.google.android.gms.location.LocationCallback
-//import com.google.android.gms.location.LocationResult
-//import com.metrostateics499.vre_app.model.Passing
-//import com.metrostateics499.vre_app.model.data.EmergencyMessageSetup
-//import com.metrostateics499.vre_app.model.data.KeyPhrase
-//import github.com.vikramezhil.dks.speech.Dks
-//import github.com.vikramezhil.dks.speech.DksListener
-//import kotlinx.android.synthetic.main.activity_menu.*
-//import java.text.SimpleDateFormat
-//import java.util.*
+// import android.app.Application
+// import android.app.Service
+// import android.content.Intent
+// import android.location.Location
+// import android.media.AudioManager
+// import android.net.Uri
+// import android.os.AsyncTask
+// import android.os.Build
+// import android.os.CountDownTimer
+// import android.os.IBinder
+// import android.speech.SpeechRecognizer
+// import android.speech.tts.TextToSpeech
+// import android.telephony.PhoneStateListener
+// import android.telephony.SmsManager
+// import android.telephony.TelephonyManager
+// import android.util.Log
+// import android.widget.Button
+// import android.widget.TextView
+// import android.widget.Toast
+// import androidx.activity.result.ActivityResultLauncher
+// import androidx.localbroadcastmanager.content.LocalBroadcastManager
+// import com.google.android.gms.location.LocationCallback
+// import com.google.android.gms.location.LocationResult
+// import com.metrostateics499.vre_app.model.Passing
+// import com.metrostateics499.vre_app.model.data.EmergencyMessageSetup
+// import com.metrostateics499.vre_app.model.data.KeyPhrase
+// import github.com.vikramezhil.dks.speech.Dks
+// import github.com.vikramezhil.dks.speech.DksListener
+// import kotlinx.android.synthetic.main.activity_menu.*
+// import java.text.SimpleDateFormat
+// import java.util.*
 //
 //
-//class ListenService : Service(), TextToSpeech.OnInitListener {
+// class ListenService : Service(), TextToSpeech.OnInitListener {
 //    private lateinit var emergencyFound: EmergencyMessageSetup
 //    private lateinit var txtResult: TextView
 //    private lateinit var speechRecognizer: SpeechRecognizer
@@ -89,8 +89,8 @@
 //    }
 //
 //    private fun initializeComponents() {
-////        txtResult = findViewById(R.id.vreServiceActiveText)
-////        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
+// //        txtResult = findViewById(R.id.vreServiceActiveText)
+// //        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this)
 //        textToSpeech = TextToSpeech(this, this)
 //        telephonyManager = this.getSystemService(TELEPHONY_SERVICE) as TelephonyManager
 //        audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
@@ -101,8 +101,8 @@
 //            locationManager.startLocationTracking(locationCallback)
 //        }
 //
-////        requestSmsPermission()
-////        requestCallPermission()
+// //        requestSmsPermission()
+// //        requestCallPermission()
 //
 //        telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE)
 //    }
@@ -397,9 +397,9 @@
 //                    )
 //
 //                    Thread.sleep(5_000)
-////
-////                    textToSpeech?.speak(callMessageTTS, TextToSpeech.QUEUE_FLUSH, myHashAlarm)
-////                    textToSpeech?.speak(callMessageTTS, TextToSpeech.QUEUE_ADD, myHashAlarm)
+// //
+// //                    textToSpeech?.speak(callMessageTTS, TextToSpeech.QUEUE_FLUSH, myHashAlarm)
+// //                    textToSpeech?.speak(callMessageTTS, TextToSpeech.QUEUE_ADD, myHashAlarm)
 //                }
 //                TelephonyManager.CALL_STATE_IDLE -> {
 //                    Toast.makeText(
@@ -468,7 +468,7 @@
 //
 //    private val locationCallback = object : LocationCallback() {
 //        override fun onLocationResult(locationResult: LocationResult) {
-////            locationResult
+// //            locationResult
 //            for (location in locationResult.locations) {
 //                sendBroadcastLocation(location)
 //                // Update UI
@@ -502,4 +502,4 @@
 //    fun getCurrentDateTime(): Date {
 //        return Calendar.getInstance().time
 //    }
-//}
+// }
