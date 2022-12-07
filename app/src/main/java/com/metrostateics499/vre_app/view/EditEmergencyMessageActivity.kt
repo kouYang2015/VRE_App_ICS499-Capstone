@@ -157,7 +157,7 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
                 Toast.makeText(
                     this@EditEmergencyMessageActivity,
                     "Speaking your keyphrase(s) will now activate " +
-                        "your Emergency Message",
+                        "your Emergency Message if VRE service is ON",
                     Toast.LENGTH_LONG
                 ).show()
             } else if (switch5.isChecked &&

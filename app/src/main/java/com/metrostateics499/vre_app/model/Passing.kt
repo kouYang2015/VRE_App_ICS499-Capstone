@@ -26,11 +26,14 @@ object Passing {
     lateinit var selectedCustomTextObject: CustomTextMessage
     lateinit var selectedCallMessageObject: CallMessage
 
+    lateinit var vreActivatedEMS: EmergencyMessageSetup
     var vreServiceActive = false
     var locationTrackingRequested = false
     var latitude: String = "Unknown"
     var longitude: String = "Unknown"
     var dateTimeGPS: String = "Unknown"
+    var callingInProcess: Boolean = false
+    var deactivateCallingPhrase: String = "Stop Calling"
 
     @JvmName("setFullName1")
     fun setFullName(fullName: String) {

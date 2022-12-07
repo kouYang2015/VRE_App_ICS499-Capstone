@@ -3,16 +3,13 @@ package com.metrostateics499.vre_app.utility
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Looper
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 
 class LocationGPS(context: Context) {
     private val context: Context = context
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
-    private var locationRequest = LocationRequest()
+    private lateinit var locationRequest: LocationRequest
     private var startedLocationTracking = false
     init {
         configureLocationRequest()
@@ -22,9 +19,11 @@ class LocationGPS(context: Context) {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
     }
     private fun configureLocationRequest() {
-        locationRequest.interval = UPDATE_INTERVAL_MILLISECONDS
-        locationRequest.fastestInterval = FASTEST_UPDATE_INTERVAL_MILLISECONDS
-        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        val locBuilder = LocationRequest.Builder(0)
+        locBuilder.setIntervalMillis(UPDATE_INTERVAL_MILLISECONDS)
+        locBuilder.setMinUpdateIntervalMillis(FASTEST_UPDATE_INTERVAL_MILLISECONDS)
+        locBuilder.setPriority(Priority.PRIORITY_HIGH_ACCURACY)
+        locationRequest = locBuilder.build()
     }
     @SuppressLint("MissingPermission")
     fun startLocationTracking(locationCallback: LocationCallback) {
