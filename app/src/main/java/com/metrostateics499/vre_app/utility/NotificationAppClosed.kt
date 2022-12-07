@@ -79,7 +79,7 @@ class NotificationAppClosed : Service() {
         val channelId = "12345"
         val description = "Test Notification"
         val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as
-                NotificationManager
+            NotificationManager
         val intent = Intent(this, LauncherActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -89,7 +89,7 @@ class NotificationAppClosed : Service() {
             notificationManager.createNotificationChannel(notificationChannel)
             builder = Notification.Builder(this, channelId).setContentTitle(
                 "NOTIFICATION USING " +
-                        "KOTLIN"
+                    "KOTLIN"
             ).setContentText("Test Notification").setSmallIcon(androidx.core.R.drawable.notification_bg_normal).setLargeIcon(
                 BitmapFactory.decodeResource(
                     this.resources,
