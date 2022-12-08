@@ -2,13 +2,11 @@ package com.metrostateics499.vre_app.utility
 
 import android.app.Service
 import android.content.Intent
-import android.media.AudioManager
 import android.os.AsyncTask
 import android.os.Build
 import android.os.IBinder
 import android.speech.tts.TextToSpeech
 import android.telephony.SmsManager
-import android.telephony.TelephonyManager
 import android.util.Log
 import android.widget.Toast
 import com.metrostateics499.vre_app.model.Passing

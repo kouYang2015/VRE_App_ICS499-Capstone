@@ -1,7 +1,6 @@
 package com.metrostateics499.vre_app.view.adapters
 
 import android.content.Context
-import android.speech.SpeechRecognizer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

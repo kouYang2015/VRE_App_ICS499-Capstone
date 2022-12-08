@@ -534,7 +534,6 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         return grant == PackageManager.PERMISSION_GRANTED
     }
 
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
