@@ -29,11 +29,11 @@ import com.metrostateics499.vre_app.utility.LocationGPS
 import com.metrostateics499.vre_app.utility.ProcessEmergencyMessageService
 import github.com.vikramezhil.dks.speech.Dks
 import github.com.vikramezhil.dks.speech.DksListener
-import kotlinx.android.synthetic.main.activity_edit_emergency_message.*
-import kotlinx.android.synthetic.main.activity_menu.*
 import java.lang.reflect.Method
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlinx.android.synthetic.main.activity_edit_emergency_message.*
+import kotlinx.android.synthetic.main.activity_menu.*
 
 class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
@@ -221,8 +221,6 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             }
         }
 
-
-
         dks = Dks(
             application, supportFragmentManager,
             object : DksListener {
@@ -231,8 +229,8 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     if (findKeyPhraseMatch(liveSpeechResult) != null) {
                         vreServiceActiveText.text = buildString {
                             append(
-                                "KeyPhrase Recognized!\nProcessing Emergency Message..."
-                                +"\nKeyphrase: " + keyPhraseMatch,
+                                "KeyPhrase Recognized!\nProcessing Emergency Message..." +
+                                    "\nKeyphrase: " + keyPhraseMatch,
 
                             )
                         }
@@ -278,7 +276,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                             Passing.callingInProcess = false
                             vreServiceActiveText.text =
                                 "VRE Service is ON\nRecognized Call Next Contact" +
-                                        "\nStill listening..."
+                                "\nStill listening..."
                             textToSpeech?.speak(
                                 "Calling Next Contact",
                                 TextToSpeech
@@ -299,7 +297,6 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 override fun onDksFinalSpeechResult(speechResult: String) {
                     Log.d("DKS", "Final speech result - $speechResult")
                 }
-
 
                 override fun onDksLiveSpeechFrequency(frequency: Float) {
 
@@ -324,40 +321,44 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private fun phoneCallLoop(int: Int) {
         indexInt = int
         Thread {
-                try {
-                    for (contact in Passing.vreActivatedEMS.selectedContactList) {
-                        if(indexInt < Passing.vreActivatedEMS.selectedContactList.size
-                            && contact == Passing.vreActivatedEMS.selectedContactList[indexInt]
-                            && Passing.callingInProcess
-                            && callState == "idle") {
+            try {
+                for (contact in Passing.vreActivatedEMS.selectedContactList) {
+                    if (indexInt < Passing.vreActivatedEMS.selectedContactList.size &&
+                        contact == Passing.vreActivatedEMS.selectedContactList[indexInt] &&
+                        Passing.callingInProcess &&
+                        callState == "idle"
+                    ) {
 
-                            textToSpeech?.speak(
-                                "Calling " + Passing.vreActivatedEMS
-                                    .selectedContactList[indexInt].name,
-                                TextToSpeech.QUEUE_FLUSH,
-                                myHashAlarm
-                                )
-                            makePhoneCall(Passing.vreActivatedEMS
-                                .selectedContactList[indexInt].phoneNumber)
-                            indexInt++
-                            Thread.sleep(10_000)
-                        } else if(callState == "idle" && indexInt
-                            >= Passing.vreActivatedEMS.selectedContactList.size) {
-                            phoneCallLoop(0)
-                        } else {
-                            Thread.sleep(10_000)
-                        }
+                        textToSpeech?.speak(
+                            "Calling " + Passing.vreActivatedEMS
+                                .selectedContactList[indexInt].name,
+                            TextToSpeech.QUEUE_FLUSH,
+                            myHashAlarm
+                        )
+                        makePhoneCall(
+                            Passing.vreActivatedEMS
+                                .selectedContactList[indexInt].phoneNumber
+                        )
+                        indexInt++
+                        Thread.sleep(10_000)
+                    } else if (callState == "idle" && indexInt
+                        >= Passing.vreActivatedEMS.selectedContactList.size
+                    ) {
+                        phoneCallLoop(0)
+                    } else {
+                        Thread.sleep(10_000)
                     }
-                }catch (_: Exception) {
                 }
+            } catch (_: Exception) {
+            }
             Thread.sleep(10_000)
-            if(Passing.callingInProcess) {
+            if (Passing.callingInProcess) {
                 phoneCallLoop(indexInt)
             }
         }.start()
     }
 
-    private fun callNextContact(){
+    private fun callNextContact() {
         endPhoneCall()
         Passing.callingInProcess = true
         phoneCallLoop(indexInt++)
@@ -385,7 +386,6 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             e.printStackTrace()
         }
     }
-
 
     private var phoneStateListener = object : PhoneStateListener() {
         @Deprecated("Deprecated in Java")
@@ -507,7 +507,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         if (Passing.vreServiceActive) {
             menuVreServiceSwitch.isChecked = true
             vreServiceActiveText.text = "Voice Recognition Service is ON\n\n" +
-                    "Listening for keyphrases..."
+                "Listening for keyphrases..."
             vreServiceActiveText.setTextColor(Color.parseColor("#5FFF66"))
         } else {
             menuVreServiceSwitch.isChecked = false
