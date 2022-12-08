@@ -69,6 +69,9 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         latitudeValueTextView = findViewById(R.id.latitudeValueTextView)
         longitudeValueTextView = findViewById(R.id.longitudeValueTextView)
         coordinatesDateTimeTextView = findViewById(R.id.coordinatesDateTimeTextView)
+
+
+        // Profile button click listeners
         profileButton = findViewById(R.id.profile)
         profileButton.setOnClickListener {
             val intent = Intent(this, ProfileInformationActivity::class.java)
@@ -220,6 +223,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                             append(
                                 "KeyPhrase Recognized!\nProcessing Emergency Message..." +
                                     "\nKeyphrase: " + keyPhraseMatch,
+
                             )
                         }
                         Thread.sleep(2_000)
@@ -234,6 +238,11 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                         if (Passing.vreActivatedEMS.activeAudioWarningMessage) {
                             playActivationWarningMessage()
                         }
+
+                        if (Passing.vreActivatedEMS.activeAudioWarningMessage) {
+                            playActivationWarningMessage()
+                        }
+
                         if (Passing.vreActivatedEMS.activeCall) {
                             Passing.callingInProcess = true
                             phoneCallLoop(0)
@@ -254,6 +263,22 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                                 myHashAlarm
                             )
                             Passing.callingInProcess = false
+                            vreServiceActiveTextTimer.start()
+                        }
+                    }
+                    if (Passing.callingInProcess) {
+                        if ((liveSpeechResult.contains(Passing.callNextContactPhrase, true))) {
+                            Passing.callingInProcess = false
+                            vreServiceActiveText.text =
+                                "VRE Service is ON\nRecognized Call Next Contact" +
+                                "\nStill listening..."
+                            textToSpeech?.speak(
+                                "Calling Next Contact",
+                                TextToSpeech
+                                    .QUEUE_FLUSH,
+                                myHashAlarm
+                            )
+                            callNextContact()
                             vreServiceActiveTextTimer.start()
                         }
                     }
