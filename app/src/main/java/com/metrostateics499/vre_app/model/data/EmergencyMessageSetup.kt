@@ -13,14 +13,6 @@ data class EmergencyMessageSetup(
     var activeAudioWarningMessage: Boolean = false,
     var activePingLocation: Boolean = false
 ) {
-    fun addContact(contact: Contact) {
-        selectedContactList.add(contact)
-    }
-
-    fun removeContact(contact: Contact) {
-        selectedContactList.remove(contact)
-    }
-
     fun getContactListNames(): String {
         var nameString = ""
         for (item in selectedContactList)
@@ -71,16 +63,4 @@ data class EmergencyMessageSetup(
 
         return nameString
     }
-
-    fun findContactObject(contact: Contact): Boolean {
-        for (item in this.selectedContactList)
-            if (item == contact) {
-                return true
-            }
-        return false
-    }
-
-//    fun useKeyPhrase(keyPhrase: KeyPhrase) {
-//
-//    }
 }

@@ -2,13 +2,11 @@ package com.metrostateics499.vre_app.utility
 
 import android.app.Service
 import android.content.Intent
-import android.media.AudioManager
 import android.os.AsyncTask
 import android.os.Build
 import android.os.IBinder
 import android.speech.tts.TextToSpeech
 import android.telephony.SmsManager
-import android.telephony.TelephonyManager
 import android.util.Log
 import android.widget.Toast
 import com.metrostateics499.vre_app.model.Passing
@@ -18,19 +16,11 @@ import java.util.*
 class ProcessEmergencyMessageService : Service(), TextToSpeech.OnInitListener {
     private val tag = "ProcessEmergencyMessage"
     private var textToSpeech: TextToSpeech? = null
-    private lateinit var audioManager: AudioManager
-    private var myHashAlarm: HashMap<String, String> = HashMap()
-    private var warningMessage: String = "Voice Recognition Emergency Services " +
-        "have been activated. Your emergency message and your location has " +
-        "been sent to all your emergency contacts."
     private lateinit var coordinatesLinks: String
     private lateinit var coordinatesDate: String
-    private lateinit var telephonyManager: TelephonyManager
     private lateinit var emergencySetup: EmergencyMessageSetup
 
     override fun onCreate() {
-
-//        initializeComponents()
         performEmergencyMessage()
         super.onCreate()
     }
@@ -144,7 +134,6 @@ class ProcessEmergencyMessageService : Service(), TextToSpeech.OnInitListener {
 
     private fun sendUpdateCoordinatesLoop(emergencySetup: EmergencyMessageSetup) {
         AsyncTask.execute {
-
             while (emergencySetup.activePingLocation) {
                 Thread.sleep(120_000)
                 if (emergencySetup.activePingLocation) {

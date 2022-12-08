@@ -67,14 +67,14 @@ class ContactAdapter(
         if (Passing.checkInitializationSelectedEmergencyMessageSetup()) {
             holder.itemView.switch2.setOnClickListener {
                 if (holder.itemView.switch2.isChecked) {
-                    Passing.selectedEmergencyMessageSetup.addContact(mutableList[position])
+                    Passing.selectedEmergencyMessageSetup.selectedContactList.add(mutableList[position])
                     Toast.makeText(
                         context,
                         "You have added " + mutableList[position].name,
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    Passing.selectedEmergencyMessageSetup.removeContact(mutableList[position])
+                    Passing.selectedEmergencyMessageSetup.selectedContactList.remove(mutableList[position])
                     Toast.makeText(
                         context,
                         "You have removed " + mutableList[position].name,

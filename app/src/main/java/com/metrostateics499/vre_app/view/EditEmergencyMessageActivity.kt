@@ -37,14 +37,6 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         refreshRelativeLayoutCall()
         refreshRelativeLayoutAudioWarningMessage()
 
-//        val relativeLayout: RelativeLayout = findViewById(R.id.relativeLayout)
-//        val relativeLayout2: RelativeLayout = findViewById(R.id.relativeLayout2)
-//        val relativeLayout3: RelativeLayout = findViewById(R.id.relativeLayout3)
-//        val relativeLayout4: RelativeLayout = findViewById(R.id.relativeLayout4)
-//        val relativeLayout5GPS: RelativeLayout = findViewById(R.id.relativeLayout5GPS)
-//        val relativeLayout6: RelativeLayout = findViewById(R.id.relativeLayout6)
-//        val relativeLayoutCall: RelativeLayout = findViewById(R.id.relativeLayoutCall)
-
         relativeLayout.setOnClickListener {
             textViewSelected = Passing.selectedEmergencyMessageSetup.title
             openPopUp("title")
@@ -338,7 +330,6 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         if (Passing.selectedEmergencyMessageSetup.selectedKeyPhraseList.isNotEmpty()) {
             text_view_keyphrase_required.text = ""
             val textView2: TextView = findViewById(R.id.text_view_keyphrase)
-//            textView2.setTextColor(Color.parseColor("#1BB100"))
             textView2.text =
                 (
                     "Selected Keyphrase(s): " +
@@ -357,7 +348,6 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
             .isNotEmpty()
         ) {
             val textView3: TextView = findViewById(R.id.text_custom_text)
-//            textView3.setTextColor(Color.parseColor("#1BB100"))
             textView3.text =
                 (
                     "Selected Custom Text(s): " +
@@ -372,18 +362,6 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
     }
 
     private fun refreshRelativeLayoutCall() {
-//        if (Passing.selectedEmergencyMessageSetup.selectedCallMessages
-//            .isNotEmpty()
-//        ) {
-//            val textView3: TextView = findViewById(R.id.text_call_description)
-//            textView3.text =
-//                (
-//                    Passing.selectedEmergencyMessageSetup.getCallMessageListString()
-//                    )
-//        } else if (Passing.selectedEmergencyMessageSetup.selectedCallMessages.isEmpty()) {
-//            val textView3: TextView = findViewById(R.id.text_call_description)
-//            textView3.text = "Choose or Create Call Messages\nSwitch Activates Emergency Calling"
-//        }
         switchCall.isChecked = Passing.selectedEmergencyMessageSetup.activeCall
     }
 
@@ -391,7 +369,6 @@ class EditEmergencyMessageActivity : AppCompatActivity(), EditEmergencyMessagePo
         if (Passing.selectedEmergencyMessageSetup.selectedContactList.isNotEmpty()) {
             text_view_contact_required.text = ""
             val textView4: TextView = findViewById(R.id.text_contact_list)
-//            textView4.setTextColor(Color.parseColor("#1BB100"))
             textView4.text =
                 (
                     "Selected Contacts: " +
