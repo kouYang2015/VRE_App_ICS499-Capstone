@@ -26,12 +26,10 @@ class KeyPhraseAdapter(
     var viewSelected: View? = null
     var titleSelectedString: String = ""
     var viewSelectedBoolean: Boolean = false
-    private lateinit var speechRecognizer: SpeechRecognizer
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindItems(keyPhrase: KeyPhrase) {
             itemView.title.text = keyPhrase.phrase
-//            itemView.description.text = contact.phoneNumber
             if (Passing.checkInitializationSelectedEmergencyMessageSetup()) {
                 val checkedKeyPhrase =
                     Passing.selectedEmergencyMessageSetup
@@ -110,16 +108,6 @@ class KeyPhraseAdapter(
                 }
             }
         }
-//        holder.itemView.test_button.setOnClickListener(){
-//            KeyPhraseActivity.testListenKeyPhrasePopUp()
-// //            val testListenKeyPhrasePopUp = TestListenKeyPhrasePopUp(mutableList[position].phrase)
-// //            testListenKeyPhrasePopUp.show(supportFragmentManager, "example dialog")
-//
-//            requestRecordAudioPermission()
-//            setListeners()
-//            listenSpeech(mutableList[position].phrase)
-//
-//        }
     }
 
     override fun getItemCount(): Int {

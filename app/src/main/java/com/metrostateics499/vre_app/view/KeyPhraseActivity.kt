@@ -288,7 +288,6 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
                     textViewSelected = Passing.selectedKeyPhraseObject.phrase
                     requestRecordAudioPermission()
                     speechRecognizer.startListening(speechRecognizerIntent)
-                    //            txtResult.text = null
                 } else {
                     Toast.makeText(
                         this@KeyPhraseActivity,
@@ -298,9 +297,6 @@ class KeyPhraseActivity : AppCompatActivity(), KeyPhrasePopUps.Listener {
                 }
             }
         }
-//        speechOffButton.setOnClickListener {
-//            speechRecognizer.stopListening()
-//        }
     }
 
     private fun recognizeKeyPhrase(incomingSpeech: String?) {

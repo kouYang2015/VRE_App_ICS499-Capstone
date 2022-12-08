@@ -53,15 +53,6 @@ class EmergencyMessageSetupActivity : AppCompatActivity(), EmergencyMessagePopUp
             titleSelectedString = emergencyMessageSetupAdapter.titleSelectedString
             viewSelectedBoolean = emergencyMessageSetupAdapter.viewSelectedBoolean
             viewSelected = emergencyMessageSetupAdapter.viewSelected
-//            if(checkIfActivePingLocation(titleSelectedString)){
-//                Toast.makeText(
-//                    this@EmergencyMessageSetupActivity,
-//                    "This EMS is pinging it's location. " +
-//                            "Disable EMS Location Pinging in Main " +
-//                            "Menu before editing",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }else {
             checkSelectForEdit(viewSelectedBoolean)
         }
         buttonDelete!!.setOnClickListener {

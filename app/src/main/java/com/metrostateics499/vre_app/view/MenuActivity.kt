@@ -1,7 +1,6 @@
 package com.metrostateics499.vre_app.view
 
 import android.app.AlertDialog
-import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -54,7 +53,6 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var coordinatesDateTimeTextView: TextView
     private var locationPermissionCode = 2
     private lateinit var locationManager: LocationGPS
-    private lateinit var app: Application
     private lateinit var dks: Dks
     private var callState: String = "idle"
     private lateinit var profileButton: Button
@@ -63,24 +61,14 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        app = this.getApplication()
 
-        // This is to hide the action bar
         supportActionBar?.hide()
         setContentView(R.layout.activity_menu)
         logoutButton = findViewById(R.id.logout_button)
-
         locationManager = LocationGPS(this as Context)
         latitudeValueTextView = findViewById(R.id.latitudeValueTextView)
         longitudeValueTextView = findViewById(R.id.longitudeValueTextView)
         coordinatesDateTimeTextView = findViewById(R.id.coordinatesDateTimeTextView)
-
-//        // Register button click listeners
-//        speechButton = findViewById(R.id.speechRecognition)
-//        speechButton.setOnClickListener() {
-//            startActivity(Intent(this, ListenSpeechActivity::class.java))
-//        }
-        // Profile button click listeners
         profileButton = findViewById(R.id.profile)
         profileButton.setOnClickListener {
             val intent = Intent(this, ProfileInformationActivity::class.java)
@@ -154,6 +142,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 onPause()
             }
         }
+
         switchMenuEMSPingingLocation.setOnClickListener {
             if (switchMenuEMSPingingLocation.isChecked) {
                 switchMenuEMSPingingLocation.isChecked = false
@@ -231,7 +220,6 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                             append(
                                 "KeyPhrase Recognized!\nProcessing Emergency Message..." +
                                     "\nKeyphrase: " + keyPhraseMatch,
-
                             )
                         }
                         Thread.sleep(2_000)
@@ -243,11 +231,9 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                                 ProcessEmergencyMessageService::class.java
                             )
                         )
-//                        Thread.sleep(2_000)
                         if (Passing.vreActivatedEMS.activeAudioWarningMessage) {
                             playActivationWarningMessage()
                         }
-//                        Thread.sleep(2_000)
                         if (Passing.vreActivatedEMS.activeCall) {
                             Passing.callingInProcess = true
                             phoneCallLoop(0)
@@ -287,11 +273,6 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                             vreServiceActiveTextTimer.start()
                         }
                     }
-//                    else {
-//                        vreServiceActiveText.text = "VRE Service is ON\n\nNot Recognized" +
-//                            "\nStill listening..."
-//                        vreServiceActiveTextTimer.start()
-//                    }
                 }
 
                 override fun onDksFinalSpeechResult(speechResult: String) {
@@ -420,7 +401,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 }
                 TelephonyManager.CALL_STATE_IDLE -> {
                     callState = "idle"
-//                    audioManager.isSpeakerphoneOn = false
+                    audioManager.isSpeakerphoneOn = false
                 }
             }
         }
@@ -452,17 +433,6 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
         override fun onFinish() {
             vreServiceActiveText.text = "VRE Service is ON\n\nListening for keyphrases..."
-        }
-    }
-
-    val vreServiceSendingTextTimer = object : CountDownTimer(
-        5_000,
-        1000
-    ) {
-        override fun onTick(millisUntilFinished: Long) {
-        }
-        override fun onFinish() {
-            vreServiceActiveText.text = "Performing Emergency Message..."
         }
     }
 
@@ -564,11 +534,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         return grant == PackageManager.PERMISSION_GRANTED
     }
 
-    /**
-     * Shows an AlertDialog window that informs users why the mic permission is required.
-     * Selecting 'Ok' will ask for the permission
-     * Selecting 'Cancel' will close the window
-     */
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -601,6 +567,11 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
     }
 
+    /**
+     * Shows an AlertDialog window that informs users why the mic permission is required.
+     * Selecting 'Ok' will ask for the permission
+     * Selecting 'Cancel' will close the window
+     */
     private fun showMicPermissionRationale() {
         AlertDialog.Builder(this)
             .setTitle("Rationale")

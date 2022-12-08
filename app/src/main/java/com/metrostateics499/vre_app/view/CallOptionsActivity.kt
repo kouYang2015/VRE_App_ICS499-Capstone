@@ -26,7 +26,6 @@ class CallOptionsActivity :
     private var buttonEdit: Button? = null
     private var buttonDelete: Button? = null
     private var buttonListenToMessage: Button? = null
-    private var buttonViewEntireText: Button? = null
     private var textViewSelected: String = ""
     private var textViewSelectedBoolean: Boolean = false
     private var viewSelected: View? = null
@@ -40,6 +39,7 @@ class CallOptionsActivity :
         buttonAdd = findViewById<View>(R.id.buttonAdd) as Button
         buttonEdit = findViewById<View>(R.id.buttonEdit) as Button
         buttonDelete = findViewById<View>(R.id.buttonDelete) as Button
+        buttonListenToMessage = findViewById<View>(R.id.buttonListenToMessage) as Button
 
         // view binding button and edit text
         buttonListenToMessage = findViewById<View>(R.id.buttonListenToMessage) as Button
