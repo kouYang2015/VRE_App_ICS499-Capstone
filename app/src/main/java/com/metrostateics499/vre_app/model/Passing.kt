@@ -8,6 +8,7 @@ import com.metrostateics499.vre_app.model.data.*
  * @constructor Create empty Passing singleton object.
  */
 object Passing {
+
     var fullName: String = ""
     var username: String = ""
     var password: String = ""
@@ -33,7 +34,8 @@ object Passing {
     var longitude: String = "Unknown"
     var dateTimeGPS: String = "Unknown"
     var callingInProcess: Boolean = false
-    var deactivateCallingPhrase: String = "Stop Calling"
+    var deactivateCallingPhrase: String = "Cancel Calling"
+    var callNextContactPhrase: String = "Call Next Contact"
 
     @JvmName("setFullName1")
     fun setFullName(fullName: String) {
