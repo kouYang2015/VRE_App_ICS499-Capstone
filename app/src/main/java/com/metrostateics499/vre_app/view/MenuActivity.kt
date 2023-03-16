@@ -245,6 +245,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
                         if (Passing.vreActivatedEMS.activeCall) {
                             Passing.callingInProcess = true
+                            //start the phone calls at the first selected contact
                             phoneCallLoop(0)
                         }
                     }
@@ -265,9 +266,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                             Passing.callingInProcess = false
                             vreServiceActiveTextTimer.start()
                         }
-                    }
-                    if (Passing.callingInProcess) {
-                        if ((liveSpeechResult.contains(Passing.callNextContactPhrase, true))) {
+                        else if ((liveSpeechResult.contains(Passing.callNextContactPhrase, true))) {
                             Passing.callingInProcess = false
                             vreServiceActiveText.text =
                                 "VRE Service is ON\nRecognized Call Next Contact" +
@@ -278,22 +277,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                                     .QUEUE_FLUSH,
                                 myHashAlarm
                             )
-                            callNextContact()
-                            vreServiceActiveTextTimer.start()
-                        }
-                    }
-                    if (Passing.callingInProcess) {
-                        if ((liveSpeechResult.contains(Passing.callNextContactPhrase, true))) {
-                            Passing.callingInProcess = false
-                            vreServiceActiveText.text =
-                                "VRE Service is ON\nRecognized Call Next Contact" +
-                                "\nStill listening..."
-                            textToSpeech?.speak(
-                                "Calling Next Contact",
-                                TextToSpeech
-                                    .QUEUE_FLUSH,
-                                myHashAlarm
-                            )
+//                            Passing.callingInProcess = true
                             callNextContact()
                             vreServiceActiveTextTimer.start()
                         }
@@ -324,6 +308,16 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         )
     }
 
+    /**
+     * Phone call loop continuously loops through contacts after a call has ended
+     *
+     * This is a recursive function that calls itself at index value 0 when the last contact
+     * in the list has been reached. Otherwise it calls itself at +1 of the current indexInt value
+     * in order to call the next contact. Other functions can utilize it's parameter value
+     * to select a specific contact in the loop such as callNextContact().
+     *
+     * @param int
+     */
     private fun phoneCallLoop(int: Int) {
         indexInt = int
         Thread {
@@ -365,8 +359,9 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun callNextContact() {
+        //end current phone call
         endPhoneCall()
-        Passing.callingInProcess = true
+        //call the contact at the next index
         phoneCallLoop(indexInt++)
     }
 
@@ -374,6 +369,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         if (phoneNumber.trim { it <= ' ' }.isNotEmpty()) {
             val dial = "tel:$phoneNumber"
             startActivity(Intent(Intent.ACTION_CALL, Uri.parse(dial)))
+
         }
     }
 
