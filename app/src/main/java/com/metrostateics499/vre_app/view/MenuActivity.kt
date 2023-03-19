@@ -70,7 +70,6 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         longitudeValueTextView = findViewById(R.id.longitudeValueTextView)
         coordinatesDateTimeTextView = findViewById(R.id.coordinatesDateTimeTextView)
 
-
         // Profile button click listeners
         profileButton = findViewById(R.id.profile)
         profileButton.setOnClickListener {
@@ -245,7 +244,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
                         if (Passing.vreActivatedEMS.activeCall) {
                             Passing.callingInProcess = true
-                            //start the phone calls at the first selected contact
+                            // start the phone calls at the first selected contact
                             phoneCallLoop(0)
                         }
                     }
@@ -265,8 +264,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                             )
                             Passing.callingInProcess = false
                             vreServiceActiveTextTimer.start()
-                        }
-                        else if ((liveSpeechResult.contains(Passing.callNextContactPhrase, true))) {
+                        } else if ((liveSpeechResult.contains(Passing.callNextContactPhrase, true))) {
                             Passing.callingInProcess = false
                             vreServiceActiveText.text =
                                 "VRE Service is ON\nRecognized Call Next Contact" +
@@ -359,9 +357,9 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun callNextContact() {
-        //end current phone call
+        // end current phone call
         endPhoneCall()
-        //call the contact at the next index
+        // call the contact at the next index
         phoneCallLoop(indexInt++)
     }
 
@@ -369,7 +367,6 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         if (phoneNumber.trim { it <= ' ' }.isNotEmpty()) {
             val dial = "tel:$phoneNumber"
             startActivity(Intent(Intent.ACTION_CALL, Uri.parse(dial)))
-
         }
     }
 
