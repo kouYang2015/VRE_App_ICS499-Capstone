@@ -43,8 +43,8 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var audioManager: AudioManager
     private var myHashAlarm: HashMap<String, String> = HashMap()
     private var warningMessage: String = "Voice Recognition Emergency Services " +
-            "have been activated. Your emergency message and your location has " +
-            "been sent to all your emergency contacts."
+        "have been activated. Your emergency message and your location has " +
+        "been sent to all your emergency contacts."
 
     private lateinit var telephonyManager: TelephonyManager
     private var indexInt = 0
@@ -69,7 +69,6 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         latitudeValueTextView = findViewById(R.id.latitudeValueTextView)
         longitudeValueTextView = findViewById(R.id.longitudeValueTextView)
         coordinatesDateTimeTextView = findViewById(R.id.coordinatesDateTimeTextView)
-
 
         // Profile button click listeners
         profileButton = findViewById(R.id.profile)
@@ -164,7 +163,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 Toast.makeText(
                     this@MenuActivity,
                     "EMS Pinging only activates when an EMS is activated with a keyphrase. " +
-                            "You can only deactivate it here.",
+                        "You can only deactivate it here.",
                     Toast.LENGTH_LONG
                 ).show()
             } else {
@@ -196,12 +195,12 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                         Passing.vreServiceActive = true
                         dks.startSpeechRecognition()
                         vreServiceActiveText.text = "Voice Recognition Service is ON\n\n" +
-                                "Listening for keyphrases..."
+                            "Listening for keyphrases..."
                         vreServiceActiveText.setTextColor(Color.parseColor("#5FFF66"))
                         Toast.makeText(
                             this@MenuActivity,
                             "You have activated VRE service for all " +
-                                    "activated Emergency Messages",
+                                "activated Emergency Messages",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -212,7 +211,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     Toast.makeText(
                         this@MenuActivity,
                         "VRE Service can only be activated when you've " +
-                                "setup and activated an emergency message",
+                            "setup and activated an emergency message",
                         Toast.LENGTH_LONG
                     ).show()
                 }
@@ -240,9 +239,9 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                         vreServiceActiveText.text = buildString {
                             append(
                                 "KeyPhrase Recognized!\nProcessing Emergency Message..." +
-                                        "\nKeyphrase: " + keyPhraseMatch,
+                                    "\nKeyphrase: " + keyPhraseMatch,
 
-                                )
+                            )
                         }
                         Thread.sleep(2_000)
                         checkIfPingingLocation()
@@ -263,7 +262,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
                         if (Passing.vreActivatedEMS.activeCall) {
                             Passing.callingInProcess = true
-                            //start the phone calls at the first selected contact
+                            // start the phone calls at the first selected contact
                             phoneCallLoop(0)
                         }
                     }
@@ -273,7 +272,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                             Passing.callingInProcess = false
                             vreServiceActiveText.text =
                                 "VRE Service is ON\nRecognized Stop Calls" +
-                                        "\nStill listening..."
+                                "\nStill listening..."
                             endPhoneCall()
                             textToSpeech?.speak(
                                 "Calling Stopped",
@@ -283,12 +282,11 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                             )
                             Passing.callingInProcess = false
                             vreServiceActiveTextTimer.start()
-                        }
-                        else if ((liveSpeechResult.contains(Passing.callNextContactPhrase, true))) {
+                        } else if ((liveSpeechResult.contains(Passing.callNextContactPhrase, true))) {
                             Passing.callingInProcess = false
                             vreServiceActiveText.text =
                                 "VRE Service is ON\nRecognized Call Next Contact" +
-                                        "\nStill listening..."
+                                "\nStill listening..."
                             textToSpeech?.speak(
                                 "Calling Next Contact",
                                 TextToSpeech
@@ -377,9 +375,9 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun callNextContact() {
-        //end current phone call
+        // end current phone call
         endPhoneCall()
-        //call the contact at the next index
+        // call the contact at the next index
         phoneCallLoop(indexInt++)
     }
 
@@ -387,7 +385,6 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         if (phoneNumber.trim { it <= ' ' }.isNotEmpty()) {
             val dial = "tel:$phoneNumber"
             startActivity(Intent(Intent.ACTION_CALL, Uri.parse(dial)))
-
         }
     }
 
@@ -508,7 +505,6 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 switchMenuEMSPingingLocation.isChecked = true
                 break
             }
-
         }
     }
     private fun checkIfGPSSwitchOn() {
@@ -519,7 +515,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         if (Passing.vreServiceActive) {
             menuVreServiceSwitch.isChecked = true
             vreServiceActiveText.text = "Voice Recognition Service is ON\n\n" +
-                    "Listening for keyphrases..."
+                "Listening for keyphrases..."
             vreServiceActiveText.setTextColor(Color.parseColor("#5FFF66"))
         } else {
             menuVreServiceSwitch.isChecked = false
@@ -589,7 +585,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 Toast.makeText(
                     this@MenuActivity,
                     "Permission Granted.\nYou have activated GPS " +
-                            "Tracking for all activated Emergency Messages",
+                        "Tracking for all activated Emergency Messages",
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
