@@ -12,6 +12,7 @@ import android.widget.Toast
 import com.metrostateics499.vre_app.model.Passing
 import com.metrostateics499.vre_app.model.data.EmergencyMessageSetup
 import java.util.*
+import java.util.concurrent.Executors
 
 class ProcessEmergencyMessageService : Service(), TextToSpeech.OnInitListener {
     private val tag = "ProcessEmergencyMessage"
@@ -46,94 +47,92 @@ class ProcessEmergencyMessageService : Service(), TextToSpeech.OnInitListener {
 
     private fun performEmergencyMessage() {
         this.emergencySetup = Passing.vreActivatedEMS
-        if (emergencySetup != null) {
-            if (emergencySetup.activeSendText) {
-                if (emergencySetup.activeGPS) {
-                    coordinatesLinks =
-                        "My last known location: www.google.com/maps/place/" +
-                        Passing.latitude + "," + Passing.longitude +
-                        " or http://maps.apple.com/?daddr=" +
-                        Passing.latitude + "," + Passing.longitude
-                    coordinatesDate =
-                        "Last known coordinates were taken on date: \n" +
-                        Passing.dateTimeGPS +
-                        "\nLatitude: " + Passing.latitude +
-                        "\nLongitude: " + Passing.longitude
-                } else {
-                    coordinatesLinks = "Last Known Location: Unavailable or Deactivated "
-                    coordinatesDate = ""
-                }
-                for (contact in emergencySetup.selectedContactList) {
-                    try {
-                        val smsManager: SmsManager =
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                                applicationContext.getSystemService(
-                                    SmsManager::class.java
-                                )
-                            } else {
-                                SmsManager.getDefault()
-                            }
-                        val emergencyTextMessage =
-                            "VOICE RECOGNITION EMERGENCY: " +
-                                emergencySetup.getCustomTextListString()
-                        var textMessages: List<String>
-
-                        if (emergencyTextMessage.length > 160 && emergencySetup.activeGPS) {
-                            textMessages = splitEmergencyTextMessage(emergencyTextMessage)
-                            textMessages = (
-                                textMessages +
-                                    coordinatesLinks +
-                                    coordinatesDate
-                                )
-                        } else if (emergencyTextMessage.length > 160 &&
-                            !emergencySetup.activeGPS
-                        ) {
-                            textMessages = splitEmergencyTextMessage(emergencyTextMessage)
-                            textMessages = (textMessages + coordinatesLinks)
-                        } else if (emergencyTextMessage.length <= 160 &&
-                            !emergencySetup.activeGPS
-                        ) {
-                            textMessages =
-                                listOf(emergencyTextMessage, coordinatesLinks)
-                        } else {
-                            textMessages =
-                                listOf(
-                                    emergencyTextMessage,
-                                    coordinatesLinks,
-                                    coordinatesDate
-                                )
-                        }
-                        for (textItem in textMessages) {
-                            smsManager.sendTextMessage(
-                                contact.phoneNumber, null,
-                                textItem, null, null
+        if (emergencySetup.activeSendText) {
+            if (emergencySetup.activeGPS) {
+                coordinatesLinks =
+                    "My last known location: www.google.com/maps/place/" +
+                    Passing.latitude + "," + Passing.longitude +
+                    " or http://maps.apple.com/?daddr=" +
+                    Passing.latitude + "," + Passing.longitude
+                coordinatesDate =
+                    "Last known coordinates were taken on date: \n" +
+                    Passing.dateTimeGPS +
+                    "\nLatitude: " + Passing.latitude +
+                    "\nLongitude: " + Passing.longitude
+            } else {
+                coordinatesLinks = "Last Known Location: Unavailable or Deactivated "
+                coordinatesDate = ""
+            }
+            for (contact in emergencySetup.selectedContactList) {
+                try {
+                    val smsManager: SmsManager =
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                            applicationContext.getSystemService(
+                                SmsManager::class.java
                             )
-                            Thread.sleep(1_500)
+                        } else {
+                            SmsManager.getDefault()
                         }
-                        Toast.makeText(
-                            applicationContext, "Emergency Message Sent",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    } catch (e: Exception) {
-                        Toast.makeText(
-                            applicationContext,
-                            "Missing Contact Data" +
-                                e.message.toString(),
-                            Toast.LENGTH_LONG
-                        )
-                            .show()
+                    val emergencyTextMessage =
+                        "VOICE RECOGNITION EMERGENCY: " +
+                            emergencySetup.getCustomTextListString()
+                    var textMessages: List<String>
+
+                    if (emergencyTextMessage.length > 160 && emergencySetup.activeGPS) {
+                        textMessages = splitEmergencyTextMessage(emergencyTextMessage)
+                        textMessages = (
+                            textMessages +
+                                coordinatesLinks +
+                                coordinatesDate
+                            )
+                    } else if (emergencyTextMessage.length > 160 &&
+                        !emergencySetup.activeGPS
+                    ) {
+                        textMessages = splitEmergencyTextMessage(emergencyTextMessage)
+                        textMessages = (textMessages + coordinatesLinks)
+                    } else if (emergencyTextMessage.length <= 160 &&
+                        !emergencySetup.activeGPS
+                    ) {
+                        textMessages =
+                            listOf(emergencyTextMessage, coordinatesLinks)
+                    } else {
+                        textMessages =
+                            listOf(
+                                emergencyTextMessage,
+                                coordinatesLinks,
+                                coordinatesDate
+                            )
                     }
+                    for (textItem in textMessages) {
+                        smsManager.sendTextMessage(
+                            contact.phoneNumber, null,
+                            textItem, null, null
+                        )
+                        Thread.sleep(1_500)
+                    }
+                    Toast.makeText(
+                        applicationContext, "Emergency Message Sent",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } catch (e: Exception) {
+                    Toast.makeText(
+                        applicationContext,
+                        "Missing Contact Data" +
+                            e.message.toString(),
+                        Toast.LENGTH_LONG
+                    )
+                        .show()
                 }
             }
-            if (emergencySetup.activeGPS && emergencySetup.activeSendText) {
-                emergencySetup.activePingLocation = true
-                sendUpdateCoordinatesLoop(emergencySetup)
-            }
+        }
+        if (emergencySetup.activeGPS && emergencySetup.activeSendText) {
+            emergencySetup.activePingLocation = true
+            sendUpdateCoordinatesLoop(emergencySetup)
         }
     }
 
     private fun sendUpdateCoordinatesLoop(emergencySetup: EmergencyMessageSetup) {
-        AsyncTask.execute {
+        Executors.newSingleThreadExecutor().execute {
             while (emergencySetup.activePingLocation) {
                 Thread.sleep(120_000)
                 if (emergencySetup.activePingLocation) {

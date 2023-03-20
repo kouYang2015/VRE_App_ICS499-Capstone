@@ -33,6 +33,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlinx.android.synthetic.main.activity_edit_emergency_message.*
 import kotlinx.android.synthetic.main.activity_menu.*
+import java.util.concurrent.Executors
 
 class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
@@ -69,7 +70,6 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         latitudeValueTextView = findViewById(R.id.latitudeValueTextView)
         longitudeValueTextView = findViewById(R.id.longitudeValueTextView)
         coordinatesDateTimeTextView = findViewById(R.id.coordinatesDateTimeTextView)
-
 
         // Profile button click listeners
         profileButton = findViewById(R.id.profile)
@@ -132,6 +132,12 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 } else {
                     switchMenuGPS.isChecked = false
                     onPause()
+                    stopService(
+                        Intent(
+                            this@MenuActivity,
+                            ProcessEmergencyMessageService::class.java
+                        )
+                    )
                     Passing.locationTrackingRequested = false
                     locationManager.stopLocationTracking()
                     Toast.makeText(
@@ -143,6 +149,12 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             } else {
                 switchMenuGPS.isChecked = false
                 onPause()
+                stopService(
+                    Intent(
+                        this@MenuActivity,
+                        ProcessEmergencyMessageService::class.java
+                    )
+                )
             }
         }
 
@@ -166,6 +178,12 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     "Stopped Pinging Location to Active Emergency Messages",
                     Toast.LENGTH_SHORT
                 ).show()
+                stopService(
+                    Intent(
+                        this@MenuActivity,
+                        ProcessEmergencyMessageService::class.java
+                    )
+                )
             }
         }
 
@@ -197,6 +215,12 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                             "setup and activated an emergency message",
                         Toast.LENGTH_LONG
                     ).show()
+                    stopService(
+                        Intent(
+                            this@MenuActivity,
+                            ProcessEmergencyMessageService::class.java
+                        )
+                    )
                 }
             } else {
                 menuVreServiceSwitch.isChecked = false
@@ -210,6 +234,12 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     "You have deactivated VRE service",
                     Toast.LENGTH_SHORT
                 ).show()
+                stopService(
+                    Intent(
+                        this@MenuActivity,
+                        ProcessEmergencyMessageService::class.java
+                    )
+                )
             }
         }
 
@@ -245,6 +275,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
                         if (Passing.vreActivatedEMS.activeCall) {
                             Passing.callingInProcess = true
+                            // start the phone calls at the first selected contact
                             phoneCallLoop(0)
                         }
                     }
@@ -264,10 +295,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                             )
                             Passing.callingInProcess = false
                             vreServiceActiveTextTimer.start()
-                        }
-                    }
-                    if (Passing.callingInProcess) {
-                        if ((liveSpeechResult.contains(Passing.callNextContactPhrase, true))) {
+                        } else if ((liveSpeechResult.contains(Passing.callNextContactPhrase, true))) {
                             Passing.callingInProcess = false
                             vreServiceActiveText.text =
                                 "VRE Service is ON\nRecognized Call Next Contact" +
@@ -278,22 +306,7 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                                     .QUEUE_FLUSH,
                                 myHashAlarm
                             )
-                            callNextContact()
-                            vreServiceActiveTextTimer.start()
-                        }
-                    }
-                    if (Passing.callingInProcess) {
-                        if ((liveSpeechResult.contains(Passing.callNextContactPhrase, true))) {
-                            Passing.callingInProcess = false
-                            vreServiceActiveText.text =
-                                "VRE Service is ON\nRecognized Call Next Contact" +
-                                "\nStill listening..."
-                            textToSpeech?.speak(
-                                "Calling Next Contact",
-                                TextToSpeech
-                                    .QUEUE_FLUSH,
-                                myHashAlarm
-                            )
+//                            Passing.callingInProcess = true
                             callNextContact()
                             vreServiceActiveTextTimer.start()
                         }
@@ -324,50 +337,58 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         )
     }
 
+    /**
+     * Phone call loop continuously loops through contacts after a call has ended
+     *
+     * This is a recursive function that calls itself at index value 0 when the last contact
+     * in the list has been reached. Otherwise it calls itself at +1 of the current indexInt value
+     * in order to call the next contact. Other functions can utilize it's parameter value
+     * to select a specific contact in the loop such as callNextContact().
+     *
+     * @param int
+     */
     private fun phoneCallLoop(int: Int) {
+        if(Passing.vreServiceActive){
         indexInt = int
-        Thread {
+        Executors.newSingleThreadExecutor().execute {
             try {
-                for (contact in Passing.vreActivatedEMS.selectedContactList) {
-                    if (indexInt < Passing.vreActivatedEMS.selectedContactList.size &&
-                        contact == Passing.vreActivatedEMS.selectedContactList[indexInt] &&
-                        Passing.callingInProcess &&
-                        callState == "idle"
-                    ) {
+                while(Passing.vreServiceActive){
+                    for (contact in Passing.vreActivatedEMS.selectedContactList) {
+                        if (indexInt < Passing.vreActivatedEMS.selectedContactList.size &&
+                            contact == Passing.vreActivatedEMS.selectedContactList[indexInt] &&
+                            Passing.callingInProcess &&
+                            callState == "idle"
+                        ) {
 
-                        textToSpeech?.speak(
-                            "Calling " + Passing.vreActivatedEMS
-                                .selectedContactList[indexInt].name,
-                            TextToSpeech.QUEUE_FLUSH,
-                            myHashAlarm
-                        )
-                        makePhoneCall(
-                            Passing.vreActivatedEMS
-                                .selectedContactList[indexInt].phoneNumber
-                        )
-                        indexInt++
-                        Thread.sleep(10_000)
-                    } else if (callState == "idle" && indexInt
-                        >= Passing.vreActivatedEMS.selectedContactList.size
-                    ) {
-                        phoneCallLoop(0)
-                    } else {
-                        Thread.sleep(10_000)
+                            textToSpeech?.speak(
+                                "Calling " + Passing.vreActivatedEMS
+                                    .selectedContactList[indexInt].name,
+                                TextToSpeech.QUEUE_FLUSH,
+                                myHashAlarm
+                            )
+                            makePhoneCall(
+                                Passing.vreActivatedEMS
+                                    .selectedContactList[indexInt].phoneNumber
+                            )
+                            indexInt++
+                            Thread.sleep(10_000)
+                        } else {
+                            Thread.sleep(10_000)
+                        }
                     }
+                    Thread.sleep(3_000)
+                    phoneCallLoop(0)
                 }
             } catch (_: Exception) {
             }
-            Thread.sleep(10_000)
-            if (Passing.callingInProcess) {
-                phoneCallLoop(indexInt)
-            }
-        }.start()
+        }
+    }
     }
 
     private fun callNextContact() {
+        // end current phone call
         endPhoneCall()
-        Passing.callingInProcess = true
-        phoneCallLoop(indexInt++)
+        // call the contact at the next index
     }
 
     private fun makePhoneCall(phoneNumber: String) {
@@ -490,8 +511,10 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
     private fun checkIfPingingLocation() {
         for (emergencyMessage in Passing.emergencyMessageSetupList) {
-            switchMenuEMSPingingLocation.isChecked = emergencyMessage.activePingLocation
-            break
+            if (emergencyMessage.activePingLocation) {
+                switchMenuEMSPingingLocation.isChecked = true
+                break
+            }
         }
     }
     private fun checkIfGPSSwitchOn() {
