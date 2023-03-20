@@ -33,6 +33,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlinx.android.synthetic.main.activity_edit_emergency_message.*
 import kotlinx.android.synthetic.main.activity_menu.*
+import java.util.concurrent.Executors
 
 class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
@@ -214,6 +215,12 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                             "setup and activated an emergency message",
                         Toast.LENGTH_LONG
                     ).show()
+                    stopService(
+                        Intent(
+                            this@MenuActivity,
+                            ProcessEmergencyMessageService::class.java
+                        )
+                    )
                 }
             } else {
                 menuVreServiceSwitch.isChecked = false
@@ -227,6 +234,12 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                     "You have deactivated VRE service",
                     Toast.LENGTH_SHORT
                 ).show()
+                stopService(
+                    Intent(
+                        this@MenuActivity,
+                        ProcessEmergencyMessageService::class.java
+                    )
+                )
             }
         }
 
@@ -335,50 +348,47 @@ class MenuActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
      * @param int
      */
     private fun phoneCallLoop(int: Int) {
+        if(Passing.vreServiceActive){
         indexInt = int
-        Thread {
+        Executors.newSingleThreadExecutor().execute {
             try {
-                for (contact in Passing.vreActivatedEMS.selectedContactList) {
-                    if (indexInt < Passing.vreActivatedEMS.selectedContactList.size &&
-                        contact == Passing.vreActivatedEMS.selectedContactList[indexInt] &&
-                        Passing.callingInProcess &&
-                        callState == "idle"
-                    ) {
+                while(Passing.vreServiceActive){
+                    for (contact in Passing.vreActivatedEMS.selectedContactList) {
+                        if (indexInt < Passing.vreActivatedEMS.selectedContactList.size &&
+                            contact == Passing.vreActivatedEMS.selectedContactList[indexInt] &&
+                            Passing.callingInProcess &&
+                            callState == "idle"
+                        ) {
 
-                        textToSpeech?.speak(
-                            "Calling " + Passing.vreActivatedEMS
-                                .selectedContactList[indexInt].name,
-                            TextToSpeech.QUEUE_FLUSH,
-                            myHashAlarm
-                        )
-                        makePhoneCall(
-                            Passing.vreActivatedEMS
-                                .selectedContactList[indexInt].phoneNumber
-                        )
-                        indexInt++
-                        Thread.sleep(10_000)
-                    } else if (callState == "idle" && indexInt
-                        >= Passing.vreActivatedEMS.selectedContactList.size
-                    ) {
-                        phoneCallLoop(0)
-                    } else {
-                        Thread.sleep(10_000)
+                            textToSpeech?.speak(
+                                "Calling " + Passing.vreActivatedEMS
+                                    .selectedContactList[indexInt].name,
+                                TextToSpeech.QUEUE_FLUSH,
+                                myHashAlarm
+                            )
+                            makePhoneCall(
+                                Passing.vreActivatedEMS
+                                    .selectedContactList[indexInt].phoneNumber
+                            )
+                            indexInt++
+                            Thread.sleep(10_000)
+                        } else {
+                            Thread.sleep(10_000)
+                        }
                     }
+                    Thread.sleep(3_000)
+                    phoneCallLoop(0)
                 }
             } catch (_: Exception) {
             }
-            Thread.sleep(10_000)
-            if (Passing.callingInProcess) {
-                phoneCallLoop(indexInt)
-            }
-        }.start()
+        }
+    }
     }
 
     private fun callNextContact() {
         // end current phone call
         endPhoneCall()
         // call the contact at the next index
-        phoneCallLoop(indexInt++)
     }
 
     private fun makePhoneCall(phoneNumber: String) {

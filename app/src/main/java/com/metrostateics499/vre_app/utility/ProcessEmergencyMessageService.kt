@@ -12,6 +12,7 @@ import android.widget.Toast
 import com.metrostateics499.vre_app.model.Passing
 import com.metrostateics499.vre_app.model.data.EmergencyMessageSetup
 import java.util.*
+import java.util.concurrent.Executors
 
 class ProcessEmergencyMessageService : Service(), TextToSpeech.OnInitListener {
     private val tag = "ProcessEmergencyMessage"
@@ -131,7 +132,7 @@ class ProcessEmergencyMessageService : Service(), TextToSpeech.OnInitListener {
     }
 
     private fun sendUpdateCoordinatesLoop(emergencySetup: EmergencyMessageSetup) {
-        AsyncTask.execute {
+        Executors.newSingleThreadExecutor().execute {
             while (emergencySetup.activePingLocation) {
                 Thread.sleep(120_000)
                 if (emergencySetup.activePingLocation) {
